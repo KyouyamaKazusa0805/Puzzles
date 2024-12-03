@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source Generators", "Source Generators", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.WaterSort.Analytics", "src\WaterSort\Puzzles.WaterSort.Analytics\Puzzles.WaterSort.Analytics.csproj", "{F829E082-0675-4DA7-B34F-B5BFB9A47FD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F829E082-0675-4DA7-B34F-B5BFB9A47FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F829E082-0675-4DA7-B34F-B5BFB9A47FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F829E082-0675-4DA7-B34F-B5BFB9A47FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F829E082-0675-4DA7-B34F-B5BFB9A47FD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{59B8D09A-A736-470C-95AB-1FB3A6D7A32C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{528070A9-4234-9B01-E17E-9F2DFFF74F9C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF} = {AC444B3F-5F91-BBAA-A1FC-067141887E39}
+		{F829E082-0675-4DA7-B34F-B5BFB9A47FD8} = {AC444B3F-5F91-BBAA-A1FC-067141887E39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CBD5DD4-7F13-4553-9AA7-E0CF104A982B}

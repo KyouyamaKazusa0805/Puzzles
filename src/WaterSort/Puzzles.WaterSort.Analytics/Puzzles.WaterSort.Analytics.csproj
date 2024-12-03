@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\PuzzlesMeta\src\System\SystemExtensions.csproj" />
+		<ProjectReference Include="..\Puzzles.WaterSort.Core\Puzzles.WaterSort.Core.csproj" />
 	</ItemGroup>
 
 </Project>
