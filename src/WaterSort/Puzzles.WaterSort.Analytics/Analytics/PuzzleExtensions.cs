@@ -1,4 +1,4 @@
-﻿namespace WaterSort.Analytics;
+namespace Puzzles.WaterSort.Analytics;
 
 /// <summary>
 /// Provides with extension methods on <see cref="Puzzle"/>.

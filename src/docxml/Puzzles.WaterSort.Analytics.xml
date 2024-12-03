@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Puzzles.WaterSort.Analytics</name>
+    </assembly>
+    <members>
+        <member name="T:Puzzles.WaterSort.Analytics.AnalysisResult">
+            <summary>
+            Represents the result of analysis.
+            </summary>
+            <param name="puzzle">A puzzle.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.#ctor(Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Represents the result of analysis.
+            </summary>
+            <param name="puzzle">A puzzle.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.IsSolved">
+            <summary>
+            Indicates whether the puzzle is fully solved.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.FailedReason">
+            <summary>
+            Indicates the failed reason.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.Steps">
+            <summary>
+            Indicates the steps found during the analysis.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.ElapsedTime">
+            <summary>
+            Indicates the elapsed time.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.Puzzle">
+            <summary>
+            Indicates the base puzzle.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.UnhandledException">
+            <summary>
+            Indicates the exception encountered.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.InterimSteps">
+            <summary>
+            Indicates the steps.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.Equals(Puzzles.WaterSort.Analytics.AnalysisResult)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.op_Equality(Puzzles.WaterSort.Analytics.AnalysisResult,Puzzles.WaterSort.Analytics.AnalysisResult)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.op_Inequality(Puzzles.WaterSort.Analytics.AnalysisResult,Puzzles.WaterSort.Analytics.AnalysisResult)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.Analyzer">
+            <summary>
+            Represents an analyzer.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Analytics.Analyzer._collector">
+            <summary>
+            Indicates the backing collector.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Analyzer.Analyze(Puzzles.WaterSort.Concepts.Puzzle,System.Int32)">
+            <summary>
+            Try to analyze a puzzle.
+            </summary>
+            <param name="puzzle">The puzzle.</param>
+            <param name="depth">The depth of unified value on applying to each tube.</param>
+            <returns>An <see cref="T:Puzzles.WaterSort.Analytics.AnalysisResult"/> instance indicating result.</returns>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.Collector">
+            <summary>
+            Represents a collector.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Collector.Collect(Puzzles.WaterSort.Concepts.Puzzle,System.Int32)">
+            <summary>
+            Gets all possible steps.
+            </summary>
+            <param name="puzzle">The puzzle.</param>
+            <param name="depth">
+            The depth of all tube, meaning the maximum number of different colors can be appeared inside one tube.
+            </param>
+            <returns>The result steps.</returns>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.FailedReason">
+            <summary>
+            Represents a failed reason.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Analytics.FailedReason.None">
+            <summary>
+            Indicates there's no failure.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Analytics.FailedReason.PuzzleInvalid">
+            <summary>
+            Indicates the puzzle is invalid.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Analytics.FailedReason.UnhandledException">
+            <summary>
+            Indicates an unhandled exception is thrown.
+            </summary>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.PuzzleExtensions">
+            <summary>
+            Provides with extension methods on <see cref="T:Puzzles.WaterSort.Concepts.Puzzle"/>.
+            </summary>
+            <seealso cref="T:Puzzles.WaterSort.Concepts.Puzzle"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.PuzzleExtensions.Apply(Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Analytics.Step)">
+            <summary>
+            Applies the current step.
+            </summary>
+            <param name="puzzle">The puzzle.</param>
+            <param name="step">The step to be applied.</param>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.Step">
+            <summary>
+            Represents a move step.
+            </summary>
+            <param name="StartTubeIndex">Indicates the start tube index.</param>
+            <param name="EndTubeIndex">Indicates the end tube index.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Step.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Represents a move step.
+            </summary>
+            <param name="StartTubeIndex">Indicates the start tube index.</param>
+            <param name="EndTubeIndex">Indicates the end tube index.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Step.StartTubeIndex">
+            <summary>Indicates the start tube index.</summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Step.EndTubeIndex">
+            <summary>Indicates the end tube index.</summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Step.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+    </members>
+</doc>

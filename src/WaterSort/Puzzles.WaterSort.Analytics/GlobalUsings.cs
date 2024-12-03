@@ -1,13 +1,10 @@
-﻿global using System;
+global using System;
 global using System.Collections.Generic;
-global using System.ComponentModel;
 global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Linq;
 global using System.Numerics;
 global using System.Runtime.CompilerServices;
 global using System.Text;
-global using System.Threading;
-global using WaterSort.Analytics;
-global using WaterSort.Concepts;
+global using Puzzles.WaterSort.Concepts;
 global using Color = byte;

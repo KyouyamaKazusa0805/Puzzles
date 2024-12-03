@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
 		<RootNamespace>Puzzles.WaterSort</RootNamespace>
+		<DocumentationFile>../../docxml/Puzzles.WaterSort.Analytics.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

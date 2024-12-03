@@ -1,4 +1,4 @@
-﻿namespace WaterSort.Analytics;
+namespace Puzzles.WaterSort.Analytics;
 
 /// <summary>
 /// Represents a move step.

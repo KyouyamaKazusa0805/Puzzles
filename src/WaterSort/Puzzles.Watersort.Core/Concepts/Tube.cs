@@ -1,4 +1,4 @@
-namespace WaterSort.Concepts;
+namespace Puzzles.WaterSort.Concepts;
 
 /// <summary>
 /// Represents a tube.

@@ -1,0 +1,342 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Puzzles.WaterSort.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Puzzles.WaterSort.Concepts.Puzzle">
+            <summary>
+            Represents a puzzle.
+            </summary>
+            <param name="tubes">Indicates the tubes.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.#ctor(Puzzles.WaterSort.Concepts.Tube[])">
+            <summary>
+            Represents a puzzle.
+            </summary>
+            <param name="tubes">Indicates the tubes.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.IsSolved">
+            <summary>
+            Indicates whether the puzzle is finished.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Length">
+            <summary>
+            Indicates the number of the tubes.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Tubes">
+            <summary>
+            Indicates the tubes.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.ColorCounting">
+            <summary>
+            Returns a <see cref="T:System.Collections.Frozen.FrozenDictionary`2"/> that describes the color counting result.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.ColorDistribution">
+            <summary>
+            Returns a <see cref="T:System.Collections.Frozen.FrozenDictionary`2"/> that describes the colors,
+            and the tubes containing such color.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.System#Collections#Generic#IReadOnlyCollection{Puzzles#WaterSort#Concepts#Tube}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Item(System.Int32)">
+            <summary>
+            Gets the tube at the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <returns>A <see cref="T:Puzzles.WaterSort.Concepts.Tube"/> instance.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Equals(Puzzles.WaterSort.Concepts.Puzzle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.TrueForAll(System.Func{Puzzles.WaterSort.Concepts.Tube,System.Boolean})">
+            <summary>
+            Determine whether all tubes satisfy the specified condition.
+            </summary>
+            <param name="predicate">The condition.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Exists(System.Func{Puzzles.WaterSort.Concepts.Tube,System.Boolean})">
+            <summary>
+            Determine whether at least one tube satisfies the specified condition.
+            </summary>
+            <param name="predicate">The condition.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Clone">
+            <inheritdoc cref="M:System.ICloneable.Clone"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.System#ICloneable#Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.System#Collections#Generic#IEnumerable{Puzzles#WaterSort#Concepts#Tube}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_LogicalNot(Puzzles.WaterSort.Concepts.Puzzle)">
+            <inheritdoc cref="M:Puzzles.WaterSort.Concepts.Puzzle.op_False(Puzzles.WaterSort.Concepts.Puzzle)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_True(Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Returns property <see cref="P:Puzzles.WaterSort.Concepts.Puzzle.IsSolved"/>.
+            </summary>
+            <param name="value">The object.</param>
+            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_False(Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Negates property <see cref="P:Puzzles.WaterSort.Concepts.Puzzle.IsSolved"/>.
+            </summary>
+            <param name="value">The object.</param>
+            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_Equality(Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Concepts.Puzzle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_Inequality(Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Concepts.Puzzle)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.WaterSort.Concepts.Puzzle.Enumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each element in the tube.
+            </summary>
+            <param name="items">Indicates the items.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Enumerator.#ctor(System.ReadOnlySpan{Puzzles.WaterSort.Concepts.Tube})">
+            <summary>
+            Represents an enumerator type that can iterate on each element in the tube.
+            </summary>
+            <param name="items">Indicates the items.</param>
+        </member>
+        <member name="F:Puzzles.WaterSort.Concepts.Puzzle.Enumerator._items">
+            <summary>
+            Indicates the items.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Concepts.Puzzle.Enumerator._index">
+            <summary>
+            Indicates the index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Enumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Enumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Enumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Enumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.WaterSort.Concepts.Tube">
+            <summary>
+            Represents a tube.
+            </summary>
+            <param name="_items">Indicates the items.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.#ctor(System.Collections.Generic.Stack{System.Byte})">
+            <summary>
+            Represents a tube.
+            </summary>
+            <param name="_items">Indicates the items.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.IsSolved">
+            <summary>
+            Indicates whether all items are same-colored in the tube.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.IsEmpty">
+            <summary>
+            Indicates whether the tube is empty.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.IsMonocolored">
+            <summary>
+            Determine whether the tube is mono-colored (only one color).
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.Length">
+            <summary>
+            Indicates the number of tube items.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.TopColorSpannedCount">
+            <summary>
+            Indicates the number of same color element above the top.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.ColorsCount">
+            <summary>
+            Indicates the number of colors.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.TopColor">
+            <summary>
+            Indicates the top element; return <see cref="F:System.Byte.MaxValue"/> if the tube is empty.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.Colors">
+            <summary>
+            Indicates all colors in the tube.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.Items">
+            <summary>
+            Indicates the items.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.SpanningDistribution">
+            <summary>
+            Returns a <see cref="T:System.Collections.Frozen.FrozenDictionary`2"/> that describes the spanning of water among different colors
+            inside the current tube.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.ColorDistribution">
+            <summary>
+            Returns a <see cref="T:System.Collections.Frozen.FrozenDictionary`2"/> that describes the appeared colors and the times of appearing.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.System#Collections#Generic#IReadOnlyCollection{System#Byte}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Push(System.Byte,System.Int32)">
+            <summary>
+            Pushes the specified color into the tube, with the specified number of times.
+            </summary>
+            <param name="color">The color.</param>
+            <param name="count">The number of times pushed.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument <paramref name="color"/> is invalid.</exception>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Equals(Puzzles.WaterSort.Concepts.Tube)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Pop(System.Int32)">
+            <summary>
+            Pops the color from the top with the specified number of units.
+            </summary>
+            <param name="count">The desired number of popped color units.</param>
+            <returns>The color popped; or throws <see cref="T:System.InvalidOperationException"/> if failed to pour out.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when the operation is invalid.</exception>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Pop(System.Int32@)">
+            <summary>
+            Pops the color from the top; if the color occupies multiple units of the tube, all will be popped.
+            </summary>
+            <param name="count">The number of popped color units.</param>
+            <returns>The color popped.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Clone">
+            <inheritdoc cref="M:System.ICloneable.Clone"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.System#ICloneable#Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.System#Collections#Generic#IEnumerable{System#Byte}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Create(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Creates a <see cref="T:Puzzles.WaterSort.Concepts.Tube"/> object via a list of <see cref="T:System.Byte"/> instances.
+            </summary>
+            <param name="colors">The colors.</param>
+            <returns>The tube created, with FILO structure.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_True(Puzzles.WaterSort.Concepts.Tube)">
+            <summary>
+            Returns <see cref="P:Puzzles.WaterSort.Concepts.Tube.IsSolved"/> property.
+            </summary>
+            <param name="value">The object.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_False(Puzzles.WaterSort.Concepts.Tube)">
+            <summary>
+            Negates the property value <see cref="P:Puzzles.WaterSort.Concepts.Tube.IsSolved"/>.
+            </summary>
+            <param name="value">The object.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_Equality(Puzzles.WaterSort.Concepts.Tube,Puzzles.WaterSort.Concepts.Tube)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_Inequality(Puzzles.WaterSort.Concepts.Tube,Puzzles.WaterSort.Concepts.Tube)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.WaterSort.Concepts.Tube.Enumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each element in the tube.
+            </summary>
+            <param name="items">Indicates the items.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Enumerator.#ctor(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Represents an enumerator type that can iterate on each element in the tube.
+            </summary>
+            <param name="items">Indicates the items.</param>
+        </member>
+        <member name="F:Puzzles.WaterSort.Concepts.Tube.Enumerator._items">
+            <summary>
+            Indicates the items.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Concepts.Tube.Enumerator._index">
+            <summary>
+            Indicates the index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.Enumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.Enumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Enumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Enumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
