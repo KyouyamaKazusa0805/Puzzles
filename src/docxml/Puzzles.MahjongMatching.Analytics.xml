@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Puzzles.MahjongMatching.Analytics</name>
+    </assembly>
+    <members>
+        <member name="T:Puzzles.MahjongMatching.Analytics.AnalysisResult">
+            <summary>
+            Represents the result of analysis.
+            </summary>
+            <param name="puzzle">Indicates the base puzzle.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.AnalysisResult.#ctor(Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <summary>
+            Represents the result of analysis.
+            </summary>
+            <param name="puzzle">Indicates the base puzzle.</param>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Analytics.AnalysisResult.IsSolved">
+            <summary>
+            Indicates whether the puzzle is fully solved.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Analytics.AnalysisResult.FailedReason">
+            <summary>
+            Indicates the failed reason.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Analytics.AnalysisResult.Steps">
+            <summary>
+            Indicates the steps found during the analysis.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Analytics.AnalysisResult.ElapsedTime">
+            <summary>
+            Indicates the elapsed time.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Analytics.AnalysisResult.UnhandledException">
+            <summary>
+            Indicates the exception encountered.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Analytics.AnalysisResult.InterimSteps">
+            <summary>
+            Indicates the steps.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.AnalysisResult.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Analytics.AnalysisResult.Puzzle">
+            <summary>
+            The generated property declaration for parameter <c>puzzle</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.AnalysisResult.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.AnalysisResult.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.AnalysisResult.op_Equality(Puzzles.MahjongMatching.Analytics.AnalysisResult,Puzzles.MahjongMatching.Analytics.AnalysisResult)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.AnalysisResult.op_Inequality(Puzzles.MahjongMatching.Analytics.AnalysisResult,Puzzles.MahjongMatching.Analytics.AnalysisResult)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.AnalysisResult.Equals(Puzzles.MahjongMatching.Analytics.AnalysisResult)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Analytics.Analyzer">
+            <summary>
+            Represents a collector.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Analytics.Analyzer.Analyze(Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <summary>
+            Collect for all possible matches.
+            </summary>
+            <param name="puzzle">The puzzle to be checked.</param>
+            <returns>A list of matches.</returns>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Analytics.FailedReason">
+            <summary>
+            Represents a failed reason.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Analytics.FailedReason.None">
+            <summary>
+            Indicates there's no failure.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Analytics.FailedReason.PuzzleInvalid">
+            <summary>
+            Indicates the puzzle is invalid.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Analytics.FailedReason.UnhandledException">
+            <summary>
+            Indicates an unhandled exception is thrown.
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Generating.Generator">
+            <summary>
+            Provides a generator.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Generating.Generator.#ctor">
+            <summary>
+            Provides a generator.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Generating.Generator.TileDistinctKeys">
+            <summary>
+            Indicates the tile distinct keys.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Generating.Generator._flowers">
+            <summary>
+            Indicates flowers.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Generating.Generator._seasons">
+            <summary>
+            Indicates seasons.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Generating.Generator._random">
+            <summary>
+            Indicates the backing random number generator.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Generating.Generator._analzyer">
+            <summary>
+            Indicates the backing analyzer.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Generating.Generator.Generate(Puzzles.MahjongMatching.Concepts.Puzzle,System.Threading.CancellationToken)">
+            <summary>
+            Try to generate a puzzle via the pattern.
+            </summary>
+            <param name="pattern">
+            The pattern; although the target type is <see cref="T:Puzzles.MahjongMatching.Concepts.Puzzle"/>, it may not require any tiles predefined.
+            </param>
+            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
+            <returns>The puzzle; or <see langword="null"/> if cancelled.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Generating.Generator.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Generating.Generator.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Generating.Generator.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+    </members>
+</doc>

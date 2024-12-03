@@ -2,9 +2,13 @@
   <Folder Name="/Game - Hamiltonian/">
     <Project Path="src/Hamiltonian/Puzzles.Hamiltonian.Core/Puzzles.Hamiltonian.Core.csproj" />
   </Folder>
-  <Folder Name="/Game - Matching/" Id="02ea681e-c7d8-13c7-8484-4ac65e1b71e8">
-    <Project Path="src/Matching/Puzzles.Matching.Analytics/Puzzles.Matching.Analytics.csproj" Id="c08dee00-2183-47f2-a6e1-070bcabe24ea" />
-    <Project Path="src/Matching/Puzzles.Matching.Core/Puzzles.Matching.Core.csproj" Id="a61d5cf7-af8d-40f0-9dd4-a6c6006f549e" />
+  <Folder Name="/Game - Mahjong Matching/">
+    <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Analytics/Puzzles.MahjongMatching.Analytics.csproj" Id="f381150c-fbdf-45cb-86cf-9107ca8871ab" />
+    <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Core/Puzzles.MahjongMatching.Core.csproj" />
+  </Folder>
+  <Folder Name="/Game - Matching/">
+    <Project Path="src/Matching/Puzzles.Matching.Analytics/Puzzles.Matching.Analytics.csproj" />
+    <Project Path="src/Matching/Puzzles.Matching.Core/Puzzles.Matching.Core.csproj" />
   </Folder>
   <Folder Name="/Game - Water Sort/">
     <Project Path="src/WaterSort/Puzzles.WaterSort.Analytics/Puzzles.WaterSort.Analytics.csproj" />

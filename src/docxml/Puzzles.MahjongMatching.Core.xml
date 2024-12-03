@@ -1,0 +1,1197 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Puzzles.MahjongMatching.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Coordinate">
+            <summary>
+            Represents a coordinate. Please note that all mahjong tiles will occupy 4 coordinates in total.
+            </summary>
+            <param name="X">Indicates the vertical index (row).</param>
+            <param name="Y">Indicates the horizontal index (column).</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Represents a coordinate. Please note that all mahjong tiles will occupy 4 coordinates in total.
+            </summary>
+            <param name="X">Indicates the vertical index (row).</param>
+            <param name="Y">Indicates the horizontal index (column).</param>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.X">
+            <summary>Indicates the vertical index (row).</summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.Y">
+            <summary>Indicates the horizontal index (column).</summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Coordinate.MinValue">
+            <summary>
+            Indicates the minimal possible value of the current type.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Coordinate.MaxValue">
+            <summary>
+            Indicates the maximal possible value of the current type.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.Up">
+            <summary>
+            Indicates the first position that can fill with a new tile in upward direction.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.Down">
+            <summary>
+            Indicates the first position that can fill with a new tile in downward direction.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.Left">
+            <summary>
+            Indicates the first position that can fill with a new tile in left direction.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.Right">
+            <summary>
+            Indicates the first position that can fill with a new tile in right direction.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.System#Numerics#IMinMaxValue{Puzzles#MahjongMatching#Concepts#Coordinate}#MinValue">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Coordinate.System#Numerics#IMinMaxValue{Puzzles#MahjongMatching#Concepts#Coordinate}#MaxValue">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.Overlaps(Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <summary>
+            Determine whether the current coordinate overlaps with the specified coordinate.
+            </summary>
+            <param name="other">The other coordinate to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating whether they are overlapped with each other.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.IsNextTo(Puzzles.MahjongMatching.Concepts.Coordinate)">
+             <summary>
+             Determine whether the coordinate is near to the specified one.
+             </summary>
+             <param name="other">The other coordinate to be checked.</param>
+             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+             <remarks>
+             There're two kind of "near":
+             <code>
+             1)
+               .--.--.
+               |  |  |
+               '--'--'
+                t1 t2
+            
+             2)
+               .--.
+               |  |--.
+               '--|  |
+                  '--'
+                t1 t2
+             </code>
+             From two cases, we can know that the X coordinate value satisfies the equation <c>|x1 - x2| &lt;= 1</c>,
+             and Y coordinate value satisfies the equation <c>|y1 - y2| &lt;= 2</c>.
+             </remarks>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.CompareTo(Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.AsMask">
+            <summary>
+            Converts the current instance as mask that can be used in bit operations.
+            </summary>
+            <returns>A mask of type <see cref="T:System.Int16"/>.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.FromMask(System.Int16)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Coordinate"/> from mask.
+            </summary>
+            <param name="mask">The mask.</param>
+            <returns>The coordinate value.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_RightShift(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Direction)">
+            <summary>
+            Advances the pointer to move a step into a new position in the specified direction.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+            <param name="direction">The direction.</param>
+            <returns>The new coordinate.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when the coordinate is out of border.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_GreaterThan(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_LessThan(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_GreaterThanOrEqual(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_LessThanOrEqual(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Direction">
+            <summary>
+            Represents a direction.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Up">
+            <summary>
+            Indicates the direction is up.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Down">
+            <summary>
+            Indicates the direction is down.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Left">
+            <summary>
+            Indicates the direction is left.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Right">
+            <summary>
+            Indicates the diretcion is right.
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Layer">
+            <summary>
+            Represents a puzzle layer.
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each coordinate.
+            </summary>
+            <param name="_layer">The layer.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.#ctor(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Represents an enumerator type that can iterate on each coordinate.
+            </summary>
+            <param name="_layer">The layer.</param>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator._index">
+            <summary>
+            Indicates the current index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator.System#Collections#Generic#IEnumerable{Puzzles#MahjongMatching#Concepts#Coordinate}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Layer._tiles">
+            <summary>
+            Indicates the tiles.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Layer._coordinates">
+            <summary>
+            Indicates the coordinates.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.#ctor">
+            <summary>
+            Initializes a <see cref="T:Puzzles.MahjongMatching.Concepts.Layer"/> instance.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.#ctor(Puzzles.MahjongMatching.Concepts.Tile[],Puzzles.MahjongMatching.Concepts.Coordinate[])">
+            <summary>
+            Initializes a <see cref="T:Puzzles.MahjongMatching.Concepts.Layer"/> instance an their coordinates.
+            </summary>
+            <param name="tiles">Indicates the tiles.</param>
+            <param name="coordinates">Indicates the coordinates.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Throws when the number of argument <paramref name="tiles"/> is not equal
+            to the number of argument <paramref name="coordinates"/>.
+            </exception>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.Count">
+            <summary>
+            Indicates the number of elements in the current collection.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.MinimumPosition">
+            <summary>
+            Indicates the minimal position of the layer.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.MaximumPosition">
+            <summary>
+            Indicates the maximum position of the layer.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.System#Collections#Generic#ICollection{Puzzles#MahjongMatching#Concepts#LayerTile}#IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.Item(System.Int32)">
+            <summary>
+            Gets the element at the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <returns>The tile and its coordinate.</returns>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.System#Collections#Generic#IList{Puzzles#MahjongMatching#Concepts#LayerTile}#Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Clear">
+            <summary>
+            Clears the collection, removing all elements from the collection.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Add(Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Add(Puzzles.MahjongMatching.Concepts.Tile,Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <summary>
+            Adds a new tile into the current layer.
+            </summary>
+            <param name="tile">The tile.</param>
+            <param name="coordinate">The coordinate.</param>
+            <exception cref="T:System.InvalidOperationException">Throws when the tile cannot be filled into the layer.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Remove(Puzzles.MahjongMatching.Concepts.Tile)">
+            <summary>
+            Removes the tile from the current layer.
+            </summary>
+            <param name="tile">The tile.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Remove(Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <summary>
+            Removes the tile at the specified coordinate. from the current layer.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Remove(Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Equals(Puzzles.MahjongMatching.Concepts.Layer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Contains(Puzzles.MahjongMatching.Concepts.Tile)">
+            <summary>
+            Determine whether the specified tile is inside the current layer.
+            </summary>
+            <param name="tile">The tile.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Contains(Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <summary>
+            Determine whether the specified tile is inside the current coordinate.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Contains(Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.IndexOf(Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.ToString(System.String)">
+            <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.EnumerateTiles">
+            <summary>
+            Returns a <see cref="T:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator"/> that can iterate on each tile.
+            </summary>
+            <returns>A <see cref="T:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator"/> instance.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.EnumerateCoordinates">
+            <summary>
+            Returns a <see cref="T:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator"/> that can iterate on each coordinate.
+            </summary>
+            <returns>A <see cref="T:Puzzles.MahjongMatching.Concepts.Layer.CoordinateEnumerator"/> instance.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.AsSpan">
+            <summary>
+            Converts the current instance into a <see cref="T:System.ReadOnlySpan`1"/> instance.
+            </summary>
+            <returns>A span.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Clone">
+            <inheritdoc cref="M:System.ICloneable.Clone"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.System#Collections#Generic#ICollection{Puzzles#MahjongMatching#Concepts#LayerTile}#CopyTo(Puzzles.MahjongMatching.Concepts.LayerTile[],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.System#Collections#Generic#IList{Puzzles#MahjongMatching#Concepts#LayerTile}#Insert(System.Int32,Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.System#Collections#Generic#IList{Puzzles#MahjongMatching#Concepts#LayerTile}#RemoveAt(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.System#ICloneable#Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.System#IFormattable#ToString(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.System#Collections#Generic#IEnumerable{Puzzles#MahjongMatching#Concepts#LayerTile}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.op_LogicalNot(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Negates the expression <see cref="P:Puzzles.MahjongMatching.Concepts.Layer.Count"/> != 0.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.op_True(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Returns the expression <see cref="P:Puzzles.MahjongMatching.Concepts.Layer.Count"/> != 0.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.op_False(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Negates the expression <see cref="P:Puzzles.MahjongMatching.Concepts.Layer.Count"/> != 0.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.op_Equality(Puzzles.MahjongMatching.Concepts.Layer,Puzzles.MahjongMatching.Concepts.Layer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.op_Inequality(Puzzles.MahjongMatching.Concepts.Layer,Puzzles.MahjongMatching.Concepts.Layer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Layer.Enumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each tile information.
+            </summary>
+            <param name="_layer">The layer.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Enumerator.#ctor(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Represents an enumerator type that can iterate on each tile information.
+            </summary>
+            <param name="_layer">The layer.</param>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Layer.Enumerator._index">
+            <summary>
+            Indicates the current index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.Enumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.Enumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Enumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Enumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each tile.
+            </summary>
+            <param name="_layer">The layer.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.#ctor(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Represents an enumerator type that can iterate on each tile.
+            </summary>
+            <param name="_layer">The layer.</param>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator._index">
+            <summary>
+            Indicates the current index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Layer.TileEnumerator.System#Collections#Generic#IEnumerable{Puzzles#MahjongMatching#Concepts#Tile}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.LayerTile">
+            <summary>
+            Represents a tile that is inside a layer (contains properties tile and coordinate).
+            </summary>
+            <param name="mask">The mask.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.#ctor(System.Int32)">
+            <summary>
+            Represents a tile that is inside a layer (contains properties tile and coordinate).
+            </summary>
+            <param name="mask">The mask.</param>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.LayerTile._mask">
+            <summary>
+            Indicates the backing mask.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.#ctor(Puzzles.MahjongMatching.Concepts.Tile,Puzzles.MahjongMatching.Concepts.Coordinate)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.MahjongMatching.Concepts.LayerTile"/> instance via the tile value and its coordinate.
+            </summary>
+            <param name="tile">Indicates the tile.</param>
+            <param name="coordinate">Indicates the coordinate.</param>
+            <returns>The tile information.</returns>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.LayerTile.Coordinate">
+            <summary>
+            Indicates the coordinate.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.LayerTile.Tile">
+            <summary>
+            Indicates the tile.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.LayerTile.TileKey">
+            <summary>
+            Indicates the tile key in order to distinct different kinds of tiles that cannot be matched.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.Deconstruct(Puzzles.MahjongMatching.Concepts.Tile@,Puzzles.MahjongMatching.Concepts.Coordinate@)">
+            <summary>
+            Deconstruct the instance into multiple variables.
+            </summary>
+            <param name="tile">The tile.</param>
+            <param name="coordinate">The coordinate.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.Equals(Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.Overlaps(Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Coordinate.Overlaps(Puzzles.MahjongMatching.Concepts.Coordinate)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.IsNextTo(Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Coordinate.IsNextTo(Puzzles.MahjongMatching.Concepts.Coordinate)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.AsMask">
+            <summary>
+            Converts the current object into a mask.
+            </summary>
+            <returns>The mask of type <see cref="T:System.Int32"/>.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.op_Equality(Puzzles.MahjongMatching.Concepts.LayerTile,Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.LayerTile.op_Inequality(Puzzles.MahjongMatching.Concepts.LayerTile,Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Primitives.FlowerKind">
+            <summary>
+            Represents a flower kind.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.FlowerKind.Plum">
+            <summary>
+            Indicates plum (mei).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.FlowerKind.Orchid">
+            <summary>
+            Indicates orchid (lan).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.FlowerKind.Bamboo">
+            <summary>
+            Indicates bamboo (zhu).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.FlowerKind.Chrysanthemum">
+            <summary>
+            Indicates chrysanthemum (ju).
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Primitives.SeasonKind">
+            <summary>
+            Represents a season kind.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.SeasonKind.Spring">
+            <summary>
+            Indicates spring (chun).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.SeasonKind.Summer">
+            <summary>
+            Indicates summer (xia).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.SeasonKind.Autumn">
+            <summary>
+            Indicates autumn (qiu).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.SeasonKind.Winter">
+            <summary>
+            Indicates winter (dong).
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Primitives.TileKind">
+            <summary>
+            Represents a mahjong tile kind.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.None">
+            <summary>
+            Indicates the placeholder.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.Bamboo">
+            <summary>
+            Indicates the kind is bamboo.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.Character">
+            <summary>
+            Indicates the kind is character.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.Dot">
+            <summary>
+            Indicates the kind is dot.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.Wind">
+            <summary>
+            Indicates the kind is wind.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.Wrigley">
+            <summary>
+            Indicates the kind is wrigley (dragon).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.Flower">
+            <summary>
+            Indicates the kind is flower.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.TileKind.Season">
+            <summary>
+            Indicates the kind is season.
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Primitives.WindKind">
+            <summary>
+            Represents a wind kind.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.WindKind.North">
+            <summary>
+            Indicates the wind is north.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.WindKind.South">
+            <summary>
+            Indicates the wind is south.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.WindKind.West">
+            <summary>
+            Indicates the wind is west.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.WindKind.East">
+            <summary>
+            Indicates the wind is east.
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Primitives.WrigleyKind">
+            <summary>
+            Represents a wrigley kind.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.WrigleyKind.Red">
+            <summary>
+            Indicates red wrigley (zhong).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.WrigleyKind.Green">
+            <summary>
+            Indicates green wrigley (fa).
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Primitives.WrigleyKind.White">
+            <summary>
+            Indicates white wrigley (bai).
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Puzzle">
+            <summary>
+            Represents a puzzle.
+            </summary>
+            <param name="layers">Indicates the layers.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.#ctor(System.Collections.Generic.List{Puzzles.MahjongMatching.Concepts.Layer})">
+            <summary>
+            Represents a puzzle.
+            </summary>
+            <param name="layers">Indicates the layers.</param>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.Count">
+            <summary>
+            Indicates the length of layers.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.ItemsCount">
+            <summary>
+            Indicates the number of items in the puzzle.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.AvailableTiles">
+            <summary>
+            Returns available tiles that can be used for matching.
+            </summary>
+            <remarks>
+            Please note that there're two possible cases to be checked:
+            <list type="number">
+            <item>Whether a tile is under a tile</item>
+            <item>Whether a tile is freed from both left and right side</item>
+            </list>
+            <i>For the second point, we may not check up and down side.</i>
+            </remarks>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.System#Collections#Generic#ICollection{Puzzles#MahjongMatching#Concepts#Layer}#IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.Item(System.Int32)">
+            <summary>
+            Gets the layer at the specified index.
+            </summary>
+            <param name="index">The desired index.</param>
+            <returns>The layer.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Apply(Puzzles.MahjongMatching.Concepts.TileMatch)">
+            <summary>
+            Applies the specified match result into the puzzle.
+            </summary>
+            <param name="match">The match.</param>
+            <exception cref="T:System.InvalidOperationException">Throws when the match is not a same tile.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Clear">
+            <summary>
+            Clears all layers.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Add(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Add a new layer into the puzzle.
+            </summary>
+            <param name="layer">The layer to be added.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Remove(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Remove a layer from the puzzle, and return a <see cref="T:System.Boolean"/> value indicating whether the layer exists in the puzzle.
+            </summary>
+            <param name="layer">The layer to be removed.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Equals(Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Contains(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Determine whether the current puzzle contains the specified layer.
+            </summary>
+            <param name="layer">The layer.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.IndexOf(Puzzles.MahjongMatching.Concepts.Layer)">
+            <summary>
+            Gets the index of the specified layer.
+            </summary>
+            <param name="layer">The layer.</param>
+            <returns>An <see cref="T:System.Int32"/> value as index.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.ToString(System.String)">
+            <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.EnumerateTiles">
+            <summary>
+            Enumerates all tiles exist in the current puzzle.
+            </summary>
+            <returns>An enumerator type that can iterate on each tile.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.GetAllMatches">
+            <summary>
+            Finds all possible matches of the puzzle.
+            </summary>
+            <returns>A list of matches found.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.AsSpan">
+            <summary>
+            Converts the current instance into a <see cref="T:System.ReadOnlySpan`1"/> instance.
+            </summary>
+            <returns>A span.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Clone">
+            <inheritdoc cref="M:System.ICloneable.Clone"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#Collections#Generic#ICollection{Puzzles#MahjongMatching#Concepts#Layer}#CopyTo(Puzzles.MahjongMatching.Concepts.Layer[],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#ICloneable#Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#IFormattable#ToString(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#Collections#Generic#IEnumerable{Puzzles#MahjongMatching#Concepts#Layer}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_LogicalNot(Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <summary>
+            Negates expression <see cref="P:Puzzles.MahjongMatching.Concepts.Puzzle.ItemsCount"/> != 0.
+            </summary>
+            <param name="value">The puzzle to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_True(Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <summary>
+            Returns expression value <see cref="P:Puzzles.MahjongMatching.Concepts.Puzzle.ItemsCount"/> != 0.
+            </summary>
+            <param name="value">The puzzle to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_False(Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <summary>
+            Negates expression <see cref="P:Puzzles.MahjongMatching.Concepts.Puzzle.ItemsCount"/> != 0.
+            </summary>
+            <param name="value">The puzzle to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each layer.
+            </summary>
+            <param name="layers">Indicates the layers.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator.#ctor(System.ReadOnlySpan{Puzzles.MahjongMatching.Concepts.Layer})">
+            <summary>
+            Represents an enumerator type that can iterate on each layer.
+            </summary>
+            <param name="layers">Indicates the layers.</param>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator._layers">
+            <summary>
+            Indicates the layers.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator._index">
+            <summary>
+            Indicates the index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each tile in the puzzle.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator._tiles">
+            <summary>
+            Indicates the backing tiles.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator._puzzle">
+            <summary>
+            Indicates the backing puzzle.
+            </summary>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator._enumerator">
+            <summary>
+            The enumerator instance.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.#ctor(Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator"/> instance via the puzzle.
+            </summary>
+            <param name="puzzle">The puzzle.</param>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.Count">
+            <summary>
+            Indicates the number of tiles.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.Item(System.Int32)">
+            <summary>
+            Gets or sets the tile at the specified index.
+            </summary>
+            <param name="index">The desired index.</param>
+            <value>The value to be set.</value>
+            <returns>The tile.</returns>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.CurrentLayerIndex">
+            <summary>
+            Indicates the currently iterated layer index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TileEnumerator.System#Collections#Generic#IEnumerable{Puzzles#MahjongMatching#Concepts#PuzzleTile}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Puzzle._layers">
+            <summary>
+            The generated field declaration for parameter <c>layers</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_Equality(Puzzles.MahjongMatching.Concepts.Puzzle,Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_Inequality(Puzzles.MahjongMatching.Concepts.Puzzle,Puzzles.MahjongMatching.Concepts.Puzzle)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.PuzzleTile">
+            <summary>
+            Represents a tile data inside a puzzle.
+            </summary>
+            <param name="Layer">Indicates the layer.</param>
+            <param name="Tile">Indicates the tile.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.PuzzleTile.#ctor(System.SByte,Puzzles.MahjongMatching.Concepts.LayerTile)">
+            <summary>
+            Represents a tile data inside a puzzle.
+            </summary>
+            <param name="Layer">Indicates the layer.</param>
+            <param name="Tile">Indicates the tile.</param>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.PuzzleTile.Layer">
+            <summary>Indicates the layer.</summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.PuzzleTile.Tile">
+            <summary>Indicates the tile.</summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.PuzzleTile.Overlaps(Puzzles.MahjongMatching.Concepts.PuzzleTile)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Coordinate.Overlaps(Puzzles.MahjongMatching.Concepts.Coordinate)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.PuzzleTile.IsNextTo(Puzzles.MahjongMatching.Concepts.PuzzleTile)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Coordinate.IsNextTo(Puzzles.MahjongMatching.Concepts.Coordinate)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.PuzzleTile.IsLeftNextTo(Puzzles.MahjongMatching.Concepts.PuzzleTile)">
+            <summary>
+            Returns a <see cref="T:System.Boolean"/> value indicating
+            whether the current instance is left-side with argument <paramref name="other"/>.
+            </summary>
+            <param name="other">The other instance to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.PuzzleTile.IsRightNextTo(Puzzles.MahjongMatching.Concepts.PuzzleTile)">
+            <summary>
+            Returns a <see cref="T:System.Boolean"/> value indicating
+            whether the current instance is left-side with argument <paramref name="other"/>.
+            </summary>
+            <param name="other">The other instance to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Tile">
+            <summary>
+            Represents a mahjong tile.
+            </summary>
+            <param name="mask">Indicates the backing mask.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.#ctor(System.UInt16)">
+            <summary>
+            Represents a mahjong tile.
+            </summary>
+            <param name="mask">Indicates the backing mask.</param>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Tile.MaxValueBits">
+            <summary>
+            Indicates the maximum value bits.
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Tile.IsHonor">
+            <summary>
+            Indicates whether the tile is honor (wind or wrigley).
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Tile.IsSuit">
+            <summary>
+            Indicates whether the tile is suit (bamboo, character or dot).
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Tile.IsSingleton">
+            <summary>
+            Indicates whether the tile is singleton (flower or season).
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Tile.Rank">
+            <summary>
+            Indicates the target rank (value).
+            </summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.Tile.Kind">
+            <summary>
+            Indicates the kind of the current tile.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Equals(Puzzles.MahjongMatching.Concepts.Tile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.AsMask">
+            <summary>
+            Returns the internal mask.
+            </summary>
+            <returns>The mask.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Create(Puzzles.MahjongMatching.Concepts.Primitives.TileKind,System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance.
+            </summary>
+            <param name="kind">The kind.</param>
+            <param name="rank">The rank (value).</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Throws when the argument <paramref name="kind"/> is not defined;
+            or <paramref name="rank"/> is invalid under the specified kind.
+            </exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Bamboo(System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance via the bamboo.
+            </summary>
+            <param name="rank">The rank.</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the value is less than 0 or greater than or equal to 9.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Character(System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance via the character.
+            </summary>
+            <param name="rank">The rank.</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the value is less than 0 or greater than or equal to 9.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Dot(System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance via the dot.
+            </summary>
+            <param name="rank">The rank.</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the value is less than 0 or greater than or equal to 9.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Wind(System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance via the wind.
+            </summary>
+            <param name="rank">The rank.</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the value is less than 0 or greater than or equal to 4.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Wind(Puzzles.MahjongMatching.Concepts.Primitives.WindKind)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Tile.Wind(System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Wrigley(System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance via the wrigley.
+            </summary>
+            <param name="rank">The rank.</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the value is less than 0 or greater than or equal to 3.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Wrigley(Puzzles.MahjongMatching.Concepts.Primitives.WrigleyKind)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Tile.Wrigley(System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Flower(System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance via the flower.
+            </summary>
+            <param name="rank">The rank.</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the value is less than 0 or greater than or equal to 4.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Flower(Puzzles.MahjongMatching.Concepts.Primitives.FlowerKind)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Tile.Flower(System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Season(System.Int32)">
+            <summary>
+            Creates a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> instance via the season.
+            </summary>
+            <param name="rank">The rank.</param>
+            <returns>The <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> value.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the value is less than 0 or greater than or equal to 4.</exception>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.Season(Puzzles.MahjongMatching.Concepts.Primitives.SeasonKind)">
+            <inheritdoc cref="M:Puzzles.MahjongMatching.Concepts.Tile.Season(System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.op_Equality(Puzzles.MahjongMatching.Concepts.Tile,Puzzles.MahjongMatching.Concepts.Tile)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Tile.op_Inequality(Puzzles.MahjongMatching.Concepts.Tile,Puzzles.MahjongMatching.Concepts.Tile)">
+            <inheritdoc/>
+        </member>
+        <member name="F:Puzzles.MahjongMatching.Concepts.Tile._mask">
+            <summary>
+            The generated field declaration for parameter <c>mask</c>.
+            </summary>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.TileMatch">
+            <summary>
+            Represents a match of a puzzle.
+            </summary>
+            <param name="Tile1">Indicates the tile 1.</param>
+            <param name="Tile2">Indicates the tile 2.</param>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.TileMatch.#ctor(Puzzles.MahjongMatching.Concepts.PuzzleTile,Puzzles.MahjongMatching.Concepts.PuzzleTile)">
+            <summary>
+            Represents a match of a puzzle.
+            </summary>
+            <param name="Tile1">Indicates the tile 1.</param>
+            <param name="Tile2">Indicates the tile 2.</param>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.TileMatch.Tile1">
+            <summary>Indicates the tile 1.</summary>
+        </member>
+        <member name="P:Puzzles.MahjongMatching.Concepts.TileMatch.Tile2">
+            <summary>Indicates the tile 2.</summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.TileMatch.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+            <exception cref="T:System.InvalidOperationException">Throws when the tiles are not same.</exception>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Linq.LayerEnumerable">
+            <summary>
+            Provides with extension methods on <see cref="T:Puzzles.MahjongMatching.Concepts.Layer"/>.
+            </summary>
+            <seealso cref="T:Puzzles.MahjongMatching.Concepts.Layer"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Linq.LayerEnumerable.Select``1(Puzzles.MahjongMatching.Concepts.Layer,System.Func{Puzzles.MahjongMatching.Concepts.LayerTile,``0})">
+            <inheritdoc cref="M:System.Linq.Enumerable.Select``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})"/>
+        </member>
+        <member name="T:Puzzles.MahjongMatching.Linq.PuzzleEnumerable">
+            <summary>
+            Provides with extension methods on <see cref="T:Puzzles.MahjongMatching.Concepts.Puzzle"/>.
+            </summary>
+            <seealso cref="T:Puzzles.MahjongMatching.Concepts.Puzzle"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Linq.PuzzleEnumerable.Select``1(Puzzles.MahjongMatching.Concepts.Puzzle,System.Func{Puzzles.MahjongMatching.Concepts.Layer,``0})">
+            <inheritdoc cref="M:System.Linq.Enumerable.Select``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})"/>
+        </member>
+    </members>
+</doc>
