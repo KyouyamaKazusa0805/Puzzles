@@ -3,7 +3,7 @@
     <Project Path="src/Hamiltonian/Puzzles.Hamiltonian.Core/Puzzles.Hamiltonian.Core.csproj" />
   </Folder>
   <Folder Name="/Game - Mahjong Matching/">
-    <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Analytics/Puzzles.MahjongMatching.Analytics.csproj" Id="f381150c-fbdf-45cb-86cf-9107ca8871ab" />
+    <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Analytics/Puzzles.MahjongMatching.Analytics.csproj" />
     <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Core/Puzzles.MahjongMatching.Core.csproj" />
   </Folder>
   <Folder Name="/Game - Matching/">
