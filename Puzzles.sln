@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.Watersort.Core", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game - Water Sort", "Game - Water Sort", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.ConsoleTest", "src\Puzzles.ConsoleTest\Puzzles.ConsoleTest.csproj", "{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
