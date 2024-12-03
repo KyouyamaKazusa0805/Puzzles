@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<RootNamespace>Puzzles.Matching</RootNamespace>
+		<DocumentationFile>../../docxml/Puzzles.Matching.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\PuzzlesMeta\src\Puzzles.SourceGeneration\Puzzles.SourceGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\..\PuzzlesMeta\src\System\SystemExtensions.csproj" />
+	</ItemGroup>
+
+</Project>
