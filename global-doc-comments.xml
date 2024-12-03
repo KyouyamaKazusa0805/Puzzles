@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file stores the global-used doc comments. You can use the XPath syntax to get them.
+For example, you should use <include> tag to import the global doc comments:
+
+/// <summary>
+/// The test method.
+/// </summary>
+/// <param name="arg">
+/// <include
+///     file='../../global-doc-comments.xml'
+///     path='g/csharp7/feature[@name="ref-returns"]/target[@name="in-parameter"]' />
+/// </param>
+static void F(in int arg)
+{
+}
+
+Then you can reference the doc here.
+-->
+
+<g>
+	<!-- Elementary docs -->
+	<static-constructor>
+		<summary>
+			<para>
+				Indicates the <see langword="static"/> constructor of the current type.
+			</para>
+			<para>
+				This constructor will initialize some <see langword="static readonly"/> data members
+				of this type that can't use a simple expression to describe the initial value.
+			</para>
+		</summary>
+	</static-constructor>
+
+	<!-- Flags attribute usage -->
+	<flags-attribute>
+		<para>
+			<i>
+				This type is marked <see cref="global::System.FlagsAttribute"/>, which means you can use
+				<see langword="operator"/> | to combine multiple fields.
+			</i>
+		</para>
+	</flags-attribute>
+
+	<!-- Developer notes -->
+	<developer-notes>
+		<para>
+			<b>Developer Notes</b>
+		</para>
+	</developer-notes>
+
+	<!-- Requires static constructor invocation -->
+	<requires-static-constructor-invocation>
+		<i>
+			This field will only be used in the static constructor of this type. Please don't use this field in the user code.
+		</i>
+	</requires-static-constructor-invocation>
+
+	<!-- Requires compound invocation -->
+	<requires-compound-invocation>
+		<para>
+			<b>
+				<i>
+					This operator can only be used as compound one. For example:
+				</i>
+			</b>
+			<code>
+				<![CDATA[result &= expression;
+result |= expression;
+result ^= expression;
+]]>
+			</code>
+		</para>
+	</requires-compound-invocation>
+
+	<!-- Large structures -->
+	<large-structure>
+		<b>
+			<i>
+				This is a large structure, which means it may cost more time to copy instance than normal structures.
+				I strongly recommend you append <see langword="ref readonly"/> to modify the type, as parameter or local variable modifiers,
+				to tell runtime that it should be copied by its reference instead of internal value.
+			</i>
+		</b>
+	</large-structure>
+
+	<self-type-constraint>
+		<para>Indicates the type implementing this interface.</para>
+		<para>
+			This type doesn't use any extra syntax to constraint such usage, but C# will check for it.
+			The type will include a <see langword="where"/> constraint that implements the interface itself
+			to declare such "self constraint" usage:
+			<code><![CDATA[interface ISelfType<TSelf> where TSelf : ISelfType<TSelf>]]></code>
+			In addition, the type should be named <c>TSelf</c> in order to tell type parameters with the others.
+		</para>
+	</self-type-constraint>
+
+	<!-- C# features -->
+	<!-- C# 5 -->
+	<csharp5>
+		<feature name="caller-member-name">
+			<target name="argument">
+				<para>
+					Indicates the name of the caller member to invoke this method.
+				</para>
+				<para>
+					<i>
+						The attribute <see cref="CallerMemberNameAttribute"/> allows the argument automatically
+						getting the name of the caller. For example, if the property raises the event, the argument
+						will pass the name of the property automatically if the argument is marked the attribute.
+					</i>
+				</para>
+				<para>
+					<i>
+						For the above reason, the argument will use <see langword="null"/> as the initial value
+						as the placeholder to allow the syntax valid during the compile time on one hand.
+						On the other hand, you shouldn't pass any values to this argument.
+					</i>
+				</para>
+				<para>
+					<i>
+						For more information, please visit
+						<see href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.callermembernameattribute">
+							The Microsoft Docs
+						</see>
+						for more info.
+					</i>
+				</para>
+			</target>
+		</feature>
+	</csharp5>
+
+	<!-- C# 7 -->
+	<csharp7>
+		<feature name="deconstruction-method">
+			<target name="method">
+				<summary>
+					Deconstruct the current instance into multiple values, which means you can use
+					the value-tuple syntax like <c>(a, b, c)</c> to define your own deconstruction logic.
+				</summary>
+			</target>
+		</feature>
+		<feature name="custom-fixed">
+			<target name="method">
+				<summary>
+					Returns a reference as the fixed position of the current instance.
+					For example, the return value will be the pointer value that points to the zero-indexed
+					place in an array.
+				</summary>
+				<returns>A reference as the fixed position of the current instance.</returns>
+				<remarks>
+					Beginning with C# 7, we can customize the return value type of a <see langword="fixed"/> variable
+					if we implement a parameterless method called <c>GetPinnableReference</c>, returning by
+					<see langword="ref"/> or <see langword="ref readonly"/>. For example, if we hold a fixed buffer
+					of element type:
+					<code>
+						<![CDATA[class ExampleType
+{
+    private fixed short _maskList[100];
+
+    public ref readonly short GetPinnableReference() => ref _maskList[0];
+}
+]]>
+					</code>
+					We can use <see langword="fixed"/> statement to define a variable of type <see langword="short"/>*
+					as the left-value.
+					<code>
+						<![CDATA[var instance = new ExampleType();
+fixed (short* ptr = instance)
+{
+    // Operation here.
+}
+]]>
+					</code>
+				</remarks>
+			</target>
+		</feature>
+		<feature name="ref-returns">
+			<target name="indexer-return">
+				<i>
+					This indexer returns a value by <see langword="ref"/>,
+					which means you can use the return value to re-assign a new value, as the same behavior
+					as the <see langword="set"/> accessor, therefore the indexer does not contain the setter.
+				</i>
+			</target>
+			<target name="method">
+				<i>
+					C# 7.3 introduces a new keyword <see langword="in"/> as the parameter modifier to make the parameter
+					pass by reference and be read-only. Therefore, this keyword contains 2 usages:
+					<list type="number">
+						<item>
+							Ensure the argument to <b>be read-only</b> and cannot be modified. Otherwise,
+							a new copied instance will be created to prevent any modifications on the original variable.
+						</item>
+						<item>
+							Ensure the argument to <b>pass by reference</b> in order to treat it as the pointer or array of elements
+							of this type, and treat the argument as the first element of the whole element series.
+						</item>
+					</list>
+					From the above meaning on this keyword, we can conclude that
+					we should regard it as <see langword="ref readonly"/> parameters,
+					but C# requires us using the keyword <see langword="in"/> as the modifier
+					on a parameter rather than <see langword="ref readonly"/>.
+				</i>
+			</target>
+			<target name="in-parameter">
+				<i>
+					Please note that the parameter is an <see langword="in"/> parameter, which has the same meaning
+					for <see langword="ref readonly"/> returns or locals. You can treat it as the first element
+					in an array of elements. Different with <see langword="ref"/> parameter, <see langword="in"/>
+					modifier has the same semantic as <see langword="ref readonly var"/>
+					instead of <see langword="ref var"/>.
+				</i>
+			</target>
+		</feature>
+	</csharp7>
+
+	<!-- C# 9 -->
+	<csharp9>
+		<feature name="records">
+			<target name="method" cref="PrintMembers">
+				<summary>
+					Provides an easy way to concatenate output members inside a <see langword="record"/>
+					or a <see langword="record struct"/> type.
+				</summary>
+				<param name="builder">
+					A <see cref="global::System.Text.StringBuilder"/> instance to concatenate values.
+				</param>
+				<returns>
+					A <see cref="bool"/> value indicating whether the method should be consumed by compiler,
+					by implementing to-string method <see cref="ToString"/>.
+				</returns>
+				<remarks>
+					<para>
+						By design of <see langword="record"/> and <see langword="record struct"/> types,
+						emit text should be formatted as follows:
+						<code><![CDATA[RecordType { Property1 = Value1, Property2 = Value2, Property3 = { NestedProperty = Value3 } }]]></code>
+					</para>
+					<para>
+						This method won't emit type name and curly brackets. If you want to customize emit text,
+						you can only change values inside a pair of brackets.
+					</para>
+					<para>
+						The suggested implementation is like this:
+						<code>
+							<![CDATA[private bool PrintMembers(StringBuilder builder)
+{
+    builder.Append($"{nameof(Property1)} = {Property1}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property2)} = {Property2}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property3)} = {{ {Property3} }}");
+    return true;
+}]]>
+						</code>
+					</para>
+				</remarks>
+			</target>
+		</feature>
+		<feature name="parameterless-struct-constructor">
+			<target name="constructor">
+				<i>
+					The feature "Custom parameterless struct constructor" makes the parameterless struct constructor
+					different with <c>default(T)</c>. If you has defined a parameterless struct constructor,
+					<c>new T()</c> is no longer with the same meaning as <c>default(T)</c>.
+				</i>
+			</target>
+		</feature>
+		<feature name="module-initializer">
+			<target name="type">
+				<summary>
+					<para>
+						Provides with the type that contains a module initializer method, called automatically by the CLR
+						(Common Language Runtime) to initialize some values.
+					</para>
+					<para>
+						<i>
+							The type is called by the compiler and the CLR (Common Language Runtime),
+							which means you cannot use any members in this type manually.
+						</i>
+					</para>
+				</summary>
+			</target>
+			<target name="method">
+				<summary>
+					Called by the runtime automatically while booting on this solution to initialize the values,
+					data members or any other things that can or should be initialized here.
+				</summary>
+				<remarks>
+					The concept <b>module</b> is different with <b>assembly</b>.
+					The solution can contain multiple assemblies, while each assembly can contain multiple modules.
+					However, due to the design of Visual Studio project file system, each assembly will only contain
+					one module by default.
+				</remarks>
+			</target>
+		</feature>
+		<feature name="function-pointer">
+			<b>
+				<i>
+					This member is only exposed for user for knowing the data structure backing implementation,
+					so it is disallowed to invoke it.
+				</i>
+			</b>
+		</feature>
+	</csharp9>
+
+	<!-- C# 10 -->
+	<csharp10>
+		<feature name="caller-argument-expression">
+			<para>
+				<b>The value of the argument will be automatically produced by the compiler and passed into here. You may not assign this argument.</b>
+			</para>
+		</feature>
+	</csharp10>
+
+	<!-- C# 11 -->
+	<csharp11>
+		<feature name="file-local">
+			<target name="class" when="constant">
+				<summary>
+					Provides with constants and read-only values used by code in the current file.
+				</summary>
+			</target>
+			<target name="class" when="extension">
+				<summary>
+					Provides with file-local extension methods.
+				</summary>
+			</target>
+		</feature>
+		<feature name="scoped-ref">
+			<target name="foreach-variables">
+				<para>
+					<i>
+						Iteration variable are implicitly <see langword="scoped"/>, which means you cannot return it outside the method
+						or other members that can return.
+					</i>
+				</para>
+			</target>
+		</feature>
+		<feature name="ref-fields">
+			<target name="field">
+				<b>
+					<i>
+						This field is not encapsulated into a property because C# doesn't support auto read-only properties
+						returning <see langword="ref"/> or <see langword="ref readonly"/>.
+					</i>
+				</b>
+			</target>
+		</feature>
+		<feature name="scoped-keyword">
+			<para>
+				The keyword <see langword="scoped"/> means the argument and local variable can only be used inside the method.
+				This means you cannot use this variable and argument outside the scope,
+				such as <c>new RefStructType(scoped_variable)</c>, <c>return scoped_variable</c> and <c>field = scoped_variable</c>.
+				Such expressions may store the <see langword="scoped"/> variables, unsafely expanding the variable's lifecycle.
+			</para>
+		</feature>
+		<feature name="static-dim">
+			<para>
+				The keyword combinations <see langword="static abstract"/>, <see langword="static virtual"/>
+				and <see langword="static sealed"/> are basic of DIM (default interface implementation)
+				for <see langword="static"/> members, introduced from C# 11.
+				<list type="table">
+					<listheader>
+						<term>Keyword combination</term>
+						<description>Meaning</description>
+					</listheader>
+					<item>
+						<term>
+							<see langword="static abstract"/>
+						</term>
+						<description>
+							Such members must be implemented by concrete types
+							(<see langword="class"/>, <see langword="struct"/>, etc.).
+						</description>
+					</item>
+					<item>
+						<term>
+							<see langword="static virtual"/>
+						</term>
+						<description>
+							Such members has a default implementation, no matter whether the member is re-implemented
+							(same meaning with "overridding" for instance members in <see langword="class"/> types,
+							but is <see langword="static"/> version) in concrete types, no compiler errors will be produced.
+							If such members don't have an overridden one, default implementation will be invoked;
+							otherwise, overridden one will be invoked.
+						</description>
+					</item>
+					<item>
+						<term>
+							<see langword="static sealed"/>
+						</term>
+						<description>
+							Such members cannot be re-implemented. Default implmentation will be frozen and no way to override it.
+						</description>
+					</item>
+				</list>
+			</para>
+			<para>
+				Please note that the rule can only be used inside a <see langword="interface"/>.
+			</para>
+		</feature>
+	</csharp11>
+
+	<!-- C# 12 -->
+	<csharp12>
+		<feature name="params-collections">
+			<target name="parameter">
+				<para>
+					If a <see langword="ref struct"/>-typed parameter is marked as <see langword="params"/>,
+					it will be implicit-<see langword="scoped"/>, which means you must use this variables inside the method.
+					Value-storages are not permitted.
+				</para>
+				<para>
+					Use <see cref="T:System.Diagnostics.CodeAnalysis.UnscopedRefAttribute"/> if you want to store variable values.
+				</para>
+			</target>
+		</feature>
+	</csharp12>
+
+	<!-- .NET 9 -->
+	<dotnet>
+		<version value="8">
+			<feature name="unsafe-accessor">
+				<target name="others">
+					<para>
+						This method is implemented via <see cref="T:System.Runtime.CompilerServices.UnsafeAccessorAttribute"/>,
+						which is just like inserting .NET implementation into the current project directly.
+					</para>
+				</target>
+				<target name="field-related-method">
+					<para>
+						<b>
+							Please note that this method will return the reference to the internal field,
+							but this doesn't mean you can use its reference and re-assign it.
+							You cannot assign a value to the field if the ref kind of a field in fact is <see langword="ref readonly"/>;
+							it will raise an exception to report this wrong usage.
+						</b>
+					</para>
+				</target>
+				<target type="struct">
+					<para>
+						<b>
+							In addition, if the target type is a <see langword="struct"/>, it requires a <see langword="ref"/> keyword;
+							otherwise, <see cref="System.BadImageFormatException"/> will be thrown.
+						</b>
+					</para>
+				</target>
+			</feature>
+		</version>
+		<version value="9" preview-value="4">
+			<feature name="unsafe-accessor">
+				<para>
+					Begin with .NET 9 preview 4, <see cref="T:System.Runtime.CompilerServices.UnsafeAccessorAttribute"/>
+					supports with generic-typed references.
+				</para>
+			</feature>
+		</version>
+	</dotnet>
+</g>

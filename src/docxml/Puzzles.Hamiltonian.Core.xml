@@ -1,0 +1,987 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Puzzles.Hamiltonian.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Coordinate">
+            <summary>
+            Represents a coordinate.
+            </summary>
+            <param name="X">Indicates the row label.</param>
+            <param name="Y">Indicates the column label.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Represents a coordinate.
+            </summary>
+            <param name="X">Indicates the row label.</param>
+            <param name="Y">Indicates the column label.</param>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.X">
+            <summary>Indicates the row label.</summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Y">
+            <summary>Indicates the column label.</summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Up">
+            <summary>
+            Indicates the left cell.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Down">
+            <summary>
+            Indicates the right cell.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Left">
+            <summary>
+            Indicates the up cell.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Right">
+            <summary>
+            Indicates the down cell.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.IsOutOfBound(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Indicates whether the coordinate is out of bound.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.ToIndex(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Converts the current coordinate into an absolute index.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The absolute index.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_Subtraction(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Coordinate)">
+            <inheritdoc/>
+            <exception cref="T:System.InvalidOperationException">
+            Throws when the two coordinates has a gap between them, or they cannot see each other in their own direction.
+            </exception>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_RightShift(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Direction)">
+            <summary>
+            Moves the coordinate one step forward to the next coordinate by the specified direction.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+            <param name="direction">The direction.</param>
+            <returns>The new coordinate.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Throws when the argument <paramref name="direction"/> is out of range.
+            </exception>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.CoordinateNode">
+            <summary>
+            Represents a linked node for a coordinate.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.#ctor(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.CoordinateNode)">
+            <summary>
+            Represents a linked node for a coordinate.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.#ctor(Puzzles.Hamiltonian.Concepts.Coordinate)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.CoordinateNode"/> instance.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.CoordinateNode.Root">
+            <summary>
+            Indicates the root node.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.CoordinateNode.Coordinate">
+            <summary>
+            The generated property declaration for parameter <c>coordinate</c>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.CoordinateNode.Parent">
+            <summary>
+            The generated property declaration for parameter <c>parent</c>.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Direction">
+            <summary>
+            Represents a direction.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.None">
+            <summary>
+            Indicates the direction is none.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Up">
+            <summary>
+            Indicates the direction is up.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Down">
+            <summary>
+            Indicates the direction is down.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Left">
+            <summary>
+            Indicates the direction is left.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Right">
+            <summary>
+            Indicates the direction is right.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.DirectionExtensions">
+            <summary>
+            Provides with extension methods on <see cref="T:Puzzles.Hamiltonian.Concepts.Direction"/>.
+            </summary>
+            <seealso cref="T:Puzzles.Hamiltonian.Concepts.Direction"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.DirectionExtensions.GetArrow(Puzzles.Hamiltonian.Concepts.Direction)">
+            <summary>
+            Gets an arrow text that represents the specified direction.
+            </summary>
+            <param name="this">The direction.</param>
+            <returns>The character.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument is out of range.</exception>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.GraphFormatInfo">
+            <summary>
+            Represents a graph format information object.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.GraphFormatInfo.GetFormat(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.GraphFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Formats a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> into a <see cref="T:System.String"/> value.
+            </summary>
+            <param name="graph">The graph instance.</param>
+            <returns>The formatted string value.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.GraphFormatInfo.ParseCore(System.String)">
+            <summary>
+            Parses a <see cref="T:System.String"/> value, converting it into a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>.
+            </summary>
+            <param name="str">The string value to be parsed.</param>
+            <returns>The converted <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance.</returns>
+            <exception cref="T:System.FormatException">Throws when the parsing operation has encountered an unexpected error.</exception>
+            <exception cref="T:System.NotSupportedException">Throws when the parsing operation is not supported.</exception>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo">
+            <summary>
+            Represents a format information object that uses "on" and "off" state to format a graph.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.WithSize">
+            <summary>
+            Indicates whether the formatter will emit size part. By default the value is <see langword="true"/>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.ParsingFormatPattern">
+            <remarks>
+            Pattern:<br/>
+            <code>^(\\d+):(\\d+)(:([01]{4,}))?$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Compiled</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a Unicode digit atomically at least once.<br/>
+            ○ Match ':'.<br/>
+            ○ 2nd capture group.<br/>
+                ○ Match a Unicode digit greedily at least once.<br/>
+            ○ Optional (greedy).<br/>
+                ○ 3rd capture group.<br/>
+                    ○ Match ':'.<br/>
+                    ○ 4th capture group.<br/>
+                        ○ Match a character in the set [01] greedily at least 4 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.OnStatePattern">
+            <remarks>
+            Pattern:<br/>
+            <code>1</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Compiled</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '1'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.GetFormat(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Graph)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.ParseCore(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.TableGraphFormatInfo">
+            <summary>
+            Represents a format object that can format a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance via table displaying.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Formatting.TableGraphFormatInfo.DisplayChars">
+            <summary>
+            Indicates the display chars. By default its <c>('#', ' ')</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.TableGraphFormatInfo.GetFormat(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.TableGraphFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Graph)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.TableGraphFormatInfo.ParseCore(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Graph">
+            <summary>
+            Represents a Hamiltonian graph.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator">
+            <summary>
+            Represents an enumerator type that iterates on each coordinate of the cells used.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator._columns">
+            <summary>
+            Indicates the number of columns.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator._sequence">
+            <summary>
+            Indicates the sequence.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator._index">
+            <summary>
+            Indicates the index.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator.#ctor(System.Collections.BitArray,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator"/> instance.
+            </summary>
+            <param name="sequence">The sequence.</param>
+            <param name="columns">The number of columns.</param>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.CoordinateEnumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Graph._sequence">
+            <summary>
+            Indicates the sequence of the graph.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance via the specified number of rows and columns,
+            treating all cells as "off" state. 
+            </summary>
+            <param name="rows">Indicates the number of rows.</param>
+            <param name="columns">Indicates the number of columns.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.#ctor(System.Boolean[],System.Int32,System.Int32)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance via an 1D array of <see cref="T:System.Boolean"/> values indicating the status of each cell.
+            </summary>
+            <param name="array">An 1D array of <see cref="T:System.Boolean"/> values.</param>
+            <param name="rows">Indicates the number of rows.</param>
+            <param name="columns">Indicates the number of columns.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.#ctor(System.Boolean[0:,0:])">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance via a 2D array of <see cref="T:System.Boolean"/> values indicating the status of each cell.
+            </summary>
+            <param name="array">A 2D array of <see cref="T:System.Boolean"/> values.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.#ctor(System.Collections.BitArray,System.Int32,System.Int32)">
+            <summary>
+            Copies a list of bits from the specified bit array.
+            </summary>
+            <param name="bitArray">The bit array.</param>
+            <param name="rows">Indicates the number of rows.</param>
+            <param name="columns">Indicates the number of columns.</param>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.IsEmpty">
+            <summary>
+            Indicates whether the graph is empty.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.IsSquare">
+            <summary>
+            Indicates whether the graph is square.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Length">
+            <summary>
+            Indicates the number of cells used.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Size">
+            <summary>
+            Indicates the size of the graph (the number of cells used).
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.RowsLength">
+            <summary>
+            Indicates the number of rows used.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.ColumnsLength">
+            <summary>
+            Indicates the number of columns used.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.System#Collections#Generic#IReadOnlyCollection{System#Boolean}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Item(System.Int32)">
+            <summary>
+            Gets or sets the state at the specified index.
+            </summary>
+            <param name="index">The desired index.</param>
+            <returns>The boolean state to get or set.</returns>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Item(Puzzles.Hamiltonian.Concepts.Coordinate)">
+            <inheritdoc cref="P:Puzzles.Hamiltonian.Concepts.Graph.Item(System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.ToBooleanArray">
+            <summary>
+            Converts the current graph into a <see cref="T:System.Boolean"/> 2D table indicating which cells are used.
+            </summary>
+            <returns>A 2D array of <see cref="T:System.Boolean"/> values.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetDegreeAt(Puzzles.Hamiltonian.Concepts.Coordinate)">
+            <summary>
+            Gets the degree value at the specified coordinate.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+            <returns>The degree value. The return value must be 2, 3 or 4.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.ToString(System.String)">
+            <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.SliceRow(System.Int32)">
+            <summary>
+            Slices a row, and integrates the values into a sequence of <see cref="T:System.Boolean"/> values.
+            </summary>
+            <param name="row">The desired row label.</param>
+            <returns>A list of <see cref="T:System.Boolean"/> result sliced.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.SliceColumn(System.Int32)">
+            <summary>
+            Slices a column, and integrates the values into a sequence of <see cref="T:System.Boolean"/> values.
+            </summary>
+            <param name="column">The desired column label.</param>
+            <returns>A list of <see cref="T:System.Boolean"/> result sliced.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates on each bits of the sequence.
+            </summary>
+            <returns>An enumerator that iterates on each bits of the sequence.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.EnumerateCoordinates">
+            <summary>
+            Returns an enumerator that iterates on each coordinates of cells used.
+            </summary>
+            <returns>An enumerator that iterates on each coordinates of cells used.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Clone">
+            <inheritdoc cref="M:System.ICloneable.Clone"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.ToBitArray">
+            <summary>
+            Returns a read-only bit array.
+            </summary>
+            <returns>The bit array.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.System#ICloneable#Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.System#IFormattable#ToString(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.System#Collections#Generic#IEnumerable{System#Boolean}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.TryParse(System.String,Puzzles.Hamiltonian.Concepts.Graph@)">
+            <inheritdoc cref="M:System.IParsable`1.TryParse(System.String,System.IFormatProvider,`0@)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.TryParse(System.String,System.IFormatProvider,Puzzles.Hamiltonian.Concepts.Graph@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Empty(System.Int32,System.Int32)">
+            <summary>
+            Generates an empty graph with the specified number of rows and columns.
+            </summary>
+            <param name="rows">The rows.</param>
+            <param name="columns">The columns.</param>
+            <returns>A graph.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Parse(System.ReadOnlySpan{System.Char})">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Concepts.Graph.Parse(System.String)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Parse(System.String)">
+            <inheritdoc cref="M:System.IParsable`1.Parse(System.String,System.IFormatProvider)"/>
+            <remarks>
+            <para>
+            Match format:
+            <code><![CDATA[<row>:<column>:<data>]]></code>
+            </para>
+            <para>
+            Meaning:
+            <list type="bullet">
+            <item><c>row</c>: The number of rows is <c>row</c>.</item>
+            <item><c>column</c>: The number of columns is <c>column</c>.</item>
+            <item><c>data</c>: Detail of on/off graph sequence (Use characters <c>'0'</c> and <c>'1'</c>; 0 - used, 1 - unused).</item>
+            <item><c>colon token ':'</c>: Separator.</item>
+            </list>
+            </para>
+            <para><c>data</c> can be omitted. If <c>data</c> is omitted, the generated graph will set all cells "off".</para>
+            </remarks>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Parse(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Addition(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate)">
+            <summary>
+            Adds a new coordinate into the graph.
+            </summary>
+            <param name="base">The base graph.</param>
+            <param name="coordinate">The coordinate.</param>
+            <returns>The new graph with the specified coordinate added.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Subtraction(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate)">
+            <summary>
+            Removes a coordinate from the graph.
+            </summary>
+            <param name="base">The base graph.</param>
+            <param name="coordinate">The coordinate.</param>
+            <returns>The new graph with the specified coordinate removed.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Implicit(Puzzles.Hamiltonian.Concepts.Graph)~System.Boolean[]">
+            <summary>
+            Implicit cast from a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance into a <see cref="T:System.Boolean"/>[].
+            </summary>
+            <param name="graph">A graph.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Implicit(Puzzles.Hamiltonian.Concepts.Graph)~System.Boolean[0:,0:]">
+            <summary>
+            Implicit cast from a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance into a <see cref="T:System.Boolean"/>[,].
+            </summary>
+            <param name="graph">A graph.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Implicit(Puzzles.Hamiltonian.Concepts.Graph)~System.Collections.BitArray">
+            <summary>
+            Implicit cast from a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance into a <see cref="T:System.Collections.BitArray"/>.
+            </summary>
+            <param name="graph">A graph.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Explicit(System.Boolean[0:,0:])~Puzzles.Hamiltonian.Concepts.Graph">
+            <summary>
+            Explicit cast from a <see cref="T:System.Boolean"/>[,] instance into a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>.
+            </summary>
+            <param name="array">An array.</param>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Graph.Enumerator">
+            <summary>
+            Represents an enumerator type that iterates on each bit of the sequence.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Graph.Enumerator._sequence">
+            <summary>
+            Indicates the sequence.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Graph.Enumerator._index">
+            <summary>
+            Indicates the index.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Enumerator.#ctor(System.Collections.BitArray)">
+            <summary>
+            Initializes an <see cref="T:Puzzles.Hamiltonian.Concepts.Graph.Enumerator"/> instance.
+            </summary>
+            <param name="sequence">The sequence.</param>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Enumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Enumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Enumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Enumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Equality(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Graph)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Inequality(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Graph)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Equals(Puzzles.Hamiltonian.Concepts.Graph)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Path">
+            <summary>
+            Provides a path of a Hamiltonian graph.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Concepts.Path._coordinates">
+            <summary>
+            Indicates the coordinates.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.#ctor(Puzzles.Hamiltonian.Concepts.Coordinate[])">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.Path"/> instance via the specified path.
+            </summary>
+            <param name="coordinates">The coordinates.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.#ctor(Puzzles.Hamiltonian.Concepts.CoordinateNode)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.Path"/> instance via the specified node as the last node.
+            </summary>
+            <param name="lastNode">The last node.</param>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Path.Length">
+            <summary>
+            Indicates the length of the coordinates used.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Path.Directions">
+            <summary>
+            Indicates the directions of the path.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Path.Span">
+            <summary>
+            Returns the backing elements, integrated as a <see cref="T:System.ReadOnlySpan`1"/>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Path.System#Collections#Generic#IReadOnlyCollection{Puzzles#Hamiltonian#Concepts#Coordinate}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Path.Item(System.Int32)">
+            <summary>
+            Gets the coordinate at the specified index.
+            </summary>
+            <param name="index">The desired index.</param>
+            <returns>The coordinate.</returns>
+            <exception cref="T:System.IndexOutOfRangeException">Throws when the index is out of range.</exception>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Equals(Puzzles.Hamiltonian.Concepts.Path)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.ToString(System.String)">
+            <summary>
+            Converts the current instance into a <see cref="T:System.String"/> result.
+            </summary>
+            <param name="separator">The separator.</param>
+            <returns>The string result.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.AsGraph(System.Int32,System.Int32)">
+            <summary>
+            Converts the current path object into a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+            <returns>A <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> result casted.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#Collections#Generic#IEnumerable{Puzzles#Hamiltonian#Concepts#Coordinate}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.TryParse(System.String,Puzzles.Hamiltonian.Concepts.Path@)">
+            <inheritdoc cref="M:System.IParsable`1.TryParse(System.String,System.IFormatProvider,`0@)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Parse(System.ReadOnlySpan{System.Char})">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Concepts.Path.Parse(System.String)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Parse(System.String)">
+            <inheritdoc cref="M:System.IParsable`1.Parse(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Create(System.ReadOnlySpan{Puzzles.Hamiltonian.Concepts.Coordinate})">
+            <summary>
+            Creates a <see cref="T:Puzzles.Hamiltonian.Concepts.Path"/> instance via the specified coordinates.
+            </summary>
+            <param name="coordinates">A list of coordinates.</param>
+            <returns>A <see cref="T:Puzzles.Hamiltonian.Concepts.Path"/> instance.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#IParsable{Puzzles#Hamiltonian#Concepts#Path}#Parse(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#IParsable{Puzzles#Hamiltonian#Concepts#Path}#TryParse(System.String,System.IFormatProvider,Puzzles.Hamiltonian.Concepts.Path@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.op_Equality(Puzzles.Hamiltonian.Concepts.Path,Puzzles.Hamiltonian.Concepts.Path)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.op_Inequality(Puzzles.Hamiltonian.Concepts.Path,Puzzles.Hamiltonian.Concepts.Path)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Generating.GenerationResult">
+            <summary>
+            Represents a generation result.
+            </summary>
+            <param name="Success">Indicates whether the generated result is successful.</param>
+            <param name="Graph">Indicates the graph generated.</param>
+            <param name="Start">Indicates the start position.</param>
+            <param name="End">Indicates the end position.</param>
+            <param name="Path">Indicates the path.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.GenerationResult.#ctor(System.Boolean,Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Path)">
+            <summary>
+            Represents a generation result.
+            </summary>
+            <param name="Success">Indicates whether the generated result is successful.</param>
+            <param name="Graph">Indicates the graph generated.</param>
+            <param name="Start">Indicates the start position.</param>
+            <param name="End">Indicates the end position.</param>
+            <param name="Path">Indicates the path.</param>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Generating.GenerationResult.Success">
+            <summary>Indicates whether the generated result is successful.</summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Generating.GenerationResult.Graph">
+            <summary>Indicates the graph generated.</summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Generating.GenerationResult.Start">
+            <summary>Indicates the start position.</summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Generating.GenerationResult.End">
+            <summary>Indicates the end position.</summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Generating.GenerationResult.Path">
+            <summary>Indicates the path.</summary>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Generating.Generator">
+            <summary>
+            Represents a generator that can generate a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance with a unique path.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+            <seealso cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Represents a generator that can generate a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance with a unique path.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+            <seealso cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Generating.Generator._random">
+            <summary>
+            Indicates the random number generator.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Hamiltonian.Generating.Generator._solver">
+            <summary>
+            Indicates the backing solver.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Generating.Generator.RowsLength">
+            <summary>
+            Indicates the number of rows should be generated.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Generating.Generator.ColumnsLength">
+            <summary>
+            Indicates the number of columns should be generated.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.Generate(Puzzles.Hamiltonian.Concepts.Coordinate,System.Double,System.Double,System.Threading.CancellationToken)">
+            <summary>
+            Generate a graph puzzle with a unique path, by using the specified cell as the start.
+            </summary>
+            <param name="start">The start position.</param>
+            <param name="minFillingRate">Indicates the minimum filling rate.</param>
+            <param name="maxFillingRate">Indicates the maximum filling rate.</param>
+            <param name="cancellationToken">The cancellation token that can cancel the generation.</param>
+            <returns>The result generated. If canceled, <see langword="null"/> will be returned.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Throws when the <paramref name="minFillingRate"/> or <paramref name="maxFillingRate"/> is invalid.
+            </exception>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Measuring.Degree">
+            <summary>
+            Represents a degree measurer.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Measuring.Degree.GetDegreeSum(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Gets the sum of the degree value.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The sum degree value.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Measuring.Degree.GetDegreeFrequency(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Gets a dictionary that describes the times of appearing of nodes of the specified degree.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The dictionary that describes the times of appearing.</returns>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Measuring.PathEntropy">
+            <summary>
+            Represents a rater for path entropy (i.e. the number of switching on rows and columns).
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Measuring.PathEntropy.GetEntropyValue(Puzzles.Hamiltonian.Concepts.Path)">
+            <summary>
+            Gets the entropy value of the path.
+            </summary>
+            <param name="this">The path.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Solving.Solver">
+            <summary>
+            Provides a way to verify validity of a Hamiltonian graph.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Solving.Solver.Solve(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate)">
+            <summary>
+            Solve the current graph and return a path.
+            </summary>
+            <param name="graph">The graph.</param>
+            <param name="start">The start coordinate.</param>
+            <returns>The path describing the details of steps advanced.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when the puzzle is invalid.</exception>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Solving.Solver.IsValid(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate,System.Nullable{Puzzles.Hamiltonian.Concepts.Coordinate},Puzzles.Hamiltonian.Concepts.Path@)">
+            <summary>
+            Determine whether the specified graph has a unique path, from the specified cell as the start,
+            to the specified cell as the end.
+            </summary>
+            <param name="graph">Indicates the graph.</param>
+            <param name="start">The start cell.</param>
+            <param name="end">The end cell. The end cell can be <see langword="null"/> if not specified.</param>
+            <param name="result">Indicates the result of the path.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Transforming.GraphTransformation">
+            <summary>
+            Provides a way to transform a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>.
+            </summary>
+            <seealso cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Coordinate,System.Int32,System.Int32)">
+            <summary>
+            Rotate a coordinate clockwise.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Rotate a graph clockwise.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateCounterclockwise(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Rotate a graph counter-clockwise.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotatePi(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Rotate a graph 180 degrees.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The result.</returns>
+            <remarks><i>This method just calls method <see cref="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)"/> twice.</i></remarks>
+            <seealso cref="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Mirror left-right the graph.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The result graph mirrored.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorTopBottom(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Mirror top-bottom the graph.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The result graph mirrored.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorDiagonal(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Mirror diagonal the graph, or throws <see cref="T:System.ArgumentOutOfRangeException"/> if the graph is not a square.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The result graph mirrored.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the graph is not square.</exception>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorAntidiagonal(Puzzles.Hamiltonian.Concepts.Graph)">
+            <summary>
+            Mirror anti-diagonal the graph, or throws <see cref="T:System.ArgumentOutOfRangeException"/> if the graph is not a square.
+            </summary>
+            <param name="graph">The graph.</param>
+            <returns>The result graph mirrored.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the graph is not square.</exception>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ParsingFormatPattern method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OnStatePattern_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the OnStatePattern method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.OnStatePattern_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OnStatePattern_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OnStatePattern_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OnStatePattern_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OnStatePattern_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OnStatePattern_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OnStatePattern_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPop(System.Int32[],System.Int32@,System.Int32@,System.Int32@)">
+            <summary>Pops 2 values from the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32)">
+            <summary>Pushes 1 value onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
+            <summary>Pushes 2 values onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32,System.Int32)">
+            <summary>Pushes 3 values onto the backtracking stack.</summary>
+        </member>
+    </members>
+</doc>

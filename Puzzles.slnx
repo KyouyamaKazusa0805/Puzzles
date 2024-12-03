@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/Game - Hamiltonian/" Id="02ea681e-c7d8-13c7-8484-4ac65e1b71e8">
+    <Project Path="src/Hamiltonian/Puzzles.Hamiltonian.Core/Puzzles.Hamiltonian.Core.csproj" Id="76eb47da-fbd6-4610-9431-550f56d3913d" />
+  </Folder>
+  <Folder Name="/Game - Water Sort/">
+    <Project Path="src/WaterSort/Puzzles.WaterSort.Analytics/Puzzles.WaterSort.Analytics.csproj" />
+    <Project Path="src/WaterSort/Puzzles.WaterSort.Core/Puzzles.WaterSort.Core.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".filenesting.json" />
+    <File Path="Directory.build.props" />
+    <File Path="global-doc-comments.xml" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Source Generators/">
+    <Project Path="PuzzlesMeta/src/Puzzles.SourceGeneration/Puzzles.SourceGeneration.csproj" />
+    <Project Path="PuzzlesMeta/src/RootLevelSourceGeneration/RootLevelSourceGeneration.csproj" />
+    <Project Path="PuzzlesMeta/src/System.SourceGeneration/SystemExtensions.SourceGeneration.csproj" />
+  </Folder>
+  <Project Path="PuzzlesMeta/src/System/SystemExtensions.csproj" />
+  <Project Path="src/Puzzles.ConsoleTest/Puzzles.ConsoleTest.csproj" />
+</Solution>
