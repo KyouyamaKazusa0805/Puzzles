@@ -757,15 +757,6 @@
             Indicates the number of columns should be generated.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Generating.Generator.Equals(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Generating.Generator.GetHashCode">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Generating.Generator.ToString">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.Hamiltonian.Generating.Generator.Generate(Puzzles.Hamiltonian.Concepts.Coordinate,System.Double,System.Double,System.Threading.CancellationToken)">
             <summary>
             Generate a graph puzzle with a unique path, by using the specified cell as the start.
@@ -778,6 +769,15 @@
             <exception cref="T:System.ArgumentOutOfRangeException">
             Throws when the <paramref name="minFillingRate"/> or <paramref name="maxFillingRate"/> is invalid.
             </exception>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
         </member>
         <member name="T:Puzzles.Hamiltonian.Measuring.Degree">
             <summary>

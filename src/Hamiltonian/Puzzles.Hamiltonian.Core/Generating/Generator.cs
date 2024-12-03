@@ -6,7 +6,8 @@ namespace Puzzles.Hamiltonian.Generating;
 /// <param name="rows">The number of rows.</param>
 /// <param name="columns">The number of columns.</param>
 /// <seealso cref="Graph"/>
-public readonly ref struct Generator(int rows, int columns)
+[TypeImpl(TypeImplFlags.AllObjectMethods)]
+public readonly ref partial struct Generator(int rows, int columns)
 {
 	/// <summary>
 	/// Indicates the random number generator.
@@ -29,18 +30,6 @@ public readonly ref struct Generator(int rows, int columns)
 	/// </summary>
 	public int ColumnsLength { get; } = columns;
 
-
-	/// <inheritdoc/>
-	[DoesNotReturn]
-	public override bool Equals([NotNullWhen(true)] object? obj) => throw new NotSupportedException();
-
-	/// <inheritdoc/>
-	[DoesNotReturn]
-	public override int GetHashCode() => throw new NotSupportedException();
-
-	/// <inheritdoc/>
-	[DoesNotReturn]
-	public override string? ToString() => throw new NotSupportedException();
 
 	/// <summary>
 	/// Generate a graph puzzle with a unique path, by using the specified cell as the start.
