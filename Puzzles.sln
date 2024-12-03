@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.ConsoleTest", "src\Puzzles.ConsoleTest\Puzzles.ConsoleTest.csproj", "{A81418C4-108D-430E-BCD3-9E857DE7516A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.Watersort.Core", "src\WaterSort\Puzzles.Watersort.Core\Puzzles.Watersort.Core.csproj", "{66F32CA9-FAE2-4E98-859E-CB0984BA2262}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game - Water Sort", "Game - Water Sort", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
@@ -22,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A81418C4-108D-430E-BCD3-9E857DE7516A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A81418C4-108D-430E-BCD3-9E857DE7516A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A81418C4-108D-430E-BCD3-9E857DE7516A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A81418C4-108D-430E-BCD3-9E857DE7516A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Release|Any CPU.ActiveCfg = Release|Any CPU
