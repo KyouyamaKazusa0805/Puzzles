@@ -5,6 +5,7 @@ namespace Puzzles.WaterSort.Concepts;
 /// </summary>
 /// <param name="_items">Indicates the items.</param>
 [CollectionBuilder(typeof(Tube), nameof(Create))]
+[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
 public sealed partial class Tube(Stack<Color> _items) :
 	ICloneable,
 	IEquatable<Tube>,
@@ -94,6 +95,7 @@ public sealed partial class Tube(Stack<Color> _items) :
 	/// <summary>
 	/// Indicates the items.
 	/// </summary>
+	[EquatableMember]
 	public ReadOnlySpan<Color> Items => _items.ToArray();
 
 	/// <summary>
@@ -156,12 +158,6 @@ public sealed partial class Tube(Stack<Color> _items) :
 			_items.Push(color);
 		}
 	}
-
-	/// <inheritdoc/>
-	public override bool Equals([NotNullWhen(true)] object? obj) => Equals(obj as Tube);
-
-	/// <inheritdoc/>
-	public bool Equals([NotNullWhen(true)] Tube? other) => other is not null && Items.SequenceEqual(other.Items);
 
 	/// <inheritdoc/>
 	public override int GetHashCode()
@@ -290,15 +286,6 @@ public sealed partial class Tube(Stack<Color> _items) :
 	/// <returns>The value.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static bool operator false(Tube value) => !value.IsSolved;
-
-	/// <inheritdoc/>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator ==(Tube? left, Tube? right)
-		=> (left, right) switch { (not null, not null) => left.Equals(right), (null, null) => true, _ => false };
-
-	/// <inheritdoc/>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator !=(Tube? left, Tube? right) => !(left == right);
 }
 
 file static class StackEntry<T>

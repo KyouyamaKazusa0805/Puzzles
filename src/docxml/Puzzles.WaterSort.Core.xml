@@ -52,12 +52,6 @@
             <param name="index">The index.</param>
             <returns>A <see cref="T:Puzzles.WaterSort.Concepts.Tube"/> instance.</returns>
         </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Equals(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Equals(Puzzles.WaterSort.Concepts.Puzzle)">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.WaterSort.Concepts.Puzzle.TrueForAll(System.Func{Puzzles.WaterSort.Concepts.Tube,System.Boolean})">
             <summary>
             Determine whether all tubes satisfy the specified condition.
@@ -110,12 +104,6 @@
             <param name="value">The object.</param>
             <returns>A <see cref="T:System.Boolean"/> result.</returns>
         </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_Equality(Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Concepts.Puzzle)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_Inequality(Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Concepts.Puzzle)">
-            <inheritdoc/>
-        </member>
         <member name="T:Puzzles.WaterSort.Concepts.Puzzle.Enumerator">
             <summary>
             Represents an enumerator type that can iterate on each element in the tube.
@@ -151,6 +139,18 @@
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_Equality(Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Concepts.Puzzle)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_Inequality(Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Concepts.Puzzle)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Equals(Puzzles.WaterSort.Concepts.Puzzle)">
             <inheritdoc/>
         </member>
         <member name="T:Puzzles.WaterSort.Concepts.Tube">
@@ -232,12 +232,6 @@
             <param name="count">The number of times pushed.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument <paramref name="color"/> is invalid.</exception>
         </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Tube.Equals(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Tube.Equals(Puzzles.WaterSort.Concepts.Tube)">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.WaterSort.Concepts.Tube.GetHashCode">
             <inheritdoc/>
         </member>
@@ -295,12 +289,6 @@
             <param name="value">The object.</param>
             <returns>The value.</returns>
         </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_Equality(Puzzles.WaterSort.Concepts.Tube,Puzzles.WaterSort.Concepts.Tube)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_Inequality(Puzzles.WaterSort.Concepts.Tube,Puzzles.WaterSort.Concepts.Tube)">
-            <inheritdoc/>
-        </member>
         <member name="T:Puzzles.WaterSort.Concepts.Tube.Enumerator">
             <summary>
             Represents an enumerator type that can iterate on each element in the tube.
@@ -336,6 +324,18 @@
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.WaterSort.Concepts.Tube.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_Equality(Puzzles.WaterSort.Concepts.Tube,Puzzles.WaterSort.Concepts.Tube)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_Inequality(Puzzles.WaterSort.Concepts.Tube,Puzzles.WaterSort.Concepts.Tube)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.Equals(Puzzles.WaterSort.Concepts.Tube)">
             <inheritdoc/>
         </member>
     </members>

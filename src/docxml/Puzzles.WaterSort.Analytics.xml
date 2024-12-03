@@ -8,13 +8,13 @@
             <summary>
             Represents the result of analysis.
             </summary>
-            <param name="puzzle">A puzzle.</param>
+            <param name="puzzle">Indicates the base puzzle.</param>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.#ctor(Puzzles.WaterSort.Concepts.Puzzle)">
             <summary>
             Represents the result of analysis.
             </summary>
-            <param name="puzzle">A puzzle.</param>
+            <param name="puzzle">Indicates the base puzzle.</param>
         </member>
         <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.IsSolved">
             <summary>
@@ -36,11 +36,6 @@
             Indicates the elapsed time.
             </summary>
         </member>
-        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.Puzzle">
-            <summary>
-            Indicates the base puzzle.
-            </summary>
-        </member>
         <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.UnhandledException">
             <summary>
             Indicates the exception encountered.
@@ -51,22 +46,27 @@
             Indicates the steps.
             </summary>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.Equals(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.Equals(Puzzles.WaterSort.Analytics.AnalysisResult)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.GetHashCode">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.ToString">
             <inheritdoc/>
         </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.Puzzle">
+            <summary>
+            The generated property declaration for parameter <c>puzzle</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
         <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.op_Equality(Puzzles.WaterSort.Analytics.AnalysisResult,Puzzles.WaterSort.Analytics.AnalysisResult)">
-            <inheritdoc/>
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.op_Inequality(Puzzles.WaterSort.Analytics.AnalysisResult,Puzzles.WaterSort.Analytics.AnalysisResult)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.AnalysisResult.Equals(Puzzles.WaterSort.Analytics.AnalysisResult)">
             <inheritdoc/>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.Analyzer">
@@ -156,6 +156,46 @@
             <summary>Indicates the end tube index.</summary>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.Step.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+        <member name="T:Puzzles.WaterSort.Generating.Generator">
+            <summary>
+            Represents a generator.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Generating.Generator.#ctor">
+            <summary>
+            Represents a generator.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Generating.Generator._random">
+            <summary>
+            Indicates the backing random number generator.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Generating.Generator._analyzer">
+            <summary>
+            Indicates the analyzer.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Generating.Generator.Generate(System.Int32,System.Byte,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Generates a puzzle that contains the specified number of tubes, and the maximum depth is the specified one.
+            </summary>
+            <param name="tubesCount">The number of tubes.</param>
+            <param name="colorsCount">The number of colors.</param>
+            <param name="depth">The depth.</param>
+            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
+            <returns>A <see cref="T:Puzzles.WaterSort.Concepts.Puzzle"/> instance; or <see langword="null"/> if cancelled.</returns>
+            <exception cref="T:System.ArgumentException">Throws when the argument <paramref name="colorsCount"/> is invalid.</exception>
+        </member>
+        <member name="M:Puzzles.WaterSort.Generating.Generator.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Generating.Generator.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Generating.Generator.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
     </members>

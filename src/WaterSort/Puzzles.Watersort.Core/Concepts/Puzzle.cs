@@ -4,6 +4,7 @@ namespace Puzzles.WaterSort.Concepts;
 /// Represents a puzzle.
 /// </summary>
 /// <param name="tubes">Indicates the tubes.</param>
+[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
 public sealed partial class Puzzle(params Tube[] tubes) :
 	ICloneable,
 	IEquatable<Puzzle>,
@@ -37,6 +38,7 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	/// <summary>
 	/// Indicates the tubes.
 	/// </summary>
+	[EquatableMember]
 	public ReadOnlySpan<Tube> Tubes => tubes;
 
 	/// <summary>
@@ -96,12 +98,6 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	/// <returns>A <see cref="Tube"/> instance.</returns>
 	public Tube this[int index] => Tubes[index];
 
-
-	/// <inheritdoc/>
-	public override bool Equals(object? obj) => Equals(obj as Puzzle);
-
-	/// <inheritdoc/>
-	public bool Equals([NotNullWhen(true)] Puzzle? other) => other is not null && Tubes.SequenceEqual(other.Tubes);
 
 	/// <summary>
 	/// Determine whether all tubes satisfy the specified condition.
@@ -186,13 +182,4 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	/// <returns>A <see cref="bool"/> result.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static bool operator false(Puzzle value) => !value.IsSolved;
-
-	/// <inheritdoc/>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator ==(Puzzle? left, Puzzle? right)
-		=> (left, right) switch { (not null, not null) => left.Equals(right), (null, null) => true, _ => false };
-
-	/// <inheritdoc/>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator !=(Puzzle? left, Puzzle? right) => !(left == right);
 }

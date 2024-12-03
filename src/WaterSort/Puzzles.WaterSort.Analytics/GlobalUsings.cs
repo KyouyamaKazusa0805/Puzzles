@@ -6,5 +6,7 @@ global using System.Linq;
 global using System.Numerics;
 global using System.Runtime.CompilerServices;
 global using System.Text;
+global using System.Threading;
+global using Puzzles.WaterSort.Analytics;
 global using Puzzles.WaterSort.Concepts;
 global using Color = byte;

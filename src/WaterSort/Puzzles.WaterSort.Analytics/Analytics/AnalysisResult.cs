@@ -3,8 +3,9 @@ namespace Puzzles.WaterSort.Analytics;
 /// <summary>
 /// Represents the result of analysis.
 /// </summary>
-/// <param name="puzzle">A puzzle.</param>
-public sealed class AnalysisResult(Puzzle puzzle) :
+/// <param name="puzzle">Indicates the base puzzle.</param>
+[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Object_GetHashCode | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
+public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puzzle) :
 	IEquatable<AnalysisResult>,
 	IEqualityOperators<AnalysisResult, AnalysisResult, bool>
 {
@@ -12,6 +13,8 @@ public sealed class AnalysisResult(Puzzle puzzle) :
 	/// Indicates whether the puzzle is fully solved.
 	/// </summary>
 	[MemberNotNullWhen(true, nameof(InterimSteps))]
+	[HashCodeMember]
+	[EquatableMember]
 	public required bool IsSolved { get; init; }
 
 	/// <summary>
@@ -30,11 +33,6 @@ public sealed class AnalysisResult(Puzzle puzzle) :
 	public TimeSpan ElapsedTime { get; init; }
 
 	/// <summary>
-	/// Indicates the base puzzle.
-	/// </summary>
-	public Puzzle Puzzle { get; } = puzzle;
-
-	/// <summary>
 	/// Indicates the exception encountered.
 	/// </summary>
 	public Exception? UnhandledException { get; init; }
@@ -44,16 +42,9 @@ public sealed class AnalysisResult(Puzzle puzzle) :
 	/// </summary>
 	internal Step[]? InterimSteps { get; init; }
 
+	[EquatableMember]
+	private Puzzle PuzzleEntry => Puzzle;
 
-	/// <inheritdoc/>
-	public override bool Equals(object? obj) => Equals(obj as AnalysisResult);
-
-	/// <inheritdoc/>
-	public bool Equals([NotNullWhen(true)] AnalysisResult? other)
-		=> other is not null && IsSolved == other.IsSolved && Puzzle == other.Puzzle;
-
-	/// <inheritdoc/>
-	public override int GetHashCode() => HashCode.Combine(Puzzle, IsSolved);
 
 	/// <inheritdoc/>
 	public override string ToString()
@@ -84,12 +75,4 @@ public sealed class AnalysisResult(Puzzle puzzle) :
 		}
 		return sb.ToString();
 	}
-
-
-	/// <inheritdoc/>
-	public static bool operator ==(AnalysisResult? left, AnalysisResult? right)
-		=> (left, right) switch { (not null, not null) => left.Equals(right), (null, null) => true, _ => false };
-
-	/// <inheritdoc/>
-	public static bool operator !=(AnalysisResult? left, AnalysisResult? right) => !(left == right);
 }
