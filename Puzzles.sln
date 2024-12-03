@@ -2,20 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35507.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.filenesting.json = .filenesting.json
-		Directory.build.props = Directory.build.props
-		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.Watersort.Core", "src\WaterSort\Puzzles.Watersort.Core\Puzzles.Watersort.Core.csproj", "{66F32CA9-FAE2-4E98-859E-CB0984BA2262}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game - Water Sort", "Game - Water Sort", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.ConsoleTest", "src\Puzzles.ConsoleTest\Puzzles.ConsoleTest.csproj", "{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.SourceGeneration", "PuzzlesMeta\src\Puzzles.SourceGeneration\Puzzles.SourceGeneration.csproj", "{82908C5F-2D56-F76B-1396-7AD508F268B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RootLevelSourceGeneration", "PuzzlesMeta\src\RootLevelSourceGeneration\RootLevelSourceGeneration.csproj", "{59B8D09A-A736-470C-95AB-1FB3A6D7A32C}"
@@ -24,20 +10,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExtensions.SourceGene
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExtensions", "PuzzlesMeta\src\System\SystemExtensions.csproj", "{C0462C0F-57F6-965F-6FDC-A2B72CCFE765}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.ConsoleTest", "src\Puzzles.ConsoleTest\Puzzles.ConsoleTest.csproj", "{F9D381EA-A4AC-A89B-A8FD-52AE282FB78C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game - Water Sort", "Game - Water Sort", "{AC444B3F-5F91-BBAA-A1FC-067141887E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.WaterSort.Core", "src\WaterSort\Puzzles.WaterSort.Core\Puzzles.WaterSort.Core.csproj", "{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{089100B1-113F-4E66-888A-E83F3999EAFD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.filenesting.json = .filenesting.json
+		Directory.build.props = Directory.build.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source Generators", "Source Generators", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66F32CA9-FAE2-4E98-859E-CB0984BA2262}.Release|Any CPU.Build.0 = Release|Any CPU
-		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{314FC589-88CC-4C57-8AE0-3CFA3DFB480D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{82908C5F-2D56-F76B-1396-7AD508F268B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{82908C5F-2D56-F76B-1396-7AD508F268B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82908C5F-2D56-F76B-1396-7AD508F268B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,14 +48,25 @@ Global
 		{C0462C0F-57F6-965F-6FDC-A2B72CCFE765}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0462C0F-57F6-965F-6FDC-A2B72CCFE765}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0462C0F-57F6-965F-6FDC-A2B72CCFE765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9D381EA-A4AC-A89B-A8FD-52AE282FB78C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9D381EA-A4AC-A89B-A8FD-52AE282FB78C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9D381EA-A4AC-A89B-A8FD-52AE282FB78C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9D381EA-A4AC-A89B-A8FD-52AE282FB78C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{66F32CA9-FAE2-4E98-859E-CB0984BA2262} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{82908C5F-2D56-F76B-1396-7AD508F268B1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{59B8D09A-A736-470C-95AB-1FB3A6D7A32C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{528070A9-4234-9B01-E17E-9F2DFFF74F9C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{5CC55EE8-EA47-7902-0A7B-D8A1A15652DF} = {AC444B3F-5F91-BBAA-A1FC-067141887E39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A5F027BF-1F64-4C76-A6F5-416D946A6A18}
+		SolutionGuid = {7CBD5DD4-7F13-4553-9AA7-E0CF104A982B}
 	EndGlobalSection
 EndGlobal
