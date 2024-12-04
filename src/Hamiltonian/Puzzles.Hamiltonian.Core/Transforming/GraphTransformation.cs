@@ -15,7 +15,7 @@ public static class GraphTransformation
 	/// <returns>The result.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Coordinate RotateClockwise(this Coordinate coordinate, int rows, int columns)
-		=> new(columns - coordinate.Y - 1, coordinate.X);
+		=> new(columns - coordinate.X - 1, coordinate.Y);
 
 	/// <summary>
 	/// Rotate a path clockwise.
@@ -97,7 +97,7 @@ public static class GraphTransformation
 	/// <returns>The result graph mirrored.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Coordinate MirrorLeftRight(this Coordinate coordinate, int rows, int columns)
-		=> new(coordinate.X, columns - 1 - coordinate.Y);
+		=> new(coordinate.Y, columns - 1 - coordinate.X);
 
 	/// <summary>
 	/// Mirror left-right the graph.
