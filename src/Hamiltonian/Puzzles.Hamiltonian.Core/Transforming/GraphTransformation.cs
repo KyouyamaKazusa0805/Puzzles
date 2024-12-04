@@ -14,9 +14,19 @@ public static class GraphTransformation
 	/// <param name="columns">The number of columns.</param>
 	/// <returns>The result.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
 	public static Coordinate RotateClockwise(this Coordinate coordinate, int rows, int columns)
 		=> new(columns - coordinate.Y - 1, coordinate.X);
+
+	/// <summary>
+	/// Rotate a path clockwise.
+	/// </summary>
+	/// <param name="path">The path.</param>
+	/// <param name="rows">The number of rows.</param>
+	/// <param name="columns">The number of columns.</param>
+	/// <returns>The result.</returns>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Path RotateClockwise(this Path path, int rows, int columns)
+		=> [.. from coordinate in path.Span select coordinate.RotateClockwise(rows, columns)];
 
 	/// <summary>
 	/// Rotate a graph clockwise.
@@ -77,6 +87,28 @@ public static class GraphTransformation
 	/// <seealso cref="RotateClockwise(Graph)"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Graph RotatePi(this Graph graph) => graph.RotateClockwise().RotateClockwise();
+
+	/// <summary>
+	/// Mirror left-right the coordinate.
+	/// </summary>
+	/// <param name="coordinate">The coordinate.</param>
+	/// <param name="rows">The number of rows.</param>
+	/// <param name="columns">The number of columns.</param>
+	/// <returns>The result graph mirrored.</returns>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Coordinate MirrorLeftRight(this Coordinate coordinate, int rows, int columns)
+		=> new(coordinate.X, columns - 1 - coordinate.Y);
+
+	/// <summary>
+	/// Mirror left-right the graph.
+	/// </summary>
+	/// <param name="path">The graph.</param>
+	/// <param name="rows">The number of rows.</param>
+	/// <param name="columns">The number of columns.</param>
+	/// <returns>The result graph mirrored.</returns>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Path MirrorLeftRight(this Path path, int rows, int columns)
+		=> [.. from coordinate in path.Span select coordinate.RotateClockwise(rows, columns)];
 
 	/// <summary>
 	/// Mirror left-right the graph.

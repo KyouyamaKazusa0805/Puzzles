@@ -19,6 +19,7 @@
     <File Path=".filenesting.json" />
     <File Path="Directory.build.props" />
     <File Path="global-doc-comments.xml" />
+    <File Path="LICENSE.txt" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/Source Generators/">

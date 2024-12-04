@@ -850,6 +850,15 @@
             <param name="columns">The number of columns.</param>
             <returns>The result.</returns>
         </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
+            <summary>
+            Rotate a path clockwise.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+            <returns>The result.</returns>
+        </member>
         <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)">
             <summary>
             Rotate a graph clockwise.
@@ -872,6 +881,24 @@
             <returns>The result.</returns>
             <remarks><i>This method just calls method <see cref="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)"/> twice.</i></remarks>
             <seealso cref="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Coordinate,System.Int32,System.Int32)">
+            <summary>
+            Mirror left-right the coordinate.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+            <returns>The result graph mirrored.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
+            <summary>
+            Mirror left-right the graph.
+            </summary>
+            <param name="path">The graph.</param>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+            <returns>The result graph mirrored.</returns>
         </member>
         <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Graph)">
             <summary>
