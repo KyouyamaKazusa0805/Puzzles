@@ -108,7 +108,7 @@ public static class GraphTransformation
 	/// <returns>The result graph mirrored.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Path MirrorLeftRight(this Path path, int rows, int columns)
-		=> [.. from coordinate in path.Span select coordinate.RotateClockwise(rows, columns)];
+		=> [.. from coordinate in path.Span select coordinate.MirrorLeftRight(rows, columns)];
 
 	/// <summary>
 	/// Mirror left-right the graph.
