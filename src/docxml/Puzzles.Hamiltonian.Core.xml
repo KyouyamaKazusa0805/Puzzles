@@ -8,20 +8,20 @@
             <summary>
             Represents a coordinate.
             </summary>
-            <param name="X">Indicates the row label.</param>
-            <param name="Y">Indicates the column label.</param>
+            <param name="RowIndex">Indicates the row label.</param>
+            <param name="ColumnIndex">Indicates the column label.</param>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
             <summary>
             Represents a coordinate.
             </summary>
-            <param name="X">Indicates the row label.</param>
-            <param name="Y">Indicates the column label.</param>
+            <param name="RowIndex">Indicates the row label.</param>
+            <param name="ColumnIndex">Indicates the column label.</param>
         </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.X">
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.RowIndex">
             <summary>Indicates the row label.</summary>
         </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Y">
+        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.ColumnIndex">
             <summary>Indicates the column label.</summary>
         </member>
         <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Up">

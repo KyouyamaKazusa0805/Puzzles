@@ -3,31 +3,31 @@ namespace Puzzles.Hamiltonian.Concepts;
 /// <summary>
 /// Represents a coordinate.
 /// </summary>
-/// <param name="X">Indicates the row label.</param>
-/// <param name="Y">Indicates the column label.</param>
-public readonly record struct Coordinate(int X, int Y) :
+/// <param name="RowIndex">Indicates the row label.</param>
+/// <param name="ColumnIndex">Indicates the column label.</param>
+public readonly record struct Coordinate(int RowIndex, int ColumnIndex) :
 	IEqualityOperators<Coordinate, Coordinate, bool>,
 	ISubtractionOperators<Coordinate, Coordinate, Direction>
 {
 	/// <summary>
 	/// Indicates the left cell.
 	/// </summary>
-	public Coordinate Up => new(X - 1, Y);
+	public Coordinate Up => new(RowIndex - 1, ColumnIndex);
 
 	/// <summary>
 	/// Indicates the right cell.
 	/// </summary>
-	public Coordinate Down => new(X + 1, Y);
+	public Coordinate Down => new(RowIndex + 1, ColumnIndex);
 
 	/// <summary>
 	/// Indicates the up cell.
 	/// </summary>
-	public Coordinate Left => new(X, Y - 1);
+	public Coordinate Left => new(RowIndex, ColumnIndex - 1);
 
 	/// <summary>
 	/// Indicates the down cell.
 	/// </summary>
-	public Coordinate Right => new(X, Y + 1);
+	public Coordinate Right => new(RowIndex, ColumnIndex + 1);
 
 
 	/// <summary>
@@ -39,7 +39,7 @@ public readonly record struct Coordinate(int X, int Y) :
 	{
 		var rows = graph.RowsLength;
 		var columns = graph.ColumnsLength;
-		return X < 0 || X >= rows || Y < 0 || Y >= columns;
+		return RowIndex < 0 || RowIndex >= rows || ColumnIndex < 0 || ColumnIndex >= columns;
 	}
 
 	/// <summary>
@@ -47,11 +47,11 @@ public readonly record struct Coordinate(int X, int Y) :
 	/// </summary>
 	/// <param name="graph">The graph.</param>
 	/// <returns>The absolute index.</returns>
-	public int ToIndex(Graph graph) => X * graph.ColumnsLength + Y;
+	public int ToIndex(Graph graph) => RowIndex * graph.ColumnsLength + ColumnIndex;
 
 	private bool PrintMembers(StringBuilder builder)
 	{
-		builder.Append($"{nameof(X)} = {X}, {nameof(Y)} = {Y}");
+		builder.Append($"{nameof(RowIndex)} = {RowIndex}, {nameof(ColumnIndex)} = {ColumnIndex}");
 		return true;
 	}
 
@@ -66,19 +66,19 @@ public readonly record struct Coordinate(int X, int Y) :
 		{
 			return Direction.None;
 		}
-		else if (left.X - right.X == -1 && left.Y == right.Y)
+		else if (left.RowIndex - right.RowIndex == -1 && left.ColumnIndex == right.ColumnIndex)
 		{
 			return Direction.Up;
 		}
-		else if (left.X - right.X == 1 && left.Y == right.Y)
+		else if (left.RowIndex - right.RowIndex == 1 && left.ColumnIndex == right.ColumnIndex)
 		{
 			return Direction.Down;
 		}
-		else if (left.X == right.X && left.Y - right.Y == -1)
+		else if (left.RowIndex == right.RowIndex && left.ColumnIndex - right.ColumnIndex == -1)
 		{
 			return Direction.Left;
 		}
-		else if (left.X == right.X && left.Y - right.Y == 1)
+		else if (left.RowIndex == right.RowIndex && left.ColumnIndex - right.ColumnIndex == 1)
 		{
 			return Direction.Right;
 		}
@@ -115,13 +115,5 @@ public readonly record struct Coordinate(int X, int Y) :
 	/// Throws when the argument <paramref name="direction"/> is out of range.
 	/// </exception>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Coordinate operator >>(Coordinate coordinate, Direction direction)
-		=> direction switch
-		{
-			Direction.Up => coordinate.Up,
-			Direction.Down => coordinate.Down,
-			Direction.Left => coordinate.Left,
-			Direction.Right => coordinate.Right,
-			_ => throw new ArgumentOutOfRangeException(nameof(direction))
-		};
+	public static Coordinate operator >>(Coordinate coordinate, Direction direction) => coordinate >> direction.GetArrow();
 }
