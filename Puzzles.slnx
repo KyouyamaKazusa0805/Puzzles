@@ -27,6 +27,7 @@
     <Project Path="PuzzlesMeta/src/RootLevelSourceGeneration/RootLevelSourceGeneration.csproj" />
     <Project Path="PuzzlesMeta/src/System.SourceGeneration/SystemExtensions.SourceGeneration.csproj" />
   </Folder>
+  <Project Path="PuzzlesMeta/src/Puzzles.Core/Puzzles.Core.csproj" />
   <Project Path="PuzzlesMeta/src/System/SystemExtensions.csproj" />
   <Project Path="src/Puzzles.ConsoleTest/Puzzles.ConsoleTest.csproj" />
 </Solution>
