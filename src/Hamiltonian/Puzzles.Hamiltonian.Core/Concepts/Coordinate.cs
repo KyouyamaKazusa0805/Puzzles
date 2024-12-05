@@ -49,7 +49,6 @@ public readonly record struct Coordinate(int X, int Y) :
 	/// <returns>The absolute index.</returns>
 	public int ToIndex(Graph graph) => X * graph.ColumnsLength + Y;
 
-	[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
 	private bool PrintMembers(StringBuilder builder)
 	{
 		builder.Append($"{nameof(X)} = {X}, {nameof(Y)} = {Y}");

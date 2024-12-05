@@ -226,6 +226,49 @@ public sealed partial class Graph :
 	}
 
 	/// <summary>
+	/// Infers the start coordinate via the solution direction arrows.
+	/// </summary>
+	/// <param name="directionArrows">The direction arrows.</param>
+	/// <returns>The start coordinate.</returns>
+	public Coordinate GetStartCoordinate(string directionArrows)
+	{
+		var directions =
+		from direction in directionArrows
+		let directionString = direction switch
+		{
+			'↑' => Direction.Up,
+			'↓' => Direction.Down,
+			'←' => Direction.Left,
+			'→' => Direction.Right,
+			_ => throw new()
+		}
+		select directionString;
+		foreach (var start in EnumerateCoordinates())
+		{
+			// Suppose it is a start, and make moves, to determine whether the whole path can be checked.
+			// If so, it will be the start position.
+			var flag = true;
+			var temp = start;
+			foreach (var direction in directions)
+			{
+				temp >>= direction;
+				if (temp.IsOutOfBound(this))
+				{
+					flag = false;
+					break;
+				}
+			}
+			if (!flag)
+			{
+				continue;
+			}
+			return start;
+		}
+
+		throw new();
+	}
+
+	/// <summary>
 	/// Returns an enumerator that iterates on each bits of the sequence.
 	/// </summary>
 	/// <returns>An enumerator that iterates on each bits of the sequence.</returns>

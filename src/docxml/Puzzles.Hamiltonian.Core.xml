@@ -414,6 +414,13 @@
             <param name="column">The desired column label.</param>
             <returns>A list of <see cref="T:System.Boolean"/> result sliced.</returns>
         </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetStartCoordinate(System.String)">
+            <summary>
+            Infers the start coordinate via the solution direction arrows.
+            </summary>
+            <param name="directionArrows">The direction arrows.</param>
+            <returns>The start coordinate.</returns>
+        </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetEnumerator">
             <summary>
             Returns an enumerator that iterates on each bits of the sequence.
