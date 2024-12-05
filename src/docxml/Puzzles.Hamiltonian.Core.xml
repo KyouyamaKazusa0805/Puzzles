@@ -640,12 +640,6 @@
             <returns>The coordinate.</returns>
             <exception cref="T:System.IndexOutOfRangeException">Throws when the index is out of range.</exception>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Equals(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Equals(Puzzles.Hamiltonian.Concepts.Path)">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.GetHashCode">
             <inheritdoc/>
         </member>
@@ -708,10 +702,16 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#IParsable{Puzzles#Hamiltonian#Concepts#Path}#TryParse(System.String,System.IFormatProvider,Puzzles.Hamiltonian.Concepts.Path@)">
             <inheritdoc/>
         </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.op_Equality(Puzzles.Hamiltonian.Concepts.Path,Puzzles.Hamiltonian.Concepts.Path)">
-            <inheritdoc/>
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.op_Inequality(Puzzles.Hamiltonian.Concepts.Path,Puzzles.Hamiltonian.Concepts.Path)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Equals(Puzzles.Hamiltonian.Concepts.Path)">
             <inheritdoc/>
         </member>
         <member name="T:Puzzles.Hamiltonian.Generating.GenerationResult">

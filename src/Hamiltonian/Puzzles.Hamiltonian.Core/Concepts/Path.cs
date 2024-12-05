@@ -4,7 +4,8 @@ namespace Puzzles.Hamiltonian.Concepts;
 /// Provides a path of a Hamiltonian graph.
 /// </summary>
 [CollectionBuilder(typeof(Path), nameof(Create))]
-public sealed class Path :
+[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
+public sealed partial class Path :
 	IEquatable<Path>,
 	IEqualityOperators<Path, Path, bool>,
 	IParsable<Path>,
@@ -62,6 +63,7 @@ public sealed class Path :
 	/// <summary>
 	/// Returns the backing elements, integrated as a <see cref="ReadOnlySpan{T}"/>.
 	/// </summary>
+	[EquatableMember]
 	public ReadOnlySpan<Coordinate> Span => _coordinates;
 
 	/// <inheritdoc/>
@@ -76,13 +78,6 @@ public sealed class Path :
 	/// <exception cref="IndexOutOfRangeException">Throws when the index is out of range.</exception>
 	public Coordinate this[int index] => _coordinates[index];
 
-
-	/// <inheritdoc/>
-	public override bool Equals(object? obj) => Equals(obj as Path);
-
-	/// <inheritdoc/>
-	public bool Equals([NotNullWhen(true)] Path? other)
-		=> other is not null && _coordinates.AsSpan().SequenceEqual(other._coordinates);
 
 	/// <inheritdoc/>
 	public override int GetHashCode()
@@ -209,17 +204,4 @@ public sealed class Path :
 			return TryParse(s, out result);
 		}
 	}
-
-
-	/// <inheritdoc/>
-	public static bool operator ==(Path? left, Path? right)
-		=> (left, right) switch
-		{
-			(null, null) => true,
-			(not null, not null) => left.Equals(right),
-			_ => false
-		};
-
-	/// <inheritdoc/>
-	public static bool operator !=(Path? left, Path? right) => !(left == right);
 }
