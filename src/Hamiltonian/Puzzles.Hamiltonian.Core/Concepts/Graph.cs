@@ -178,15 +178,15 @@ public sealed partial class Graph :
 	}
 
 	/// <inheritdoc/>
-	public override string ToString() => ToString("b");
+	public override string ToString() => ToString("bs");
 
 	/// <inheritdoc cref="IFormattable.ToString(string?, IFormatProvider?)"/>
 	public string ToString(string? format)
 	{
 		GraphFormatInfo formatter = format switch
 		{
-			null or "b" => new OnOffGraphFormatInfo { WithSize = false },
-			"bs" => new OnOffGraphFormatInfo(),
+			null or "bs" => new OnOffGraphFormatInfo(),
+			"b" => new OnOffGraphFormatInfo { WithSize = false },
 			"c" => new TableGraphFormatInfo(),
 			_ => throw new FormatException()
 		};
