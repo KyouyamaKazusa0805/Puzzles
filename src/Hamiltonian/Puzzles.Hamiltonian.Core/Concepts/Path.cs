@@ -178,14 +178,7 @@ public sealed class Path :
 		var currentCoordinate = startCoordinate;
 		foreach (var character in split[2])
 		{
-			currentCoordinate = character switch
-			{
-				'↑' => currentCoordinate.Up,
-				'↓' => currentCoordinate.Down,
-				'←' => currentCoordinate.Left,
-				'→' => currentCoordinate.Right,
-				_ => throw new FormatException()
-			};
+			currentCoordinate >>= character;
 			coordinates.Add(currentCoordinate);
 		}
 		return [.. coordinates];

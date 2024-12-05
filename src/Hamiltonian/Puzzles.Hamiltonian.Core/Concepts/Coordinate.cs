@@ -89,11 +89,32 @@ public readonly record struct Coordinate(int X, int Y) :
 	/// Moves the coordinate one step forward to the next coordinate by the specified direction.
 	/// </summary>
 	/// <param name="coordinate">The coordinate.</param>
+	/// <param name="arrow">The direction.</param>
+	/// <returns>The new coordinate.</returns>
+	/// <exception cref="ArgumentOutOfRangeException">
+	/// Throws when the argument <paramref name="arrow"/> is out of range.
+	/// </exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Coordinate operator >>(Coordinate coordinate, char arrow)
+		=> arrow switch
+		{
+			'↑' => coordinate.Up,
+			'↓' => coordinate.Down,
+			'←' => coordinate.Left,
+			'→' => coordinate.Right,
+			_ => throw new ArgumentOutOfRangeException(nameof(arrow))
+		};
+
+	/// <summary>
+	/// Moves the coordinate one step forward to the next coordinate by the specified direction.
+	/// </summary>
+	/// <param name="coordinate">The coordinate.</param>
 	/// <param name="direction">The direction.</param>
 	/// <returns>The new coordinate.</returns>
 	/// <exception cref="ArgumentOutOfRangeException">
 	/// Throws when the argument <paramref name="direction"/> is out of range.
 	/// </exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Coordinate operator >>(Coordinate coordinate, Direction direction)
 		=> direction switch
 		{

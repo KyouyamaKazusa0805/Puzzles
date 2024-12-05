@@ -64,6 +64,17 @@
             Throws when the two coordinates has a gap between them, or they cannot see each other in their own direction.
             </exception>
         </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_RightShift(Puzzles.Hamiltonian.Concepts.Coordinate,System.Char)">
+            <summary>
+            Moves the coordinate one step forward to the next coordinate by the specified direction.
+            </summary>
+            <param name="coordinate">The coordinate.</param>
+            <param name="arrow">The direction.</param>
+            <returns>The new coordinate.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Throws when the argument <paramref name="arrow"/> is out of range.
+            </exception>
+        </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_RightShift(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Direction)">
             <summary>
             Moves the coordinate one step forward to the next coordinate by the specified direction.
