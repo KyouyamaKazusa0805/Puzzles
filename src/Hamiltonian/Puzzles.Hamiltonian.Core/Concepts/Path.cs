@@ -160,17 +160,23 @@ public sealed class Path :
 	public static Path Parse(ReadOnlySpan<char> str) => Parse(str);
 
 	/// <inheritdoc cref="IParsable{TSelf}.Parse(string, IFormatProvider?)"/>
+	/// <remarks>
+	/// Format:
+	/// <code><![CDATA[
+	/// <start-row>:<start-column>:<direction-arrows>
+	/// ]]></code>
+	/// Example:
+	/// <code><![CDATA[
+	/// 0:0:↓↓↓→→→↓↓←↑←←↓↓→↓←↓→→↑→↓→→↑↑←↑→→↑↑←←↑↑→↑←←↓←
+	/// ]]></code>
+	/// </remarks>
 	public static Path Parse(string str)
 	{
-		// Example:
-		// 00:↓↓↓→→→↓↓←↑←←↓↓→↓←↓→→↑→↓→→↑↑←↑→→↑↑←←↑↑→↑←←↓←
-
 		var split = str.Split(':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-		var startCoordinateStr = split[0];
-		var startCoordinate = new Coordinate(startCoordinateStr[0] - '0', startCoordinateStr[1] - '0');
+		var startCoordinate = new Coordinate(int.Parse(split[0]) - '0', int.Parse(split[1]) - '0');
 		var coordinates = new List<Coordinate> { startCoordinate };
 		var currentCoordinate = startCoordinate;
-		foreach (var character in split[1])
+		foreach (var character in split[2])
 		{
 			currentCoordinate = character switch
 			{

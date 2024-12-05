@@ -666,6 +666,16 @@
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.Parse(System.String)">
             <inheritdoc cref="M:System.IParsable`1.Parse(System.String,System.IFormatProvider)"/>
+            <remarks>
+            Format:
+            <code><![CDATA[
+            <start-row>:<start-column>:<direction-arrows>
+            ]]></code>
+            Example:
+            <code><![CDATA[
+            0:0:↓↓↓→→→↓↓←↑←←↓↓→↓←↓→→↑→↓→→↑↑←↑→→↑↑←←↑↑→↑←←↓←
+            ]]></code>
+            </remarks>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.Create(System.ReadOnlySpan{Puzzles.Hamiltonian.Concepts.Coordinate})">
             <summary>
