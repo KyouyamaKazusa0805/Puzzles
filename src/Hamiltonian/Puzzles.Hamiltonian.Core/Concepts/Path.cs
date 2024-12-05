@@ -134,10 +134,10 @@ public sealed class Path :
 	}
 
 	/// <inheritdoc/>
-	IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<Coordinate>)this).GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator() => _coordinates.GetEnumerator();
 
 	/// <inheritdoc/>
-	IEnumerator<Coordinate> IEnumerable<Coordinate>.GetEnumerator() => ((IEnumerable<Coordinate>)_coordinates).GetEnumerator();
+	IEnumerator<Coordinate> IEnumerable<Coordinate>.GetEnumerator() => _coordinates.AsEnumerable().GetEnumerator();
 
 
 	/// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)"/>
