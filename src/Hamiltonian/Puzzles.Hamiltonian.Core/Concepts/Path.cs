@@ -66,6 +66,19 @@ public sealed partial class Path :
 	[EquatableMember]
 	public ReadOnlySpan<Coordinate> Span => _coordinates;
 
+	/// <summary>
+	/// Returns the backing elements, integrated as a <see cref="ReadOnlySpan{T}"/>, in reversed order.
+	/// </summary>
+	public ReadOnlySpan<Coordinate> SpanReversed
+	{
+		get
+		{
+			var result = (Coordinate[])_coordinates.Clone();
+			result.Reverse();
+			return result;
+		}
+	}
+
 	/// <inheritdoc/>
 	int IReadOnlyCollection<Coordinate>.Count => Length;
 
@@ -111,6 +124,23 @@ public sealed partial class Path :
 
 	/// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
 	public AnonymousSpanEnumerator<Coordinate> GetEnumerator() => new(_coordinates);
+
+	/// <summary>
+	/// Enumerates all coordinates.
+	/// </summary>
+	/// <returns>An enumerator that can iterate on each coordinate.</returns>
+	public AnonymousSpanEnumerator<Coordinate> Enumerate() => GetEnumerator();
+
+	/// <summary>
+	/// Enumerates all coordinates in reversed order.
+	/// </summary>
+	/// <returns>An enumerator that can iterate on each coordinate.</returns>
+	public AnonymousSpanEnumerator<Coordinate> EnumerateReversed()
+	{
+		var pathCloned = (Coordinate[])_coordinates.Clone();
+		pathCloned.Reverse();
+		return new(pathCloned);
+	}
 
 	/// <summary>
 	/// Converts the current path object into a <see cref="Graph"/> instance.
@@ -168,7 +198,7 @@ public sealed partial class Path :
 	public static Path Parse(string str)
 	{
 		var split = str.Split(':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-		var startCoordinate = new Coordinate(int.Parse(split[0]) - '0', int.Parse(split[1]) - '0');
+		var startCoordinate = new Coordinate(int.Parse(split[0]), int.Parse(split[1]));
 		var coordinates = new List<Coordinate> { startCoordinate };
 		var currentCoordinate = startCoordinate;
 		foreach (var character in split[2])

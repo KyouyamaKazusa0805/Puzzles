@@ -403,7 +403,7 @@
             Gets the degree value at the specified coordinate.
             </summary>
             <param name="coordinate">The coordinate.</param>
-            <returns>The degree value. The return value must be 2, 3 or 4.</returns>
+            <returns>The degree value. The return value must be 1, 2, 3 or 4.</returns>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Graph.ToString">
             <inheritdoc/>
@@ -629,6 +629,11 @@
             Returns the backing elements, integrated as a <see cref="T:System.ReadOnlySpan`1"/>.
             </summary>
         </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Path.SpanReversed">
+            <summary>
+            Returns the backing elements, integrated as a <see cref="T:System.ReadOnlySpan`1"/>, in reversed order.
+            </summary>
+        </member>
         <member name="P:Puzzles.Hamiltonian.Concepts.Path.System#Collections#Generic#IReadOnlyCollection{Puzzles#Hamiltonian#Concepts#Coordinate}#Count">
             <inheritdoc/>
         </member>
@@ -655,6 +660,18 @@
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.GetEnumerator">
             <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Enumerate">
+            <summary>
+            Enumerates all coordinates.
+            </summary>
+            <returns>An enumerator that can iterate on each coordinate.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.EnumerateReversed">
+            <summary>
+            Enumerates all coordinates in reversed order.
+            </summary>
+            <returns>An enumerator that can iterate on each coordinate.</returns>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.AsGraph(System.Int32,System.Int32)">
             <summary>
@@ -819,12 +836,32 @@
             <param name="graph">The graph.</param>
             <returns>The sum degree value.</returns>
         </member>
+        <member name="M:Puzzles.Hamiltonian.Measuring.Degree.GetPathDegrees(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Path,System.Boolean,System.Boolean)">
+            <summary>
+            Gets an array of <see cref="T:System.Int32"/> values indicating the degree values on the path of cells;
+            using <paramref name="ignoreUsedCells"/> to determine whether used cells should also be counted up.
+            </summary>
+            <param name="graph">The graph.</param>
+            <param name="path">The path.</param>
+            <param name="ignoreUsedCells">Indicates whether the cells used should be ignored.</param>
+            <param name="isReversedOrder">Indicates whether the cells should use reversed order to be checked.</param>
+            <returns>A list of <see cref="T:System.Int32"/> values indicating the degrees.</returns>
+        </member>
         <member name="M:Puzzles.Hamiltonian.Measuring.Degree.GetDegreeFrequency(Puzzles.Hamiltonian.Concepts.Graph)">
             <summary>
             Gets a dictionary that describes the times of appearing of nodes of the specified degree.
             </summary>
             <param name="graph">The graph.</param>
             <returns>The dictionary that describes the times of appearing.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Measuring.Degree.GetDegreeAt(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate,System.Collections.Generic.HashSet{Puzzles.Hamiltonian.Concepts.Coordinate})">
+            <summary>
+            Gets the degree value at the specified coordinate.
+            </summary>
+            <param name="this">The graph.</param>
+            <param name="coordinate">The coordinate.</param>
+            <param name="usedCells">The used cells.</param>
+            <returns>The degree value. The return value must be 1, 2, 3 or 4.</returns>
         </member>
         <member name="T:Puzzles.Hamiltonian.Measuring.PathEntropy">
             <summary>

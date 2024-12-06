@@ -153,7 +153,7 @@ public sealed partial class Graph :
 	/// Gets the degree value at the specified coordinate.
 	/// </summary>
 	/// <param name="coordinate">The coordinate.</param>
-	/// <returns>The degree value. The return value must be 2, 3 or 4.</returns>
+	/// <returns>The degree value. The return value must be 1, 2, 3 or 4.</returns>
 	public int GetDegreeAt(Coordinate coordinate)
 	{
 		var result = 0;
