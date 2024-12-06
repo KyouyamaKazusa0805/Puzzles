@@ -154,25 +154,16 @@ public sealed partial class Graph :
 	/// </summary>
 	/// <param name="coordinate">The coordinate.</param>
 	/// <returns>The degree value. The return value must be 2, 3 or 4.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public int GetDegreeAt(Coordinate coordinate)
 	{
 		var result = 0;
-		if (!coordinate.Up.IsOutOfBound(this) && this[coordinate.Up])
+		foreach (var direction in Enum.GetValues<Direction>().AsReadOnlySpan()[1..])
 		{
-			result++;
-		}
-		if (!coordinate.Down.IsOutOfBound(this) && this[coordinate.Down])
-		{
-			result++;
-		}
-		if (!coordinate.Left.IsOutOfBound(this) && this[coordinate.Left])
-		{
-			result++;
-		}
-		if (!coordinate.Right.IsOutOfBound(this) && this[coordinate.Right])
-		{
-			result++;
+			var newCoordinate = coordinate >> direction;
+			if (!newCoordinate.IsOutOfBound(this) && this[newCoordinate])
+			{
+				result++;
+			}
 		}
 		return result;
 	}
