@@ -35,7 +35,7 @@ public static class Degree
 		var usedCells = ignoreUsedCells ? null : new HashSet<Coordinate>(path.Length);
 		foreach (var coordinate in isReversedOrder ? path.EnumerateReversed() : path.Enumerate())
 		{
-			result.Add(ignoreUsedCells ? graph.GetDegreeAt(coordinate) : graph.GetDegreeAt(coordinate, usedCells!));
+			result.Add(ignoreUsedCells ? graph.GetDegreeAt(coordinate, usedCells!) : graph.GetDegreeAt(coordinate));
 			usedCells?.Add(coordinate);
 		}
 		return result.AsSpan();
