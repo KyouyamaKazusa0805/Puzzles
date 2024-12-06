@@ -287,7 +287,7 @@ public sealed partial class Graph :
 	string IFormattable.ToString(string? format, IFormatProvider? formatProvider) => ToString(format);
 
 	/// <inheritdoc/>
-	IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<bool>)this).GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator() => this.AsEnumerable().GetEnumerator();
 
 	/// <inheritdoc/>
 	IEnumerator<bool> IEnumerable<bool>.GetEnumerator()
