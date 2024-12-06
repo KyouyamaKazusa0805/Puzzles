@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<RootNamespace>Puzzles.Flow</RootNamespace>
+		<DocumentationFile>../../docxml/Puzzles.Flow.Core.xml</DocumentationFile>
+		<DefineConstants>DISPLAY_COLOR_CONOSLE</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\PuzzlesMeta\src\Puzzles.SourceGeneration\Puzzles.SourceGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\..\PuzzlesMeta\src\System\SystemExtensions.csproj" />
+	</ItemGroup>
+
+</Project>

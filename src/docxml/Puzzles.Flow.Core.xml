@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Puzzles.Flow.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Puzzles.Flow.Concepts.Cell">
+            <summary>
+            Provides a way to operate with cells.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Cell.CellCreate(System.Byte,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
+            <summary>
+            Create a cell via type, color and direction.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="color">The color.</param>
+            <param name="direction">The direction.</param>
+            <returns>The cell.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Cell.GetCellColor(System.Byte)">
+            <summary>
+            Get the color from the cell.
+            </summary>
+            <param name="c">The cell.</param>
+            <returns>The color.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Cell.GetTypeFromCell(System.Byte)">
+            <summary>
+            Get the type from a cell value.
+            </summary>
+            <param name="c">The cell.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Cell.GetDirectionFromCell(System.Byte)">
+            <summary>
+            Get the direction from the cell.
+            </summary>
+            <param name="c">The cell.</param>
+            <returns>The direction.</returns>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Grid">
+            <summary>
+            Represents a grid.
+            </summary>
+            <param name="size">Indicates the size of the board.</param>
+            <param name="colorsCount">Indicates the number of colors used.</param>
+            <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.#ctor(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Represents a grid.
+            </summary>
+            <param name="size">Indicates the size of the board.</param>
+            <param name="colorsCount">Indicates the number of colors used.</param>
+            <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid.InitPositions">
+            <summary>
+            Indicates the init positions (start positions).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid.GoalPositions">
+            <summary>
+            Indicates the goal positions (end positions).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid.ColorTable">
+            <summary>
+            Indicates the color table looking up color ID.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid.ColorIds">
+            <summary>
+            Indicates the index values of color lookup table of codes.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid.ColorOrder">
+            <summary>
+            Indicates the color ordering.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.GetWallDistance(System.Int32,System.Int32)">
+            <summary>
+            Get wall distance from the specified coordinate values <paramref name="x"/> and <paramref name="y"/>.
+            </summary>
+            <param name="x">The x value.</param>
+            <param name="y">The y value.</param>
+            <returns>The distance.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.GetWallDistance(System.Byte)">
+            <summary>
+            Get wall distance from the specified coordinate value <paramref name="pos"/>.
+            </summary>
+            <param name="pos">The position.</param>
+            <returns>The distance.</returns>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Size">
+            <summary>
+            The generated property declaration for parameter <c>size</c>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.ColorsCount">
+            <summary>
+            The generated property declaration for parameter <c>colorsCount</c>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.IsUserOrdered">
+            <summary>
+            The generated property declaration for parameter <c>isUserOrdered</c>.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Position">
+            <summary>
+            Represents an easy way to convert values to position.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Position.GetPositionFromCoordinate(System.Byte,System.Byte)">
+            <summary>
+            Get position index from coordinate values <paramref name="x"/> and <paramref name="y"/>.
+            </summary>
+            <param name="x">The x value.</param>
+            <param name="y">The y value.</param>
+            <returns>The position index.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Position.GetOffsetPosition(Puzzles.Flow.Concepts.Grid@,System.Int32,System.Int32,Puzzles.Flow.Concepts.Primitives.Direction)">
+            <summary>
+            Get position offset.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="x">The x value.</param>
+            <param name="y">The y value.</param>
+            <param name="direction">The direction.</param>
+            <returns>The offset value.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Position.GetPositionFromPosition(Puzzles.Flow.Concepts.Grid@,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
+            <summary>
+            Get position from another position with advanced direction.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="pos">The position.</param>
+            <param name="direction">The direction.</param>
+            <returns>The position result.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Position.IsCoordinateValid(Puzzles.Flow.Concepts.Grid@,System.Int32,System.Int32)">
+            <summary>
+            Determine whether the coordinate is valid.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="x">The x value.</param>
+            <param name="y">The y value.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Position.GetCoordinateFromPosition(System.Byte,System.Int32@,System.Int32@)">
+            <summary>
+            Gets coordinate values from a position index.
+            </summary>
+            <param name="p">The position index.</param>
+            <param name="x">The x value.</param>
+            <param name="y">The y value.</param>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Primitives.CellType">
+            <summary>
+            Represents a type of cell used.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.CellType.Free">
+            <summary>
+            Indicates the cell is freed (unused).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.CellType.Path">
+            <summary>
+            Indicates the cell is used as a path node.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.CellType.Init">
+            <summary>
+            Indicates the cell is used as start cell.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.CellType.Goal">
+            <summary>
+            Indicates the cell is used as end cell.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Primitives.Direction">
+            <summary>
+            Represents a direction.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Up">
+            <summary>
+            Indicates the direction is up.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Down">
+            <summary>
+            Indicates the direction is down.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Left">
+            <summary>
+            Indicates the direction is left.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Right">
+            <summary>
+            Indicates the direction is right.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Primitives.DirectionExtensions">
+            <summary>
+            Provides with extension methods on <see cref="T:Puzzles.Flow.Concepts.Primitives.Direction"/>.
+            </summary>
+            <seealso cref="T:Puzzles.Flow.Concepts.Primitives.Direction"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Primitives.DirectionExtensions.GetArrow(Puzzles.Flow.Concepts.Primitives.Direction)">
+            <summary>
+            Gets the arrow character for the specified direction.
+            </summary>
+            <param name="this">The direction.</param>
+            <returns>The arrow character.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument is not defined.</exception>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Primitives.DirectionExtensions.GetDirectionDelta(Puzzles.Flow.Concepts.Primitives.Direction)">
+            <summary>
+            Gets the direction delta value that represents the coordinate advancing.
+            </summary>
+            <param name="this">The direction.</param>
+            <returns>The delta array.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument is not defined.</exception>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.SearchingProgressType">
+            <summary>
+            Represents a type of progress in searching.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.Success">
+            <summary>
+            Indicates the progress type is successful (finished).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.Unreachable">
+            <summary>
+            Indicates the progress type is unreachable (failed).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.Full">
+            <summary>
+            Indicates the progress type is full.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.InProgress">
+            <summary>
+            Indicates the progress type is in-progress.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Drawing.ColorLookup">
+            <summary>
+            Represents a color lookup element.
+            </summary>
+            <param name="InputChar">Indicates the input character.</param>
+            <param name="ConsoleOutColorString">Indicates the console out colorization string.</param>
+            <param name="ForegroundRgbString">Indicates the foreground color string.</param>
+            <param name="BackgroundRgbString">Indicates the background color string.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Drawing.ColorLookup.#ctor(System.Char,System.String,System.String,System.String)">
+            <summary>
+            Represents a color lookup element.
+            </summary>
+            <param name="InputChar">Indicates the input character.</param>
+            <param name="ConsoleOutColorString">Indicates the console out colorization string.</param>
+            <param name="ForegroundRgbString">Indicates the foreground color string.</param>
+            <param name="BackgroundRgbString">Indicates the background color string.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Drawing.ColorLookup.InputChar">
+            <summary>Indicates the input character.</summary>
+        </member>
+        <member name="P:Puzzles.Flow.Drawing.ColorLookup.ConsoleOutColorString">
+            <summary>Indicates the console out colorization string.</summary>
+        </member>
+        <member name="P:Puzzles.Flow.Drawing.ColorLookup.ForegroundRgbString">
+            <summary>Indicates the foreground color string.</summary>
+        </member>
+        <member name="P:Puzzles.Flow.Drawing.ColorLookup.BackgroundRgbString">
+            <summary>Indicates the background color string.</summary>
+        </member>
+        <member name="T:Puzzles.Flow.ProjectWideConstants">
+            <summary>
+            Represents a list of constants and read-only fields used in project.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.ProjectWideConstants.InvalidPos">
+            <summary>
+            Indicates the invalid position value.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.ProjectWideConstants.MaxColors">
+            <summary>
+            Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.ProjectWideConstants.MaxSize">
+            <summary>
+            Indicates the maximum size of the grid. This value is a constant and cannot be modified due to massive complexity.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.ProjectWideConstants.MaxCells">
+            <summary>
+            Indicates the maximum length of cells available in the grid. The value is equal to 239.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.ProjectWideConstants.MegaByte">
+            <summary>
+            Represents mega-bytes. The value is equal to 1048576.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.ProjectWideConstants.ColorDictionary">
+            <summary>
+            Indicates the color lookup dictionary.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.ProjectWideConstants.GetColor(System.Char)">
+            <summary>
+            Returns the color index of dictionary table <see cref="F:Puzzles.Flow.ProjectWideConstants.ColorDictionary"/>.
+            </summary>
+            <param name="c">The input character.</param>
+            <returns>The index.</returns>
+            <seealso cref="F:Puzzles.Flow.ProjectWideConstants.ColorDictionary"/>
+        </member>
+        <member name="T:Puzzles.Flow.Text.ConsoleOut">
+            <summary>
+            Provides a way to handle console output text.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Text.ConsoleOut.GetColorString(System.String,System.Char)">
+            <summary>
+            Get color string.
+            </summary>
+            <param name="colorString">The color console out string.</param>
+            <param name="inputChar">The input character.</param>
+            <returns>The string.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Text.ConsoleOut.ClearBoard(Puzzles.Flow.Concepts.Grid@)">
+            <summary>
+            Clear screen in console, and set cursor position to (0, 0).
+            </summary>
+            <param name="grid">The grid.</param>
+            <returns>The fresh string.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Text.ConsoleOut.GetColorNameString(Puzzles.Flow.Concepts.Grid@,System.Int32)">
+            <summary>
+            Get color name string.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="color">The color.</param>
+            <returns>Color name string.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Text.ConsoleOut.GetColorCellString(Puzzles.Flow.Concepts.Grid@,System.Byte)">
+            <summary>
+            Get color cell string.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="cell">The cell.</param>
+            <returns>The string.</returns>
+        </member>
+    </members>
+</doc>

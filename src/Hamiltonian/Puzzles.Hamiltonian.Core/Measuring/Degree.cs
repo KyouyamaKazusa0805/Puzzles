@@ -32,7 +32,7 @@ public static class Degree
 	public static ReadOnlySpan<int> GetPathDegrees(Graph graph, Path path, bool ignoreUsedCells, bool isReversedOrder)
 	{
 		var result = new List<int>(path.Length);
-		var usedCells = ignoreUsedCells ? null : new HashSet<Coordinate>(path.Length);
+		var usedCells = ignoreUsedCells ? new HashSet<Coordinate>(path.Length) : null;
 		foreach (var coordinate in isReversedOrder ? path.EnumerateReversed() : path.Enumerate())
 		{
 			result.Add(ignoreUsedCells ? graph.GetDegreeAt(coordinate, usedCells!) : graph.GetDegreeAt(coordinate));

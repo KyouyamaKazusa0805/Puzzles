@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<RootNamespace>Puzzles.Flow</RootNamespace>
+		<DocumentationFile>../../docxml/Puzzles.Flow.Analytics.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\PuzzlesMeta\src\Puzzles.SourceGeneration\Puzzles.SourceGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\..\PuzzlesMeta\src\System\SystemExtensions.csproj" />
+		<ProjectReference Include="..\Puzzles.Flow.Core\Puzzles.Flow.Core.csproj" />
+	</ItemGroup>
+
+</Project>

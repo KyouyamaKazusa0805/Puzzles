@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Game - Flow/">
+    <Project Path="src/Flow/Puzzles.Flow.Analytics/Puzzles.Flow.Analytics.csproj" Id="7d169ac0-6cfb-4c50-acf2-2cee698ab2bf" />
+    <Project Path="src/Flow/Puzzles.Flow.Core/Puzzles.Flow.Core.csproj" Id="8fec8a57-d87e-486d-8cc3-af5e56b35d3b" />
+  </Folder>
   <Folder Name="/Game - Hamiltonian/">
     <Project Path="src/Hamiltonian/Puzzles.Hamiltonian.Core/Puzzles.Hamiltonian.Core.csproj" />
   </Folder>

@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Puzzles.Flow.Analytics</name>
+    </assembly>
+    <members>
+        <member name="T:Puzzles.Flow.Analytics.Analyzer">
+            <summary>
+            Represents an analyzer.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckTouchness">
+            <summary>
+            Indicates whether analyzer will check on touchness.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckStranded">
+            <summary>
+            Indicates whether analyzer will check on stranded cases.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckDeadends">
+            <summary>
+            Indicates whether analyzer will check on dead-end cases.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.SearchOutsideIn">
+            <summary>
+            Indicates whether analyzer will search for outside-in cases.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.SearchFastForward">
+            <summary>
+            Indicates whether analyzer will search fast forwardly.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.PenalizeExploration">
+            <summary>
+            Indicates whether analyzer will explore penalized cases.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.ReorderColors">
+            <summary>
+            Indicates whether analyzer will automatically adjust colors in searching experience.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.ReorderOnMostConstrained">
+            <summary>
+            Indicates whether analyzer will automatically adjust colors via constrainted priority.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.ForcesFirstColor">
+            <summary>
+            Indicates whether analyzer will force the first color as start.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.RandomOrdering">
+            <summary>
+            Indicates whether analyzer will randomize colors.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.UsesBestFirstSearch">
+            <summary>
+            Indicates whether analyzer will use best-first search (BFS) rule to check grid.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.MaxMemoryUsage">
+            <summary>
+            Indicates the maximum memory usage in mega-bytes.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.BottleneckLimit">
+            <summary>
+            Indicates the number of bottleneck limit.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.MaxNodes">
+            <summary>
+            Indicates the number of maximum nodes can be reached.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueCreator">
+            <summary>
+            Indicates the queue creator method.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueEnqueuer">
+            <summary>
+            Indicates the queue enqueuer method.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueDequeuer">
+            <summary>
+            Indicates the queue dequeuer method.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueDestroyer">
+            <summary>
+            Indicatees the queue destroyer method.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueClearer">
+            <summary>
+            Indicates the queue clearer method.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueuePeeker">
+            <summary>
+            Indicates thee queue peeker method.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.ColorFeature">
+            <summary>
+            Represents a type that is used for sorting colors if <see cref="P:Puzzles.Flow.Analytics.Analyzer.ReorderColors"/> is set <see langword="true"/>.
+            </summary>
+            <seealso cref="P:Puzzles.Flow.Analytics.Analyzer.ReorderColors"/>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.ColorFeature.Index">
+            <summary>
+            Indicates the index reordered.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.ColorFeature.UserIndex">
+            <summary>
+            Indicates the index which is user-specified.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.ColorFeature.MinDistance">
+            <summary>
+            Indicates the minimal distance.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.ColorFeature.WallDistance">
+            <summary>
+            Indicates the wall distance.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.FifoBasedQueue">
+            <summary>
+            Indicates the data structure for FIFO-based priority queue.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Count">
+            <summary>
+            Indicates the number enqueued.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Capacity">
+            <summary>
+            Indicates the maximum allowable queue size.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Next">
+            <summary>
+            Indicates the next index to dequeue.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Start">
+            <summary>
+            Indicates the array of nodes.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.HeapBasedQueue">
+            <summary>
+            Indicates the data structure for heap-based priority queue.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Count">
+            <summary>
+            Indicates the number enqueued.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Capacity">
+            <summary>
+            Indicates the maximum allowable queue size.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Start">
+            <summary>
+            Indicates the array of nodes.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.NodeStorage">
+            <summary>
+            Represents data structure for node storage.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.NodeStorage.Capacity">
+            <summary>
+            Indicates the capacity.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.NodeStorage.Count">
+            <summary>
+            Indicates the number of nodes solved.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.NodeStorage.Start">
+            <summary>
+            Indicates the allocated block.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.ProgressState">
+            <summary>
+            Represents a progress state.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.ProgressState.Cells">
+            <summary>
+            Indicates the cell states.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.ProgressState.Positions">
+            <summary>
+            Indicates the positions.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.ProgressState.FreedCellsCount">
+            <summary>
+            Indicates the number of freed cells.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.ProgressState.LastColor">
+            <summary>
+            Indicates the last color.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.ProgressState.CompletedMask">
+            <summary>
+            Indicates the bit flags indicating whether each color has been completed or not
+            (cur_pos is adjacent to goal_pos).
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.Queue">
+            <summary>
+            Represents a local queue union type.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Queue.HeapBased">
+            <summary>
+            Indicates the heap-based value.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Queue.FifoBased">
+            <summary>
+            Indicates the FIFO-based value.
+            </summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.Region">
+            <summary>
+            Indicates disjointed set data structure for connected component analysis of free spaces (see region_ functions).
+            </summary>
+            <param name="Parent">Indicates the parent index.</param>
+            <param name="Rank">Indicates rank (see Wikipedia article).</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Region.#ctor(System.Byte,System.Byte)">
+            <summary>
+            Indicates disjointed set data structure for connected component analysis of free spaces (see region_ functions).
+            </summary>
+            <param name="Parent">Indicates the parent index.</param>
+            <param name="Rank">Indicates rank (see Wikipedia article).</param>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Region.Parent">
+            <summary>Indicates the parent index.</summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.Region.Rank">
+            <summary>Indicates rank (see Wikipedia article).</summary>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.TreeNode">
+            <summary>
+            Represents a node in searching on A* or BFS algorithm.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.TreeNode.CostToCome">
+            <summary>
+            Indicates the cost to come (this field will be ignored in BFS).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.TreeNode.CostToGo">
+            <summary>
+            Indicates the cost to go (this field will be ignored in BFS).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.TreeNode.State">
+            <summary>
+            Indicates the current progress state.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.TreeNode.Parent">
+            <summary>
+            Indicates the parent of this node (can also be <see langword="null"/>).
+            </summary>
+        </member>
+    </members>
+</doc>
