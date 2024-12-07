@@ -9,7 +9,7 @@
             Provides a way to operate with cells.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Cell.CellCreate(System.Byte,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
+        <member name="M:Puzzles.Flow.Concepts.Cell.Create(Puzzles.Flow.Concepts.Primitives.CellType,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
             <summary>
             Create a cell via type, color and direction.
             </summary>
@@ -47,7 +47,7 @@
             <param name="colorsCount">Indicates the number of colors used.</param>
             <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.#ctor(System.Int32,System.Int32,System.Boolean)">
+        <member name="M:Puzzles.Flow.Concepts.Grid.#ctor(System.Int32,System.Byte,System.Boolean)">
             <summary>
             Represents a grid.
             </summary>
@@ -125,13 +125,14 @@
         </member>
         <member name="M:Puzzles.Flow.Concepts.Position.GetOffsetPosition(Puzzles.Flow.Concepts.Grid@,System.Int32,System.Int32,Puzzles.Flow.Concepts.Primitives.Direction)">
             <summary>
-            Get position offset.
+            Get position offset, or return <see cref="F:Puzzles.Flow.ProjectWideConstants.InvalidPos"/> if bounds.
             </summary>
             <param name="grid">The grid.</param>
             <param name="x">The x value.</param>
             <param name="y">The y value.</param>
             <param name="direction">The direction.</param>
             <returns>The offset value.</returns>
+            <seealso cref="F:Puzzles.Flow.ProjectWideConstants.InvalidPos"/>
         </member>
         <member name="M:Puzzles.Flow.Concepts.Position.GetPositionFromPosition(Puzzles.Flow.Concepts.Grid@,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
             <summary>
@@ -314,6 +315,11 @@
         <member name="F:Puzzles.Flow.ProjectWideConstants.MegaByte">
             <summary>
             Represents mega-bytes. The value is equal to 1048576.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.ProjectWideConstants.Directions">
+            <summary>
+            Indicates all directions.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.ProjectWideConstants.ColorDictionary">

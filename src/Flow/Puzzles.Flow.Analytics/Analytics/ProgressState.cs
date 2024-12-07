@@ -29,7 +29,44 @@ public unsafe partial struct ProgressState
 
 	/// <summary>
 	/// Indicates the bit flags indicating whether each color has been completed or not
-	/// (cur_pos is adjacent to goal_pos).
+	/// (<c>currentPosition</c> is adjacent to <c>goalPosition</c>).
 	/// </summary>
 	public short CompletedMask { get; set; }
+
+
+	/// <summary>
+	/// Print the grid to the specified stream.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="writer">The writer.</param>
+	public static void Print(ref readonly Grid grid, ref readonly ProgressState state, TextWriter writer)
+	{
+		const char blockChar = '#';
+
+		writer.Write(blockChar);
+		for (var x = 0; x < grid.Size; x++)
+		{
+			writer.Write(blockChar);
+		}
+		writer.WriteLine(blockChar);
+
+		for (var y = (byte)0; y < grid.Size; y++)
+		{
+			writer.Write(blockChar);
+			for (var x = (byte)0; x < grid.Size; x++)
+			{
+				var cell = state.Cells[Position.GetPositionFromCoordinate(x, y)];
+				writer.Write(ConsoleOut.GetColorCellString(in grid, cell));
+			}
+			writer.WriteLine(blockChar);
+		}
+
+		writer.Write(blockChar);
+		for (var x = 0; x < grid.Size; x++)
+		{
+			writer.Write(blockChar);
+		}
+		writer.WriteLine(blockChar);
+	}
 }

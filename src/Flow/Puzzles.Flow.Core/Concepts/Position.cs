@@ -12,16 +12,17 @@ public static class Position
 	/// <param name="y">The y value.</param>
 	/// <returns>The position index.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetPositionFromCoordinate(byte x, byte y) => (byte)(y & 0xF << 4 | x & 0xF);
+	public static byte GetPositionFromCoordinate(byte x, byte y) => (byte)((y & 0xF) << 4 | x & 0xF);
 
 	/// <summary>
-	/// Get position offset.
+	/// Get position offset, or return <see cref="InvalidPos"/> if bounds.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="x">The x value.</param>
 	/// <param name="y">The y value.</param>
 	/// <param name="direction">The direction.</param>
 	/// <returns>The offset value.</returns>
+	/// <seealso cref="InvalidPos"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static byte GetOffsetPosition(ref readonly Grid grid, int x, int y, Direction direction)
 	{
@@ -62,5 +63,5 @@ public static class Position
 	/// <param name="x">The x value.</param>
 	/// <param name="y">The y value.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void GetCoordinateFromPosition(byte p, out int x, out int y) => (x, y) = (p & 0xF, (p >> 4) & 0xF);
+	public static void GetCoordinateFromPosition(byte p, out int x, out int y) => (x, y) = (p & 0xF, p >> 4 & 0xF);
 }

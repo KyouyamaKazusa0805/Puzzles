@@ -7,7 +7,11 @@ namespace Puzzles.Flow.Concepts;
 /// <param name="colorsCount">Indicates the number of colors used.</param>
 /// <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
 [StructLayout(LayoutKind.Auto)]
-public unsafe partial struct Grid([Property] int size, [Property] int colorsCount, [Property] bool isUserOrdered)
+public unsafe partial struct Grid(
+	[Property] int size,
+	[Property(Setter = PropertySetters.Set)] byte colorsCount,
+	[Property] bool isUserOrdered
+)
 {
 	/// <summary>
 	/// Indicates the init positions (start positions).
@@ -32,7 +36,7 @@ public unsafe partial struct Grid([Property] int size, [Property] int colorsCoun
 	/// <summary>
 	/// Indicates the color ordering.
 	/// </summary>
-	public fixed int ColorOrder[MaxColors];
+	public fixed byte ColorOrder[MaxColors];
 
 
 	/// <summary>

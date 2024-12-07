@@ -32,6 +32,11 @@ public static class ProjectWideConstants
 
 
 	/// <summary>
+	/// Indicates all directions.
+	/// </summary>
+	public static readonly Direction[] Directions = [Direction.Up, Direction.Down, Direction.Left, Direction.Right];
+
+	/// <summary>
 	/// Indicates the color lookup dictionary.
 	/// </summary>
 	public static readonly ColorLookup[] ColorDictionary = [
@@ -62,6 +67,7 @@ public static class ProjectWideConstants
 	/// <seealso cref="ColorDictionary"/>
 	public static int GetColor(char c)
 	{
+		c = char.ToUpper(c);
 		for (var i = 0; i < MaxColors; i++)
 		{
 			if (ColorDictionary[i].InputChar == c)

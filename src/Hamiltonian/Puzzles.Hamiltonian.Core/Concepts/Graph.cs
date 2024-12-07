@@ -157,7 +157,7 @@ public sealed partial class Graph :
 	public int GetDegreeAt(Coordinate coordinate)
 	{
 		var result = 0;
-		foreach (var direction in Enum.GetValues<Direction>().AsReadOnlySpan()[1..])
+		foreach (var direction in Directions)
 		{
 			var newCoordinate = coordinate >> direction;
 			if (!newCoordinate.IsOutOfBound(this) && this[newCoordinate])

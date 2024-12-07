@@ -4,7 +4,11 @@ namespace Puzzles.Flow.Analytics;
 /// Represents a type that is used for sorting colors if <see cref="Analyzer.ReorderColors"/> is set <see langword="true"/>.
 /// </summary>
 /// <seealso cref="Analyzer.ReorderColors"/>
-internal struct ColorFeature
+[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.AllEqualityComparisonOperators, IsLargeStructure = true)]
+internal partial struct ColorFeature :
+	IComparable<ColorFeature>,
+	IComparisonOperators<ColorFeature, ColorFeature, bool>,
+	IEquatable<ColorFeature>
 {
 	/// <summary>
 	/// Indicates the index reordered.
@@ -24,5 +28,46 @@ internal struct ColorFeature
 	/// <summary>
 	/// Indicates the wall distance.
 	/// </summary>
-	public (int, int) WallDistance;
+	public (int First, int Second) WallDistance;
+
+
+	/// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
+	public readonly bool Equals(ref readonly ColorFeature other) => Compare(this, other) == 0;
+
+	/// <inheritdoc/>
+	public override readonly int GetHashCode()
+		=> HashCode.Combine(UserIndex, MinDistance, WallDistance.First, WallDistance.Second);
+
+	/// <inheritdoc cref="IComparable{T}.CompareTo(T)"/>
+	public readonly int CompareTo(ref readonly ColorFeature other) => Compare(this, other);
+
+	/// <inheritdoc/>
+	readonly bool IEquatable<ColorFeature>.Equals(ColorFeature other) => Compare(this, other) == 0;
+
+	/// <inheritdoc/>
+	readonly int IComparable<ColorFeature>.CompareTo(ColorFeature other) => Compare(this, other);
+
+
+	/// <summary>
+	/// Compares two <see cref="ColorFeature"/> instances.
+	/// </summary>
+	/// <param name="left">The first element to be compared.</param>
+	/// <param name="right">The second element to be compared.</param>
+	/// <returns>An <see cref="int"/> indicating the result.</returns>
+	public static int Compare(ColorFeature left, ColorFeature right)
+	{
+		if (left.UserIndex - right.UserIndex is var r1 and not 0)
+		{
+			return r1;
+		}
+		if (left.WallDistance.First - right.WallDistance.First is var r2 and not 0)
+		{
+			return r2;
+		}
+		if (left.WallDistance.Second - right.WallDistance.Second is var r3 and not 0)
+		{
+			return r3;
+		}
+		return left.MinDistance - right.MinDistance;
+	}
 }

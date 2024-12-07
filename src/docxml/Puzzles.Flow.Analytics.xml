@@ -109,6 +109,69 @@
             Indicates thee queue peeker method.
             </summary>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.TryLoadPuzzle(System.String,Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProgressState@)">
+            <summary>
+            Try to load a puzzle via its string representation, and return its bound grid data structure and state.
+            </summary>
+            <param name="gridString">The grid string.</param>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating whether the loading operation is successful.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.CanMove(Puzzles.Flow.Analytics.ProgressState@,Puzzles.Flow.Concepts.Grid@,System.Int32,Puzzles.Flow.Concepts.Primitives.Direction)">
+            <summary>
+            Determine whether the current grid can move.
+            </summary>
+            <param name="state">The current state.</param>
+            <param name="grid">The grid.</param>
+            <param name="color">The color.</param>
+            <param name="direction">The direction.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Throws when the argument <paramref name="grid"/> or <paramref name="color"/> is invalid.
+            </exception>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetNextMoveColor(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProgressState@)">
+            <summary>
+            Pick the next color to move deterministically.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <returns>The next color chosen.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.MakeMove(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProgressState@,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction,System.Boolean)">
+            <summary>
+            Make a valid move.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <param name="color">The color.</param>
+            <param name="direction">The direction.</param>
+            <param name="forced">Indicates whether the move is forced.</param>
+            <returns>A <see cref="T:System.Double"/> result.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Throws when the <paramref name="color"/> specified is exceeded the limit.
+            </exception>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetFreedCoordinatesCount(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProgressState@,System.Int32,System.Int32)">
+            <summary>
+            Get the number of freed spaces around coordinate x and y.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <param name="x">The x coordinate value.</param>
+            <param name="y">The y coordinate value.</param>
+            <returns>An <see cref="T:System.Int32"/> value indicating the number.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetFreedCoordinatesCount(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProgressState@,System.Byte)">
+            <summary>
+            Get the number of freed spaces around coordinate x and y.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <param name="position">The position.</param>
+            <returns>An <see cref="T:System.Int32"/> value indicating the number.</returns>
+        </member>
         <member name="T:Puzzles.Flow.Analytics.ColorFeature">
             <summary>
             Represents a type that is used for sorting colors if <see cref="P:Puzzles.Flow.Analytics.Analyzer.ReorderColors"/> is set <see langword="true"/>.
@@ -134,6 +197,65 @@
             <summary>
             Indicates the wall distance.
             </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.Equals(Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.CompareTo(Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.IComparable`1.CompareTo(`0)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#IEquatable{Puzzles#Flow#Analytics#ColorFeature}#Equals(Puzzles.Flow.Analytics.ColorFeature)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#IComparable{Puzzles#Flow#Analytics#ColorFeature}#CompareTo(Puzzles.Flow.Analytics.ColorFeature)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.Compare(Puzzles.Flow.Analytics.ColorFeature,Puzzles.Flow.Analytics.ColorFeature)">
+            <summary>
+            Compares two <see cref="T:Puzzles.Flow.Analytics.ColorFeature"/> instances.
+            </summary>
+            <param name="left">The first element to be compared.</param>
+            <param name="right">The second element to be compared.</param>
+            <returns>An <see cref="T:System.Int32"/> indicating the result.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.op_Equality(Puzzles.Flow.Analytics.ColorFeature@,Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.op_Inequality(Puzzles.Flow.Analytics.ColorFeature@,Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#Numerics#IEqualityOperators{Puzzles#Flow#Analytics#ColorFeature,Puzzles#Flow#Analytics#ColorFeature,System#Boolean}#op_Equality(Puzzles.Flow.Analytics.ColorFeature,Puzzles.Flow.Analytics.ColorFeature)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#Numerics#IEqualityOperators{Puzzles#Flow#Analytics#ColorFeature,Puzzles#Flow#Analytics#ColorFeature,System#Boolean}#op_Inequality(Puzzles.Flow.Analytics.ColorFeature,Puzzles.Flow.Analytics.ColorFeature)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.op_GreaterThan(Puzzles.Flow.Analytics.ColorFeature@,Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.op_LessThan(Puzzles.Flow.Analytics.ColorFeature@,Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.op_GreaterThanOrEqual(Puzzles.Flow.Analytics.ColorFeature@,Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.op_LessThanOrEqual(Puzzles.Flow.Analytics.ColorFeature@,Puzzles.Flow.Analytics.ColorFeature@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#ColorFeature,Puzzles#Flow#Analytics#ColorFeature,System#Boolean}#op_GreaterThan(Puzzles.Flow.Analytics.ColorFeature,Puzzles.Flow.Analytics.ColorFeature)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#ColorFeature,Puzzles#Flow#Analytics#ColorFeature,System#Boolean}#op_LessThan(Puzzles.Flow.Analytics.ColorFeature,Puzzles.Flow.Analytics.ColorFeature)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#ColorFeature,Puzzles#Flow#Analytics#ColorFeature,System#Boolean}#op_LessThanOrEqual(Puzzles.Flow.Analytics.ColorFeature,Puzzles.Flow.Analytics.ColorFeature)">
+            <inheritdoc/>
         </member>
         <member name="T:Puzzles.Flow.Analytics.FifoBasedQueue">
             <summary>
@@ -228,8 +350,16 @@
         <member name="P:Puzzles.Flow.Analytics.ProgressState.CompletedMask">
             <summary>
             Indicates the bit flags indicating whether each color has been completed or not
-            (cur_pos is adjacent to goal_pos).
+            (<c>currentPosition</c> is adjacent to <c>goalPosition</c>).
             </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ProgressState.Print(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProgressState@,System.IO.TextWriter)">
+            <summary>
+            Print the grid to the specified stream.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <param name="writer">The writer.</param>
         </member>
         <member name="T:Puzzles.Flow.Analytics.Queue">
             <summary>
