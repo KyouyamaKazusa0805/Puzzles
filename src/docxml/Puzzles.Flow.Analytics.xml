@@ -118,6 +118,14 @@
             <param name="state">The state.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating whether the loading operation is successful.</returns>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.OrderColors(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProgressState@,System.String)">
+            <summary>
+            Order colors.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <param name="userOrder">User order.</param>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.CanMove(Puzzles.Flow.Analytics.ProgressState@,Puzzles.Flow.Concepts.Grid@,System.Int32,Puzzles.Flow.Concepts.Primitives.Direction)">
             <summary>
             Determine whether the current grid can move.

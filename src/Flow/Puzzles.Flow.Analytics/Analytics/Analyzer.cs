@@ -227,6 +227,79 @@ public sealed unsafe class Analyzer
 	}
 
 	/// <summary>
+	/// Order colors.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="userOrder">User order.</param>
+	[SuppressMessage("Style", "IDE0042:Deconstruct variable declaration", Justification = "<Pending>")]
+	private void OrderColors(ref Grid grid, ref ProgressState state, string? userOrder)
+	{
+		if (RandomOrdering)
+		{
+			var rng = Random.Shared;
+			for (var i = grid.ColorsCount - 1; i > 0; i--)
+			{
+				var j = rng.Next(0, i + 1);
+				(grid.ColorOrder[i], grid.ColorOrder[j]) = (grid.ColorOrder[j], grid.ColorOrder[i]);
+			}
+			return;
+		}
+
+		var cf = (stackalloc ColorFeature[MaxColors]);
+		cf.Clear();
+
+		for (var color = (byte)0; color < grid.ColorsCount; color++)
+		{
+			cf[color].Index = color;
+			cf[color].UserIndex = MaxColors;
+		}
+
+		if (ReorderColors)
+		{
+			for (var color = (byte)0; color < grid.ColorsCount; color++)
+			{
+				var x = (First: 0, Second: 0);
+				var y = (First: 0, Second: 0);
+				foreach (var isFirst in (true, false))
+				{
+					ref var p = ref isFirst ? ref cf[color].WallDistance.First : ref cf[color].WallDistance.Second;
+					p = grid.GetWallDistance(isFirst ? x.First : x.Second, isFirst ? y.First : y.Second);
+				}
+
+				var dx = Math.Abs(x.Second - x.First);
+				var dy = Math.Abs(y.Second - y.First);
+				cf[color].MinDistance = dx + dy;
+			}
+		}
+
+		if (userOrder is not null)
+		{
+			var k = 0;
+			foreach (var c in userOrder.ToUpper())
+			{
+				var color = c < 127 ? grid.ColorTable[c] : MaxColors;
+				if (color >= grid.ColorsCount)
+				{
+					throw new InvalidOperationException("The current color specified in user list is not used in the puzzle.");
+				}
+				if (cf[color].UserIndex < grid.ColorsCount)
+				{
+					throw new InvalidOperationException("The current color specified is already used.");
+				}
+				cf[color].UserIndex = k++;
+			}
+			grid.IsUserOrdered = true;
+		}
+
+		cf.Sort(ColorFeature.Compare);
+		for (var i = 0; i < grid.ColorsCount; i++)
+		{
+			grid.ColorOrder[i] = cf[i].Index;
+		}
+	}
+
+	/// <summary>
 	/// Determine whether the current grid can move.
 	/// </summary>
 	/// <param name="state">The current state.</param>

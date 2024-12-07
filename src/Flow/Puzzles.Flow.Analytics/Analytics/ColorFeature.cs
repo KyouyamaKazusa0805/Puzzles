@@ -13,7 +13,7 @@ internal partial struct ColorFeature :
 	/// <summary>
 	/// Indicates the index reordered.
 	/// </summary>
-	public int Index;
+	public byte Index;
 
 	/// <summary>
 	/// Indicates the index which is user-specified.

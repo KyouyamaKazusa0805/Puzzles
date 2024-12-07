@@ -10,7 +10,7 @@ namespace Puzzles.Flow.Concepts;
 public unsafe partial struct Grid(
 	[Property] int size,
 	[Property(Setter = PropertySetters.Set)] byte colorsCount,
-	[Property] bool isUserOrdered
+	[Property(Setter = PropertySetters.Set)] bool isUserOrdered
 )
 {
 	/// <summary>
