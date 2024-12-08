@@ -13,12 +13,12 @@ public sealed unsafe class Analyzer
 	/// <summary>
 	/// Indicates whether analyzer will check on stranded cases.
 	/// </summary>
-	public bool CheckStranded { get; set; }
+	public bool CheckStrandedCases { get; set; }
 
 	/// <summary>
-	/// Indicates whether analyzer will check on dead-end cases.
+	/// Indicates whether analyzer will check on deadend cases.
 	/// </summary>
-	public bool CheckDeadends { get; set; }
+	public bool CheckDeadendCases { get; set; }
 
 	/// <summary>
 	/// Indicates whether analyzer will search for outside-in cases.
@@ -119,7 +119,7 @@ public sealed unsafe class Analyzer
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>A <see cref="bool"/> result indicating whether the loading operation is successful.</returns>
-	public bool TryLoadPuzzle(string gridString, out Grid grid, out ProgressState state)
+	public bool TryLoadPuzzle(string gridString, out Grid grid, out ProcessState state)
 	{
 		state = default;
 		new Span<byte>(Unsafe.AsPointer(ref state.Positions[0]), MaxColors).Fill(byte.MaxValue);
@@ -227,13 +227,96 @@ public sealed unsafe class Analyzer
 	}
 
 	/// <summary>
+	/// Add the current color bit flag to the regions adjacent to the current or goal position.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="resultMap">The result map.</param>
+	/// <param name="pos">The position.</param>
+	/// <param name="cFlag">The flag.</param>
+	/// <param name="resultFlags">The result flags.</param>
+	private void AddColor(
+		ref readonly Grid grid,
+		ref readonly ProcessState state,
+		Span<byte> resultMap,
+		byte pos,
+		short cFlag,
+		Span<short> resultFlags
+	)
+	{
+		foreach (var direction in Directions)
+		{
+			var neighborPos = Position.GetOffsetPosition(in grid, pos, direction);
+			if (neighborPos != InvalidPos)
+			{
+				// Find out what region it is in.
+				// If it is in a valid region, we should add this color to the region.
+				var neighborRegion = resultMap[neighborPos];
+				if (neighborRegion != InvalidPos)
+				{
+					resultFlags[neighborRegion] |= cFlag;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// Print regions.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="resultMap">The result map.</param>
+	/// <param name="writer">The writer.</param>
+	private void PrintRegions(ref readonly Grid grid, ref readonly ProcessState state, ReadOnlySpan<byte> resultMap, TextWriter writer)
+	{
+		const char blockChar = '#';
+		writer.Write(blockChar);
+		for (var x = 0; x < grid.Size; x++)
+		{
+			writer.Write(blockChar);
+		}
+		writer.WriteLine(blockChar);
+
+		for (var y = (byte)0; y < grid.Size; y++)
+		{
+			writer.Write(blockChar);
+			for (var x = (byte)0; x < grid.Size; x++)
+			{
+				var pos = Position.GetPositionFromCoordinate(x, y);
+				var rid = resultMap[pos];
+				ref readonly var l = ref ColorDictionary[rid % MaxColors];
+				if (state.Cells[pos] == 0)
+				{
+					Debug.Assert(rid != InvalidPos);
+					var c = (char)('A' + rid % 60);
+					writer.Write(ConsoleOut.GetColorString(l.ConsoleOutColorString, l.InputChar));
+				}
+				else
+				{
+					Debug.Assert(rid == InvalidPos);
+					writer.Write(' ');
+				}
+			}
+			writer.WriteLine(blockChar);
+		}
+
+		writer.Write(blockChar);
+		for (var x = 0; x < grid.Size; x++)
+		{
+			writer.Write(blockChar);
+		}
+		writer.WriteLine(blockChar);
+		writer.WriteLine();
+	}
+
+	/// <summary>
 	/// Order colors.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <param name="userOrder">User order.</param>
 	[SuppressMessage("Style", "IDE0042:Deconstruct variable declaration", Justification = "<Pending>")]
-	private void OrderColors(ref Grid grid, ref ProgressState state, string? userOrder)
+	private void OrderColors(ref Grid grid, ref ProcessState state, string? userOrder)
 	{
 		if (RandomOrdering)
 		{
@@ -310,7 +393,7 @@ public sealed unsafe class Analyzer
 	/// <exception cref="ArgumentOutOfRangeException">
 	/// Throws when the argument <paramref name="grid"/> or <paramref name="color"/> is invalid.
 	/// </exception>
-	private bool CanMove(ref readonly ProgressState state, ref readonly Grid grid, int color, Direction direction)
+	private bool CanMove(ref readonly ProcessState state, ref readonly Grid grid, int color, Direction direction)
 	{
 		ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(color, grid.ColorsCount);
 		ArgumentOutOfRangeException.ThrowIfZero(state.CompletedMask >> color & 1);
@@ -368,12 +451,255 @@ public sealed unsafe class Analyzer
 	}
 
 	/// <summary>
+	/// Indicates the current position is deadend.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="pos">The position.</param>
+	/// <returns>A <see cref="bool"/> result indicating that.</returns>
+	private bool IsDeadend(ref readonly Grid grid, ref readonly ProcessState state, byte pos)
+	{
+		Debug.Assert(pos != InvalidPos && state.Cells[pos] == 0);
+
+		Position.GetCoordinateFromPosition(pos, out var x, out var y);
+		var freedCount = 0;
+		foreach (var direction in Directions)
+		{
+			var neighborPos = Position.GetOffsetPosition(in grid, x, y, direction);
+			if (neighborPos == InvalidPos)
+			{
+				continue;
+			}
+
+			if (state.Cells[neighborPos] == 0)
+			{
+				freedCount++;
+				continue;
+			}
+
+			for (var color = 0; color < grid.ColorsCount; color++)
+			{
+				if ((state.CompletedMask >> color & 1) != 0)
+				{
+					continue;
+				}
+
+				if (neighborPos == state.Positions[color] || neighborPos == grid.GoalPositions[color])
+				{
+					freedCount++;
+				}
+			}
+		}
+		return freedCount <= 1;
+	}
+
+	/// <summary>
+	/// Check for deadend regions of free-space where there is no way to put an active path into and out of it.
+	/// Any free-space node which has only one free neighbor represents such a deadend.
+	/// For the purposes of this check, current and goal positions coutn as "free".
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <returns>A <see cref="bool"/> result.</returns>
+	private bool CheckDeadends(ref readonly Grid grid, ref readonly ProcessState state)
+	{
+		var color = state.LastColor;
+		if (color >= grid.ColorsCount)
+		{
+			return false;
+		}
+
+		var currentPos = state.Positions[color];
+		Position.GetCoordinateFromPosition(currentPos, out var x, out var y);
+		foreach (var direction in Directions)
+		{
+			var neighborPos = Position.GetOffsetPosition(in grid, x, y, direction);
+			if (neighborPos != InvalidPos && state.Cells[neighborPos] == 0 && IsDeadend(in grid, in state, neighborPos))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/// <summary>
+	/// Determine whether the puzzle is forced.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="color">The color.</param>
+	/// <param name="pos">The position.</param>
+	/// <returns>A <see cref="bool"/> result.</returns>
+	private bool IsForced(ref readonly Grid grid, ref readonly ProcessState state, byte color, byte pos)
+	{
+		var freedCount = 0;
+		var otherEndpointsCount = 0;
+		foreach (var direction in Directions)
+		{
+			var neighborPos = Position.GetOffsetPosition(in grid, pos, direction);
+			if (neighborPos == InvalidPos || neighborPos == state.Positions[color])
+			{
+				continue;
+			}
+
+			if (state.Cells[neighborPos] == 0)
+			{
+				freedCount++;
+				continue;
+			}
+
+			for (var otherColor = 0; otherColor < grid.ColorsCount; otherColor++)
+			{
+				if (otherColor == color || (state.CompletedMask >> otherColor & 1) != 0)
+				{
+					continue;
+				}
+
+				if (neighborPos == state.Positions[otherColor] || neighborPos == grid.GoalPositions[otherColor])
+				{
+					otherEndpointsCount++;
+				}
+			}
+		}
+		return freedCount == 1 && otherEndpointsCount == 0;
+	}
+
+	/// <summary>
+	/// Find a forced color.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="forcedColor">The forced color.</param>
+	/// <param name="forcedDirection">The forced direction.</param>
+	/// <returns>A <see cref="bool"/> result.</returns>
+	private bool FindForced(ref readonly Grid grid, ref readonly ProcessState state, out int forcedColor, out Direction forcedDirection)
+	{
+		// If there is a free-space next to an endpoint and the free-space has only one free neighbor,
+		// we must extend the endpoint into it.
+		for (var i = 0; i < grid.ColorsCount; i++)
+		{
+			var color = grid.ColorOrder[i];
+			if ((state.CompletedMask >> color & 1) != 0)
+			{
+				continue;
+			}
+
+			var freedDirection = (Direction)byte.MaxValue;
+			var freedCount = 0;
+			foreach (var direction in Directions)
+			{
+				var neighborPos = Position.GetOffsetPosition(in grid, state.Positions[color], direction);
+				if (neighborPos == InvalidPos)
+				{
+					continue;
+				}
+
+				if (state.Cells[neighborPos] == 0)
+				{
+					freedDirection = direction;
+					freedCount++;
+
+					if (IsForced(in grid, in state, color, neighborPos))
+					{
+						forcedColor = color;
+						forcedDirection = direction;
+						return true;
+					}
+				}
+			}
+		}
+
+		forcedColor = default;
+		forcedDirection = default;
+		return false;
+	}
+
+	/// <summary>
+	/// <para>Perform connected components analysis on game board.</para>
+	/// <para>
+	/// This is a 2-pass operation: one to build and merge the disjoint-set data structures,
+	/// and another to re-index them so each unique region of free space gets its own index, starting at zero.
+	/// Returns the number of freespace regions.
+	/// </para>
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="resultMap">The map.</param>
+	/// <returns>The regions.</returns>
+	private byte BuildRegions(ref readonly Grid grid, ref readonly ProcessState state, Span<byte> resultMap)
+	{
+		var regions = (stackalloc Region[MaxCells]);
+		regions.Clear();
+
+		// Build regions.
+		for (var y = (byte)0; y < grid.Size; y++)
+		{
+			for (var x = (byte)0; x < grid.Size; x++)
+			{
+				var pos = Position.GetPositionFromCoordinate(x, y);
+				if (state.Cells[pos] != 0)
+				{
+					regions[pos] = Region.Create(InvalidPos);
+					continue;
+				}
+
+				regions[pos] = Region.Create(pos);
+				if (x != 0)
+				{
+					var pl = Position.GetPositionFromCoordinate((byte)(x - 1), y);
+					if (state.Cells[pl] == 0)
+					{
+						Region.Unite(regions, pos, pl);
+					}
+				}
+				if (y != 0)
+				{
+					var pu = Position.GetPositionFromCoordinate(x, (byte)(y - 1));
+					if (state.Cells[pu] == 0)
+					{
+						Region.Unite(regions, pos, pu);
+					}
+				}
+			}
+		}
+
+		var resultLookup = (stackalloc byte[MaxCells]);
+		var result = (byte)0;
+
+		resultLookup.Fill(byte.MaxValue);
+		resultMap.Fill(byte.MaxValue);
+
+		// Order regions.
+		for (var y = (byte)0; y < grid.Size; y++)
+		{
+			for (var x = (byte)0; x < grid.Size; x++)
+			{
+				var pos = Position.GetPositionFromCoordinate(x, y);
+				var root = Region.Find(regions, pos);
+				if (root != InvalidPos)
+				{
+					if (resultLookup[root] == InvalidPos)
+					{
+						resultLookup[root] = result++;
+					}
+					resultMap[pos] = resultLookup[root];
+				}
+				else
+				{
+					resultMap[pos] = InvalidPos;
+				}
+			}
+		}
+		return result;
+	}
+
+	/// <summary>
 	/// Pick the next color to move deterministically.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>The next color chosen.</returns>
-	private byte GetNextMoveColor(ref readonly Grid grid, ref readonly ProgressState state)
+	private byte GetNextMoveColor(ref readonly Grid grid, ref readonly ProcessState state)
 	{
 		var lastColor = state.LastColor;
 		if (lastColor < grid.ColorsCount && (state.CompletedMask >> lastColor & 1) == 0)
@@ -433,7 +759,7 @@ public sealed unsafe class Analyzer
 	/// <exception cref="ArgumentOutOfRangeException">
 	/// Throws when the <paramref name="color"/> specified is exceeded the limit.
 	/// </exception>
-	private double MakeMove(ref readonly Grid grid, ref ProgressState state, byte color, Direction direction, bool forced)
+	private double MakeMove(ref readonly Grid grid, ref ProcessState state, byte color, Direction direction, bool forced)
 	{
 		// Make sure the color is valid.
 		ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(color, grid.ColorsCount);
@@ -514,7 +840,7 @@ public sealed unsafe class Analyzer
 	/// <param name="x">The x coordinate value.</param>
 	/// <param name="y">The y coordinate value.</param>
 	/// <returns>An <see cref="int"/> value indicating the number.</returns>
-	private int GetFreedCoordinatesCount(ref readonly Grid grid, ref readonly ProgressState state, int x, int y)
+	private int GetFreedCoordinatesCount(ref readonly Grid grid, ref readonly ProcessState state, int x, int y)
 	{
 		var result = 0;
 		foreach (var direction in Directions)
@@ -536,9 +862,104 @@ public sealed unsafe class Analyzer
 	/// <param name="position">The position.</param>
 	/// <returns>An <see cref="int"/> value indicating the number.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private int GetFreedCoordinatesCount(ref readonly Grid grid, ref readonly ProgressState state, byte position)
+	private int GetFreedCoordinatesCount(ref readonly Grid grid, ref readonly ProcessState state, byte position)
 	{
 		Position.GetCoordinateFromPosition(position, out var x, out var y);
 		return GetFreedCoordinatesCount(in grid, in state, x, y);
+	}
+
+	/// <summary>
+	/// Check the results of the connected-component analysis to make sure that
+	/// every color can get solved and no free-space is isolated.
+	/// </summary>
+	/// <param name="grid">The grid.</param>
+	/// <param name="state">The state.</param>
+	/// <param name="resultCount">The result count.</param>
+	/// <param name="resultMap">The result map.</param>
+	/// <param name="chokePointColor">The choke point color.</param>
+	/// <param name="maxStranded">The maximum stranded.</param>
+	/// <returns>The mask of colors stranded.</returns>
+	private short GetStrandedColors(
+		ref readonly Grid grid,
+		ref readonly ProcessState state,
+		int resultCount,
+		Span<byte> resultMap,
+		int chokePointColor,
+		int maxStranded
+	)
+	{
+		// For each region, we have bit flags to track whether current or goal position
+		// is adjacent to the region. These get init'ed to 0.
+		var currentResultFlags = (stackalloc short[resultCount]);
+		var goalResultFlags = (stackalloc short[resultCount]);
+		currentResultFlags.Clear();
+		goalResultFlags.Clear();
+
+		var strandedCount = 0;
+		var result = (short)0;
+		var forChokePoint = chokePointColor < grid.ColorsCount;
+
+		// For each color, figure out which regions touch its current and goal position,
+		// and make sure no color is stranded.
+		for (var color = 0; color < grid.ColorsCount; color++)
+		{
+			var cFlag = (short)(1 << color);
+
+			// No worries if completed.
+			if ((state.CompletedMask & cFlag) != 0 || color == chokePointColor)
+			{
+				continue;
+			}
+
+			AddColor(in grid, in state, resultMap, state.Positions[color], cFlag, currentResultFlags);
+			AddColor(in grid, in state, resultMap, grid.GoalPositions[color], cFlag, goalResultFlags);
+
+			if (!CheckTouchness)
+			{
+				var delta = Math.Abs(state.Positions[color] - grid.GoalPositions[color]);
+				if (delta == 1 || delta == 16)
+				{
+					// Adjacent.
+					continue;
+				}
+			}
+
+			// Ensure this color is not stranded -
+			// at least region must touch each non-completed color for both current and goal.
+			byte r;
+			for (r = 0; r < resultCount; r++)
+			{
+				// See if this region touches the color.
+				if ((currentResultFlags[r] & cFlag) != 0 && (goalResultFlags[r] & cFlag) != 0)
+				{
+					break;
+				}
+			}
+
+			// There was no region that touched both current and goal, unsolvable from here.
+			if (r == resultCount)
+			{
+				result |= cFlag;
+				if (++strandedCount >= maxStranded)
+				{
+					return result;
+				}
+			}
+		}
+
+		if (!forChokePoint)
+		{
+			// For each region, make sure that there is at least one color
+			// whose current and goal positions touch it;
+			// otherwise, the region is stranded.
+			for (var r = 0; r < resultCount; r++)
+			{
+				if ((currentResultFlags[r] & goalResultFlags[r]) == 0)
+				{
+					return -1;
+				}
+			}
+		}
+		return 0;
 	}
 }

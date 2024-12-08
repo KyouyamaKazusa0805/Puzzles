@@ -1,10 +1,10 @@
 namespace Puzzles.Flow.Analytics;
 
 /// <summary>
-/// Represents a progress state.
+/// Represents a process state.
 /// </summary>
 [StructLayout(LayoutKind.Auto)]
-public unsafe partial struct ProgressState
+public unsafe partial struct ProcessState
 {
 	/// <summary>
 	/// Indicates the cell states.
@@ -40,7 +40,7 @@ public unsafe partial struct ProgressState
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <param name="writer">The writer.</param>
-	public static void Print(ref readonly Grid grid, ref readonly ProgressState state, TextWriter writer)
+	public static void Print(ref readonly Grid grid, ref readonly ProcessState state, TextWriter writer)
 	{
 		const char blockChar = '#';
 

@@ -40,7 +40,7 @@ public static class Position
 	/// <param name="direction">The direction.</param>
 	/// <returns>The position result.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetPositionFromPosition(ref readonly Grid grid, byte pos, Direction direction)
+	public static byte GetOffsetPosition(ref readonly Grid grid, byte pos, Direction direction)
 	{
 		GetCoordinateFromPosition(pos, out var x, out var y);
 		return GetOffsetPosition(in grid, x, y, direction);

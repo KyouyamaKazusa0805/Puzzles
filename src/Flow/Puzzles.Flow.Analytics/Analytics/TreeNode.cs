@@ -18,7 +18,7 @@ internal unsafe struct TreeNode
 	/// <summary>
 	/// Indicates the current progress state.
 	/// </summary>
-	public ProgressState State;
+	public ProcessState State;
 
 	/// <summary>
 	/// Indicates the parent of this node (can also be <see langword="null"/>).

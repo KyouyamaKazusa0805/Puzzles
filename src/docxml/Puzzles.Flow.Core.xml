@@ -134,7 +134,7 @@
             <returns>The offset value.</returns>
             <seealso cref="F:Puzzles.Flow.ProjectWideConstants.InvalidPos"/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Position.GetPositionFromPosition(Puzzles.Flow.Concepts.Grid@,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
+        <member name="M:Puzzles.Flow.Concepts.Position.GetOffsetPosition(Puzzles.Flow.Concepts.Grid@,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
             <summary>
             Get position from another position with advanced direction.
             </summary>
