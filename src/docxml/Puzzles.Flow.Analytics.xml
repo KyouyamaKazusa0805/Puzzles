@@ -99,9 +99,9 @@
             Indicatees the queue destroyer method.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueClearer">
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueEmptyChecker">
             <summary>
-            Indicates the queue clearer method.
+            Indicates the queue empty checker method.
             </summary>
         </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.QueuePeeker">
@@ -109,14 +109,14 @@
             Indicates thee queue peeker method.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.TryLoadPuzzle(System.String,Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Analyze(System.String,System.Int32,System.IO.TextWriter)">
             <summary>
-            Try to load a puzzle via its string representation, and return its bound grid data structure and state.
+            Analyzes the grid.
             </summary>
             <param name="gridString">The grid string.</param>
-            <param name="grid">The grid.</param>
-            <param name="state">The state.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating whether the loading operation is successful.</returns>
+            <param name="size">The size.</param>
+            <param name="writer">The writer.</param>
+            <exception cref="T:System.InvalidOperationException">Throws when the string is invalid.</exception>
         </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.AddColor(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.Span{System.Byte},System.Byte,System.Int16,System.Span{System.Int16})">
             <summary>
@@ -146,12 +146,20 @@
             <param name="state">The state.</param>
             <param name="userOrder">User order.</param>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.CanMove(Puzzles.Flow.Analytics.ProcessState@,Puzzles.Flow.Concepts.Grid@,System.Int32,Puzzles.Flow.Concepts.Primitives.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.UpdateNodeCosts(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.TreeNode*,System.Int32)">
+            <summary>
+            To update node costs.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="node">The node.</param>
+            <param name="actionCost">The action cost.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.CanMove(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
             <summary>
             Determine whether the current grid can move.
             </summary>
-            <param name="state">The current state.</param>
             <param name="grid">The grid.</param>
+            <param name="state">The current state.</param>
             <param name="color">The color.</param>
             <param name="direction">The direction.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
@@ -188,7 +196,17 @@
             <param name="pos">The position.</param>
             <returns>A <see cref="T:System.Boolean"/> result.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.FindForced(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.Int32@,Puzzles.Flow.Concepts.Primitives.Direction@)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.IsFree(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.Byte,System.Byte)">
+            <summary>
+            Determine whether the specified coordinate value is free.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <param name="x">The coordinate x value.</param>
+            <param name="y">The coordinate y value.</param>
+            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.FindForced(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.Byte@,Puzzles.Flow.Concepts.Primitives.Direction@)">
             <summary>
             Find a forced color.
             </summary>
@@ -212,7 +230,7 @@
             <param name="resultMap">The map.</param>
             <returns>The regions.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetNextMoveColor(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetNextMoveColor(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState*)">
             <summary>
             Pick the next color to move deterministically.
             </summary>
@@ -229,7 +247,7 @@
             <param name="color">The color.</param>
             <param name="direction">The direction.</param>
             <param name="forced">Indicates whether the move is forced.</param>
-            <returns>A <see cref="T:System.Double"/> result.</returns>
+            <returns>An <see cref="T:System.Int32"/> result.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             Throws when the <paramref name="color"/> specified is exceeded the limit.
             </exception>
@@ -253,6 +271,15 @@
             <param name="position">The position.</param>
             <returns>An <see cref="T:System.Int32"/> value indicating the number.</returns>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.CheckBottleneck(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@)">
+            <summary>
+            Identify bottlenecks on narrow regions - created by a recent move of a color,
+            then see if it renders the puzzle unsolvable.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <returns>The value.</returns>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.GetStrandedColors(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.Int32,System.Span{System.Byte},System.Int32,System.Int32)">
             <summary>
             Check the results of the connected-component analysis to make sure that
@@ -265,6 +292,26 @@
             <param name="chokePointColor">The choke point color.</param>
             <param name="maxStranded">The maximum stranded.</param>
             <returns>The mask of colors stranded.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Search(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.TimeSpan@,System.Int32@,Puzzles.Flow.Analytics.ProcessState@)">
+            <summary>
+            The core method to search, performing A* or BFS (best-first search) algorithm to find a solution.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="initState">The init state.</param>
+            <param name="elapsed">The elapsed time.</param>
+            <param name="nodes">The nodes created.</param>
+            <param name="finalState">The final state.</param>
+            <returns>A <see cref="T:Puzzles.Flow.Analytics.SearchingResult"/> value.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Validate(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.TreeNode*,Puzzles.Flow.Analytics.NodeStorage*)">
+            <summary>
+            Validate the puzzle, and return the tree node in use.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="node">The node.</param>
+            <param name="storage">The storage.</param>
+            <returns>The final tree node created.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.ColorFeature">
             <summary>
@@ -376,6 +423,13 @@
             Indicates the array of nodes.
             </summary>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Create(System.Int32)">
+            <summary>
+            Create a <see cref="T:Puzzles.Flow.Analytics.FifoBasedQueue"/> instance.
+            </summary>
+            <param name="maxNodes">The maximum nodes.</param>
+            <returns>The <see cref="T:Puzzles.Flow.Analytics.FifoBasedQueue"/> created.</returns>
+        </member>
         <member name="T:Puzzles.Flow.Analytics.HeapBasedQueue">
             <summary>
             Indicates the data structure for heap-based priority queue.
@@ -396,6 +450,13 @@
             Indicates the array of nodes.
             </summary>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Create(System.Int32)">
+            <summary>
+            Create a <see cref="T:Puzzles.Flow.Analytics.HeapBasedQueue"/> instance.
+            </summary>
+            <param name="maxNodes">The maximum nodes.</param>
+            <returns>A <see cref="T:Puzzles.Flow.Analytics.HeapBasedQueue"/> instance.</returns>
+        </member>
         <member name="T:Puzzles.Flow.Analytics.NodeStorage">
             <summary>
             Represents data structure for node storage.
@@ -415,6 +476,39 @@
             <summary>
             Indicates the allocated block.
             </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Destroy">
+            <summary>
+            Destroy the memory allocated.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Unalloc(Puzzles.Flow.Analytics.TreeNode*)">
+            <summary>
+            Unallocate the tree node.
+            </summary>
+            <param name="n">The node.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Alloc">
+            <summary>
+            Try allocate the next node.
+            </summary>
+            <returns>The next node pointer.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.NodeStorage.CreateNode(Puzzles.Flow.Analytics.TreeNode*,Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@)">
+            <summary>
+            Create a node via the specified parent and state.
+            </summary>
+            <param name="parent">The parent node.</param>
+            <param name="grid">The grid.</param>
+            <param name="state">The state.</param>
+            <returns>The created node.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Create(System.Int32)">
+            <summary>
+            Create single linear allocator for searching nodes.
+            </summary>
+            <param name="maxNodes">The maximum nodes.</param>
+            <returns>The <see cref="T:Puzzles.Flow.Analytics.NodeStorage"/> value.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.ProcessState">
             <summary>
@@ -514,6 +608,31 @@
             <param name="position">The position.</param>
             <returns>The <see cref="T:Puzzles.Flow.Analytics.Region"/> instance created.</returns>
         </member>
+        <member name="T:Puzzles.Flow.Analytics.SearchingResult">
+            <summary>
+            Represents a type of progress in searching.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.SearchingResult.Success">
+            <summary>
+            Indicates the progress type is successful (finished).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.SearchingResult.Unreachable">
+            <summary>
+            Indicates the progress type is unreachable (failed).
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.SearchingResult.Full">
+            <summary>
+            Indicates the progress type is full.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.SearchingResult.InProgress">
+            <summary>
+            Indicates the progress type is in-progress.
+            </summary>
+        </member>
         <member name="T:Puzzles.Flow.Analytics.TreeNode">
             <summary>
             Represents a node in searching on A* or BFS algorithm.
@@ -538,6 +657,65 @@
             <summary>
             Indicates the parent of this node (can also be <see langword="null"/>).
             </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.Equals(Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.CompareTo(Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.IComparable`1.CompareTo(`0)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#IEquatable{Puzzles#Flow#Analytics#TreeNode}#Equals(Puzzles.Flow.Analytics.TreeNode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#IComparable{Puzzles#Flow#Analytics#TreeNode}#CompareTo(Puzzles.Flow.Analytics.TreeNode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.Compare(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
+            <summary>
+            Compare two <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> values.
+            </summary>
+            <param name="a">The first node to be compared.</param>
+            <param name="b">The second node to be compared.</param>
+            <returns>An <see cref="T:System.Int32"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.op_Equality(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.op_Inequality(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IEqualityOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_Equality(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IEqualityOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_Inequality(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.op_GreaterThan(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.op_LessThan(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.op_GreaterThanOrEqual(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.op_LessThanOrEqual(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_GreaterThan(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_LessThan(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_LessThanOrEqual(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

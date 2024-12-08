@@ -190,16 +190,6 @@
             Represents a direction.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Up">
-            <summary>
-            Indicates the direction is up.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Down">
-            <summary>
-            Indicates the direction is down.
-            </summary>
-        </member>
         <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Left">
             <summary>
             Indicates the direction is left.
@@ -208,6 +198,16 @@
         <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Right">
             <summary>
             Indicates the direction is right.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Up">
+            <summary>
+            Indicates the direction is up.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Primitives.Direction.Down">
+            <summary>
+            Indicates the direction is down.
             </summary>
         </member>
         <member name="T:Puzzles.Flow.Concepts.Primitives.DirectionExtensions">
@@ -231,31 +231,6 @@
             <param name="this">The direction.</param>
             <returns>The delta array.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument is not defined.</exception>
-        </member>
-        <member name="T:Puzzles.Flow.Concepts.SearchingProgressType">
-            <summary>
-            Represents a type of progress in searching.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.Success">
-            <summary>
-            Indicates the progress type is successful (finished).
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.Unreachable">
-            <summary>
-            Indicates the progress type is unreachable (failed).
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.Full">
-            <summary>
-            Indicates the progress type is full.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Concepts.SearchingProgressType.InProgress">
-            <summary>
-            Indicates the progress type is in-progress.
-            </summary>
         </member>
         <member name="T:Puzzles.Flow.Drawing.ColorLookup">
             <summary>

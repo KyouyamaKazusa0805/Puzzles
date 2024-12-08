@@ -28,7 +28,7 @@ public static class ProjectWideConstants
 	/// <summary>
 	/// Represents mega-bytes. The value is equal to 1048576.
 	/// </summary>
-	internal const int MegaByte = 1 << 20;
+	public const int MegaByte = 1 << 20;
 
 
 	/// <summary>

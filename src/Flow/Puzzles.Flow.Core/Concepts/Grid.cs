@@ -8,7 +8,7 @@ namespace Puzzles.Flow.Concepts;
 /// <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
 [StructLayout(LayoutKind.Auto)]
 public unsafe partial struct Grid(
-	[Property] int size,
+	[Property(Setter = PropertySetters.Set)] int size,
 	[Property(Setter = PropertySetters.Set)] byte colorsCount,
 	[Property(Setter = PropertySetters.Set)] bool isUserOrdered
 )

@@ -6,16 +6,6 @@ namespace Puzzles.Flow.Concepts.Primitives;
 public enum Direction : byte
 {
 	/// <summary>
-	/// Indicates the direction is up.
-	/// </summary>
-	Up,
-
-	/// <summary>
-	/// Indicates the direction is down.
-	/// </summary>
-	Down,
-
-	/// <summary>
 	/// Indicates the direction is left.
 	/// </summary>
 	Left,
@@ -23,5 +13,15 @@ public enum Direction : byte
 	/// <summary>
 	/// Indicates the direction is right.
 	/// </summary>
-	Right
+	Right,
+
+	/// <summary>
+	/// Indicates the direction is up.
+	/// </summary>
+	Up,
+
+	/// <summary>
+	/// Indicates the direction is down.
+	/// </summary>
+	Down
 }

@@ -1,9 +1,9 @@
-namespace Puzzles.Flow.Concepts;
+namespace Puzzles.Flow.Analytics;
 
 /// <summary>
 /// Represents a type of progress in searching.
 /// </summary>
-public enum SearchingProgressType
+internal enum SearchingResult
 {
 	/// <summary>
 	/// Indicates the progress type is successful (finished).
