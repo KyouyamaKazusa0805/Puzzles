@@ -129,15 +129,6 @@
             <param name="cFlag">The flag.</param>
             <param name="resultFlags">The result flags.</param>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.PrintRegions(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.ReadOnlySpan{System.Byte},System.IO.TextWriter)">
-            <summary>
-            Print regions.
-            </summary>
-            <param name="grid">The grid.</param>
-            <param name="state">The state.</param>
-            <param name="resultMap">The result map.</param>
-            <param name="writer">The writer.</param>
-        </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.OrderColors(Puzzles.Flow.Concepts.Grid@,Puzzles.Flow.Analytics.ProcessState@,System.String)">
             <summary>
             Order colors.

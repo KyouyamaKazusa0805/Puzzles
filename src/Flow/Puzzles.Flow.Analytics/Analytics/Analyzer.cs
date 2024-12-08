@@ -302,55 +302,6 @@ public sealed unsafe class Analyzer
 	}
 
 	/// <summary>
-	/// Print regions.
-	/// </summary>
-	/// <param name="grid">The grid.</param>
-	/// <param name="state">The state.</param>
-	/// <param name="resultMap">The result map.</param>
-	/// <param name="writer">The writer.</param>
-	private void PrintRegions(ref readonly Grid grid, ref readonly ProcessState state, ReadOnlySpan<byte> resultMap, TextWriter writer)
-	{
-		const char blockChar = '#';
-		writer.Write(blockChar);
-		for (var x = 0; x < grid.Size; x++)
-		{
-			writer.Write(blockChar);
-		}
-		writer.WriteLine(blockChar);
-
-		for (var y = (byte)0; y < grid.Size; y++)
-		{
-			writer.Write(blockChar);
-			for (var x = (byte)0; x < grid.Size; x++)
-			{
-				var pos = Position.GetPositionFromCoordinate(x, y);
-				var rid = resultMap[pos];
-				ref readonly var l = ref ColorDictionary[rid % MaxColors];
-				if (state.Cells[pos] == 0)
-				{
-					Debug.Assert(rid != InvalidPos);
-					var c = (char)('A' + rid % 60);
-					writer.Write(ConsoleOut.GetColorString(l.ConsoleOutColorString, l.InputChar));
-				}
-				else
-				{
-					Debug.Assert(rid == InvalidPos);
-					writer.Write(' ');
-				}
-			}
-			writer.WriteLine(blockChar);
-		}
-
-		writer.Write(blockChar);
-		for (var x = 0; x < grid.Size; x++)
-		{
-			writer.Write(blockChar);
-		}
-		writer.WriteLine(blockChar);
-		writer.WriteLine();
-	}
-
-	/// <summary>
 	/// Order colors.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
