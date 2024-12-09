@@ -382,6 +382,9 @@
             <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
             <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
             <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
+            <exception cref="T:System.InvalidOperationException">
+            Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
+            </exception>
         </member>
         <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.Int32},System.Threading.CancellationToken)">
             <summary>
@@ -394,6 +397,33 @@
             <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
             <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
             <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
+        </member>
+        <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.ValueTuple{System.Int32,System.Int32}},System.Threading.CancellationToken)">
+            <summary>
+            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used;
+            elements should be guaranteed to appear the specified number of times, in range list <paramref name="itemRanges"/>.
+            </summary>
+            <param name="rows">The desired number of rows.</param>
+            <param name="columns">The desired number of columns.</param>
+            <param name="itemRanges">Indicates items and its appearing times in range between corresponding limit.</param>
+            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
+            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+            <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
+            <exception cref="T:System.InvalidOperationException">Throws when the item ranges is invalid.</exception>
+        </member>
+        <member name="M:Puzzles.Matching.Generating.Generator.GenerateAveraged(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
+            <summary>
+            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used, with average value.
+            </summary>
+            <param name="rows">The desired number of rows.</param>
+            <param name="columns">The desired number of columns.</param>
+            <param name="itemsCount">Indicates the number of items to be used in the grid.</param>
+            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
+            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+            <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
+            <exception cref="T:System.InvalidOperationException">
+            Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
+            </exception>
         </member>
         <member name="M:Puzzles.Matching.Generating.Generator.BitArrayToIndices(System.Collections.BitArray,System.Int32)">
             <summary>

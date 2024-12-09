@@ -21,11 +21,18 @@ public readonly ref partial struct Generator
 	/// <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
 	/// <returns>A <see cref="Grid"/> result; or <see langword="null"/> if cancelled.</returns>
 	/// <exception cref="ArgumentException">Throws when the argument is invalid.</exception>
+	/// <exception cref="InvalidOperationException">
+	/// Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
+	/// </exception>
 	public Grid Generate(int rows, int columns, ItemIndex itemsCount, CancellationToken cancellationToken = default)
 	{
 		if (itemsCount << 1 > rows * columns)
 		{
 			throw new ArgumentException($"Argument '{nameof(itemsCount)}' is too much.", nameof(itemsCount));
+		}
+		if ((rows * columns & 1) != 0)
+		{
+			throw new InvalidOperationException("Size is invalid - it must an even number.");
 		}
 
 		while (true)
@@ -95,13 +102,16 @@ public readonly ref partial struct Generator
 	/// <exception cref="ArgumentException">Throws when the argument is invalid.</exception>
 	public Grid Generate(int rows, int columns, IReadOnlyDictionary<ItemIndex, int> items, CancellationToken cancellationToken = default)
 	{
-		var itemsCount = items.Values.Sum();
-		if (itemsCount != rows * columns)
+		if (items.Values.Sum() != rows * columns)
 		{
 			throw new ArgumentException(
 				$"Argument '{nameof(items)}' is mismatched due to its invalid number of items configured.",
 				nameof(items)
 			);
+		}
+		if ((rows * columns & 1) != 0)
+		{
+			throw new InvalidOperationException("Size is invalid - it must an even number.");
 		}
 
 		// Simply set values into the grid.
@@ -136,6 +146,84 @@ public readonly ref partial struct Generator
 			}
 		}
 		return null!;
+	}
+
+	/// <summary>
+	/// Generates a valid <see cref="Grid"/> that contains at least one step to be used;
+	/// elements should be guaranteed to appear the specified number of times, in range list <paramref name="itemRanges"/>.
+	/// </summary>
+	/// <param name="rows">The desired number of rows.</param>
+	/// <param name="columns">The desired number of columns.</param>
+	/// <param name="itemRanges">Indicates items and its appearing times in range between corresponding limit.</param>
+	/// <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
+	/// <returns>A <see cref="Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+	/// <exception cref="ArgumentException">Throws when the argument is invalid.</exception>
+	/// <exception cref="InvalidOperationException">Throws when the item ranges is invalid.</exception>
+	public Grid Generate(int rows, int columns, IReadOnlyDictionary<ItemIndex, (int Min, int Max)> itemRanges, CancellationToken cancellationToken = default)
+	{
+		if ((rows * columns & 1) != 0)
+		{
+			throw new InvalidOperationException("Size is invalid - it must an even number.");
+		}
+
+		var sum = rows * columns;
+		var items = new Dictionary<ItemIndex, int>(itemRanges.Count);
+		foreach (var (item, (min, _)) in itemRanges)
+		{
+			items.Add(item, min);
+		}
+		for (var delta = sum - items.Values.Sum(); delta > 0; delta -= 2)
+		{
+			// Find an entry that can insert such value.
+			var validItemsToInsert = new List<ItemIndex>();
+			foreach (var (item, (_, max)) in itemRanges)
+			{
+				var current = items[item];
+				if (max > current)
+				{
+					// Valid to add 2 elements.
+					validItemsToInsert.Add(item);
+				}
+			}
+			if (validItemsToInsert.Count == 0)
+			{
+				throw new InvalidOperationException("No entry to be used.");
+			}
+
+			// Randomly chosen an entry.
+			var chosenItemIndex = validItemsToInsert[Rng.Next(0, validItemsToInsert.Count)];
+			items[chosenItemIndex] += 2;
+		}
+		return Generate(rows, columns, items, cancellationToken);
+	}
+
+	/// <summary>
+	/// Generates a valid <see cref="Grid"/> that contains at least one step to be used, with average value.
+	/// </summary>
+	/// <param name="rows">The desired number of rows.</param>
+	/// <param name="columns">The desired number of columns.</param>
+	/// <param name="itemsCount">Indicates the number of items to be used in the grid.</param>
+	/// <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
+	/// <returns>A <see cref="Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+	/// <exception cref="ArgumentException">Throws when the argument is invalid.</exception>
+	/// <exception cref="InvalidOperationException">
+	/// Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
+	/// </exception>
+	public Grid GenerateAveraged(int rows, int columns, ItemIndex itemsCount, CancellationToken cancellationToken = default)
+	{
+		var averagedValue = rows * columns / itemsCount / 2 * 2;
+		var realValuesCount = rows * columns;
+		var delta = realValuesCount - averagedValue * itemsCount;
+		var dictionary = new Dictionary<ItemIndex, int>();
+		for (var i = (ItemIndex)0; i < itemsCount; i++)
+		{
+			dictionary.Add(i, averagedValue);
+		}
+		for (var (i, j) = (delta, (ItemIndex)0); i > 0; i -= 2, j++)
+		{
+			dictionary[j] += 2;
+		}
+		return Generate(rows, columns, dictionary, cancellationToken);
 	}
 
 
