@@ -24,6 +24,36 @@
             Represents mega-bytes. The value is equal to 1048576.
             </summary>
         </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueCreator">
+            <summary>
+            Indicates the queue creator method.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueEnqueuer">
+            <summary>
+            Indicates the queue enqueuer method.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueDequeuer">
+            <summary>
+            Indicates the queue dequeuer method.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueDestroyer">
+            <summary>
+            Indicatees the queue destroyer method.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueEmptyChecker">
+            <summary>
+            Indicates the queue empty checker method.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer._queuePeeker">
+            <summary>
+            Indicates thee queue peeker method.
+            </summary>
+        </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckTouchness">
             <summary>
             Indicates whether analyzer will check on touchness.
@@ -92,36 +122,6 @@
         <member name="P:Puzzles.Flow.Analytics.Analyzer.MaxNodes">
             <summary>
             Indicates the number of maximum nodes can be reached.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueCreator">
-            <summary>
-            Indicates the queue creator method.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueEnqueuer">
-            <summary>
-            Indicates the queue enqueuer method.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueDequeuer">
-            <summary>
-            Indicates the queue dequeuer method.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueDestroyer">
-            <summary>
-            Indicatees the queue destroyer method.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueueEmptyChecker">
-            <summary>
-            Indicates the queue empty checker method.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.QueuePeeker">
-            <summary>
-            Indicates thee queue peeker method.
             </summary>
         </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.Analyze(System.String,System.Int32,System.IO.TextWriter)">

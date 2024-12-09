@@ -22,6 +22,37 @@ public sealed unsafe class Analyzer
 
 
 	/// <summary>
+	/// Indicates the queue creator method.
+	/// </summary>
+	private delegate*<int, Queue> _queueCreator;
+
+	/// <summary>
+	/// Indicates the queue enqueuer method.
+	/// </summary>
+	private delegate*<Queue*, TreeNode*, void> _queueEnqueuer;
+
+	/// <summary>
+	/// Indicates the queue dequeuer method.
+	/// </summary>
+	private delegate*<Queue*, TreeNode*> _queueDequeuer;
+
+	/// <summary>
+	/// Indicatees the queue destroyer method.
+	/// </summary>
+	private delegate*<Queue*, void> _queueDestroyer;
+
+	/// <summary>
+	/// Indicates the queue empty checker method.
+	/// </summary>
+	private delegate*<Queue*, bool> _queueEmptyChecker;
+
+	/// <summary>
+	/// Indicates thee queue peeker method.
+	/// </summary>
+	private delegate*<Queue*, TreeNode*> _queuePeeker;
+
+
+	/// <summary>
 	/// Indicates whether analyzer will check on touchness.
 	/// </summary>
 	public bool CheckTouchness { get; set; } = true;
@@ -90,36 +121,6 @@ public sealed unsafe class Analyzer
 	/// Indicates the number of maximum nodes can be reached.
 	/// </summary>
 	public int MaxNodes { get; set; }
-
-	/// <summary>
-	/// Indicates the queue creator method.
-	/// </summary>
-	internal delegate*<int, Queue> QueueCreator { get; set; }
-
-	/// <summary>
-	/// Indicates the queue enqueuer method.
-	/// </summary>
-	internal delegate*<Queue*, TreeNode*, void> QueueEnqueuer { get; set; }
-
-	/// <summary>
-	/// Indicates the queue dequeuer method.
-	/// </summary>
-	internal delegate*<Queue*, TreeNode*> QueueDequeuer { get; set; }
-
-	/// <summary>
-	/// Indicatees the queue destroyer method.
-	/// </summary>
-	internal delegate*<Queue*, void> QueueDestroyer { get; set; }
-
-	/// <summary>
-	/// Indicates the queue empty checker method.
-	/// </summary>
-	internal delegate*<Queue*, bool> QueueEmptyChecker { get; set; }
-
-	/// <summary>
-	/// Indicates thee queue peeker method.
-	/// </summary>
-	internal delegate*<Queue*, TreeNode*> QueuePeeker { get; set; }
 
 
 	/// <summary>
@@ -264,21 +265,21 @@ public sealed unsafe class Analyzer
 		{
 			if (UsesBestFirstSearch)
 			{
-				QueueCreator = &HeapBasedQueue.Create;
-				QueueEnqueuer = &HeapBasedQueue.Enqueue;
-				QueueDequeuer = &HeapBasedQueue.Dequeue;
-				QueueDestroyer = &HeapBasedQueue.Destroy;
-				QueueEmptyChecker = &HeapBasedQueue.IsEmpty;
-				QueuePeeker = &HeapBasedQueue.Peek;
+				_queueCreator = &HeapBasedQueue.Create;
+				_queueEnqueuer = &HeapBasedQueue.Enqueue;
+				_queueDequeuer = &HeapBasedQueue.Dequeue;
+				_queueDestroyer = &HeapBasedQueue.Destroy;
+				_queueEmptyChecker = &HeapBasedQueue.IsEmpty;
+				_queuePeeker = &HeapBasedQueue.Peek;
 			}
 			else
 			{
-				QueueCreator = &FifoBasedQueue.Create;
-				QueueEnqueuer = &FifoBasedQueue.Enqueue;
-				QueueDequeuer = &FifoBasedQueue.Dequeue;
-				QueueDestroyer = &FifoBasedQueue.Destroy;
-				QueueEmptyChecker = &FifoBasedQueue.IsEmpty;
-				QueuePeeker = &FifoBasedQueue.Peek;
+				_queueCreator = &FifoBasedQueue.Create;
+				_queueEnqueuer = &FifoBasedQueue.Enqueue;
+				_queueDequeuer = &FifoBasedQueue.Dequeue;
+				_queueDestroyer = &FifoBasedQueue.Destroy;
+				_queueEmptyChecker = &FifoBasedQueue.IsEmpty;
+				_queuePeeker = &FifoBasedQueue.Peek;
 			}
 		}
 	}
@@ -1080,7 +1081,7 @@ public sealed unsafe class Analyzer
 		var root = storage.CreateNode(null, in grid, in initState);
 		UpdateNodeCosts(in grid, root, 0);
 
-		var queue = QueueCreator(maxNodes);
+		var queue = _queueCreator(maxNodes);
 		var result = SearchingResult.InProgress;
 		var solutionNode = default(TreeNode*);
 		var start = Stopwatch.GetTimestamp();
@@ -1091,18 +1092,18 @@ public sealed unsafe class Analyzer
 		}
 		else
 		{
-			QueueEnqueuer(&queue, root);
+			_queueEnqueuer(&queue, root);
 		}
 
 		while (result == SearchingResult.InProgress)
 		{
-			if (QueueEmptyChecker(&queue))
+			if (_queueEmptyChecker(&queue))
 			{
 				result = SearchingResult.Unreachable;
 				break;
 			}
 
-			var n = QueueDequeuer(&queue);
+			var n = _queueDequeuer(&queue);
 			Debug.Assert(n != null);
 
 			var parentState = &n->State;
@@ -1138,7 +1139,7 @@ public sealed unsafe class Analyzer
 							break;
 						}
 
-						QueueEnqueuer(&queue, child);
+						_queueEnqueuer(&queue, child);
 					}
 				}
 				if (forced)
@@ -1166,7 +1167,7 @@ public sealed unsafe class Analyzer
 		}
 
 		storage.Destroy();
-		QueueDestroyer(&queue);
+		_queueDestroyer(&queue);
 		return result;
 	}
 
