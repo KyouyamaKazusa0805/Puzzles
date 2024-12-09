@@ -82,15 +82,10 @@ internal unsafe struct NodeStorage
 	/// <param name="maxNodes">The maximum nodes.</param>
 	/// <returns>The <see cref="NodeStorage"/> value.</returns>
 	public static NodeStorage Create(int maxNodes)
-	{
-		var result = new NodeStorage { Start = (TreeNode*)NativeMemory.Alloc((nuint)(maxNodes * sizeof(TreeNode))) };
-		if (result.Start == null)
+		=> new()
 		{
-			throw new AccessViolationException();
-		}
-
-		result.Capacity = maxNodes;
-		result.Count = 0;
-		return result;
-	}
+			Start = (TreeNode*)NativeMemory.Alloc((nuint)(maxNodes * sizeof(TreeNode))),
+			Capacity = maxNodes,
+			Count = 0
+		};
 }

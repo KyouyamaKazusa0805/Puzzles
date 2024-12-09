@@ -95,23 +95,15 @@ internal unsafe struct HeapBasedQueue
 	/// <param name="maxNodes">The maximum nodes.</param>
 	/// <returns>A <see cref="HeapBasedQueue"/> instance.</returns>
 	public static Queue Create(int maxNodes)
-	{
-		var result = new Queue
+		=> new()
 		{
-			HeapBased = new()
+			HeapBased =
 			{
-				Start = (TreeNode**)NativeMemory.Alloc((nuint)(maxNodes * sizeof(TreeNode*)))
+				Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*)),
+				Count = 0,
+				Capacity = maxNodes
 			}
 		};
-		if (result.HeapBased.Start == null)
-		{
-			throw new AccessViolationException();
-		}
-
-		result.HeapBased.Count = 0;
-		result.HeapBased.Capacity = maxNodes;
-		return result;
-	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	internal static int HeapQueueParentIndex(int i) => i - 1 >> 1;

@@ -57,22 +57,14 @@ internal unsafe struct FifoBasedQueue
 	/// <param name="maxNodes">The maximum nodes.</param>
 	/// <returns>The <see cref="FifoBasedQueue"/> created.</returns>
 	public static Queue Create(int maxNodes)
-	{
-		var result = new Queue
+		=> new()
 		{
-			FifoBased = new()
+			FifoBased =
 			{
-				Start = (TreeNode**)NativeMemory.Alloc((nuint)(maxNodes * sizeof(TreeNode*)))
+				Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*)),
+				Count = 0,
+				Capacity = maxNodes,
+				Next = 0
 			}
 		};
-		if (result.FifoBased.Start == null)
-		{
-			throw new AccessViolationException();
-		}
-
-		result.FifoBased.Count = 0;
-		result.FifoBased.Capacity = maxNodes;
-		result.FifoBased.Next = 0;
-		return result;
-	}
 }
