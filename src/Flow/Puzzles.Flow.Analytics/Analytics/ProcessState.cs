@@ -4,7 +4,7 @@ namespace Puzzles.Flow.Analytics;
 /// Represents a process state.
 /// </summary>
 [StructLayout(LayoutKind.Auto)]
-public unsafe partial struct ProcessState
+internal unsafe partial struct ProcessState
 {
 	/// <summary>
 	/// Indicates the cell states.
