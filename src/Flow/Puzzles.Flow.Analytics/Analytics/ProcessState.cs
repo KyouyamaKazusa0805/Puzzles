@@ -9,11 +9,13 @@ internal unsafe partial struct ProcessState
 	/// <summary>
 	/// Indicates the cell states.
 	/// </summary>
+	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public fixed byte Cells[Analyzer.MaxCells];
 
 	/// <summary>
 	/// Indicates the positions.
 	/// </summary>
+	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public fixed byte Positions[MaxColors];
 
 
@@ -32,6 +34,15 @@ internal unsafe partial struct ProcessState
 	/// (<c>currentPosition</c> is adjacent to <c>goalPosition</c>).
 	/// </summary>
 	public short CompletedMask { get; set; }
+
+	/// <summary>
+	/// Provides <see langword="this"/> pointer.
+	/// </summary>
+	private readonly ProcessState* ThisPointer => (ProcessState*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
+
+	private readonly ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, MaxColors);
+
+	private readonly ReadOnlySpan<byte> CellsSpan => new(ThisPointer->Cells, Analyzer.MaxCells);
 
 
 	/// <summary>

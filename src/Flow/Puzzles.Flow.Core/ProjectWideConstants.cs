@@ -19,7 +19,7 @@ public static class ProjectWideConstants
 	/// <summary>
 	/// Indicates all directions.
 	/// </summary>
-	public static readonly Direction[] Directions = [Direction.Up, Direction.Down, Direction.Left, Direction.Right];
+	public static readonly Direction[] Directions = [Direction.Left, Direction.Right, Direction.Up, Direction.Down];
 
 	/// <summary>
 	/// Indicates the color lookup dictionary.

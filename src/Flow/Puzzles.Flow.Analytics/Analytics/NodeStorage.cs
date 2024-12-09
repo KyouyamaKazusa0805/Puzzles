@@ -60,7 +60,7 @@ internal unsafe struct NodeStorage
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>The created node.</returns>
-	public TreeNode* CreateNode(TreeNode* parent, ref readonly Grid grid, ref readonly ProcessState state)
+	public TreeNode* CreateNode(TreeNode* parent, ref readonly Grid grid, ProcessState* state)
 	{
 		var result = Alloc();
 		if (result == null)
@@ -71,7 +71,14 @@ internal unsafe struct NodeStorage
 		result->Parent = parent;
 		result->CostToCome = 0;
 		result->CostToGo = 0;
-		result->State = state;
+		result->State = new()
+		{
+			LastColor = state->LastColor,
+			FreedCellsCount = state->FreedCellsCount,
+			CompletedMask = state->CompletedMask
+		};
+		Unsafe.CopyBlock(result->State.Cells, state->Cells, sizeof(byte) * Analyzer.MaxCells);
+		Unsafe.CopyBlock(result->State.Positions, state->Positions, sizeof(byte) * MaxColors);
 		return result;
 	}
 
