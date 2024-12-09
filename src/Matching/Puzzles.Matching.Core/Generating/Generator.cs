@@ -116,7 +116,7 @@ public readonly ref partial struct Generator
 		while (true)
 		{
 			// Randomly swaps the values thrice.
-			// Because the shuffle function will keep all elements can have opportunity to be swapped,
+			// Because the shuffle function will keep all elements having opportunity to be swapped,
 			// we may not shuffle more times to keep the array to be more random.
 			for (var i = 0; i < 3; i++)
 			{
