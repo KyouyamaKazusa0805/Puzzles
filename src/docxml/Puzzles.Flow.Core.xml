@@ -80,6 +80,11 @@
             Indicates the color ordering.
             </summary>
         </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.ThisPointer">
+            <summary>
+            Provides <see langword="this"/> pointer.
+            </summary>
+        </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.GetWallDistance(System.Int32,System.Int32)">
             <summary>
             Get wall distance from the specified coordinate values <paramref name="x"/> and <paramref name="y"/>.

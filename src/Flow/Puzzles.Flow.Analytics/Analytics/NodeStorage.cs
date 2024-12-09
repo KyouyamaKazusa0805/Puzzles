@@ -57,10 +57,9 @@ internal unsafe struct NodeStorage
 	/// Create a node via the specified parent and state.
 	/// </summary>
 	/// <param name="parent">The parent node.</param>
-	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>The created node.</returns>
-	public TreeNode* CreateNode(TreeNode* parent, ref readonly Grid grid, ProcessState* state)
+	public TreeNode* CreateNode(TreeNode* parent, ProcessState* state)
 	{
 		var result = Alloc();
 		if (result == null)
