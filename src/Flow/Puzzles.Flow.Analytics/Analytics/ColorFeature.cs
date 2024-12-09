@@ -4,7 +4,7 @@ namespace Puzzles.Flow.Analytics;
 /// Represents a type that is used for sorting colors if <see cref="Analyzer.ReorderColors"/> is set <see langword="true"/>.
 /// </summary>
 /// <seealso cref="Analyzer.ReorderColors"/>
-[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.AllEqualityComparisonOperators, IsLargeStructure = true)]
+[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Object_ToString | TypeImplFlags.AllEqualityComparisonOperators, IsLargeStructure = true)]
 internal partial struct ColorFeature :
 	IComparable<ColorFeature>,
 	IComparisonOperators<ColorFeature, ColorFeature, bool>,
@@ -13,21 +13,25 @@ internal partial struct ColorFeature :
 	/// <summary>
 	/// Indicates the index reordered.
 	/// </summary>
+	[StringMember]
 	public byte Index;
 
 	/// <summary>
 	/// Indicates the index which is user-specified.
 	/// </summary>
+	[StringMember]
 	public int UserIndex;
 
 	/// <summary>
 	/// Indicates the minimal distance.
 	/// </summary>
+	[StringMember]
 	public int MinDistance;
 
 	/// <summary>
 	/// Indicates the wall distance.
 	/// </summary>
+	[StringMember]
 	public (int First, int Second) WallDistance;
 
 
@@ -66,8 +70,8 @@ internal partial struct ColorFeature :
 		}
 		if (left.WallDistance.Second - right.WallDistance.Second is var r3 and not 0)
 		{
-			return r3;
+			return -r3;
 		}
-		return left.MinDistance - right.MinDistance;
+		return -Math.Sign(left.MinDistance - right.MinDistance);
 	}
 }

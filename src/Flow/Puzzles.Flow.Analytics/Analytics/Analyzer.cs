@@ -359,6 +359,11 @@ public sealed unsafe class Analyzer
 				foreach (var isFirst in (true, false))
 				{
 					ref var p = ref isFirst ? ref cf[color].WallDistance.First : ref cf[color].WallDistance.Second;
+					Position.GetCoordinateFromPosition(
+						state->Positions[color],
+						out isFirst ? ref xf : ref xs,
+						out isFirst ? ref yf : ref ys
+					);
 					p = grid->GetWallDistance(isFirst ? xf : xs, isFirst ? yf : ys);
 				}
 
@@ -387,7 +392,7 @@ public sealed unsafe class Analyzer
 			grid->IsUserOrdered = true;
 		}
 
-		cf.Sort(ColorFeature.Compare);
+		cf[..grid->ColorsCount].Sort(ColorFeature.Compare);
 		for (var i = 0; i < grid->ColorsCount; i++)
 		{
 			grid->ColorOrder[i] = cf[i].Index;

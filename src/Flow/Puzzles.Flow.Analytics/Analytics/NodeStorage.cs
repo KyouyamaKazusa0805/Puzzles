@@ -90,7 +90,7 @@ internal unsafe struct NodeStorage
 	public static NodeStorage Create(int maxNodes)
 		=> new()
 		{
-			Start = (TreeNode*)NativeMemory.Alloc((nuint)(maxNodes * sizeof(TreeNode))),
+			Start = (TreeNode*)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode)),
 			Capacity = maxNodes,
 			Count = 0
 		};

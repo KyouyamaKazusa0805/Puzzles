@@ -376,6 +376,9 @@
         <member name="M:Puzzles.Flow.Analytics.ColorFeature.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.ColorFeature.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.ColorFeature.op_Equality(Puzzles.Flow.Analytics.ColorFeature@,Puzzles.Flow.Analytics.ColorFeature@)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
