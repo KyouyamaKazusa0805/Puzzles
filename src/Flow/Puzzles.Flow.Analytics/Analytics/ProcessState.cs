@@ -9,7 +9,7 @@ public unsafe partial struct ProcessState
 	/// <summary>
 	/// Indicates the cell states.
 	/// </summary>
-	public fixed byte Cells[MaxCells];
+	public fixed byte Cells[Analyzer.MaxCells];
 
 	/// <summary>
 	/// Indicates the positions.

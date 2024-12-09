@@ -15,21 +15,6 @@ public static class ProjectWideConstants
 	/// </summary>
 	public const int MaxColors = 16;
 
-	/// <summary>
-	/// Indicates the maximum size of the grid. This value is a constant and cannot be modified due to massive complexity.
-	/// </summary>
-	public const int MaxSize = 15;
-
-	/// <summary>
-	/// Indicates the maximum length of cells available in the grid. The value is equal to 239.
-	/// </summary>
-	public const int MaxCells = (MaxSize + 1) * MaxSize - 1;
-
-	/// <summary>
-	/// Represents mega-bytes. The value is equal to 1048576.
-	/// </summary>
-	public const int MegaByte = 1 << 20;
-
 
 	/// <summary>
 	/// Indicates all directions.

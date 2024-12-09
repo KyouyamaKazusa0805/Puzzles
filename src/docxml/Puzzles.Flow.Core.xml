@@ -277,21 +277,6 @@
             Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.ProjectWideConstants.MaxSize">
-            <summary>
-            Indicates the maximum size of the grid. This value is a constant and cannot be modified due to massive complexity.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.ProjectWideConstants.MaxCells">
-            <summary>
-            Indicates the maximum length of cells available in the grid. The value is equal to 239.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.ProjectWideConstants.MegaByte">
-            <summary>
-            Represents mega-bytes. The value is equal to 1048576.
-            </summary>
-        </member>
         <member name="F:Puzzles.Flow.ProjectWideConstants.Directions">
             <summary>
             Indicates all directions.
