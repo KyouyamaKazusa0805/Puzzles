@@ -24,6 +24,11 @@
             Represents mega-bytes. The value is equal to 1048576.
             </summary>
         </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer.ValidCharacters">
+            <summary>
+            Indicates the valid color characters.
+            </summary>
+        </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer._queueCreator">
             <summary>
             Indicates the queue creator method.

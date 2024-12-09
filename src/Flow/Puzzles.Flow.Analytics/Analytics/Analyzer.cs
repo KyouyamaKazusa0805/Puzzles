@@ -20,6 +20,11 @@ public sealed unsafe class Analyzer
 	/// </summary>
 	public const int MegaByte = 1 << 20;
 
+	/// <summary>
+	/// Indicates the valid color characters.
+	/// </summary>
+	private const string ValidCharacters = "0123456789ABCDEF";
+
 
 	/// <summary>
 	/// Indicates the queue creator method.
@@ -172,8 +177,8 @@ public sealed unsafe class Analyzer
 				var line = lines[y];
 				for (var x = (byte)0; x < grid.Size; x++)
 				{
-					var c = line[x];
-					if (c is not (>= '0' and <= '9' or >= 'A' and <= 'F' or >= 'a' and <= 'f'))
+					var c = char.ToUpper(line[x]);
+					if (!ValidCharacters.Contains(c))
 					{
 						state.FreedCellsCount++;
 						continue;
@@ -182,7 +187,6 @@ public sealed unsafe class Analyzer
 					var pos = Position.GetPositionFromCoordinate(x, y);
 					Debug.Assert(pos < MaxCells);
 
-					c = char.ToUpper(c);
 					var color = grid.ColorTable[c];
 					if (color >= grid.ColorsCount)
 					{
