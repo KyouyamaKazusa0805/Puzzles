@@ -1,4 +1,4 @@
-namespace Match.Analytics;
+namespace Puzzles.Match.Analytics;
 
 /// <summary>
 /// Represents an analyzer object that can analyze a match puzzle.

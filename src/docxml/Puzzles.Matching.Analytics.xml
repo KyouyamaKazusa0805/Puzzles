@@ -4,105 +4,105 @@
         <name>Puzzles.Matching.Analytics</name>
     </assembly>
     <members>
-        <member name="T:Match.Analytics.AnalysisResult">
+        <member name="T:Puzzles.Match.Analytics.AnalysisResult">
             <summary>
             Represents a type that stores the result of a analysis operation.
             </summary>
             <param name="grid">Indicates the base grid.</param>
         </member>
-        <member name="M:Match.Analytics.AnalysisResult.#ctor(Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Match.Analytics.AnalysisResult.#ctor(Puzzles.Matching.Concepts.Grid)">
             <summary>
             Represents a type that stores the result of a analysis operation.
             </summary>
             <param name="grid">Indicates the base grid.</param>
         </member>
-        <member name="P:Match.Analytics.AnalysisResult.IsSolved">
+        <member name="P:Puzzles.Match.Analytics.AnalysisResult.IsSolved">
             <summary>
             Indicates whether the puzzle is fully solved.
             </summary>
         </member>
-        <member name="P:Match.Analytics.AnalysisResult.FailedReason">
+        <member name="P:Puzzles.Match.Analytics.AnalysisResult.FailedReason">
             <summary>
             Indicates the failed reason.
             </summary>
         </member>
-        <member name="P:Match.Analytics.AnalysisResult.Matches">
+        <member name="P:Puzzles.Match.Analytics.AnalysisResult.Matches">
             <summary>
             Indicates the matches found during the analysis.
             </summary>
         </member>
-        <member name="P:Match.Analytics.AnalysisResult.ElapsedTime">
+        <member name="P:Puzzles.Match.Analytics.AnalysisResult.ElapsedTime">
             <summary>
             Indicates the elapsed time.
             </summary>
         </member>
-        <member name="P:Match.Analytics.AnalysisResult.UnhandledException">
+        <member name="P:Puzzles.Match.Analytics.AnalysisResult.UnhandledException">
             <summary>
             Indicates the exception encountered.
             </summary>
         </member>
-        <member name="P:Match.Analytics.AnalysisResult.InterimMatches">
+        <member name="P:Puzzles.Match.Analytics.AnalysisResult.InterimMatches">
             <summary>
             Indicates the matches.
             </summary>
         </member>
-        <member name="M:Match.Analytics.AnalysisResult.ToString">
+        <member name="M:Puzzles.Match.Analytics.AnalysisResult.ToString">
             <inheritdoc/>
         </member>
-        <member name="P:Match.Analytics.AnalysisResult.Grid">
+        <member name="P:Puzzles.Match.Analytics.AnalysisResult.Grid">
             <summary>
             The generated property declaration for parameter <c>grid</c>.
             </summary>
         </member>
-        <member name="M:Match.Analytics.AnalysisResult.Equals(System.Object)">
+        <member name="M:Puzzles.Match.Analytics.AnalysisResult.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
         </member>
-        <member name="M:Match.Analytics.AnalysisResult.GetHashCode">
+        <member name="M:Puzzles.Match.Analytics.AnalysisResult.GetHashCode">
             <inheritdoc cref="M:System.Object.GetHashCode"/>
         </member>
-        <member name="M:Match.Analytics.AnalysisResult.op_Equality(Match.Analytics.AnalysisResult,Match.Analytics.AnalysisResult)">
+        <member name="M:Puzzles.Match.Analytics.AnalysisResult.op_Equality(Puzzles.Match.Analytics.AnalysisResult,Puzzles.Match.Analytics.AnalysisResult)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
-        <member name="M:Match.Analytics.AnalysisResult.op_Inequality(Match.Analytics.AnalysisResult,Match.Analytics.AnalysisResult)">
+        <member name="M:Puzzles.Match.Analytics.AnalysisResult.op_Inequality(Puzzles.Match.Analytics.AnalysisResult,Puzzles.Match.Analytics.AnalysisResult)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
-        <member name="M:Match.Analytics.AnalysisResult.Equals(Match.Analytics.AnalysisResult)">
+        <member name="M:Puzzles.Match.Analytics.AnalysisResult.Equals(Puzzles.Match.Analytics.AnalysisResult)">
             <inheritdoc/>
         </member>
-        <member name="T:Match.Analytics.Analyzer">
+        <member name="T:Puzzles.Match.Analytics.Analyzer">
             <summary>
             Represents an analyzer object that can analyze a match puzzle.
             </summary>
         </member>
-        <member name="M:Match.Analytics.Analyzer.Analyze(Puzzles.Matching.Concepts.Grid,System.Threading.CancellationToken)">
+        <member name="M:Puzzles.Match.Analytics.Analyzer.Analyze(Puzzles.Matching.Concepts.Grid,System.Threading.CancellationToken)">
             <summary>
-            Try to analyze a puzzle, and return the steps found, encapsulated by <see cref="T:Match.Analytics.AnalysisResult"/>.
+            Try to analyze a puzzle, and return the steps found, encapsulated by <see cref="T:Puzzles.Match.Analytics.AnalysisResult"/>.
             </summary>
             <param name="grid">The grid to be analyzed.</param>
             <param name="cancellationToken">Indicates the cancellation token that can cancel the current operation.</param>
-            <returns>An instance of type <see cref="T:Match.Analytics.AnalysisResult"/> indicating the result information.</returns>
+            <returns>An instance of type <see cref="T:Puzzles.Match.Analytics.AnalysisResult"/> indicating the result information.</returns>
         </member>
-        <member name="T:Match.Analytics.FailedReason">
+        <member name="T:Puzzles.Match.Analytics.FailedReason">
             <summary>
             Represents a failed reason.
             </summary>
         </member>
-        <member name="F:Match.Analytics.FailedReason.None">
+        <member name="F:Puzzles.Match.Analytics.FailedReason.None">
             <summary>
             Indicates there's no failure.
             </summary>
         </member>
-        <member name="F:Match.Analytics.FailedReason.PuzzleInvalid">
+        <member name="F:Puzzles.Match.Analytics.FailedReason.PuzzleInvalid">
             <summary>
             Indicates the puzzle is invalid.
             </summary>
         </member>
-        <member name="F:Match.Analytics.FailedReason.UserCancelled">
+        <member name="F:Puzzles.Match.Analytics.FailedReason.UserCancelled">
             <summary>
             Indicates the user has cancelled the analysis.
             </summary>
         </member>
-        <member name="F:Match.Analytics.FailedReason.UnhandledException">
+        <member name="F:Puzzles.Match.Analytics.FailedReason.UnhandledException">
             <summary>
             Indicates an unhandled exception is thrown.
             </summary>
