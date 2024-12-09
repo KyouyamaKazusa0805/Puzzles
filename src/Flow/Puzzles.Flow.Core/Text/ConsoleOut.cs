@@ -3,7 +3,7 @@ namespace Puzzles.Flow.Text;
 /// <summary>
 /// Provides a way to handle console output text.
 /// </summary>
-public static class ConsoleOut
+public static unsafe class ConsoleOut
 {
 	/// <summary>
 	/// Get color string.
@@ -39,7 +39,7 @@ public static class ConsoleOut
 	/// <param name="color">The color.</param>
 	/// <returns>Color name string.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static unsafe string GetColorNameString(ref readonly Grid grid, int color)
+	public static string GetColorNameString(ref readonly Grid grid, int color)
 	{
 		ref readonly var l = ref ColorDictionary[grid.ColorIds[color]];
 		return GetColorString(l.ConsoleOutColorString, l.InputChar);
@@ -52,7 +52,7 @@ public static class ConsoleOut
 	/// <param name="cell">The cell.</param>
 	/// <returns>The string.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static unsafe string GetColorCellString(ref readonly Grid grid, byte cell)
+	public static string GetColorCellString(ref readonly Grid grid, byte cell)
 	{
 		var type = Cell.GetTypeFromCell(cell);
 		var color = Cell.GetCellColor(cell);
