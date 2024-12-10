@@ -998,100 +998,99 @@
             <param name="result">Indicates the result of the path.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="T:Puzzles.Hamiltonian.Transforming.GraphTransformation">
+        <member name="T:Puzzles.Hamiltonian.Transforming.Transformation">
             <summary>
-            Provides a way to transform a <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>.
+            Provides a way to transform a path.
             </summary>
-            <seealso cref="T:Puzzles.Hamiltonian.Concepts.Graph"/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Coordinate,System.Int32,System.Int32)">
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
             <summary>
-            Rotate a coordinate clockwise.
+            Rotates a path clockwise.
             </summary>
-            <param name="coordinate">The coordinate.</param>
-            <param name="rows">The number of rows.</param>
-            <param name="columns">The number of columns.</param>
-            <returns>The result.</returns>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.RotateCounterclockwise(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
             <summary>
-            Rotate a path clockwise.
+            Rotates a path counter-clockwise.
+            </summary>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
+            <summary>
+            Mirrors a path left and right.
+            </summary>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorTopBottom(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
+            <summary>
+            Mirrors a path top and bottom.
+            </summary>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorDiagonal(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
+            <summary>
+            Mirrors a path diagonal.
+            </summary>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <exception cref="T:System.InvalidOperationException">
+            Throws when the <paramref name="rows"/> is not equal to <paramref name="columns"/>.
+            </exception>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorAntidiagonal(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
+            <summary>
+            Mirrors a path anti-diagonal.
+            </summary>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <exception cref="T:System.InvalidOperationException">
+            Throws when the <paramref name="rows"/> is not equal to <paramref name="columns"/>.
+            </exception>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})">
+            <summary>
+            The local method to transform a path.
             </summary>
             <param name="path">The path.</param>
             <param name="rows">The number of rows.</param>
             <param name="columns">The number of columns.</param>
+            <param name="transformer">The transformer method.</param>
+            <returns>The result path.</returns>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Transforming.LocalTransformer">
+            <summary>
+            Provides a local transformer.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.RotateClockwise(System.String)">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.RotateCounterclockwise(System.String)">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.RotateCounterclockwise(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.MirrorLeftRight(System.String)">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.MirrorTopBottom(System.String)">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorTopBottom(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.MirrorDiagonal(System.String)">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorDiagonal(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.MirrorAntidiagonal(System.String)">
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorAntidiagonal(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.DiagonalSizeChanger(System.Int32,System.Int32)">
+            <summary>
+            Called by <see cref="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.MirrorDiagonal(System.String)"/> and <see cref="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.MirrorAntidiagonal(System.String)"/>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Transforming.LocalTransformer.TransformCore(System.String,System.Func{System.Int32,System.Int32,System.ValueTuple{System.Int32,System.Int32}},System.Func{System.Int32,System.Int32,System.Int32,System.Int32})">
+            <summary>
+            The backing method to transform a string text (path).
+            </summary>
+            <param name="value">The value to be transformed.</param>
+            <param name="sizeChanger">The changer method that changes the size value into the result values.</param>
+            <param name="valueTransformer">The method that transforms each coordinate value.</param>
             <returns>The result.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)">
-            <summary>
-            Rotate a graph clockwise.
-            </summary>
-            <param name="graph">The graph.</param>
-            <returns>The result.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateCounterclockwise(Puzzles.Hamiltonian.Concepts.Graph)">
-            <summary>
-            Rotate a graph counter-clockwise.
-            </summary>
-            <param name="graph">The graph.</param>
-            <returns>The result.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotatePi(Puzzles.Hamiltonian.Concepts.Graph)">
-            <summary>
-            Rotate a graph 180 degrees.
-            </summary>
-            <param name="graph">The graph.</param>
-            <returns>The result.</returns>
-            <remarks><i>This method just calls method <see cref="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)"/> twice.</i></remarks>
-            <seealso cref="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.RotateClockwise(Puzzles.Hamiltonian.Concepts.Graph)"/>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Coordinate,System.Int32,System.Int32)">
-            <summary>
-            Mirror left-right the coordinate.
-            </summary>
-            <param name="coordinate">The coordinate.</param>
-            <param name="rows">The number of rows.</param>
-            <param name="columns">The number of columns.</param>
-            <returns>The result graph mirrored.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
-            <summary>
-            Mirror left-right the graph.
-            </summary>
-            <param name="path">The graph.</param>
-            <param name="rows">The number of rows.</param>
-            <param name="columns">The number of columns.</param>
-            <returns>The result graph mirrored.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Graph)">
-            <summary>
-            Mirror left-right the graph.
-            </summary>
-            <param name="graph">The graph.</param>
-            <returns>The result graph mirrored.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorTopBottom(Puzzles.Hamiltonian.Concepts.Graph)">
-            <summary>
-            Mirror top-bottom the graph.
-            </summary>
-            <param name="graph">The graph.</param>
-            <returns>The result graph mirrored.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorDiagonal(Puzzles.Hamiltonian.Concepts.Graph)">
-            <summary>
-            Mirror diagonal the graph, or throws <see cref="T:System.ArgumentOutOfRangeException"/> if the graph is not a square.
-            </summary>
-            <param name="graph">The graph.</param>
-            <returns>The result graph mirrored.</returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the graph is not square.</exception>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.GraphTransformation.MirrorAntidiagonal(Puzzles.Hamiltonian.Concepts.Graph)">
-            <summary>
-            Mirror anti-diagonal the graph, or throws <see cref="T:System.ArgumentOutOfRangeException"/> if the graph is not a square.
-            </summary>
-            <param name="graph">The graph.</param>
-            <returns>The result graph mirrored.</returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the graph is not square.</exception>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.ParsingFormatPattern_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ParsingFormatPattern method.</summary>

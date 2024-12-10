@@ -195,7 +195,7 @@ public sealed partial class Path :
 
 	/// <inheritdoc/>
 	public static Path Parse(string s, IFormatProvider? provider)
-		=> provider switch { PathFormatInfo p => p.ParseCore(s), _ => Parse(s) };
+		=> Parse(s, provider as PathFormatInfo ?? new DirectionPathFormatInfo());
 
 	/// <inheritdoc cref="Parse(string)"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
