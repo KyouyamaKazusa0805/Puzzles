@@ -230,6 +230,29 @@
         </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.ToString(System.String)">
             <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
+            <remarks>
+            All formats:
+            <list type="table">
+            <listheader>
+            <term>Format</term>
+            <description>Meaning</description>
+            </listheader>
+            <item>
+            <term><c>"a"</c></term>
+            <description>Array-like format, output like an 2D-array sequence, keeping new line characters if line ends</description>
+            </item>
+            <item>
+            <term><c>"f"</c></term>
+            <description>Sequence-like format, output like an 1D-aray flatten each element by removing new line characters</description>
+            </item>
+            <item>
+            <term><c>"f+1"</c></term>
+            <description>
+            Just like <see cref="M:Puzzles.Matching.Concepts.Grid.ToString(System.String)"/> with format <c>"f"</c>, but with each element added with 1
+            </description>
+            </item>
+            </list>
+            </remarks>
         </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.GetAllMatches">
             <summary>

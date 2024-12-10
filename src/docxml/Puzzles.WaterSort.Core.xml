@@ -235,6 +235,13 @@
         <member name="M:Puzzles.WaterSort.Concepts.Tube.GetHashCode">
             <inheritdoc/>
         </member>
+        <member name="M:Puzzles.WaterSort.Concepts.Tube.GetSpannedCount(System.Byte)">
+            <summary>
+            Gets the number of spanned water elements of the specified color in the current tube.
+            </summary>
+            <param name="color">The color.</param>
+            <returns>The number of spanning.</returns>
+        </member>
         <member name="M:Puzzles.WaterSort.Concepts.Tube.ToString">
             <inheritdoc/>
         </member>

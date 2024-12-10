@@ -488,16 +488,43 @@ public sealed partial class Grid :
 	public override string ToString() => ToString(null);
 
 	/// <inheritdoc cref="IFormattable.ToString(string?, IFormatProvider?)"/>
+	/// <remarks>
+	/// All formats:
+	/// <list type="table">
+	/// <listheader>
+	/// <term>Format</term>
+	/// <description>Meaning</description>
+	/// </listheader>
+	/// <item>
+	/// <term><c>"a"</c></term>
+	/// <description>Array-like format, output like an 2D-array sequence, keeping new line characters if line ends</description>
+	/// </item>
+	/// <item>
+	/// <term><c>"f"</c></term>
+	/// <description>Sequence-like format, output like an 1D-aray flatten each element by removing new line characters</description>
+	/// </item>
+	/// <item>
+	/// <term><c>"f+1"</c></term>
+	/// <description>
+	/// Just like <see cref="ToString(string?)"/> with format <c>"f"</c>, but with each element added with 1
+	/// </description>
+	/// </item>
+	/// </list>
+	/// </remarks>
 	public string ToString(string? format)
 	{
 		var maxValue = _array.Max();
 		var array = (ItemIndex[,])this;
 		return format switch
 		{
-			null or "a" => array.ToArrayString(e => e.ToString(maxValue switch { >= 0 and < 10 => "0", >= 10 and < 100 => "00", _ => "000" })),
+			null or "a" => array.ToArrayString(numeralConverter),
 			"f" => array.Flat().ToArrayString(),
+			"f+1" => array.Flat().ToArrayString(static v => (v + 1).ToString()),
 			_ => throw new FormatException()
 		};
+
+
+		string? numeralConverter(byte e) => e.ToString(maxValue switch { >= 0 and < 10 => "0", >= 10 and < 100 => "00", _ => "000" });
 	}
 
 	/// <summary>

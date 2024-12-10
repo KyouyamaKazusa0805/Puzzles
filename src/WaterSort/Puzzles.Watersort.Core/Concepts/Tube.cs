@@ -54,28 +54,7 @@ public sealed partial class Tube(Stack<Color> _items) :
 	/// <summary>
 	/// Indicates the number of same color element above the top.
 	/// </summary>
-	public int TopColorSpannedCount
-	{
-		get
-		{
-			if (IsEmpty)
-			{
-				return 0;
-			}
-
-			var result = 0;
-			var internalSpan = StackEntry<Color>.GetArray(_items).AsSpan()[.._items.Count];
-			for (var i = internalSpan.Length - 1; i >= 0; i--)
-			{
-				if (internalSpan[i] != TopColor)
-				{
-					break;
-				}
-				result++;
-			}
-			return result;
-		}
-	}
+	public int TopColorSpannedCount => GetSpannedCount(TopColor);
 
 	/// <summary>
 	/// Indicates the number of colors.
@@ -168,6 +147,45 @@ public sealed partial class Tube(Stack<Color> _items) :
 			result.Add(element);
 		}
 		return result.ToHashCode();
+	}
+
+	/// <summary>
+	/// Gets the number of spanned water elements of the specified color in the current tube.
+	/// </summary>
+	/// <param name="color">The color.</param>
+	/// <returns>The number of spanning.</returns>
+	public int GetSpannedCount(Color color)
+	{
+		if (IsEmpty)
+		{
+			return 0;
+		}
+
+		var result = 0;
+		var internalSpan = StackEntry<Color>.GetArray(_items).AsSpan()[.._items.Count];
+		var startIndex = -1;
+		for (var i = internalSpan.Length - 1; i >= 0; i--)
+		{
+			if (internalSpan[i] == color)
+			{
+				startIndex = i;
+				break;
+			}
+		}
+		if (startIndex == -1)
+		{
+			return 0;
+		}
+
+		for (var i = startIndex; i >= 0; i--)
+		{
+			if (internalSpan[i] != color)
+			{
+				break;
+			}
+			result++;
+		}
+		return result;
 	}
 
 	/// <inheritdoc/>
