@@ -8,6 +8,7 @@ namespace Puzzles.Hamiltonian.Concepts;
 public sealed partial class Path :
 	IEquatable<Path>,
 	IEqualityOperators<Path, Path, bool>,
+	IFormattable,
 	IParsable<Path>,
 	IReadOnlyCollection<Coordinate>,
 	IReadOnlyList<Coordinate>
@@ -104,23 +105,11 @@ public sealed partial class Path :
 	}
 
 	/// <inheritdoc/>
-	public override string ToString() => ToString(" -> ");
+	public override string ToString() => ToString(null);
 
-	/// <summary>
-	/// Converts the current instance into a <see cref="string"/> result.
-	/// </summary>
-	/// <param name="separator">The separator.</param>
-	/// <returns>The string result.</returns>
-	public string ToString(string separator)
-	{
-		var sb = new StringBuilder();
-		foreach (var element in _coordinates)
-		{
-			sb.Append(element.ToString());
-			sb.Append(separator);
-		}
-		return sb.RemoveFrom(^separator.Length).ToString();
-	}
+	/// <inheritdoc cref="IFormattable.ToString(string?, IFormatProvider?)"/>
+	public string ToString(IFormatProvider? formatProvider)
+		=> (formatProvider as PathFormatInfo ?? new DirectionPathFormatInfo()).FormatCore(this);
 
 	/// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
 	public AnonymousSpanEnumerator<Coordinate> GetEnumerator() => new(_coordinates);
@@ -157,6 +146,9 @@ public sealed partial class Path :
 		}
 		return result;
 	}
+
+	/// <inheritdoc/>
+	string IFormattable.ToString(string? format, IFormatProvider? formatProvider) => ToString(formatProvider);
 
 	/// <inheritdoc/>
 	IEnumerator IEnumerable.GetEnumerator() => _coordinates.GetEnumerator();

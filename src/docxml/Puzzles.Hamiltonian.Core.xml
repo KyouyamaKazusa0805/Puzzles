@@ -107,9 +107,6 @@
             Indicates the root node.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.ToString">
-            <inheritdoc/>
-        </member>
         <member name="P:Puzzles.Hamiltonian.Concepts.CoordinateNode.Coordinate">
             <summary>
             The generated property declaration for parameter <c>coordinate</c>.
@@ -119,6 +116,9 @@
             <summary>
             The generated property declaration for parameter <c>parent</c>.
             </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
         </member>
         <member name="T:Puzzles.Hamiltonian.Concepts.Direction">
             <summary>
@@ -163,6 +163,25 @@
             <param name="this">The direction.</param>
             <returns>The character.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument is out of range.</exception>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo">
+            <summary>
+            Provides a coordinate format information.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo.Separator">
+            <summary>
+            Indicates the separator. By default its <c>" -> "</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo.GetFormat(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Path)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo.ParseCore(System.String)">
+            <inheritdoc/>
         </member>
         <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.DirectionPathFormatInfo">
             <summary>
@@ -211,6 +230,39 @@
             <returns>The converted <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> instance.</returns>
             <exception cref="T:System.FormatException">Throws when the parsing operation has encountered an unexpected error.</exception>
             <exception cref="T:System.NotSupportedException">Throws when the parsing operation is not supported.</exception>
+        </member>
+        <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo">
+            <summary>
+            Provides with indexed path format information.
+            </summary>
+            <param name="rows">Indicates the rows used.</param>
+            <param name="columns">Indicates the columns used.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Provides with indexed path format information.
+            </summary>
+            <param name="rows">Indicates the rows used.</param>
+            <param name="columns">Indicates the columns used.</param>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.GetFormat(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Path)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.ParseCore(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.Rows">
+            <summary>
+            The generated property declaration for parameter <c>rows</c>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.Columns">
+            <summary>
+            The generated property declaration for parameter <c>columns</c>.
+            </summary>
         </member>
         <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo">
             <summary>
@@ -699,12 +751,8 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.ToString">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Path.ToString(System.String)">
-            <summary>
-            Converts the current instance into a <see cref="T:System.String"/> result.
-            </summary>
-            <param name="separator">The separator.</param>
-            <returns>The string result.</returns>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.ToString(System.IFormatProvider)">
+            <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.GetEnumerator">
             <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
@@ -728,6 +776,9 @@
             <param name="rows">The number of rows.</param>
             <param name="columns">The number of columns.</param>
             <returns>A <see cref="T:Puzzles.Hamiltonian.Concepts.Graph"/> result casted.</returns>
+        </member>
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#IFormattable#ToString(System.String,System.IFormatProvider)">
+            <inheritdoc/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc/>

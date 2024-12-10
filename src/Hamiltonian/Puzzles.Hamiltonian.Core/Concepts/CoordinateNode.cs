@@ -3,7 +3,8 @@ namespace Puzzles.Hamiltonian.Concepts;
 /// <summary>
 /// Represents a linked node for a coordinate.
 /// </summary>
-internal sealed partial class CoordinateNode([Property] Coordinate coordinate, [Property] CoordinateNode? parent)
+[TypeImpl(TypeImplFlags.Object_ToString)]
+internal sealed partial class CoordinateNode([Property, StringMember] Coordinate coordinate, [Property] CoordinateNode? parent)
 {
 	/// <summary>
 	/// Initializes a <see cref="CoordinateNode"/> instance.
@@ -32,8 +33,6 @@ internal sealed partial class CoordinateNode([Property] Coordinate coordinate, [
 		}
 	}
 
-
-	/// <inheritdoc/>
-	public override string ToString()
-		=> $$"""{{nameof(CoordinateNode)}} { {{nameof(Coordinate)}} = {{Coordinate}}, {{nameof(Parent)}} = {{Parent?.Coordinate.ToString() ?? "<null>"}} }""";
+	[StringMember(nameof(Parent))]
+	private string ParentNodeString => Parent?.Coordinate.ToString() ?? "<null>";
 }
