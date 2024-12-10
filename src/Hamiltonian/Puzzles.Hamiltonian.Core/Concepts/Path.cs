@@ -166,48 +166,52 @@ public sealed partial class Path :
 
 
 	/// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)"/>
-	public static bool TryParse(string str, [NotNullWhen(true)] out Path? result)
+	public static bool TryParse(string str, [NotNullWhen(true)] out Path? result) => TryParse(str, null, out result);
+
+	/// <inheritdoc/>
+	public static bool TryParse(string? s, IFormatProvider? provider, [NotNullWhen(true)] out Path? result)
 	{
-		try
-		{
-			result = Parse(str);
-			return true;
-		}
-		catch (FormatException)
+		if (s is null)
 		{
 			result = null;
 			return false;
 		}
+		else
+		{
+			try
+			{
+				result = Parse(s, provider);
+				return true;
+			}
+			catch (FormatException)
+			{
+				result = null;
+				return false;
+			}
+		}
 	}
+
+	/// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)"/>
+	public static bool TryParse(ReadOnlySpan<char> str, [NotNullWhen(true)] out Path? result) => TryParse(str.ToString(), out result);
+
+	/// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)"/>
+	public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, [NotNullWhen(true)] out Path? result)
+		=> TryParse(s.ToString(), provider, out result);
+
+	/// <inheritdoc cref="IParsable{TSelf}.Parse(string, IFormatProvider?)"/>
+	public static Path Parse(string str) => Parse(str, new DirectionPathFormatInfo());
+
+	/// <inheritdoc/>
+	public static Path Parse(string s, IFormatProvider? provider)
+		=> provider switch { PathFormatInfo p => p.ParseCore(s), _ => Parse(s) };
 
 	/// <inheritdoc cref="Parse(string)"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Path Parse(ReadOnlySpan<char> str) => Parse(str);
+	public static Path Parse(ReadOnlySpan<char> str) => Parse(str.ToString());
 
 	/// <inheritdoc cref="IParsable{TSelf}.Parse(string, IFormatProvider?)"/>
-	/// <remarks>
-	/// Format:
-	/// <code><![CDATA[
-	/// <start-row>:<start-column>:<direction-arrows>
-	/// ]]></code>
-	/// Example:
-	/// <code><![CDATA[
-	/// 0:0:↓↓↓→→→↓↓←↑←←↓↓→↓←↓→→↑→↓→→↑↑←↑→→↑↑←←↑↑→↑←←↓←
-	/// ]]></code>
-	/// </remarks>
-	public static Path Parse(string str)
-	{
-		var split = str.Split(':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-		var startCoordinate = new Coordinate(int.Parse(split[0]), int.Parse(split[1]));
-		var coordinates = new List<Coordinate> { startCoordinate };
-		var currentCoordinate = startCoordinate;
-		foreach (var character in split[2])
-		{
-			currentCoordinate >>= character;
-			coordinates.Add(currentCoordinate);
-		}
-		return [.. coordinates];
-	}
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Path Parse(ReadOnlySpan<char> str, IFormatProvider? provider) => Parse(str.ToString(), provider);
 
 	/// <summary>
 	/// Creates a <see cref="Path"/> instance via the specified coordinates.
@@ -217,21 +221,4 @@ public sealed partial class Path :
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static Path Create(ReadOnlySpan<Coordinate> coordinates) => new([.. coordinates]);
-
-	/// <inheritdoc/>
-	static Path IParsable<Path>.Parse(string s, IFormatProvider? provider) => Parse(s);
-
-	/// <inheritdoc/>
-	static bool IParsable<Path>.TryParse(string? s, IFormatProvider? provider, [NotNullWhen(true)] out Path? result)
-	{
-		if (s is null)
-		{
-			result = null;
-			return false;
-		}
-		else
-		{
-			return TryParse(s, out result);
-		}
-	}
 }
