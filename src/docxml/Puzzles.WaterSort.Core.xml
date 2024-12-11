@@ -21,6 +21,11 @@
             Indicates whether the puzzle is finished.
             </summary>
         </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.IsInitial">
+            <summary>
+            Determine whether the current puzzle is at initial state.
+            </summary>
+        </member>
         <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Length">
             <summary>
             Indicates the number of the tubes.

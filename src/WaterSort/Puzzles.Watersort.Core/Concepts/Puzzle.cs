@@ -34,6 +34,33 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	}
 
 	/// <summary>
+	/// Determine whether the current puzzle is at initial state.
+	/// </summary>
+	public bool IsInitial
+	{
+		get
+		{
+			var depth = Depth;
+			var colorsCount = ColorDistribution.Keys.Length;
+			foreach (var (index, tube) in Tubes.Index())
+			{
+				if (!tube.IsEmpty && tube.Length != depth)
+				{
+					return false;
+				}
+
+				if (tube.IsEmpty && index < colorsCount)
+				{
+					// The game requires all empty tubes should be at the last positions at initial state.
+					// e.g. [[0, 0], [1, 1], [2, 2], [], []]
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
+	/// <summary>
 	/// Indicates the number of the tubes.
 	/// </summary>
 	public int Length => Tubes.Length;

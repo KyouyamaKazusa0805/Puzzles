@@ -20,10 +20,15 @@ public sealed class BruteForce
 	/// <returns>A <see cref="BruteForceNode"/> instance.</returns>
 	public BruteForceNode CreateTree(Puzzle puzzle)
 	{
+		var startEqualityComparer = EqualityComparer<Step>.Create(
+			static (left, right) => left.StartTubeIndex == right.StartTubeIndex,
+			static tube => tube.StartTubeIndex
+		);
+
 		// This is a n-ary tree, we should firstly add all possible steps found into one root node.
 		var rootNode = new BruteForceNode(puzzle.Clone());
 		var queue = new LinkedList<BruteForceNode>();
-		foreach (var step in _collector.Collect(puzzle))
+		foreach (var step in new HashSet<Step>([.. _collector.Collect(puzzle)], startEqualityComparer))
 		{
 			var puzzleApplied = puzzle.Clone();
 			puzzleApplied.Apply(step);
