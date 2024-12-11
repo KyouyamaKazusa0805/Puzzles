@@ -141,6 +141,19 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 		return false;
 	}
 
+	/// <summary>
+	/// Determine whether the current puzzle can accommodate the specified color into the specified tube.
+	/// </summary>
+	/// <param name="color">The color.</param>
+	/// <param name="tubeIndex">The index of the tube.</param>
+	/// <returns>A <see cref="bool"/> result.</returns>
+	/// <exception cref="InvalidOperationException">Throws when the color value is invalid.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public bool CanAccommodateColor(Color color, int tubeIndex)
+		=> color != Color.MaxValue
+			? Tubes[tubeIndex].Length < Depth
+			: throw new InvalidOperationException("The color here cannot be empty color.");
+
 	/// <inheritdoc/>
 	public override int GetHashCode()
 	{
