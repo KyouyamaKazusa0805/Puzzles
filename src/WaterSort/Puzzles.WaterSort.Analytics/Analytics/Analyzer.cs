@@ -38,7 +38,7 @@ public sealed class Analyzer
 			var steps = new List<Step>();
 			var playground = puzzle.Clone();
 			var depth = puzzle.Depth;
-			while (!playground.IsSolved || !playground.TrueForAll(tube => tube.Length == depth || tube.Length == 0))
+			while (!playground.IsSolved)
 			{
 				var foundSteps = _collector.Collect(playground);
 				if (foundSteps.Length == 0)

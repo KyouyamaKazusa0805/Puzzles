@@ -95,6 +95,9 @@ public readonly partial record struct Coordinate(int X, int Y) :
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public short AsMask() => (short)(X << 8 | Y);
 
+	/// <include
+	///     file="../../../global-doc-comments.xml"
+	///     path="/g/csharp9/feature[@name='records']/target[@name='method' and @cref='PrintMembers']"/>
 	private bool PrintMembers(StringBuilder builder)
 	{
 		builder.Append($"{nameof(X)} = ");

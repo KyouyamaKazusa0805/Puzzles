@@ -49,6 +49,9 @@ public readonly record struct Coordinate(int RowIndex, int ColumnIndex) :
 	/// <returns>The absolute index.</returns>
 	public int ToIndex(Graph graph) => RowIndex * graph.ColumnsLength + ColumnIndex;
 
+	/// <include
+	///     file="../../../global-doc-comments.xml"
+	///     path="/g/csharp9/feature[@name='records']/target[@name='method' and @cref='PrintMembers']"/>
 	private bool PrintMembers(StringBuilder builder)
 	{
 		builder.Append($"{nameof(RowIndex)} = {RowIndex}, {nameof(ColumnIndex)} = {ColumnIndex}");

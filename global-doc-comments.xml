@@ -242,8 +242,7 @@ fixed (short* ptr = instance)
 					</para>
 					<para>
 						The suggested implementation is like this:
-						<code>
-							<![CDATA[private bool PrintMembers(StringBuilder builder)
+						<code><![CDATA[private bool PrintMembers(StringBuilder builder)
 {
     builder.Append($"{nameof(Property1)} = {Property1}");
     builder.Append(", ");

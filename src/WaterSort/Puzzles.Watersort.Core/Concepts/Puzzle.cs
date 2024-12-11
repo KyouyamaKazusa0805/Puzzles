@@ -27,7 +27,9 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 					return false;
 				}
 			}
-			return true;
+
+			var depth = Depth;
+			return TrueForAll(tube => tube.Length == depth || tube.Length == 0);
 		}
 	}
 

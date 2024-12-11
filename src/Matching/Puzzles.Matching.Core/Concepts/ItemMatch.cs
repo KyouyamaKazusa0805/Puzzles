@@ -50,6 +50,9 @@ public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordina
 		return $"{(Start.X, Start.Y)} <-> {(End.X, End.Y)}{interimsString}";
 	}
 
+	/// <include
+	///     file="../../../global-doc-comments.xml"
+	///     path="/g/csharp9/feature[@name='records']/target[@name='method' and @cref='PrintMembers']"/>
 	private bool PrintMembers(StringBuilder builder)
 	{
 		builder.Append($"{nameof(Start)} = ");

@@ -97,6 +97,98 @@
             <param name="puzzle">The puzzle.</param>
             <returns>An <see cref="T:Puzzles.WaterSort.Analytics.AnalysisResult"/> instance indicating result.</returns>
         </member>
+        <member name="T:Puzzles.WaterSort.Analytics.BruteForce">
+            <summary>
+            Provides a way to make an exhaustive search to find for all possible valid steps in the whole solving environment.
+            </summary>
+        </member>
+        <member name="F:Puzzles.WaterSort.Analytics.BruteForce._collector">
+            <summary>
+            Indicates the collector.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForce.CreateTree(Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Create a <see cref="T:Puzzles.WaterSort.Analytics.BruteForceNode"/> to describe each steps and its related steps.
+            </summary>
+            <param name="puzzle">The puzzle.</param>
+            <returns>A <see cref="T:Puzzles.WaterSort.Analytics.BruteForceNode"/> instance.</returns>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.BruteForceNode">
+            <summary>
+            Provides a linked list node that describes the parent usages for a step.
+            </summary>
+            <param name="Step">Indicates the step.</param>
+            <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
+            <param name="Parent">Indicates the parent node.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.#ctor(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <summary>
+            Provides a linked list node that describes the parent usages for a step.
+            </summary>
+            <param name="Step">Indicates the step.</param>
+            <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
+            <param name="Parent">Indicates the parent node.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.Step">
+            <summary>Indicates the step.</summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.CurrentPuzzle">
+            <summary>Indicates the current puzzle state.</summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.Parent">
+            <summary>Indicates the parent node.</summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.#ctor(Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.WaterSort.Analytics.BruteForceNode"/> instance.
+            </summary>
+            <param name="currentPuzzle">Indicates the current puzzle.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.AncestorsCount">
+            <summary>
+            Indicates the number of ancestors in the whole chain.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.PrintMembers(System.Text.StringBuilder)">
+            <target name="method" cref="M:Puzzles.WaterSort.Analytics.BruteForceNode.PrintMembers(System.Text.StringBuilder)">
+				<summary>
+					Provides an easy way to concatenate output members inside a <see langword="record" />
+					or a <see langword="record struct" /> type.
+				</summary>
+				<param name="builder">
+					A <see cref="T:System.Text.StringBuilder" /> instance to concatenate values.
+				</param>
+				<returns>
+					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
+					by implementing to-string method <see cref="M:Puzzles.WaterSort.Analytics.BruteForceNode.ToString" />.
+				</returns>
+				<remarks>
+					<para>
+						By design of <see langword="record" /> and <see langword="record struct" /> types,
+						emit text should be formatted as follows:
+						<code><![CDATA[RecordType { Property1 = Value1, Property2 = Value2, Property3 = { NestedProperty = Value3 } }]]></code>
+					</para>
+					<para>
+						This method won't emit type name and curly brackets. If you want to customize emit text,
+						you can only change values inside a pair of brackets.
+					</para>
+					<para>
+						The suggested implementation is like this:
+						<code><![CDATA[private bool PrintMembers(StringBuilder builder)
+{
+    builder.Append($"{nameof(Property1)} = {Property1}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property2)} = {Property2}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property3)} = {{ {Property3} }}");
+    return true;
+}]]>
+						</code>
+					</para>
+				</remarks>
+			</target>
+        </member>
         <member name="T:Puzzles.WaterSort.Analytics.Collector">
             <summary>
             Represents a collector.
