@@ -59,7 +59,9 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 			sb.AppendLine("Steps:");
 			foreach (var step in InterimSteps)
 			{
-				sb.AppendLine($"{step} (color {Puzzle[step.StartTubeIndex].TopColor}, size {Puzzle[step.StartTubeIndex].TopColorSpannedCount})");
+				var topColor = Puzzle[step.StartTubeIndex].TopColor;
+				var topColorString = topColor == Color.MaxValue ? "<empty>" : topColor.ToString();
+				sb.AppendLine($"{step} (color {topColorString}, size {Puzzle[step.StartTubeIndex].TopColorSpannedCount})");
 			}
 			sb.AppendLine("---");
 			sb.AppendLine("Puzzle is solved.");
