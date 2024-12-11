@@ -3,61 +3,61 @@ namespace Puzzles.Hamiltonian.Transforming;
 /// <summary>
 /// Provides a way to transform a path.
 /// </summary>
-public static class Transformation
+public static unsafe class Transformation
 {
 	/// <summary>
 	/// Rotates a path clockwise.
 	/// </summary>
-	/// <inheritdoc cref="TransformCore(Path, int, int, Func{string, string})"/>
+	/// <inheritdoc cref="TransformCore"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Path RotateClockwise(this Path path, int rows, int columns)
-		=> TransformCore(path, rows, columns, LocalTransformer.RotateClockwise);
+		=> TransformCore(path, rows, columns, &LocalTransformer.RotateClockwise);
 
 	/// <summary>
 	/// Rotates a path counter-clockwise.
 	/// </summary>
-	/// <inheritdoc cref="TransformCore(Path, int, int, Func{string, string})"/>
+	/// <inheritdoc cref="TransformCore"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Path RotateCounterclockwise(this Path path, int rows, int columns)
-		=> TransformCore(path, rows, columns, LocalTransformer.RotateCounterclockwise);
+		=> TransformCore(path, rows, columns, &LocalTransformer.RotateCounterclockwise);
 
 	/// <summary>
 	/// Mirrors a path left and right.
 	/// </summary>
-	/// <inheritdoc cref="TransformCore(Path, int, int, Func{string, string})"/>
+	/// <inheritdoc cref="TransformCore"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Path MirrorLeftRight(this Path path, int rows, int columns)
-		=> TransformCore(path, rows, columns, LocalTransformer.MirrorLeftRight);
+		=> TransformCore(path, rows, columns, &LocalTransformer.MirrorLeftRight);
 
 	/// <summary>
 	/// Mirrors a path top and bottom.
 	/// </summary>
-	/// <inheritdoc cref="TransformCore(Path, int, int, Func{string, string})"/>
+	/// <inheritdoc cref="TransformCore"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Path MirrorTopBottom(this Path path, int rows, int columns)
-		=> TransformCore(path, rows, columns, LocalTransformer.MirrorTopBottom);
+		=> TransformCore(path, rows, columns, &LocalTransformer.MirrorTopBottom);
 
 	/// <summary>
 	/// Mirrors a path diagonal.
 	/// </summary>
-	/// <inheritdoc cref="TransformCore(Path, int, int, Func{string, string})"/>
+	/// <inheritdoc cref="TransformCore"/>
 	/// <exception cref="InvalidOperationException">
 	/// Throws when the <paramref name="rows"/> is not equal to <paramref name="columns"/>.
 	/// </exception>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Path MirrorDiagonal(this Path path, int rows, int columns)
-		=> TransformCore(path, rows, columns, LocalTransformer.MirrorDiagonal);
+		=> TransformCore(path, rows, columns, &LocalTransformer.MirrorDiagonal);
 
 	/// <summary>
 	/// Mirrors a path anti-diagonal.
 	/// </summary>
-	/// <inheritdoc cref="TransformCore(Path, int, int, Func{string, string})"/>
+	/// <inheritdoc cref="TransformCore"/>
 	/// <exception cref="InvalidOperationException">
 	/// Throws when the <paramref name="rows"/> is not equal to <paramref name="columns"/>.
 	/// </exception>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Path MirrorAntidiagonal(this Path path, int rows, int columns)
-		=> TransformCore(path, rows, columns, LocalTransformer.MirrorAntidiagonal);
+		=> TransformCore(path, rows, columns, &LocalTransformer.MirrorAntidiagonal);
 
 	/// <summary>
 	/// The local method to transform a path.
@@ -68,7 +68,7 @@ public static class Transformation
 	/// <param name="transformer">The transformer method.</param>
 	/// <returns>The result path.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static Path TransformCore(Path path, int rows, int columns, Func<string, string> transformer)
+	private static Path TransformCore(Path path, int rows, int columns, delegate*<string, string> transformer)
 	{
 		var formatProvider = new IndexedPathFormatInfo(rows, columns);
 		return Path.Parse(transformer(path.ToString(formatProvider)), formatProvider);
@@ -85,8 +85,8 @@ file static class LocalTransformer
 	public static string RotateClockwise(this string value)
 		=> TransformCore(
 			value,
-			(rows, columns) => (columns, rows),
-			(coordinate, rows, columns) =>
+			static (rows, columns) => (columns, rows),
+			static (coordinate, rows, columns) =>
 			{
 				var rowIndex = coordinate / columns;
 				var columnIndex = coordinate % columns;
@@ -96,16 +96,15 @@ file static class LocalTransformer
 
 	/// <inheritdoc cref="Transformation.RotateCounterclockwise(Path, int, int)"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static string RotateCounterclockwise(this string value)
-		=> value.RotateClockwise().RotateClockwise().RotateClockwise();
+	public static string RotateCounterclockwise(this string value) => value.RotateClockwise().RotateClockwise().RotateClockwise();
 
 	/// <inheritdoc cref="Transformation.MirrorLeftRight(Path, int, int)"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static string MirrorLeftRight(this string value)
 		=> TransformCore(
 			value,
-			(rows, columns) => (rows, columns),
-			(coordinate, rows, columns) =>
+			static (rows, columns) => (rows, columns),
+			static (coordinate, rows, columns) =>
 			{
 				var rowIndex = coordinate / columns;
 				var columnIndex = coordinate % columns;
@@ -118,8 +117,8 @@ file static class LocalTransformer
 	public static string MirrorTopBottom(this string value)
 		=> TransformCore(
 			value,
-			(rows, columns) => (rows, columns),
-			(coordinate, rows, columns) =>
+			static (rows, columns) => (rows, columns),
+			static (coordinate, rows, columns) =>
 			{
 				var rowIndex = coordinate / columns;
 				var columnIndex = coordinate % columns;
@@ -133,7 +132,7 @@ file static class LocalTransformer
 		=> TransformCore(
 			value,
 			DiagonalSizeChanger,
-			(coordinate, rows, columns) =>
+			static (coordinate, rows, columns) =>
 			{
 				var rowIndex = coordinate / columns;
 				var columnIndex = coordinate % columns;
@@ -147,7 +146,7 @@ file static class LocalTransformer
 		=> TransformCore(
 			value,
 			DiagonalSizeChanger,
-			(coordinate, rows, columns) =>
+			static (coordinate, rows, columns) =>
 			{
 				var rowIndex = coordinate / columns;
 				var columnIndex = coordinate % columns;

@@ -1007,31 +1007,31 @@
             <summary>
             Rotates a path clockwise.
             </summary>
-            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,)"/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.RotateCounterclockwise(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
             <summary>
             Rotates a path counter-clockwise.
             </summary>
-            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,)"/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorLeftRight(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
             <summary>
             Mirrors a path left and right.
             </summary>
-            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,)"/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorTopBottom(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
             <summary>
             Mirrors a path top and bottom.
             </summary>
-            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,)"/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.MirrorDiagonal(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32)">
             <summary>
             Mirrors a path diagonal.
             </summary>
-            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,)"/>
             <exception cref="T:System.InvalidOperationException">
             Throws when the <paramref name="rows"/> is not equal to <paramref name="columns"/>.
             </exception>
@@ -1040,12 +1040,12 @@
             <summary>
             Mirrors a path anti-diagonal.
             </summary>
-            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})"/>
+            <inheritdoc cref="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,)"/>
             <exception cref="T:System.InvalidOperationException">
             Throws when the <paramref name="rows"/> is not equal to <paramref name="columns"/>.
             </exception>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,System.Func{System.String,System.String})">
+        <member name="M:Puzzles.Hamiltonian.Transforming.Transformation.TransformCore(Puzzles.Hamiltonian.Concepts.Path,System.Int32,System.Int32,)">
             <summary>
             The local method to transform a path.
             </summary>
