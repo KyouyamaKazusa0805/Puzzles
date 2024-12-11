@@ -5,6 +5,7 @@ namespace Puzzles.WaterSort.Concepts;
 /// </summary>
 /// <param name="tubes">Indicates the tubes.</param>
 [TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
+[CollectionBuilder(typeof(Puzzle), nameof(Create))]
 public sealed partial class Puzzle(params Tube[] tubes) :
 	ICloneable,
 	IEquatable<Puzzle>,
@@ -34,6 +35,11 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	/// Indicates the number of the tubes.
 	/// </summary>
 	public int Length => Tubes.Length;
+
+	/// <summary>
+	/// Indicates the depth of the puzzle.
+	/// </summary>
+	public int Depth => Tubes.Max(static tube => tube.Length);
 
 	/// <summary>
 	/// Indicates the tubes.
@@ -163,23 +169,12 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	IEnumerator<Tube> IEnumerable<Tube>.GetEnumerator() => Tubes.ToArray().AsEnumerable().GetEnumerator();
 
 
-	/// <inheritdoc cref="op_False(Puzzle)"/>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator !(Puzzle value) => !value.IsSolved;
-
 	/// <summary>
-	/// Returns property <see cref="IsSolved"/>.
+	/// Create a <see cref="Puzzle"/> with tubes.
 	/// </summary>
-	/// <param name="value">The object.</param>
-	/// <returns>A <see cref="bool"/> result.</returns>
+	/// <param name="tubes">The tubes.</param>
+	/// <returns>A <see cref="Puzzle"/>.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator true(Puzzle value) => value.IsSolved;
-
-	/// <summary>
-	/// Negates property <see cref="IsSolved"/>.
-	/// </summary>
-	/// <param name="value">The object.</param>
-	/// <returns>A <see cref="bool"/> result.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator false(Puzzle value) => !value.IsSolved;
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public static Puzzle Create(ReadOnlySpan<Tube> tubes) => new([.. tubes]);
 }

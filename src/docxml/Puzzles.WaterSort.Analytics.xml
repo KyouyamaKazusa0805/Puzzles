@@ -79,12 +79,22 @@
             Indicates the backing collector.
             </summary>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Analyzer.Analyze(Puzzles.WaterSort.Concepts.Puzzle,System.Int32)">
+        <member name="F:Puzzles.WaterSort.Analytics.Analyzer._rng">
+            <summary>
+            Indicates the random number generator.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Analyzer.RandomSelectSteps">
+            <summary>
+            Indicates whether the analyzer randomly choose a step to be applied.
+            </summary>
+            <remarks><b><i>Please note that this option may cause the puzzle to be failed to analyze.</i></b></remarks>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Analyzer.Analyze(Puzzles.WaterSort.Concepts.Puzzle)">
             <summary>
             Try to analyze a puzzle.
             </summary>
             <param name="puzzle">The puzzle.</param>
-            <param name="depth">The depth of unified value on applying to each tube.</param>
             <returns>An <see cref="T:Puzzles.WaterSort.Analytics.AnalysisResult"/> instance indicating result.</returns>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.Collector">
@@ -92,14 +102,11 @@
             Represents a collector.
             </summary>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Collector.Collect(Puzzles.WaterSort.Concepts.Puzzle,System.Int32)">
+        <member name="M:Puzzles.WaterSort.Analytics.Collector.Collect(Puzzles.WaterSort.Concepts.Puzzle)">
             <summary>
             Gets all possible steps.
             </summary>
             <param name="puzzle">The puzzle.</param>
-            <param name="depth">
-            The depth of all tube, meaning the maximum number of different colors can be appeared inside one tube.
-            </param>
             <returns>The result steps.</returns>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.FailedReason">

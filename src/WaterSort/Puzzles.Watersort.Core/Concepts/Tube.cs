@@ -4,8 +4,8 @@ namespace Puzzles.WaterSort.Concepts;
 /// Represents a tube.
 /// </summary>
 /// <param name="_items">Indicates the items.</param>
-[CollectionBuilder(typeof(Tube), nameof(Create))]
 [TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
+[CollectionBuilder(typeof(Tube), nameof(Create))]
 public sealed partial class Tube(Stack<Color> _items) :
 	ICloneable,
 	IEquatable<Tube>,
@@ -88,7 +88,7 @@ public sealed partial class Tube(Stack<Color> _items) :
 			var result = new Dictionary<Color, int>();
 			foreach (var color in Colors)
 			{
-				var internalSpan = StackEntry<Color>.GetArray(_items).AsSpan()[.._items.Count];
+				var internalSpan = _items.GetInternalArray().AsSpan()[.._items.Count];
 				var firstPos = internalSpan.IndexOf(color);
 				int lastPos;
 				for (lastPos = firstPos + 1; lastPos < _items.Count && internalSpan[lastPos] != color; lastPos++) ;
@@ -162,7 +162,7 @@ public sealed partial class Tube(Stack<Color> _items) :
 		}
 
 		var result = 0;
-		var internalSpan = StackEntry<Color>.GetArray(_items).AsSpan()[.._items.Count];
+		var internalSpan = _items.GetInternalArray().AsSpan()[.._items.Count];
 		var startIndex = -1;
 		for (var i = internalSpan.Length - 1; i >= 0; i--)
 		{
@@ -278,36 +278,13 @@ public sealed partial class Tube(Stack<Color> _items) :
 	/// <param name="colors">The colors.</param>
 	/// <returns>The tube created, with FILO structure.</returns>
 	[EditorBrowsable(EditorBrowsableState.Never)]
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Tube Create(ReadOnlySpan<Color> colors)
 	{
-		var result = new Stack<Color>();
-		foreach (var color in colors)
-		{
-			result.Push(color);
-		}
+		var result = new Stack<Color>(colors.Length);
+		var stackArray = result.GetInternalArray();
+		colors.Reverse().CopyTo(stackArray);
+		result.GetCount() = colors.Length;
 		return new(result);
 	}
-
-
-	/// <summary>
-	/// Returns <see cref="IsSolved"/> property.
-	/// </summary>
-	/// <param name="value">The object.</param>
-	/// <returns>The value.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator true(Tube value) => value.IsSolved;
-
-	/// <summary>
-	/// Negates the property value <see cref="IsSolved"/>.
-	/// </summary>
-	/// <param name="value">The object.</param>
-	/// <returns>The value.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator false(Tube value) => !value.IsSolved;
-}
-
-file static class StackEntry<T>
-{
-	[UnsafeAccessor(UnsafeAccessorKind.Field, Name = "_array")]
-	public static extern ref T[] GetArray(Stack<T> stack);
 }

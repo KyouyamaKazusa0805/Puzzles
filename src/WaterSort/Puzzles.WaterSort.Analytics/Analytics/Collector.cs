@@ -9,11 +9,8 @@ public sealed class Collector
 	/// Gets all possible steps.
 	/// </summary>
 	/// <param name="puzzle">The puzzle.</param>
-	/// <param name="depth">
-	/// The depth of all tube, meaning the maximum number of different colors can be appeared inside one tube.
-	/// </param>
 	/// <returns>The result steps.</returns>
-	public ReadOnlySpan<Step> Collect(Puzzle puzzle, int depth)
+	public ReadOnlySpan<Step> Collect(Puzzle puzzle)
 	{
 		var result = new List<Step>();
 
@@ -25,6 +22,7 @@ public sealed class Collector
 		}
 
 		// Find a pair of moves, and determine whether such step is valid, limited by the specified depth.
+		var depth = puzzle.Depth;
 		foreach (var color in dictionary.Values.ToHashSet())
 		{
 			// Find different tubes whose peek item is the current color,

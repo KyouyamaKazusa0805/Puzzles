@@ -185,7 +185,7 @@ public readonly ref partial struct Generator()
 
 			// Create the puzzle via tubes.
 			var puzzle = new Puzzle(tubes);
-			if (_analyzer.Analyze(puzzle, depth).IsSolved)
+			if (_analyzer.Analyze(puzzle).IsSolved)
 			{
 				return puzzle;
 			}

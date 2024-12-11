@@ -26,6 +26,11 @@
             Indicates the number of the tubes.
             </summary>
         </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Depth">
+            <summary>
+            Indicates the depth of the puzzle.
+            </summary>
+        </member>
         <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Tubes">
             <summary>
             Indicates the tubes.
@@ -87,22 +92,12 @@
         <member name="M:Puzzles.WaterSort.Concepts.Puzzle.System#Collections#Generic#IEnumerable{Puzzles#WaterSort#Concepts#Tube}#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_LogicalNot(Puzzles.WaterSort.Concepts.Puzzle)">
-            <inheritdoc cref="M:Puzzles.WaterSort.Concepts.Puzzle.op_False(Puzzles.WaterSort.Concepts.Puzzle)"/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_True(Puzzles.WaterSort.Concepts.Puzzle)">
+        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.Create(System.ReadOnlySpan{Puzzles.WaterSort.Concepts.Tube})">
             <summary>
-            Returns property <see cref="P:Puzzles.WaterSort.Concepts.Puzzle.IsSolved"/>.
+            Create a <see cref="T:Puzzles.WaterSort.Concepts.Puzzle"/> with tubes.
             </summary>
-            <param name="value">The object.</param>
-            <returns>A <see cref="T:System.Boolean"/> result.</returns>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Puzzle.op_False(Puzzles.WaterSort.Concepts.Puzzle)">
-            <summary>
-            Negates property <see cref="P:Puzzles.WaterSort.Concepts.Puzzle.IsSolved"/>.
-            </summary>
-            <param name="value">The object.</param>
-            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+            <param name="tubes">The tubes.</param>
+            <returns>A <see cref="T:Puzzles.WaterSort.Concepts.Puzzle"/>.</returns>
         </member>
         <member name="T:Puzzles.WaterSort.Concepts.Puzzle.Enumerator">
             <summary>
@@ -281,20 +276,6 @@
             </summary>
             <param name="colors">The colors.</param>
             <returns>The tube created, with FILO structure.</returns>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_True(Puzzles.WaterSort.Concepts.Tube)">
-            <summary>
-            Returns <see cref="P:Puzzles.WaterSort.Concepts.Tube.IsSolved"/> property.
-            </summary>
-            <param name="value">The object.</param>
-            <returns>The value.</returns>
-        </member>
-        <member name="M:Puzzles.WaterSort.Concepts.Tube.op_False(Puzzles.WaterSort.Concepts.Tube)">
-            <summary>
-            Negates the property value <see cref="P:Puzzles.WaterSort.Concepts.Tube.IsSolved"/>.
-            </summary>
-            <param name="value">The object.</param>
-            <returns>The value.</returns>
         </member>
         <member name="T:Puzzles.WaterSort.Concepts.Tube.Enumerator">
             <summary>
