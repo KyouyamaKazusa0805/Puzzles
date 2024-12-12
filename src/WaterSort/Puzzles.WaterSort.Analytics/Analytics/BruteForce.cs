@@ -13,12 +13,17 @@ public sealed class BruteForce
 	private readonly Collector _collector = new();
 
 
+	/// <inheritdoc cref="CreateTree(Puzzle, out LinkedList{InvertedBruteForceNode})"/>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public BruteForceTree CreateTree(Puzzle puzzle) => CreateTree(puzzle, out _);
+
 	/// <summary>
-	/// Create a <see cref="BruteForceNode"/> to describe each steps and its related steps.
+	/// Create a <see cref="BruteForceTree"/> to describe each steps and its related steps.
 	/// </summary>
 	/// <param name="puzzle">The puzzle.</param>
-	/// <returns>A <see cref="BruteForceNode"/> instance.</returns>
-	public BruteForceNode CreateTree(Puzzle puzzle)
+	/// <param name="invertedNodes">The inverted nodes.</param>
+	/// <returns>A <see cref="BruteForceTree"/> instance.</returns>
+	public BruteForceTree CreateTree(Puzzle puzzle, out LinkedList<InvertedBruteForceNode> invertedNodes)
 	{
 		var startEqualityComparer = EqualityComparer<Step>.Create(
 			static (left, right) => left.StartTubeIndex == right.StartTubeIndex,
@@ -26,19 +31,19 @@ public sealed class BruteForce
 		);
 
 		// This is a n-ary tree, we should firstly add all possible steps found into one root node.
-		var validNodes = new LinkedList<ParentLinkedNode>();
-		var rootNode = new ParentLinkedNode(puzzle.Clone());
-		validNodes.AddLast(rootNode);
+		invertedNodes = new LinkedList<InvertedBruteForceNode>();
+		var rootNode = new InvertedBruteForceNode(puzzle.Clone());
+		invertedNodes.AddLast(rootNode);
 
-		var queue = new LinkedList<ParentLinkedNode>();
+		var queue = new LinkedList<InvertedBruteForceNode>();
 		foreach (var step in new HashSet<Step>([.. _collector.Collect(puzzle)], startEqualityComparer))
 		{
 			var puzzleApplied = puzzle.Clone();
 			puzzleApplied.Apply(step);
 
-			var node = new ParentLinkedNode(step, puzzleApplied, rootNode);
+			var node = new InvertedBruteForceNode(step, puzzleApplied, rootNode);
 			queue.AddLast(node);
-			validNodes.AddLast(node);
+			invertedNodes.AddLast(node);
 		}
 
 		// Use BFS algorithm to make such exhaustive searching.
@@ -69,14 +74,14 @@ public sealed class BruteForce
 				var puzzleApplied = p.Clone();
 				puzzleApplied.Apply(step);
 
-				var node = new ParentLinkedNode(step, puzzleApplied, currentNode);
+				var node = new InvertedBruteForceNode(step, puzzleApplied, currentNode);
 				queue.AddLast(node);
-				validNodes.AddLast(node);
+				invertedNodes.AddLast(node);
 			}
 		}
 
 		// Return the root node.
-		return getRootNode(validNodes);
+		return new(getRootNode(invertedNodes));
 
 
 #if CHECK_DETOUR_STEP
@@ -121,10 +126,10 @@ public sealed class BruteForce
 		}
 #endif
 
-		static BruteForceNode getRootNode(LinkedList<ParentLinkedNode> nodes)
+		static BruteForceNode getRootNode(LinkedList<InvertedBruteForceNode> nodes)
 		{
 			// Create a dictionary to map original nodes to new tree nodes.
-			var map = new Dictionary<ParentLinkedNode, BruteForceNode>();
+			var map = new Dictionary<InvertedBruteForceNode, BruteForceNode>();
 
 			// Populate the dictionary with new TreeNode instances.
 			foreach (var node in nodes)
@@ -151,63 +156,5 @@ public sealed class BruteForce
 
 			return root!;
 		}
-	}
-}
-
-/// <summary>
-/// Provides a linked list node that describes the parent usages for a step.
-/// </summary>
-/// <param name="Step">Indicates the step.</param>
-/// <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
-/// <param name="Parent">Indicates the parent node.</param>
-file sealed record ParentLinkedNode(Step Step, Puzzle CurrentPuzzle, ParentLinkedNode? Parent) :
-	IEqualityOperators<ParentLinkedNode, ParentLinkedNode, bool>
-{
-	/// <summary>
-	/// Initializes a <see cref="ParentLinkedNode"/> instance.
-	/// </summary>
-	/// <param name="currentPuzzle">Indicates the current puzzle.</param>
-	public ParentLinkedNode(Puzzle currentPuzzle) : this(default, currentPuzzle, null)
-	{
-	}
-
-
-	/// <summary>
-	/// Indicates the number of ancestors in the whole chain.
-	/// </summary>
-	public int AncestorsCount
-	{
-		get
-		{
-			var result = 0;
-			for (var tempNode = this; tempNode is not null && tempNode.Step != default; tempNode = tempNode.Parent)
-			{
-				result++;
-			}
-			return result;
-		}
-	}
-
-
-	/// <include
-	///     file="../../../global-doc-comments.xml"
-	///     path="/g/csharp9/feature[@name='records']/target[@name='method' and @cref='PrintMembers']"/>
-	private bool PrintMembers(StringBuilder builder)
-	{
-		// Due to design of the game, two indices cannot be same in a step (start index and end index).
-		// Therefore, we can append a condition (== default) to determine whether the value is uninitialized.
-		builder.Append($"{nameof(Step)} = ");
-		builder.Append(Step == default ? "<default>" : Step.ToString());
-		builder.Append($", {nameof(Parent)} = ");
-		builder.Append(
-			Parent switch
-			{
-				{ Step: var step } => step == default ? "<default>" : step.ToString(),
-				_ => "<null>"
-			}
-		);
-		builder.Append($", {nameof(AncestorsCount)} = ");
-		builder.Append(AncestorsCount);
-		return true;
 	}
 }

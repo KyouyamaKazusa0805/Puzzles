@@ -108,86 +108,15 @@
             </summary>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.BruteForce.CreateTree(Puzzles.WaterSort.Concepts.Puzzle)">
+            <inheritdoc cref="M:Puzzles.WaterSort.Analytics.BruteForce.CreateTree(Puzzles.WaterSort.Concepts.Puzzle,System.Collections.Generic.LinkedList{Puzzles.WaterSort.Analytics.InvertedBruteForceNode}@)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForce.CreateTree(Puzzles.WaterSort.Concepts.Puzzle,System.Collections.Generic.LinkedList{Puzzles.WaterSort.Analytics.InvertedBruteForceNode}@)">
             <summary>
-            Create a <see cref="T:Puzzles.WaterSort.Analytics.BruteForceNode"/> to describe each steps and its related steps.
+            Create a <see cref="T:Puzzles.WaterSort.Analytics.BruteForceTree"/> to describe each steps and its related steps.
             </summary>
             <param name="puzzle">The puzzle.</param>
-            <returns>A <see cref="T:Puzzles.WaterSort.Analytics.BruteForceNode"/> instance.</returns>
-        </member>
-        <member name="T:Puzzles.WaterSort.Analytics.ParentLinkedNode">
-            <summary>
-            Provides a linked list node that describes the parent usages for a step.
-            </summary>
-            <param name="Step">Indicates the step.</param>
-            <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
-            <param name="Parent">Indicates the parent node.</param>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.#ctor(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Analytics.ParentLinkedNode)">
-            <summary>
-            Provides a linked list node that describes the parent usages for a step.
-            </summary>
-            <param name="Step">Indicates the step.</param>
-            <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
-            <param name="Parent">Indicates the parent node.</param>
-        </member>
-        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.Step">
-            <summary>Indicates the step.</summary>
-        </member>
-        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.CurrentPuzzle">
-            <summary>Indicates the current puzzle state.</summary>
-        </member>
-        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.Parent">
-            <summary>Indicates the parent node.</summary>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.#ctor(Puzzles.WaterSort.Concepts.Puzzle)">
-            <summary>
-            Initializes a <see cref="T:Puzzles.WaterSort.Analytics.ParentLinkedNode"/> instance.
-            </summary>
-            <param name="currentPuzzle">Indicates the current puzzle.</param>
-        </member>
-        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.AncestorsCount">
-            <summary>
-            Indicates the number of ancestors in the whole chain.
-            </summary>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.PrintMembers(System.Text.StringBuilder)">
-            <target name="method" cref="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.PrintMembers(System.Text.StringBuilder)">
-				<summary>
-					Provides an easy way to concatenate output members inside a <see langword="record" />
-					or a <see langword="record struct" /> type.
-				</summary>
-				<param name="builder">
-					A <see cref="T:System.Text.StringBuilder" /> instance to concatenate values.
-				</param>
-				<returns>
-					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
-					by implementing to-string method <see cref="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.ToString" />.
-				</returns>
-				<remarks>
-					<para>
-						By design of <see langword="record" /> and <see langword="record struct" /> types,
-						emit text should be formatted as follows:
-						<code><![CDATA[RecordType { Property1 = Value1, Property2 = Value2, Property3 = { NestedProperty = Value3 } }]]></code>
-					</para>
-					<para>
-						This method won't emit type name and curly brackets. If you want to customize emit text,
-						you can only change values inside a pair of brackets.
-					</para>
-					<para>
-						The suggested implementation is like this:
-						<code><![CDATA[private bool PrintMembers(StringBuilder builder)
-{
-    builder.Append($"{nameof(Property1)} = {Property1}");
-    builder.Append(", ");
-    builder.Append($"{nameof(Property2)} = {Property2}");
-    builder.Append(", ");
-    builder.Append($"{nameof(Property3)} = {{ {Property3} }}");
-    return true;
-}]]>
-						</code>
-					</para>
-				</remarks>
-			</target>
+            <param name="invertedNodes">The inverted nodes.</param>
+            <returns>A <see cref="T:Puzzles.WaterSort.Analytics.BruteForceTree"/> instance.</returns>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.BruteForceNode">
             <summary>
@@ -218,8 +147,129 @@
             The generated property declaration for parameter <c>currentState</c>.
             </summary>
         </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
         <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.op_Equality(Puzzles.WaterSort.Analytics.BruteForceNode,Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.op_Inequality(Puzzles.WaterSort.Analytics.BruteForceNode,Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.Equals(Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.BruteForceTree">
+            <summary>
+            Represents a tree that describes all branches of trial of a puzzle.
+            </summary>
+            <param name="rootNode">Indicates the root node.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.#ctor(Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <summary>
+            Represents a tree that describes all branches of trial of a puzzle.
+            </summary>
+            <param name="rootNode">Indicates the root node.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceTree.Puzzle">
+            <summary>
+            Indicates the puzzle.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceTree.Puzzles#Meta#DataStructures#IDataStructure#Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceTree.Puzzles#Meta#DataStructures#IDataStructure#Base">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.Contains(Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <summary>
+            Determine whether the tree contains the specified node.
+            </summary>
+            <param name="node">The node to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.Equals(Puzzles.WaterSort.Analytics.BruteForceTree)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.GetNodesCount">
+            <summary>
+            Returns the number of nodes used.
+            </summary>
+            <returns>The number of nodes.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.GetMaximumDepth">
+            <summary>
+            Returns the maximum depth of the puzzle.
+            </summary>
+            <returns>The maximum depth of the puzzle.</returns>
+            <seealso href="https://leetcode.cn/problems/maximum-depth-of-n-ary-tree/">LeetCode - Maximum depth of a n-ary tree</seealso>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.GetSuccessRate">
+            <summary>
+            Returns the success rate of the puzzle.
+            </summary>
+            <returns>Success rate.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.DescendantNodes(Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <summary>
+            Enumerates all nodes that belongs to the current node.
+            </summary>
+            <param name="node">The node.</param>
+            <returns>The descendant nodes.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when the current node is not inside the current tree.</exception>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.DescendantNodesAndSelf(Puzzles.WaterSort.Analytics.BruteForceNode)">
+            <summary>
+            Enumerates all nodes that belongs to the current node, and itself.
+            </summary>
+            <param name="node">The node.</param>
+            <returns>The descendant nodes and itself.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when the current node is not inside the current tree.</exception>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.GetLeafNodes">
+            <summary>
+            Try to get all leaf nodes.
+            </summary>
+            <returns>The leaf nodes.</returns>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.GetDescendantNodes(Puzzles.WaterSort.Analytics.BruteForceNode,System.Boolean)">
+            <summary>
+            Try to iterate all nodes and its descendant nodes.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="yieldSelf">Indicates whether the node itself can be produced as a part of result.</param>
+            <returns>A list of nodes.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when the node is not inside the current tree.</exception>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceTree.RootNode">
+            <summary>
+            The generated property declaration for parameter <c>rootNode</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.op_Equality(Puzzles.WaterSort.Analytics.BruteForceTree,Puzzles.WaterSort.Analytics.BruteForceTree)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceTree.op_Inequality(Puzzles.WaterSort.Analytics.BruteForceTree,Puzzles.WaterSort.Analytics.BruteForceTree)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.Collector">
             <summary>
@@ -252,6 +302,81 @@
             <summary>
             Indicates an unhandled exception is thrown.
             </summary>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.InvertedBruteForceNode">
+            <summary>
+            Provides a linked list node that describes the parent usages for a step.
+            </summary>
+            <param name="Step">Indicates the step.</param>
+            <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
+            <param name="Parent">Indicates the parent node.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.#ctor(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Analytics.InvertedBruteForceNode)">
+            <summary>
+            Provides a linked list node that describes the parent usages for a step.
+            </summary>
+            <param name="Step">Indicates the step.</param>
+            <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
+            <param name="Parent">Indicates the parent node.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.Step">
+            <summary>Indicates the step.</summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.CurrentPuzzle">
+            <summary>Indicates the current puzzle state.</summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.Parent">
+            <summary>Indicates the parent node.</summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.#ctor(Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.WaterSort.Analytics.InvertedBruteForceNode"/> instance.
+            </summary>
+            <param name="currentPuzzle">Indicates the current puzzle.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.AncestorsCount">
+            <summary>
+            Indicates the number of ancestors in the whole chain.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.PrintMembers(System.Text.StringBuilder)">
+            <target name="method" cref="M:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.PrintMembers(System.Text.StringBuilder)">
+				<summary>
+					Provides an easy way to concatenate output members inside a <see langword="record" />
+					or a <see langword="record struct" /> type.
+				</summary>
+				<param name="builder">
+					A <see cref="T:System.Text.StringBuilder" /> instance to concatenate values.
+				</param>
+				<returns>
+					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
+					by implementing to-string method <see cref="M:Puzzles.WaterSort.Analytics.InvertedBruteForceNode.ToString" />.
+				</returns>
+				<remarks>
+					<para>
+						By design of <see langword="record" /> and <see langword="record struct" /> types,
+						emit text should be formatted as follows:
+						<code><![CDATA[RecordType { Property1 = Value1, Property2 = Value2, Property3 = { NestedProperty = Value3 } }]]></code>
+					</para>
+					<para>
+						This method won't emit type name and curly brackets. If you want to customize emit text,
+						you can only change values inside a pair of brackets.
+					</para>
+					<para>
+						The suggested implementation is like this:
+						<code><![CDATA[private bool PrintMembers(StringBuilder builder)
+{
+    builder.Append($"{nameof(Property1)} = {Property1}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property2)} = {Property2}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property3)} = {{ {Property3} }}");
+    return true;
+}]]>
+						</code>
+					</para>
+				</remarks>
+			</target>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.PuzzleExtensions">
             <summary>

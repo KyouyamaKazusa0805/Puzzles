@@ -5,8 +5,13 @@ namespace Puzzles.WaterSort.Analytics;
 /// </summary>
 /// <param name="step">Indicates the step.</param>
 /// <param name="currentState">Indicates the current state.</param>
-[TypeImpl(TypeImplFlags.Object_ToString)]
-public sealed partial class BruteForceNode([Property, StringMember] Step step, [Property, StringMember] Puzzle currentState)
+[TypeImpl(TypeImplFlags.AllObjectMethods | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
+public sealed partial class BruteForceNode(
+	[Property, HashCodeMember, StringMember] Step step,
+	[Property, HashCodeMember, StringMember] Puzzle currentState
+) :
+	IEquatable<BruteForceNode>,
+	IEqualityOperators<BruteForceNode, BruteForceNode, bool>
 {
 	/// <summary>
 	/// Indicates the children.
@@ -15,4 +20,10 @@ public sealed partial class BruteForceNode([Property, StringMember] Step step, [
 
 	[StringMember(nameof(Children))]
 	private string ChildrenString => $"[{string.Join(", ", from child in Children select child.Step.ToString())}]";
+
+	[EquatableMember]
+	private Step StepEntry => Step;
+
+	[EquatableMember]
+	private Puzzle CurrentStateEntry => CurrentState;
 }

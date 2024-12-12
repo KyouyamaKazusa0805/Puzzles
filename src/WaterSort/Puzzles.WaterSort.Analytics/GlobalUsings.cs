@@ -1,4 +1,5 @@
 global using System;
+global using System.Collections;
 global using System.Collections.Generic;
 global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
@@ -7,6 +8,7 @@ global using System.Numerics;
 global using System.Runtime.CompilerServices;
 global using System.Text;
 global using System.Threading;
+global using Puzzles.Meta.DataStructures;
 global using Puzzles.WaterSort.Analytics;
 global using Puzzles.WaterSort.Concepts;
 global using Color = byte;
