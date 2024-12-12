@@ -9,6 +9,11 @@ namespace Puzzles.Matching.Concepts;
 public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordinate[] Interims) : IEqualityOperators<ItemMatch, ItemMatch, bool>
 {
 	/// <summary>
+	/// Indicates the difficulty of the step.
+	/// </summary>
+	public int Difficulty => 7 * Distance + 3 * (Interims.Length + 1 << 1);
+
+	/// <summary>
 	/// Indicates the number of turning.
 	/// </summary>
 	public int TurningCount => Interims.Length;
@@ -41,12 +46,14 @@ public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordina
 	/// <inheritdoc cref="object.ToString"/>
 	public string ToFullString()
 	{
+#pragma warning disable format
 		var interimsString = Interims switch
 		{
 			[var (ax, ay), var (bx, by)] => $", interims [{(ax, ay)}, {(bx, by)}]",
 			[var (ax, ay)] => $", interims [{(ax, ay)}]",
 			_ => string.Empty
 		};
+#pragma warning restore format
 		return $"{(Start.X, Start.Y)} <-> {(End.X, End.Y)}{interimsString}";
 	}
 

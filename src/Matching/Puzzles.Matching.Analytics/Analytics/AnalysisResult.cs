@@ -1,4 +1,4 @@
-namespace Puzzles.Match.Analytics;
+namespace Puzzles.Matching.Analytics;
 
 /// <summary>
 /// Represents a type that stores the result of a analysis operation.
@@ -6,6 +6,7 @@ namespace Puzzles.Match.Analytics;
 /// <param name="grid">Indicates the base grid.</param>
 [TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Object_GetHashCode | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
 public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid) :
+	IEnumerable<ItemMatch>,
 	IEquatable<AnalysisResult>,
 	IEqualityOperators<AnalysisResult, AnalysisResult, bool>
 {
@@ -16,6 +17,16 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 	[HashCodeMember]
 	[EquatableMember]
 	public required bool IsSolved { get; init; }
+
+	/// <summary>
+	/// Indicates the total difficulty.
+	/// </summary>
+	public int TotalDifficulty => Matches.Sum(static match => match.Difficulty);
+
+	/// <summary>
+	/// Indicates the maxinum difficulty.
+	/// </summary>
+	public int MaxDifficulty => Matches.Max(static match => match.Difficulty);
 
 	/// <summary>
 	/// Indicates the failed reason.
@@ -75,4 +86,13 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 		}
 		return sb.ToString();
 	}
+
+	/// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
+	public AnonymousSpanEnumerator<ItemMatch> GetEnumerator() => new(Matches);
+
+	/// <inheritdoc/>
+	IEnumerator IEnumerable.GetEnumerator() => (InterimMatches ?? []).GetEnumerator();
+
+	/// <inheritdoc/>
+	IEnumerator<ItemMatch> IEnumerable<ItemMatch>.GetEnumerator() => (InterimMatches ?? []).AsEnumerable().GetEnumerator();
 }

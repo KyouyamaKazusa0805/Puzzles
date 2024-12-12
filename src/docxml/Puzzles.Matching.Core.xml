@@ -378,6 +378,11 @@
         <member name="P:Puzzles.Matching.Concepts.ItemMatch.Interims">
             <summary>Indicates the interim coordinates.</summary>
         </member>
+        <member name="P:Puzzles.Matching.Concepts.ItemMatch.Difficulty">
+            <summary>
+            Indicates the difficulty of the step.
+            </summary>
+        </member>
         <member name="P:Puzzles.Matching.Concepts.ItemMatch.TurningCount">
             <summary>
             Indicates the number of turning.

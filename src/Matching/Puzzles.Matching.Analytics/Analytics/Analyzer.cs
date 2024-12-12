@@ -1,10 +1,22 @@
-namespace Puzzles.Match.Analytics;
+namespace Puzzles.Matching.Analytics;
 
 /// <summary>
 /// Represents an analyzer object that can analyze a match puzzle.
 /// </summary>
 public sealed class Analyzer
 {
+	/// <summary>
+	/// Indicates the backing random number generator.
+	/// </summary>
+	private readonly Random _rng = new();
+
+
+	/// <summary>
+	/// Indicates whether the analyzer will randomly select steps to be applied.
+	/// </summary>
+	public bool RandomSelectSteps { get; set; }
+
+
 	/// <summary>
 	/// Try to analyze a puzzle, and return the steps found, encapsulated by <see cref="AnalysisResult"/>.
 	/// </summary>
@@ -28,7 +40,11 @@ public sealed class Analyzer
 					return new(grid) { IsSolved = false, FailedReason = FailedReason.PuzzleInvalid };
 				}
 
-				var first = (from match in allMatches orderby match.Distance select match)[0];
+				var matchesSorted =
+					from match in allMatches
+					orderby match.TurningCount, match.Distance
+					select match;
+				var first = matchesSorted[RandomSelectSteps ? _rng.Next(0, matchesSorted.Length) : 0];
 				playground.Apply(first);
 				steps.Add(first);
 

@@ -1,4 +1,4 @@
-namespace Puzzles.Match.Analytics;
+namespace Puzzles.Matching.Analytics;
 
 /// <summary>
 /// Represents a failed reason.
