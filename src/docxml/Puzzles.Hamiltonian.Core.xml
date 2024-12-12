@@ -515,6 +515,12 @@
             Indicates the number of columns used.
             </summary>
         </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Puzzles#Meta#IBoard#Rows">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Puzzles#Meta#IBoard#Columns">
+            <inheritdoc/>
+        </member>
         <member name="P:Puzzles.Hamiltonian.Concepts.Graph.System#Collections#Generic#IReadOnlyCollection{System#Boolean}#Count">
             <inheritdoc/>
         </member>

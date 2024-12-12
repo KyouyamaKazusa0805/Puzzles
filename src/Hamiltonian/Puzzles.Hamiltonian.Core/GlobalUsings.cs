@@ -14,3 +14,4 @@ global using System.Threading;
 global using Puzzles.Hamiltonian.Concepts;
 global using Puzzles.Hamiltonian.Concepts.Formatting;
 global using Puzzles.Hamiltonian.Solving;
+global using Puzzles.Meta;

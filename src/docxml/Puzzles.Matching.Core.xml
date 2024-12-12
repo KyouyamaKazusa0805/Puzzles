@@ -90,6 +90,12 @@
             Represents a dictionary of items that their appearing positions (in coordinates).
             </summary>
         </member>
+        <member name="P:Puzzles.Matching.Concepts.Grid.Puzzles#Meta#IBoard#Rows">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Matching.Concepts.Grid.Puzzles#Meta#IBoard#Columns">
+            <inheritdoc/>
+        </member>
         <member name="P:Puzzles.Matching.Concepts.Grid.System#Collections#Generic#IReadOnlyCollection{System#Byte}#Count">
             <inheritdoc/>
         </member>

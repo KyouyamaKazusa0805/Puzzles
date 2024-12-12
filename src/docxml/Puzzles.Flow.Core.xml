@@ -80,6 +80,12 @@
             Indicates the color ordering.
             </summary>
         </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#IBoard#Rows">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#IBoard#Columns">
+            <inheritdoc/>
+        </member>
         <member name="P:Puzzles.Flow.Concepts.Grid.ThisPointer">
             <summary>
             Provides <see langword="this"/> pointer.

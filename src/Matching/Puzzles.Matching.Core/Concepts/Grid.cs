@@ -9,6 +9,7 @@ namespace Puzzles.Matching.Concepts;
 /// Using 255 (i.e. <see cref="ItemIndex.MaxValue"/> to describe an empty cell).
 /// </remarks>
 public sealed partial class Grid :
+	IBoard,
 	ICloneable,
 	IEnumerable<ItemIndex>,
 	IEquatable<Grid>,
@@ -107,6 +108,12 @@ public sealed partial class Grid :
 			return result.ToFrozenDictionary(static kvp => kvp.Key, static kvp => (IReadOnlySet<Coordinate>)kvp.Value.ToHashSet());
 		}
 	}
+
+	/// <inheritdoc/>
+	int IBoard.Rows => RowsLength;
+
+	/// <inheritdoc/>
+	int IBoard.Columns => ColumnsLength;
 
 	/// <inheritdoc/>
 	int IReadOnlyCollection<ItemIndex>.Count => Length;

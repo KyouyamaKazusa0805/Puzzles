@@ -5,6 +5,7 @@ namespace Puzzles.Hamiltonian.Concepts;
 /// </summary>
 [TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
 public sealed partial class Graph :
+	IBoard,
 	ICloneable,
 	IEquatable<Graph>,
 	IEqualityOperators<Graph, Graph, bool>,
@@ -94,6 +95,12 @@ public sealed partial class Graph :
 	/// Indicates the number of columns used.
 	/// </summary>
 	public int ColumnsLength { get; }
+
+	/// <inheritdoc/>
+	int IBoard.Rows => RowsLength;
+
+	/// <inheritdoc/>
+	int IBoard.Columns => ColumnsLength;
 
 	/// <inheritdoc/>
 	int IReadOnlyCollection<bool>.Count => Length;

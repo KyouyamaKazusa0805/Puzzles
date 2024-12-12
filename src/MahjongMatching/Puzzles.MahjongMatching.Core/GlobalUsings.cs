@@ -1,7 +1,6 @@
 global using System;
 global using System.Collections;
 global using System.Collections.Generic;
-global using System.ComponentModel;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Linq;
 global using System.Numerics;
@@ -10,4 +9,5 @@ global using System.Text;
 global using Puzzles.MahjongMatching.Concepts;
 global using Puzzles.MahjongMatching.Concepts.Primitives;
 global using Puzzles.MahjongMatching.Linq;
+global using Puzzles.Meta;
 global using LayerIndex = sbyte;

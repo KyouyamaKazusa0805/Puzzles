@@ -7,4 +7,5 @@ global using System.Runtime.InteropServices;
 global using Puzzles.Flow.Concepts;
 global using Puzzles.Flow.Concepts.Primitives;
 global using Puzzles.Flow.Drawing;
+global using Puzzles.Meta;
 global using static Puzzles.Flow.ProjectWideConstants;

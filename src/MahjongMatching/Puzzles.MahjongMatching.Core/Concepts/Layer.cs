@@ -4,6 +4,7 @@ namespace Puzzles.MahjongMatching.Concepts;
 /// Represents a puzzle layer.
 /// </summary>
 public sealed partial class Layer :
+	IBoard,
 	ICloneable,
 	ICollection<LayerTile>,
 	IEnumerable<LayerTile>,
@@ -64,6 +65,12 @@ public sealed partial class Layer :
 	/// Indicates the maximum position of the layer.
 	/// </summary>
 	public Coordinate MaximumPosition => _coordinates.AsSpan().Max();
+
+	/// <inheritdoc/>
+	int IBoard.Rows => MaximumPosition.X + 1;
+
+	/// <inheritdoc/>
+	int IBoard.Columns => MaximumPosition.Y + 1;
 
 	/// <inheritdoc/>
 	bool ICollection<LayerTile>.IsReadOnly => false;

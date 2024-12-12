@@ -11,7 +11,7 @@ public unsafe partial struct Grid(
 	[Property(Setter = PropertySetters.Set)] int size,
 	[Property(Setter = PropertySetters.Set)] byte colorsCount,
 	[Property(Setter = PropertySetters.Set)] bool isUserOrdered
-)
+) : IBoard
 {
 	/// <summary>
 	/// Indicates the init positions (start positions).
@@ -43,6 +43,12 @@ public unsafe partial struct Grid(
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public fixed byte ColorOrder[MaxColors];
 
+
+	/// <inheritdoc/>
+	readonly int IBoard.Rows => Size;
+
+	/// <inheritdoc/>
+	readonly int IBoard.Columns => Size;
 
 	/// <summary>
 	/// Provides <see langword="this"/> pointer.
