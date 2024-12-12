@@ -1,58 +1,18 @@
 namespace Puzzles.WaterSort.Analytics;
 
 /// <summary>
-/// Provides a linked list node that describes the parent usages for a step.
+/// Represents a brute force node that describes the current state, and its children states.
 /// </summary>
-/// <param name="Step">Indicates the step.</param>
-/// <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
-/// <param name="Parent">Indicates the parent node.</param>
-public sealed record BruteForceNode(Step Step, Puzzle CurrentPuzzle, BruteForceNode? Parent) : IEqualityOperators<BruteForceNode, BruteForceNode, bool>
+/// <param name="step">Indicates the step.</param>
+/// <param name="currentState">Indicates the current state.</param>
+[TypeImpl(TypeImplFlags.Object_ToString)]
+public sealed partial class BruteForceNode([Property, StringMember] Step step, [Property, StringMember] Puzzle currentState)
 {
 	/// <summary>
-	/// Initializes a <see cref="BruteForceNode"/> instance.
+	/// Indicates the children.
 	/// </summary>
-	/// <param name="currentPuzzle">Indicates the current puzzle.</param>
-	public BruteForceNode(Puzzle currentPuzzle) : this(default, currentPuzzle, null)
-	{
-	}
+	public IList<BruteForceNode> Children { get; internal set; } = [];
 
-
-	/// <summary>
-	/// Indicates the number of ancestors in the whole chain.
-	/// </summary>
-	public int AncestorsCount
-	{
-		get
-		{
-			var result = 0;
-			for (var tempNode = this; tempNode is not null && tempNode.Step != default; tempNode = tempNode.Parent)
-			{
-				result++;
-			}
-			return result;
-		}
-	}
-
-
-	/// <include
-	///     file="../../../global-doc-comments.xml"
-	///     path="/g/csharp9/feature[@name='records']/target[@name='method' and @cref='PrintMembers']"/>
-	private bool PrintMembers(StringBuilder builder)
-	{
-		// Due to design of the game, two indices cannot be same in a step (start index and end index).
-		// Therefore, we can append a condition (== default) to determine whether the value is uninitialized.
-		builder.Append($"{nameof(Step)} = ");
-		builder.Append(Step == default ? "<default>" : Step.ToString());
-		builder.Append($", {nameof(Parent)} = ");
-		builder.Append(
-			Parent switch
-			{
-				{ Step: var step } => step == default ? "<default>" : step.ToString(),
-				_ => "<null>"
-			}
-		);
-		builder.Append($", {nameof(AncestorsCount)} = ");
-		builder.Append(AncestorsCount);
-		return true;
-	}
+	[StringMember(nameof(Children))]
+	private string ChildrenString => $"[{string.Join(", ", from child in Children select child.Step.ToString())}]";
 }

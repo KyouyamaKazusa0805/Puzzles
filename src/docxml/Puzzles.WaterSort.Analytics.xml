@@ -114,7 +114,7 @@
             <param name="puzzle">The puzzle.</param>
             <returns>A <see cref="T:Puzzles.WaterSort.Analytics.BruteForceNode"/> instance.</returns>
         </member>
-        <member name="T:Puzzles.WaterSort.Analytics.BruteForceNode">
+        <member name="T:Puzzles.WaterSort.Analytics.ParentLinkedNode">
             <summary>
             Provides a linked list node that describes the parent usages for a step.
             </summary>
@@ -122,7 +122,7 @@
             <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
             <param name="Parent">Indicates the parent node.</param>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.#ctor(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.#ctor(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Concepts.Puzzle,Puzzles.WaterSort.Analytics.ParentLinkedNode)">
             <summary>
             Provides a linked list node that describes the parent usages for a step.
             </summary>
@@ -130,28 +130,28 @@
             <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
             <param name="Parent">Indicates the parent node.</param>
         </member>
-        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.Step">
+        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.Step">
             <summary>Indicates the step.</summary>
         </member>
-        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.CurrentPuzzle">
+        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.CurrentPuzzle">
             <summary>Indicates the current puzzle state.</summary>
         </member>
-        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.Parent">
+        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.Parent">
             <summary>Indicates the parent node.</summary>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.#ctor(Puzzles.WaterSort.Concepts.Puzzle)">
+        <member name="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.#ctor(Puzzles.WaterSort.Concepts.Puzzle)">
             <summary>
-            Initializes a <see cref="T:Puzzles.WaterSort.Analytics.BruteForceNode"/> instance.
+            Initializes a <see cref="T:Puzzles.WaterSort.Analytics.ParentLinkedNode"/> instance.
             </summary>
             <param name="currentPuzzle">Indicates the current puzzle.</param>
         </member>
-        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.AncestorsCount">
+        <member name="P:Puzzles.WaterSort.Analytics.ParentLinkedNode.AncestorsCount">
             <summary>
             Indicates the number of ancestors in the whole chain.
             </summary>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.PrintMembers(System.Text.StringBuilder)">
-            <target name="method" cref="M:Puzzles.WaterSort.Analytics.BruteForceNode.PrintMembers(System.Text.StringBuilder)">
+        <member name="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.PrintMembers(System.Text.StringBuilder)">
+            <target name="method" cref="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.PrintMembers(System.Text.StringBuilder)">
 				<summary>
 					Provides an easy way to concatenate output members inside a <see langword="record" />
 					or a <see langword="record struct" /> type.
@@ -161,7 +161,7 @@
 				</param>
 				<returns>
 					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
-					by implementing to-string method <see cref="M:Puzzles.WaterSort.Analytics.BruteForceNode.ToString" />.
+					by implementing to-string method <see cref="M:Puzzles.WaterSort.Analytics.ParentLinkedNode.ToString" />.
 				</returns>
 				<remarks>
 					<para>
@@ -188,6 +188,38 @@
 					</para>
 				</remarks>
 			</target>
+        </member>
+        <member name="T:Puzzles.WaterSort.Analytics.BruteForceNode">
+            <summary>
+            Represents a brute force node that describes the current state, and its children states.
+            </summary>
+            <param name="step">Indicates the step.</param>
+            <param name="currentState">Indicates the current state.</param>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.#ctor(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Represents a brute force node that describes the current state, and its children states.
+            </summary>
+            <param name="step">Indicates the step.</param>
+            <param name="currentState">Indicates the current state.</param>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.Children">
+            <summary>
+            Indicates the children.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.Step">
+            <summary>
+            The generated property declaration for parameter <c>step</c>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.BruteForceNode.CurrentState">
+            <summary>
+            The generated property declaration for parameter <c>currentState</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.BruteForceNode.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.Collector">
             <summary>
