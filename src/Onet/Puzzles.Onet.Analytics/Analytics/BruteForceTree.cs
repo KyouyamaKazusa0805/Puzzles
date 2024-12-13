@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Analytics;
+namespace Puzzles.Onet.Analytics;
 
 /// <summary>
 /// Represents a tree that describes all branches of trial of a puzzle.

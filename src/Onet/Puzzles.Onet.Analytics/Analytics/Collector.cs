@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Analytics;
+namespace Puzzles.Onet.Analytics;
 
 /// <summary>
 /// Provides with a collector object.

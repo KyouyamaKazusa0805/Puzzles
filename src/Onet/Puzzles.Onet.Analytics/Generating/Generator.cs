@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Generating;
+namespace Puzzles.Onet.Generating;
 
 /// <summary>
 /// Represents a generator.

@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Analytics;
+namespace Puzzles.Onet.Analytics;
 
 /// <summary>
 /// Provides a linked list node that describes the parent usages for a step.

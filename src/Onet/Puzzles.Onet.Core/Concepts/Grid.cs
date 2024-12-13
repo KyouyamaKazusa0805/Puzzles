@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Concepts;
+namespace Puzzles.Onet.Concepts;
 
 /// <summary>
 /// Represents a grid of match.

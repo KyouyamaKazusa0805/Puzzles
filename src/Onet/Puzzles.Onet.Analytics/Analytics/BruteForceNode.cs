@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Analytics;
+namespace Puzzles.Onet.Analytics;
 
 /// <summary>
 /// Represents a brute force node that describes the current state, and its children states.

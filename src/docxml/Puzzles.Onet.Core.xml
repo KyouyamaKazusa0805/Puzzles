@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Puzzles.Matching.Core</name>
+        <name>Puzzles.Onet.Core</name>
     </assembly>
     <members>
-        <member name="T:Puzzles.Matching.Concepts.Coordinate">
+        <member name="T:Puzzles.Onet.Concepts.Coordinate">
             <summary>
             Represents a coordinate.
             </summary>
             <param name="X">Indicates the row index.</param>
             <param name="Y">Indicates the column index.</param>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
+        <member name="M:Puzzles.Onet.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
             <summary>
             Represents a coordinate.
             </summary>
             <param name="X">Indicates the row index.</param>
             <param name="Y">Indicates the column index.</param>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Coordinate.X">
+        <member name="P:Puzzles.Onet.Concepts.Coordinate.X">
             <summary>Indicates the row index.</summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Coordinate.Y">
+        <member name="P:Puzzles.Onet.Concepts.Coordinate.Y">
             <summary>Indicates the column index.</summary>
         </member>
-        <member name="T:Puzzles.Matching.Concepts.Grid">
+        <member name="T:Puzzles.Onet.Concepts.Grid">
             <summary>
             Represents a grid of match.
             </summary>
@@ -34,84 +34,84 @@
             Using 255 (i.e. <see cref="F:System.Byte.MaxValue"/> to describe an empty cell).
             </remarks>
         </member>
-        <member name="F:Puzzles.Matching.Concepts.Grid.EmptyKey">
+        <member name="F:Puzzles.Onet.Concepts.Grid.EmptyKey">
             <summary>
             Indicates the empty cell value.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Concepts.Grid._array">
+        <member name="F:Puzzles.Onet.Concepts.Grid._array">
             <summary>
             Indicates the backing grid.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.#ctor(System.Byte[],System.Int32,System.Int32)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.#ctor(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            Initializes a <see cref="T:Puzzles.Matching.Concepts.Grid"/> instance via the specified array and its number of rows and columns.
+            Initializes a <see cref="T:Puzzles.Onet.Concepts.Grid"/> instance via the specified array and its number of rows and columns.
             </summary>
             <param name="array">Indicates the array.</param>
             <param name="columns">Indicates the number of rows.</param>
             <param name="rows">Indicates the number of columns.</param>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.#ctor(System.Byte[0:,0:])">
-            <inheritdoc cref="M:Puzzles.Matching.Concepts.Grid.#ctor(System.Byte[],System.Int32,System.Int32)"/>
+        <member name="M:Puzzles.Onet.Concepts.Grid.#ctor(System.Byte[0:,0:])">
+            <inheritdoc cref="M:Puzzles.Onet.Concepts.Grid.#ctor(System.Byte[],System.Int32,System.Int32)"/>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.IsEmpty">
+        <member name="P:Puzzles.Onet.Concepts.Grid.IsEmpty">
             <summary>
             Indicates whether the grid is empty.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.IsValid">
+        <member name="P:Puzzles.Onet.Concepts.Grid.IsValid">
             <summary>
             Indicates whether the grid pattern is valid to be checked.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.RowsLength">
+        <member name="P:Puzzles.Onet.Concepts.Grid.RowsLength">
             <summary>
             Indicates the number of rows used.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.ColumnsLength">
+        <member name="P:Puzzles.Onet.Concepts.Grid.ColumnsLength">
             <summary>
             Indicates the number of columns used.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Length">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Length">
             <summary>
             Indicates the number of elements.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.LastItems">
+        <member name="P:Puzzles.Onet.Concepts.Grid.LastItems">
             <summary>
             Indicates the last items in the grid.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.ItemsSet">
+        <member name="P:Puzzles.Onet.Concepts.Grid.ItemsSet">
             <summary>
             Represents a dictionary of items that their appearing positions (in coordinates).
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Puzzles#Meta#IBoard#Rows">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Puzzles#Meta#IBoard#Rows">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Puzzles#Meta#IBoard#Columns">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Puzzles#Meta#IBoard#Columns">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.System#Collections#Generic#IReadOnlyCollection{System#Byte}#Count">
+        <member name="P:Puzzles.Onet.Concepts.Grid.System#Collections#Generic#IReadOnlyCollection{System#Byte}#Count">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Empty">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Empty">
             <summary>
             Represents an empty instance.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Item(System.Int32)">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Item(System.Int32)">
             <summary>
             Gets the element at the specified index.
             </summary>
             <param name="index">The desired index.</param>
             <returns>The item.</returns>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Item(System.Int32,System.Int32)">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Item(System.Int32,System.Int32)">
             <summary>
             Gets the element at the specified row and the specified column.
             </summary>
@@ -119,17 +119,17 @@
             <param name="column">The desired column index.</param>
             <returns>The item.</returns>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Item(Puzzles.Matching.Concepts.Coordinate)">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Item(Puzzles.Onet.Concepts.Coordinate)">
             <summary>
             Gets the element at the specified coordinate.
             </summary>
             <param name="coordinate">The desired coordinate.</param>
             <returns>The item.</returns>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.System#Collections#Generic#IReadOnlyList{System#Byte}#Item(System.Int32)">
+        <member name="P:Puzzles.Onet.Concepts.Grid.System#Collections#Generic#IReadOnlyList{System#Byte}#Item(System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Pattern">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Pattern">
             <remarks>
             Pattern:<br/>
             <code>\\d{1,3}</code><br/>
@@ -141,19 +141,19 @@
             </code>
             </remarks>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Apply(Puzzles.Matching.Concepts.ItemMatch)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Apply(Puzzles.Onet.Concepts.ItemMatch)">
             <summary>
             Apply a match, removing the pair of cells from the grid, making those two cells empty.
             </summary>
             <param name="match">The match to be applied.</param>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.GetHashCode">
+        <member name="M:Puzzles.Onet.Concepts.Grid.GetHashCode">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.ToString">
+        <member name="M:Puzzles.Onet.Concepts.Grid.ToString">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.ToString(System.String)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.ToString(System.String)">
             <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
             <remarks>
             All formats:
@@ -173,99 +173,99 @@
             <item>
             <term><c>"f+1"</c></term>
             <description>
-            Just like <see cref="M:Puzzles.Matching.Concepts.Grid.ToString(System.String)"/> with format <c>"f"</c>, but with each element added with 1
+            Just like <see cref="M:Puzzles.Onet.Concepts.Grid.ToString(System.String)"/> with format <c>"f"</c>, but with each element added with 1
             </description>
             </item>
             </list>
             </remarks>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.GetEnumerator">
+        <member name="M:Puzzles.Onet.Concepts.Grid.GetEnumerator">
             <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Clone">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Clone">
             <inheritdoc cref="M:System.ICloneable.Clone"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.System#ICloneable#Clone">
+        <member name="M:Puzzles.Onet.Concepts.Grid.System#ICloneable#Clone">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.System#IFormattable#ToString(System.String,System.IFormatProvider)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.System#IFormattable#ToString(System.String,System.IFormatProvider)">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.System#Collections#IEnumerable#GetEnumerator">
+        <member name="M:Puzzles.Onet.Concepts.Grid.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.System#Collections#Generic#IEnumerable{System#Byte}#GetEnumerator">
+        <member name="M:Puzzles.Onet.Concepts.Grid.System#Collections#Generic#IEnumerable{System#Byte}#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.TryParse(System.String,Puzzles.Matching.Concepts.Grid@)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.TryParse(System.String,Puzzles.Onet.Concepts.Grid@)">
             <inheritdoc cref="M:System.IParsable`1.TryParse(System.String,System.IFormatProvider,`0@)"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Parse(System.String)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Parse(System.String)">
             <inheritdoc cref="M:System.IParsable`1.Parse(System.String,System.IFormatProvider)"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.System#IParsable{Puzzles#Matching#Concepts#Grid}#TryParse(System.String,System.IFormatProvider,Puzzles.Matching.Concepts.Grid@)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.System#IParsable{Puzzles#Onet#Concepts#Grid}#TryParse(System.String,System.IFormatProvider,Puzzles.Onet.Concepts.Grid@)">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.System#IParsable{Puzzles#Matching#Concepts#Grid}#Parse(System.String,System.IFormatProvider)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.System#IParsable{Puzzles#Onet#Concepts#Grid}#Parse(System.String,System.IFormatProvider)">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.op_Implicit(Puzzles.Matching.Concepts.Grid)~System.Byte[0:,0:]">
+        <member name="M:Puzzles.Onet.Concepts.Grid.op_Implicit(Puzzles.Onet.Concepts.Grid)~System.Byte[0:,0:]">
             <summary>
-            Implicit cast from <see cref="T:Puzzles.Matching.Concepts.Grid"/> into a <see cref="T:System.Byte"/>[,].
+            Implicit cast from <see cref="T:Puzzles.Onet.Concepts.Grid"/> into a <see cref="T:System.Byte"/>[,].
             </summary>
             <param name="grid">The grid.</param>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.op_Explicit(System.Byte[0:,0:])~Puzzles.Matching.Concepts.Grid">
+        <member name="M:Puzzles.Onet.Concepts.Grid.op_Explicit(System.Byte[0:,0:])~Puzzles.Onet.Concepts.Grid">
             <summary>
-            Explicit cast from <see cref="T:System.Byte"/>[,] into a <see cref="T:Puzzles.Matching.Concepts.Grid"/>.
+            Explicit cast from <see cref="T:System.Byte"/>[,] into a <see cref="T:Puzzles.Onet.Concepts.Grid"/>.
             </summary>
             <param name="array">An array.</param>
         </member>
-        <member name="T:Puzzles.Matching.Concepts.Grid.Enumerator">
+        <member name="T:Puzzles.Onet.Concepts.Grid.Enumerator">
             <summary>
             Represents an enumerator type that can iterate on each element.
             </summary>
             <param name="values">The values.</param>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Enumerator.#ctor(System.Byte[])">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Enumerator.#ctor(System.Byte[])">
             <summary>
             Represents an enumerator type that can iterate on each element.
             </summary>
             <param name="values">The values.</param>
         </member>
-        <member name="F:Puzzles.Matching.Concepts.Grid.Enumerator._index">
+        <member name="F:Puzzles.Onet.Concepts.Grid.Enumerator._index">
             <summary>
             Indicates the index.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Enumerator.Current">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Enumerator.Current">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.Grid.Enumerator.System#Collections#IEnumerator#Current">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Enumerator.System#Collections#IEnumerator#Current">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Enumerator.MoveNext">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Enumerator.MoveNext">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Enumerator.System#IDisposable#Dispose">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Enumerator.System#IDisposable#Dispose">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Enumerator.System#Collections#IEnumerator#Reset">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Enumerator.System#Collections#IEnumerator#Reset">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Equals(System.Object)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.op_Equality(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.op_Equality(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Grid)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.op_Inequality(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.op_Inequality(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Grid)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Equals(Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Onet.Concepts.Grid.Equals(Puzzles.Onet.Concepts.Grid)">
             <inheritdoc/>
         </member>
-        <member name="T:Puzzles.Matching.Concepts.ItemMatch">
+        <member name="T:Puzzles.Onet.Concepts.ItemMatch">
             <summary>
             Represents a match of item pair.
             </summary>
@@ -273,7 +273,7 @@
             <param name="End">Indicates the end.</param>
             <param name="Interims">Indicates the interim coordinates.</param>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.ItemMatch.#ctor(Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate[])">
+        <member name="M:Puzzles.Onet.Concepts.ItemMatch.#ctor(Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate[])">
             <summary>
             Represents a match of item pair.
             </summary>
@@ -281,35 +281,35 @@
             <param name="End">Indicates the end.</param>
             <param name="Interims">Indicates the interim coordinates.</param>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.ItemMatch.Start">
+        <member name="P:Puzzles.Onet.Concepts.ItemMatch.Start">
             <summary>Indicates the start.</summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.ItemMatch.End">
+        <member name="P:Puzzles.Onet.Concepts.ItemMatch.End">
             <summary>Indicates the end.</summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.ItemMatch.Interims">
+        <member name="P:Puzzles.Onet.Concepts.ItemMatch.Interims">
             <summary>Indicates the interim coordinates.</summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.ItemMatch.Difficulty">
+        <member name="P:Puzzles.Onet.Concepts.ItemMatch.Difficulty">
             <summary>
             Indicates the difficulty of the step.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.ItemMatch.TurningCount">
+        <member name="P:Puzzles.Onet.Concepts.ItemMatch.TurningCount">
             <summary>
             Indicates the number of turning.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Concepts.ItemMatch.Distance">
+        <member name="P:Puzzles.Onet.Concepts.ItemMatch.Distance">
             <summary>
             Indicates the distance of the match.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.ItemMatch.ToFullString">
+        <member name="M:Puzzles.Onet.Concepts.ItemMatch.ToFullString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.ItemMatch.PrintMembers(System.Text.StringBuilder)">
-            <target name="method" cref="M:Puzzles.Matching.Concepts.ItemMatch.PrintMembers(System.Text.StringBuilder)">
+        <member name="M:Puzzles.Onet.Concepts.ItemMatch.PrintMembers(System.Text.StringBuilder)">
+            <target name="method" cref="M:Puzzles.Onet.Concepts.ItemMatch.PrintMembers(System.Text.StringBuilder)">
 				<summary>
 					Provides an easy way to concatenate output members inside a <see langword="record" />
 					or a <see langword="record struct" /> type.
@@ -319,7 +319,7 @@
 				</param>
 				<returns>
 					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
-					by implementing to-string method <see cref="M:Puzzles.Matching.Concepts.ItemMatch.ToString" />.
+					by implementing to-string method <see cref="M:Puzzles.Onet.Concepts.ItemMatch.ToString" />.
 				</returns>
 				<remarks>
 					<para>

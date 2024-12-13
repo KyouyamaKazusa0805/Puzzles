@@ -1,255 +1,255 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Puzzles.Matching.Analytics</name>
+        <name>Puzzles.Onet.Analytics</name>
     </assembly>
     <members>
-        <member name="T:Puzzles.Matching.Analytics.AnalysisResult">
+        <member name="T:Puzzles.Onet.Analytics.AnalysisResult">
             <summary>
             Represents a type that stores the result of a analysis operation.
             </summary>
             <param name="grid">Indicates the base grid.</param>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.#ctor(Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.#ctor(Puzzles.Onet.Concepts.Grid)">
             <summary>
             Represents a type that stores the result of a analysis operation.
             </summary>
             <param name="grid">Indicates the base grid.</param>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.IsSolved">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.IsSolved">
             <summary>
             Indicates whether the puzzle is fully solved.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.TotalDifficulty">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.TotalDifficulty">
             <summary>
             Indicates the total difficulty.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.MaxDifficulty">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.MaxDifficulty">
             <summary>
             Indicates the maxinum difficulty.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.FailedReason">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.FailedReason">
             <summary>
             Indicates the failed reason.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.Matches">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.Matches">
             <summary>
             Indicates the matches found during the analysis.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.Grids">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.Grids">
             <summary>
             Indicates the grids applied in each step in solving procedure.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.ElapsedTime">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.ElapsedTime">
             <summary>
             Indicates the elapsed time.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.UnhandledException">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.UnhandledException">
             <summary>
             Indicates the exception encountered.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.InterimMatches">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.InterimMatches">
             <summary>
             Indicates the matches.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.InterimGrids">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.InterimGrids">
             <summary>
             Indicates the interim grids.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.ToString">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.ToString">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.GetEnumerator">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.GetEnumerator">
             <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.System#Collections#IEnumerable#GetEnumerator">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.System#Collections#Generic#IEnumerable{Puzzles#Matching#Concepts#ItemMatch}#GetEnumerator">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.System#Collections#Generic#IEnumerable{Puzzles#Onet#Concepts#ItemMatch}#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.Grid">
+        <member name="P:Puzzles.Onet.Analytics.AnalysisResult.Grid">
             <summary>
             The generated property declaration for parameter <c>grid</c>.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.Equals(System.Object)">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.GetHashCode">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.GetHashCode">
             <inheritdoc cref="M:System.Object.GetHashCode"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.op_Equality(Puzzles.Matching.Analytics.AnalysisResult,Puzzles.Matching.Analytics.AnalysisResult)">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.op_Equality(Puzzles.Onet.Analytics.AnalysisResult,Puzzles.Onet.Analytics.AnalysisResult)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.op_Inequality(Puzzles.Matching.Analytics.AnalysisResult,Puzzles.Matching.Analytics.AnalysisResult)">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.op_Inequality(Puzzles.Onet.Analytics.AnalysisResult,Puzzles.Onet.Analytics.AnalysisResult)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.AnalysisResult.Equals(Puzzles.Matching.Analytics.AnalysisResult)">
+        <member name="M:Puzzles.Onet.Analytics.AnalysisResult.Equals(Puzzles.Onet.Analytics.AnalysisResult)">
             <inheritdoc/>
         </member>
-        <member name="T:Puzzles.Matching.Analytics.Analyzer">
+        <member name="T:Puzzles.Onet.Analytics.Analyzer">
             <summary>
             Represents an analyzer object that can analyze a match puzzle.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Analytics.Analyzer._collector">
+        <member name="F:Puzzles.Onet.Analytics.Analyzer._collector">
             <summary>
             Indicates the backing collector.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Analytics.Analyzer._rng">
+        <member name="F:Puzzles.Onet.Analytics.Analyzer._rng">
             <summary>
             Indicates the backing random number generator.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.Analyzer.RandomSelectSteps">
+        <member name="P:Puzzles.Onet.Analytics.Analyzer.RandomSelectSteps">
             <summary>
             Indicates whether the analyzer will randomly select steps to be applied.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Analyzer.Analyze(Puzzles.Matching.Concepts.Grid,System.Threading.CancellationToken)">
+        <member name="M:Puzzles.Onet.Analytics.Analyzer.Analyze(Puzzles.Onet.Concepts.Grid,System.Threading.CancellationToken)">
             <summary>
-            Try to analyze a puzzle, and return the steps found, encapsulated by <see cref="T:Puzzles.Matching.Analytics.AnalysisResult"/>.
+            Try to analyze a puzzle, and return the steps found, encapsulated by <see cref="T:Puzzles.Onet.Analytics.AnalysisResult"/>.
             </summary>
             <param name="grid">The grid to be analyzed.</param>
             <param name="cancellationToken">Indicates the cancellation token that can cancel the current operation.</param>
-            <returns>An instance of type <see cref="T:Puzzles.Matching.Analytics.AnalysisResult"/> indicating the result information.</returns>
+            <returns>An instance of type <see cref="T:Puzzles.Onet.Analytics.AnalysisResult"/> indicating the result information.</returns>
         </member>
-        <member name="T:Puzzles.Matching.Analytics.BruteForce">
+        <member name="T:Puzzles.Onet.Analytics.BruteForce">
             <summary>
             Provides a way to enumerate all possible cases of matching.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Analytics.BruteForce._collector">
+        <member name="F:Puzzles.Onet.Analytics.BruteForce._collector">
             <summary>
             Indicates the backing collector.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForce.CreateTree(Puzzles.Matching.Concepts.Grid)">
-            <inheritdoc cref="M:Puzzles.Matching.Analytics.BruteForce.CreateTree(Puzzles.Matching.Concepts.Grid,System.Collections.Generic.LinkedList{Puzzles.Matching.Analytics.InvertedBruteForceNode}@)"/>
+        <member name="M:Puzzles.Onet.Analytics.BruteForce.CreateTree(Puzzles.Onet.Concepts.Grid)">
+            <inheritdoc cref="M:Puzzles.Onet.Analytics.BruteForce.CreateTree(Puzzles.Onet.Concepts.Grid,System.Collections.Generic.LinkedList{Puzzles.Onet.Analytics.InvertedBruteForceNode}@)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForce.CreateTree(Puzzles.Matching.Concepts.Grid,System.Collections.Generic.LinkedList{Puzzles.Matching.Analytics.InvertedBruteForceNode}@)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForce.CreateTree(Puzzles.Onet.Concepts.Grid,System.Collections.Generic.LinkedList{Puzzles.Onet.Analytics.InvertedBruteForceNode}@)">
             <summary>
-            Create a <see cref="T:Puzzles.Matching.Analytics.BruteForceTree"/> to describe each steps and its related steps.
+            Create a <see cref="T:Puzzles.Onet.Analytics.BruteForceTree"/> to describe each steps and its related steps.
             </summary>
             <param name="puzzle">The puzzle.</param>
             <param name="invertedNodes">The inverted nodes.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Analytics.BruteForceTree"/> instance.</returns>
+            <returns>A <see cref="T:Puzzles.Onet.Analytics.BruteForceTree"/> instance.</returns>
         </member>
-        <member name="T:Puzzles.Matching.Analytics.BruteForceNode">
+        <member name="T:Puzzles.Onet.Analytics.BruteForceNode">
             <summary>
             Represents a brute force node that describes the current state, and its children states.
             </summary>
             <param name="step">Indicates the step.</param>
             <param name="currentState">Indicates the current state.</param>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceNode.#ctor(Puzzles.Matching.Concepts.ItemMatch,Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceNode.#ctor(Puzzles.Onet.Concepts.ItemMatch,Puzzles.Onet.Concepts.Grid)">
             <summary>
             Represents a brute force node that describes the current state, and its children states.
             </summary>
             <param name="step">Indicates the step.</param>
             <param name="currentState">Indicates the current state.</param>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.BruteForceNode.Children">
+        <member name="P:Puzzles.Onet.Analytics.BruteForceNode.Children">
             <summary>
             Indicates the children.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.BruteForceNode.Step">
+        <member name="P:Puzzles.Onet.Analytics.BruteForceNode.Step">
             <summary>
             The generated property declaration for parameter <c>step</c>.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.BruteForceNode.CurrentState">
+        <member name="P:Puzzles.Onet.Analytics.BruteForceNode.CurrentState">
             <summary>
             The generated property declaration for parameter <c>currentState</c>.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceNode.Equals(System.Object)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceNode.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceNode.GetHashCode">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceNode.GetHashCode">
             <inheritdoc cref="M:System.Object.GetHashCode"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceNode.ToString">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceNode.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceNode.op_Equality(Puzzles.Matching.Analytics.BruteForceNode,Puzzles.Matching.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceNode.op_Equality(Puzzles.Onet.Analytics.BruteForceNode,Puzzles.Onet.Analytics.BruteForceNode)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceNode.op_Inequality(Puzzles.Matching.Analytics.BruteForceNode,Puzzles.Matching.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceNode.op_Inequality(Puzzles.Onet.Analytics.BruteForceNode,Puzzles.Onet.Analytics.BruteForceNode)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceNode.Equals(Puzzles.Matching.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceNode.Equals(Puzzles.Onet.Analytics.BruteForceNode)">
             <inheritdoc/>
         </member>
-        <member name="T:Puzzles.Matching.Analytics.BruteForceTree">
+        <member name="T:Puzzles.Onet.Analytics.BruteForceTree">
             <summary>
             Represents a tree that describes all branches of trial of a puzzle.
             </summary>
             <param name="rootNode">Indicates the root node.</param>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.#ctor(Puzzles.Matching.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.#ctor(Puzzles.Onet.Analytics.BruteForceNode)">
             <summary>
             Represents a tree that describes all branches of trial of a puzzle.
             </summary>
             <param name="rootNode">Indicates the root node.</param>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.BruteForceTree.Puzzle">
+        <member name="P:Puzzles.Onet.Analytics.BruteForceTree.Puzzle">
             <summary>
             Indicates the puzzle.
             </summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.BruteForceTree.Puzzles#Meta#DataStructures#IDataStructure#Type">
+        <member name="P:Puzzles.Onet.Analytics.BruteForceTree.Puzzles#Meta#DataStructures#IDataStructure#Type">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.BruteForceTree.Puzzles#Meta#DataStructures#IDataStructure#Base">
+        <member name="P:Puzzles.Onet.Analytics.BruteForceTree.Puzzles#Meta#DataStructures#IDataStructure#Base">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.Contains(Puzzles.Matching.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.Contains(Puzzles.Onet.Analytics.BruteForceNode)">
             <summary>
             Determine whether the tree contains the specified node.
             </summary>
             <param name="node">The node to be checked.</param>
             <returns>A <see cref="T:System.Boolean"/> result.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.Equals(Puzzles.Matching.Analytics.BruteForceTree)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.Equals(Puzzles.Onet.Analytics.BruteForceTree)">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.GetNodesCount">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.GetNodesCount">
             <summary>
             Returns the number of nodes used.
             </summary>
             <returns>The number of nodes.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.GetMaximumDepth">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.GetMaximumDepth">
             <summary>
             Returns the maximum depth of the puzzle.
             </summary>
             <returns>The maximum depth of the puzzle.</returns>
             <seealso href="https://leetcode.cn/problems/maximum-depth-of-n-ary-tree/">LeetCode - Maximum depth of a n-ary tree</seealso>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.GetSuccessRate">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.GetSuccessRate">
             <summary>
             Returns the success rate of the puzzle.
             </summary>
             <returns>Success rate.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.GetEnumerator">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.DescendantNodes(Puzzles.Matching.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.DescendantNodes(Puzzles.Onet.Analytics.BruteForceNode)">
             <summary>
             Enumerates all nodes that belongs to the current node.
             </summary>
@@ -257,7 +257,7 @@
             <returns>The descendant nodes.</returns>
             <exception cref="T:System.InvalidOperationException">Throws when the current node is not inside the current tree.</exception>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.DescendantNodesAndSelf(Puzzles.Matching.Analytics.BruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.DescendantNodesAndSelf(Puzzles.Onet.Analytics.BruteForceNode)">
             <summary>
             Enumerates all nodes that belongs to the current node, and itself.
             </summary>
@@ -265,16 +265,16 @@
             <returns>The descendant nodes and itself.</returns>
             <exception cref="T:System.InvalidOperationException">Throws when the current node is not inside the current tree.</exception>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.System#Collections#IEnumerable#GetEnumerator">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.GetLeafNodes">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.GetLeafNodes">
             <summary>
             Try to get all leaf nodes.
             </summary>
             <returns>The leaf nodes.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.GetDescendantNodes(Puzzles.Matching.Analytics.BruteForceNode,System.Boolean)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.GetDescendantNodes(Puzzles.Onet.Analytics.BruteForceNode,System.Boolean)">
             <summary>
             Try to iterate all nodes and its descendant nodes.
             </summary>
@@ -283,36 +283,36 @@
             <returns>A list of nodes.</returns>
             <exception cref="T:System.InvalidOperationException">Throws when the node is not inside the current tree.</exception>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.BruteForceTree.RootNode">
+        <member name="P:Puzzles.Onet.Analytics.BruteForceTree.RootNode">
             <summary>
             The generated property declaration for parameter <c>rootNode</c>.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.Equals(System.Object)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.GetHashCode">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.GetHashCode">
             <inheritdoc cref="M:System.Object.GetHashCode"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.op_Equality(Puzzles.Matching.Analytics.BruteForceTree,Puzzles.Matching.Analytics.BruteForceTree)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.op_Equality(Puzzles.Onet.Analytics.BruteForceTree,Puzzles.Onet.Analytics.BruteForceTree)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.BruteForceTree.op_Inequality(Puzzles.Matching.Analytics.BruteForceTree,Puzzles.Matching.Analytics.BruteForceTree)">
+        <member name="M:Puzzles.Onet.Analytics.BruteForceTree.op_Inequality(Puzzles.Onet.Analytics.BruteForceTree,Puzzles.Onet.Analytics.BruteForceTree)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
-        <member name="T:Puzzles.Matching.Analytics.Collector">
+        <member name="T:Puzzles.Onet.Analytics.Collector">
             <summary>
             Provides with a collector object.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.Collect(Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.Collect(Puzzles.Onet.Concepts.Grid)">
             <summary>
             Try to find all possible steps appeared in the grid; if no steps found, an empty array will be returned.
             </summary>
             <param name="grid">The grid.</param>
             <returns>All matched items.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.IsCoordinateOutOfBound(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsCoordinateOutOfBound(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate)">
             <summary>
             Determine whether the current coordinate is out of bound.
             </summary>
@@ -320,10 +320,10 @@
             <param name="coordinate">The coordinate.</param>
             <returns>A <see cref="T:System.Boolean"/> result.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.TryPair(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.ItemMatch@)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.TryPair(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.ItemMatch@)">
             <summary>
             Determine whether two values are paired under the matching rule;
-            if so, return <see langword="true"/> and return an <see cref="T:Puzzles.Matching.Concepts.ItemMatch"/> object
+            if so, return <see langword="true"/> and return an <see cref="T:Puzzles.Onet.Concepts.ItemMatch"/> object
             to parameter <paramref name="result"/> indicating the result details.
             </summary>
             <param name="grid">The grid.</param>
@@ -333,7 +333,7 @@
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
             <exception cref="T:System.InvalidOperationException">Throws when the grid is too small (lower than 2x2).</exception>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.IsSameRowPaired(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsSameRowPaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate)">
             <summary>
             Determine whether two coordinates is in same row, and can be paired.
             </summary>
@@ -342,7 +342,7 @@
             <param name="coordinate2">Indicates the second coordinate.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.IsSameColumnPaired(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsSameColumnPaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate)">
             <summary>
             Determine whether two coordinates is in same column, and can be paired.
             </summary>
@@ -351,7 +351,7 @@
             <param name="coordinate2">Indicates the second coordinate.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.IsTurningOncePaired(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate@)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsTurningOncePaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate@)">
             <summary>
             Determine whether two coordinates can be paired with one-time turning.
             </summary>
@@ -361,7 +361,7 @@
             <param name="interim">Indicates the interim on turning.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.IsTurningTwicePaired(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate[]@)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsTurningTwicePaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate[]@)">
             <summary>
             Determine whether two coordinates can be paired with two-time turning.
             </summary>
@@ -371,7 +371,7 @@
             <param name="interims">Indicates the interim coordinates on turning.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.Blocks(Puzzles.Matching.Concepts.Grid,System.Int32,System.Int32)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.Blocks(Puzzles.Onet.Concepts.Grid,System.Int32,System.Int32)">
             <summary>
             Determine whether the grid has blocked the specified coordinate.
             </summary>
@@ -380,7 +380,7 @@
             <param name="y">The column index.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.Collector.Blocks(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.Blocks(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate)">
             <summary>
             Determine whether the grid has blocked the specified coordinate.
             </summary>
@@ -388,32 +388,32 @@
             <param name="coordinate">The coordinate.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="T:Puzzles.Matching.Analytics.FailedReason">
+        <member name="T:Puzzles.Onet.Analytics.FailedReason">
             <summary>
             Represents a failed reason.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Analytics.FailedReason.None">
+        <member name="F:Puzzles.Onet.Analytics.FailedReason.None">
             <summary>
             Indicates there's no failure.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Analytics.FailedReason.PuzzleInvalid">
+        <member name="F:Puzzles.Onet.Analytics.FailedReason.PuzzleInvalid">
             <summary>
             Indicates the puzzle is invalid or failed.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Analytics.FailedReason.UserCancelled">
+        <member name="F:Puzzles.Onet.Analytics.FailedReason.UserCancelled">
             <summary>
             Indicates the user has cancelled the analysis.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Analytics.FailedReason.UnhandledException">
+        <member name="F:Puzzles.Onet.Analytics.FailedReason.UnhandledException">
             <summary>
             Indicates an unhandled exception is thrown.
             </summary>
         </member>
-        <member name="T:Puzzles.Matching.Analytics.InvertedBruteForceNode">
+        <member name="T:Puzzles.Onet.Analytics.InvertedBruteForceNode">
             <summary>
             Provides a linked list node that describes the parent usages for a step.
             </summary>
@@ -421,7 +421,7 @@
             <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
             <param name="Parent">Indicates the parent node.</param>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.InvertedBruteForceNode.#ctor(Puzzles.Matching.Concepts.ItemMatch,Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Analytics.InvertedBruteForceNode)">
+        <member name="M:Puzzles.Onet.Analytics.InvertedBruteForceNode.#ctor(Puzzles.Onet.Concepts.ItemMatch,Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Analytics.InvertedBruteForceNode)">
             <summary>
             Provides a linked list node that describes the parent usages for a step.
             </summary>
@@ -429,28 +429,28 @@
             <param name="CurrentPuzzle">Indicates the current puzzle state.</param>
             <param name="Parent">Indicates the parent node.</param>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.InvertedBruteForceNode.Step">
+        <member name="P:Puzzles.Onet.Analytics.InvertedBruteForceNode.Step">
             <summary>Indicates the step.</summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.InvertedBruteForceNode.CurrentPuzzle">
+        <member name="P:Puzzles.Onet.Analytics.InvertedBruteForceNode.CurrentPuzzle">
             <summary>Indicates the current puzzle state.</summary>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.InvertedBruteForceNode.Parent">
+        <member name="P:Puzzles.Onet.Analytics.InvertedBruteForceNode.Parent">
             <summary>Indicates the parent node.</summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.InvertedBruteForceNode.#ctor(Puzzles.Matching.Concepts.Grid)">
+        <member name="M:Puzzles.Onet.Analytics.InvertedBruteForceNode.#ctor(Puzzles.Onet.Concepts.Grid)">
             <summary>
-            Initializes a <see cref="T:Puzzles.Matching.Analytics.InvertedBruteForceNode"/> instance.
+            Initializes a <see cref="T:Puzzles.Onet.Analytics.InvertedBruteForceNode"/> instance.
             </summary>
             <param name="currentPuzzle">Indicates the current puzzle.</param>
         </member>
-        <member name="P:Puzzles.Matching.Analytics.InvertedBruteForceNode.AncestorsCount">
+        <member name="P:Puzzles.Onet.Analytics.InvertedBruteForceNode.AncestorsCount">
             <summary>
             Indicates the number of ancestors in the whole chain.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Analytics.InvertedBruteForceNode.PrintMembers(System.Text.StringBuilder)">
-            <target name="method" cref="M:Puzzles.Matching.Analytics.InvertedBruteForceNode.PrintMembers(System.Text.StringBuilder)">
+        <member name="M:Puzzles.Onet.Analytics.InvertedBruteForceNode.PrintMembers(System.Text.StringBuilder)">
+            <target name="method" cref="M:Puzzles.Onet.Analytics.InvertedBruteForceNode.PrintMembers(System.Text.StringBuilder)">
 				<summary>
 					Provides an easy way to concatenate output members inside a <see langword="record" />
 					or a <see langword="record struct" /> type.
@@ -460,7 +460,7 @@
 				</param>
 				<returns>
 					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
-					by implementing to-string method <see cref="M:Puzzles.Matching.Analytics.InvertedBruteForceNode.ToString" />.
+					by implementing to-string method <see cref="M:Puzzles.Onet.Analytics.InvertedBruteForceNode.ToString" />.
 				</returns>
 				<remarks>
 					<para>
@@ -488,80 +488,80 @@
 				</remarks>
 			</target>
         </member>
-        <member name="T:Puzzles.Matching.Generating.Generator">
+        <member name="T:Puzzles.Onet.Generating.Generator">
             <summary>
             Represents a generator.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.#ctor">
+        <member name="M:Puzzles.Onet.Generating.Generator.#ctor">
             <summary>
             Represents a generator.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Generating.Generator._collector">
+        <member name="F:Puzzles.Onet.Generating.Generator._collector">
             <summary>
             Indicates the collector.
             </summary>
         </member>
-        <member name="F:Puzzles.Matching.Generating.Generator._rng">
+        <member name="F:Puzzles.Onet.Generating.Generator._rng">
             <summary>
             Indicates the local random number generator.
             </summary>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
+        <member name="M:Puzzles.Onet.Generating.Generator.Generate(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
             <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used.
+            Generates a valid <see cref="T:Puzzles.Onet.Concepts.Grid"/> that contains at least one step to be used.
             </summary>
             <param name="rows">The desired number of rows.</param>
             <param name="columns">The desired number of columns.</param>
             <param name="itemsCount">Indicates the number of items to be used in the grid.</param>
             <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+            <returns>A <see cref="T:Puzzles.Onet.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
             <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
             <exception cref="T:System.InvalidOperationException">
             Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
             </exception>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Puzzles.Onet.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used;
+            Generates a valid <see cref="T:Puzzles.Onet.Concepts.Grid"/> that contains at least one step to be used;
             elements should be guaranteed to appear the specified number of times.
             </summary>
             <param name="rows">The desired number of rows.</param>
             <param name="columns">The desired number of columns.</param>
             <param name="items">Indicates items and its appearing times.</param>
             <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+            <returns>A <see cref="T:Puzzles.Onet.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
             <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.ValueTuple{System.Int32,System.Int32}},System.Threading.CancellationToken)">
+        <member name="M:Puzzles.Onet.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.ValueTuple{System.Int32,System.Int32}},System.Threading.CancellationToken)">
             <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used;
+            Generates a valid <see cref="T:Puzzles.Onet.Concepts.Grid"/> that contains at least one step to be used;
             elements should be guaranteed to appear the specified number of times, in range list <paramref name="itemRanges"/>.
             </summary>
             <param name="rows">The desired number of rows.</param>
             <param name="columns">The desired number of columns.</param>
             <param name="itemRanges">Indicates items and its appearing times in range between corresponding limit.</param>
             <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+            <returns>A <see cref="T:Puzzles.Onet.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
             <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
             <exception cref="T:System.InvalidOperationException">Throws when the item ranges is invalid.</exception>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.GenerateAveraged(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
+        <member name="M:Puzzles.Onet.Generating.Generator.GenerateAveraged(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
             <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used, with average value.
+            Generates a valid <see cref="T:Puzzles.Onet.Concepts.Grid"/> that contains at least one step to be used, with average value.
             </summary>
             <param name="rows">The desired number of rows.</param>
             <param name="columns">The desired number of columns.</param>
             <param name="itemsCount">Indicates the number of items to be used in the grid.</param>
             <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
+            <returns>A <see cref="T:Puzzles.Onet.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
             <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
             <exception cref="T:System.InvalidOperationException">
             Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
             </exception>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.BitArrayToIndices(System.Collections.BitArray,System.Int32)">
+        <member name="M:Puzzles.Onet.Generating.Generator.BitArrayToIndices(System.Collections.BitArray,System.Int32)">
             <summary>
             Converts bit array instance into valid array of indices.
             </summary>
@@ -569,13 +569,13 @@
             <param name="startIndex">The start index.</param>
             <returns>The array.</returns>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Equals(System.Object)">
+        <member name="M:Puzzles.Onet.Generating.Generator.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.GetHashCode">
+        <member name="M:Puzzles.Onet.Generating.Generator.GetHashCode">
             <inheritdoc cref="M:System.Object.GetHashCode"/>
         </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.ToString">
+        <member name="M:Puzzles.Onet.Generating.Generator.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
     </members>

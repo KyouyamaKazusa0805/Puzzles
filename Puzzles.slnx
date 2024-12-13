@@ -10,9 +10,9 @@
     <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Analytics/Puzzles.MahjongMatching.Analytics.csproj" />
     <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Core/Puzzles.MahjongMatching.Core.csproj" />
   </Folder>
-  <Folder Name="/Game - Matching/">
-    <Project Path="src/Matching/Puzzles.Matching.Analytics/Puzzles.Matching.Analytics.csproj" />
-    <Project Path="src/Matching/Puzzles.Matching.Core/Puzzles.Matching.Core.csproj" />
+  <Folder Name="/Game - Onet/">
+    <Project Path="src/Onet/Puzzles.Onet.Analytics/Puzzles.Onet.Analytics.csproj" />
+    <Project Path="src/Onet/Puzzles.Onet.Core/Puzzles.Onet.Core.csproj" />
   </Folder>
   <Folder Name="/Game - Water Sort/">
     <Project Path="src/WaterSort/Puzzles.WaterSort.Analytics/Puzzles.WaterSort.Analytics.csproj" />

@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Analytics;
+namespace Puzzles.Onet.Analytics;
 
 /// <summary>
 /// Represents a type that stores the result of a analysis operation.

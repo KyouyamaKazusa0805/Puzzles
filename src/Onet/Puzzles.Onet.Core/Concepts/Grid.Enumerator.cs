@@ -1,4 +1,4 @@
-namespace Puzzles.Matching.Concepts;
+namespace Puzzles.Onet.Concepts;
 
 public partial class Grid
 {
