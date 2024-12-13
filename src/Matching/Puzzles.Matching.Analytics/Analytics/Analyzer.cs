@@ -37,7 +37,7 @@ public sealed class Analyzer
 				var allMatches = playground.GetAllMatches();
 				if (allMatches.IsEmpty)
 				{
-					return new(grid) { IsSolved = false, FailedReason = FailedReason.PuzzleInvalid };
+					return new(grid) { IsSolved = false, InterimMatches = [.. steps], FailedReason = FailedReason.PuzzleInvalid };
 				}
 
 				var matchesSorted =

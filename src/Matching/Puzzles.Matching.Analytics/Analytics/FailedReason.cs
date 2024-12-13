@@ -11,7 +11,7 @@ public enum FailedReason
 	None,
 
 	/// <summary>
-	/// Indicates the puzzle is invalid.
+	/// Indicates the puzzle is invalid or failed.
 	/// </summary>
 	PuzzleInvalid,
 

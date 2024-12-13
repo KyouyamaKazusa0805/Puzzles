@@ -41,6 +41,11 @@
             Indicates the matches found during the analysis.
             </summary>
         </member>
+        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.Grids">
+            <summary>
+            Indicates the grids applied in each step in solving procedure.
+            </summary>
+        </member>
         <member name="P:Puzzles.Matching.Analytics.AnalysisResult.ElapsedTime">
             <summary>
             Indicates the elapsed time.
@@ -54,6 +59,11 @@
         <member name="P:Puzzles.Matching.Analytics.AnalysisResult.InterimMatches">
             <summary>
             Indicates the matches.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Matching.Analytics.AnalysisResult.InterimGrids">
+            <summary>
+            Indicates the interim grids.
             </summary>
         </member>
         <member name="M:Puzzles.Matching.Analytics.AnalysisResult.ToString">
@@ -292,7 +302,7 @@
         </member>
         <member name="F:Puzzles.Matching.Analytics.FailedReason.PuzzleInvalid">
             <summary>
-            Indicates the puzzle is invalid.
+            Indicates the puzzle is invalid or failed.
             </summary>
         </member>
         <member name="F:Puzzles.Matching.Analytics.FailedReason.UserCancelled">

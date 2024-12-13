@@ -13,7 +13,6 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 	/// <summary>
 	/// Indicates whether the puzzle is fully solved.
 	/// </summary>
-	[MemberNotNullWhen(true, nameof(InterimMatches))]
 	[HashCodeMember]
 	[EquatableMember]
 	public required bool IsSolved { get; init; }
@@ -39,6 +38,11 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 	public ReadOnlySpan<ItemMatch> Matches => InterimMatches;
 
 	/// <summary>
+	/// Indicates the grids applied in each step in solving procedure.
+	/// </summary>
+	public ReadOnlySpan<Grid> Grids => InterimGrids;
+
+	/// <summary>
 	/// Indicates the elapsed time.
 	/// </summary>
 	public TimeSpan ElapsedTime { get; init; }
@@ -52,6 +56,30 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 	/// Indicates the matches.
 	/// </summary>
 	internal ItemMatch[]? InterimMatches { get; init; }
+
+	/// <summary>
+	/// Indicates the interim grids.
+	/// </summary>
+	internal Grid[]? InterimGrids
+	{
+		get
+		{
+			if (InterimMatches is null)
+			{
+				return null;
+			}
+
+			var grid = Grid.Clone();
+			var result = new Grid[InterimMatches.Length];
+			for (var i = 0; i < InterimMatches.Length; i++)
+			{
+				var match = InterimMatches[i];
+				grid.Apply(match);
+				result[i] = grid.Clone();
+			}
+			return result;
+		}
+	}
 
 	[EquatableMember]
 	private Grid PuzzleEntry => Grid;
@@ -67,14 +95,17 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 
 		if (IsSolved)
 		{
-			sb.AppendLine("Steps:");
-			foreach (var step in InterimMatches)
+			if (InterimMatches is not null)
 			{
-				sb.AppendLine(step.ToFullString());
+				sb.AppendLine("Steps:");
+				foreach (var step in InterimMatches)
+				{
+					sb.AppendLine(step.ToFullString());
+				}
+				sb.AppendLine("---");
+				sb.AppendLine("Puzzle is solved.");
+				sb.AppendLine($@"Elapsed time: {ElapsedTime:hh\:mm\:ss\.fff}");
 			}
-			sb.AppendLine("---");
-			sb.AppendLine("Puzzle is solved.");
-			sb.AppendLine($@"Elapsed time: {ElapsedTime:hh\:mm\:ss\.fff}");
 		}
 		else
 		{
