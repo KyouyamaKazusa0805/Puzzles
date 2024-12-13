@@ -6,6 +6,11 @@ namespace Puzzles.Matching.Analytics;
 public sealed class Analyzer
 {
 	/// <summary>
+	/// Indicates the backing collector.
+	/// </summary>
+	private readonly Collector _collector = new();
+
+	/// <summary>
 	/// Indicates the backing random number generator.
 	/// </summary>
 	private readonly Random _rng = new();
@@ -34,7 +39,7 @@ public sealed class Analyzer
 			stopwatch.Start();
 			while (!playground.IsEmpty)
 			{
-				var allMatches = playground.GetAllMatches();
+				var allMatches = _collector.Collect(playground);
 				if (allMatches.IsEmpty)
 				{
 					return new(grid) { IsSolved = false, InterimMatches = [.. steps], FailedReason = FailedReason.PuzzleInvalid };

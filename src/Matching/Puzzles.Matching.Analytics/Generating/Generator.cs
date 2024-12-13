@@ -4,12 +4,17 @@ namespace Puzzles.Matching.Generating;
 /// Represents a generator.
 /// </summary>
 [TypeImpl(TypeImplFlags.AllObjectMethods)]
-public readonly ref partial struct Generator
+public readonly ref partial struct Generator()
 {
+	/// <summary>
+	/// Indicates the collector.
+	/// </summary>
+	private readonly Collector _collector = new();
+
 	/// <summary>
 	/// Indicates the local random number generator.
 	/// </summary>
-	private static readonly Random Rng = Random.Shared;
+	private readonly Random _rng = Random.Shared;
 
 
 	/// <summary>
@@ -50,12 +55,12 @@ public readonly ref partial struct Generator
 					continue;
 				}
 
-				var itemKind = (ItemIndex)Rng.Next(0, itemsCount);
+				var itemKind = (ItemIndex)_rng.Next(0, itemsCount);
 				var availableCells = BitArrayToIndices(cellStateTable, i);
 				int chosenCell;
 				do
 				{
-					chosenCell = availableCells[Rng.Next(0, availableCells.Length)];
+					chosenCell = availableCells[_rng.Next(0, availableCells.Length)];
 				} while (cellStateTable[chosenCell] || chosenCell == i);
 
 				// Make them a pair.
@@ -76,7 +81,7 @@ public readonly ref partial struct Generator
 
 			// A grid is finished. Now check validity of the grid state.
 			var result = new Grid(array, rows, columns);
-			if (result.TryGetMatch(out _))
+			if (_collector.Collect(result) is not [])
 			{
 				return result;
 			}
@@ -130,12 +135,12 @@ public readonly ref partial struct Generator
 			// we may not shuffle more times to keep the array to be more random.
 			for (var i = 0; i < 3; i++)
 			{
-				Rng.Shuffle(array);
+				_rng.Shuffle(array);
 			}
 
 			// Check validity of the puzzle.
 			var result = new Grid(array, rows, columns);
-			if (result.TryGetMatch(out _))
+			if (_collector.Collect(result) is not [])
 			{
 				return result;
 			}
@@ -191,7 +196,7 @@ public readonly ref partial struct Generator
 			}
 
 			// Randomly chosen an entry.
-			var chosenItemIndex = validItemsToInsert[Rng.Next(0, validItemsToInsert.Count)];
+			var chosenItemIndex = validItemsToInsert[_rng.Next(0, validItemsToInsert.Count)];
 			items[chosenItemIndex] += 2;
 		}
 		return Generate(rows, columns, items, cancellationToken);

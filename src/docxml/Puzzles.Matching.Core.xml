@@ -147,87 +147,6 @@
             </summary>
             <param name="match">The match to be applied.</param>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Equals(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Equals(Puzzles.Matching.Concepts.Grid)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.TryGetMatch(Puzzles.Matching.Concepts.ItemMatch@)">
-            <summary>
-            Try to find the next match. If the grid has no match, <see langword="false"/> will be returned.
-            </summary>
-            <param name="result">The result.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating whether a new match can be found.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.TryPair(Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.ItemMatch@)">
-            <summary>
-            Determine whether two values are paired under the matching rule;
-            if so, return <see langword="true"/> and return an <see cref="T:Puzzles.Matching.Concepts.ItemMatch"/> object
-            to parameter <paramref name="result"/> indicating the result details.
-            </summary>
-            <param name="coordinate1">Indicates the first coordinate.</param>
-            <param name="coordinate2">Indicates the second coordinate.</param>
-            <param name="result">Indicates the result match.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
-            <exception cref="T:System.InvalidOperationException">Throws when the grid is too small (lower than 2x2).</exception>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.IsSameRowPaired(Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate)">
-            <summary>
-            Determine whether two coordinates is in same row, and can be paired.
-            </summary>
-            <param name="coordinate1">Indicates the first coordinate.</param>
-            <param name="coordinate2">Indicates the second coordinate.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.IsSameColumnPaired(Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate)">
-            <summary>
-            Determine whether two coordinates is in same column, and can be paired.
-            </summary>
-            <param name="coordinate1">Indicates the first coordinate.</param>
-            <param name="coordinate2">Indicates the second coordinate.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.IsTurningOncePaired(Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate@)">
-            <summary>
-            Determine whether two coordinates can be paired with one-time turning.
-            </summary>
-            <param name="coordinate1">Indicates the first coordinate.</param>
-            <param name="coordinate2">Indicates the second coordinate.</param>
-            <param name="interim">Indicates the interim on turning.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.IsTurningTwicePaired(Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate,Puzzles.Matching.Concepts.Coordinate[]@)">
-            <summary>
-            Determine whether two coordinates can be paired with two-time turning.
-            </summary>
-            <param name="coordinate1">Indicates the first coordinate.</param>
-            <param name="coordinate2">Indicates the second coordinate.</param>
-            <param name="interims">Indicates the interim coordinates on turning.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Blocks(System.Int32,System.Int32)">
-            <summary>
-            Determine whether the grid has blocked the specified coordinate.
-            </summary>
-            <param name="x">The row index.</param>
-            <param name="y">The column index.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.Blocks(Puzzles.Matching.Concepts.Coordinate)">
-            <summary>
-            Determine whether the grid has blocked the specified coordinate.
-            </summary>
-            <param name="coordinate">The coordinate.</param>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.IsCoordinateOutOfBound(Puzzles.Matching.Concepts.Coordinate)">
-            <summary>
-            Determine whether the current coordinate is out of bound.
-            </summary>
-            <param name="coordinate">The coordinate.</param>
-            <returns>A <see cref="T:System.Boolean"/> result.</returns>
-        </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.GetHashCode">
             <inheritdoc/>
         </member>
@@ -260,24 +179,11 @@
             </list>
             </remarks>
         </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.GetAllMatches">
-            <summary>
-            Try to find all possible steps appeared in the grid; if no steps found, an empty array will be returned.
-            </summary>
-            <returns>All matched items.</returns>
-        </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.GetEnumerator">
             <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
         </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.Clone">
             <inheritdoc cref="M:System.ICloneable.Clone"/>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.GetMatch">
-            <summary>
-            Try to get the next match; or throws <see cref="T:System.InvalidOperationException"/> if a match is not found.
-            </summary>
-            <returns>The next match.</returns>
-            <exception cref="T:System.InvalidOperationException">Throws when the grid is invalid.</exception>
         </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.System#ICloneable#Clone">
             <inheritdoc/>
@@ -301,12 +207,6 @@
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.System#IParsable{Puzzles#Matching#Concepts#Grid}#Parse(System.String,System.IFormatProvider)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.op_Equality(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Grid)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Matching.Concepts.Grid.op_Inequality(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Grid)">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.op_Implicit(Puzzles.Matching.Concepts.Grid)~System.Byte[0:,0:]">
@@ -351,6 +251,18 @@
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Matching.Concepts.Grid.Enumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Matching.Concepts.Grid.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Matching.Concepts.Grid.op_Equality(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Grid)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Matching.Concepts.Grid.op_Inequality(Puzzles.Matching.Concepts.Grid,Puzzles.Matching.Concepts.Grid)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Matching.Concepts.Grid.Equals(Puzzles.Matching.Concepts.Grid)">
             <inheritdoc/>
         </member>
         <member name="T:Puzzles.Matching.Concepts.ItemMatch">
@@ -434,86 +346,6 @@
 					</para>
 				</remarks>
 			</target>
-        </member>
-        <member name="T:Puzzles.Matching.Generating.Generator">
-            <summary>
-            Represents a generator.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Matching.Generating.Generator.Rng">
-            <summary>
-            Indicates the local random number generator.
-            </summary>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
-            <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used.
-            </summary>
-            <param name="rows">The desired number of rows.</param>
-            <param name="columns">The desired number of columns.</param>
-            <param name="itemsCount">Indicates the number of items to be used in the grid.</param>
-            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
-            <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
-            <exception cref="T:System.InvalidOperationException">
-            Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
-            </exception>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used;
-            elements should be guaranteed to appear the specified number of times.
-            </summary>
-            <param name="rows">The desired number of rows.</param>
-            <param name="columns">The desired number of columns.</param>
-            <param name="items">Indicates items and its appearing times.</param>
-            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
-            <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Generate(System.Int32,System.Int32,System.Collections.Generic.IReadOnlyDictionary{System.Byte,System.ValueTuple{System.Int32,System.Int32}},System.Threading.CancellationToken)">
-            <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used;
-            elements should be guaranteed to appear the specified number of times, in range list <paramref name="itemRanges"/>.
-            </summary>
-            <param name="rows">The desired number of rows.</param>
-            <param name="columns">The desired number of columns.</param>
-            <param name="itemRanges">Indicates items and its appearing times in range between corresponding limit.</param>
-            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
-            <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
-            <exception cref="T:System.InvalidOperationException">Throws when the item ranges is invalid.</exception>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.GenerateAveraged(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
-            <summary>
-            Generates a valid <see cref="T:Puzzles.Matching.Concepts.Grid"/> that contains at least one step to be used, with average value.
-            </summary>
-            <param name="rows">The desired number of rows.</param>
-            <param name="columns">The desired number of columns.</param>
-            <param name="itemsCount">Indicates the number of items to be used in the grid.</param>
-            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
-            <returns>A <see cref="T:Puzzles.Matching.Concepts.Grid"/> result; or <see langword="null"/> if cancelled.</returns>
-            <exception cref="T:System.ArgumentException">Throws when the argument is invalid.</exception>
-            <exception cref="T:System.InvalidOperationException">
-            Throws when the argument <paramref name="rows"/> and <paramref name="columns"/> are both odd.
-            </exception>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.BitArrayToIndices(System.Collections.BitArray,System.Int32)">
-            <summary>
-            Converts bit array instance into valid array of indices.
-            </summary>
-            <param name="bitArray">The bit array.</param>
-            <param name="startIndex">The start index.</param>
-            <returns>The array.</returns>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.Equals(System.Object)">
-            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.GetHashCode">
-            <inheritdoc cref="M:System.Object.GetHashCode"/>
-        </member>
-        <member name="M:Puzzles.Matching.Generating.Generator.ToString">
-            <inheritdoc cref="M:System.Object.ToString"/>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.Pattern_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the Pattern method.</summary>

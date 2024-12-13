@@ -5,6 +5,12 @@ namespace Puzzles.Matching.Analytics;
 /// </summary>
 public sealed class BruteForce
 {
+	/// <summary>
+	/// Indicates the backing collector.
+	/// </summary>
+	private readonly Collector _collector = new();
+
+
 	/// <inheritdoc cref="CreateTree(Grid, out LinkedList{InvertedBruteForceNode})"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public BruteForceTree CreateTree(Grid puzzle) => CreateTree(puzzle, out _);
@@ -23,7 +29,7 @@ public sealed class BruteForce
 		invertedNodes.AddLast(rootNode);
 
 		var queue = new LinkedList<InvertedBruteForceNode>();
-		foreach (var step in new HashSet<ItemMatch>([.. puzzle.GetAllMatches()]))
+		foreach (var step in new HashSet<ItemMatch>([.. _collector.Collect(puzzle)]))
 		{
 			var puzzleApplied = puzzle.Clone();
 			puzzleApplied.Apply(step);
@@ -43,7 +49,7 @@ public sealed class BruteForce
 				continue;
 			}
 
-			foreach (var step in p.GetAllMatches())
+			foreach (var step in _collector.Collect(p))
 			{
 				var puzzleApplied = p.Clone();
 				puzzleApplied.Apply(step);
