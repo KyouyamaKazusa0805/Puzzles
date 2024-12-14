@@ -60,18 +60,18 @@ internal partial struct ColorFeature :
 	/// <returns>An <see cref="int"/> indicating the result.</returns>
 	public static int Compare(ColorFeature left, ColorFeature right)
 	{
-		if (Math.Sign(left.UserIndex - right.UserIndex) is var r1 and not 0)
+		if (left.UserIndex.CompareTo(right.UserIndex) is var r1 and not 0)
 		{
 			return r1;
 		}
-		if (Math.Sign(left.WallDistance.First - right.WallDistance.First) is var r2 and not 0)
+		if (left.WallDistance.First.CompareTo(right.WallDistance.First) is var r2 and not 0)
 		{
 			return r2;
 		}
-		if (Math.Sign(left.WallDistance.Second - right.WallDistance.Second) is var r3 and not 0)
+		if (left.WallDistance.Second.CompareTo(right.WallDistance.Second) is var r3 and not 0)
 		{
 			return -r3;
 		}
-		return -Math.Sign(left.MinDistance - right.MinDistance);
+		return -left.MinDistance.CompareTo(right.MinDistance);
 	}
 }

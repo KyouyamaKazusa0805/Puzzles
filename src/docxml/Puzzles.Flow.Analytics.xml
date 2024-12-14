@@ -157,6 +157,11 @@
             <param name="state">The state.</param>
             <param name="userOrder">User order.</param>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.BubbleSort``1(System.Span{``0},System.Comparison{``0})">
+            <summary>
+            Performs a bubble sort.
+            </summary>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.UpdateNodeCosts(Puzzles.Flow.Concepts.Grid*,Puzzles.Flow.Analytics.TreeNode*,System.Int32)">
             <summary>
             To update node costs.

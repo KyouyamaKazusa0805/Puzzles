@@ -392,10 +392,27 @@ public sealed unsafe class Analyzer
 			grid->IsUserOrdered = true;
 		}
 
-		cf[..grid->ColorsCount].Sort(ColorFeature.Compare);
+		BubbleSort(cf[..grid->ColorsCount], ColorFeature.Compare);
 		for (var i = 0; i < grid->ColorsCount; i++)
 		{
 			grid->ColorOrder[i] = cf[i].Index;
+		}
+	}
+
+	/// <summary>
+	/// Performs a bubble sort.
+	/// </summary>
+	private void BubbleSort<T>(Span<T> cf, Comparison<T> comparison)
+	{
+		for (var i = 0; i < cf.Length - 1; i++)
+		{
+			for (var j = 0; j < cf.Length - 1 - i; j++)
+			{
+				if (comparison(cf[j], cf[j + 1]) >= 0)
+				{
+					(cf[j], cf[j + 1]) = (cf[j + 1], cf[j]);
+				}
+			}
 		}
 	}
 
@@ -957,11 +974,11 @@ public sealed unsafe class Analyzer
 
 		short checkChokepoint(Grid* grid, ProcessState* state, byte color, Direction direction, int n)
 		{
-			var copy = state;
+			var copy = *state;
 
 			for (var i = 0; i < n; i++)
 			{
-				MakeMove(grid, copy, color, direction, true);
+				MakeMove(grid, &copy, color, direction, true);
 			}
 
 			// Build new region map.
