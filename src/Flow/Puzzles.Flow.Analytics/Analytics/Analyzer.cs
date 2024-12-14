@@ -3,6 +3,22 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Represents an analyzer.
 /// </summary>
+/// <remarks>
+/// <para>
+/// This implementation is just a copy from <see href="https://github.com/mzucker/flow_solver">this repository</see>,
+/// but I change the algorithm into C# implementation instead.
+/// </para>
+/// <para>
+/// Also, this algorithm uses some logical techniques to reduce complexity of brute forces.
+/// For more information about checking dead-ends and some other techniques,
+/// please visit <see href="https://mzucker.github.io/2016/08/28/flow-solver.html">this link</see>.
+/// </para>
+/// <para>
+/// You may know that a flow free problem may be solved by reducing it to a 3-SAT problem,
+/// but this algorithm doesn't use this algorithm. For more information about 3-SAT solving,
+/// please visit <see href="https://www.youtube.com/watch?v=_2A3j9hSqnY">this YouTube video</see>.
+/// </para>
+/// </remarks>
 public sealed unsafe class Analyzer
 {
 	/// <summary>
