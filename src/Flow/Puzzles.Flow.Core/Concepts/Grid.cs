@@ -50,6 +50,7 @@ public unsafe partial struct Grid(
 	/// <inheritdoc/>
 	readonly int IBoard.Columns => Size;
 
+#if DEBUG
 	/// <summary>
 	/// Provides <see langword="this"/> pointer.
 	/// </summary>
@@ -64,6 +65,7 @@ public unsafe partial struct Grid(
 	private readonly ReadOnlySpan<int> ColorIdsSpan => new(ThisPointer->ColorIds, MaxColors);
 
 	private readonly ReadOnlySpan<byte> ColorOrderSpan => new(ThisPointer->ColorOrder, MaxColors);
+#endif
 
 
 	/// <summary>

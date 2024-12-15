@@ -35,6 +35,7 @@ internal unsafe partial struct GridInterimState
 	/// </summary>
 	public short CompletedMask { get; set; }
 
+#if DEBUG
 	/// <summary>
 	/// Provides <see langword="this"/> pointer.
 	/// </summary>
@@ -43,6 +44,7 @@ internal unsafe partial struct GridInterimState
 	private readonly ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, MaxColors);
 
 	private readonly ReadOnlySpan<byte> CellsSpan => new(ThisPointer->Cells, Analyzer.MaxCells);
+#endif
 
 
 	/// <summary>

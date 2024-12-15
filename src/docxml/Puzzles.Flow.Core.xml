@@ -319,21 +319,6 @@
             <param name="inputChar">The input character.</param>
             <returns>The string.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Text.ConsoleOut.ClearBoard(Puzzles.Flow.Concepts.Grid@)">
-            <summary>
-            Clear screen in console, and set cursor position to (0, 0).
-            </summary>
-            <param name="grid">The grid.</param>
-            <returns>The fresh string.</returns>
-        </member>
-        <member name="M:Puzzles.Flow.Text.ConsoleOut.GetColorNameString(Puzzles.Flow.Concepts.Grid@,System.Int32)">
-            <summary>
-            Get color name string.
-            </summary>
-            <param name="grid">The grid.</param>
-            <param name="color">The color.</param>
-            <returns>Color name string.</returns>
-        </member>
         <member name="M:Puzzles.Flow.Text.ConsoleOut.GetColorCellString(Puzzles.Flow.Concepts.Grid@,System.Byte)">
             <summary>
             Get color cell string.
