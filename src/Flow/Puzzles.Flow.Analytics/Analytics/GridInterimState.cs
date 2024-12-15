@@ -1,10 +1,10 @@
 namespace Puzzles.Flow.Analytics;
 
 /// <summary>
-/// Represents a process state.
+/// Represents a grid interim state.
 /// </summary>
 [StructLayout(LayoutKind.Auto)]
-internal unsafe partial struct ProcessState
+internal unsafe partial struct GridInterimState
 {
 	/// <summary>
 	/// Indicates the cell states.
@@ -38,7 +38,7 @@ internal unsafe partial struct ProcessState
 	/// <summary>
 	/// Provides <see langword="this"/> pointer.
 	/// </summary>
-	private readonly ProcessState* ThisPointer => (ProcessState*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
+	private readonly GridInterimState* ThisPointer => (GridInterimState*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
 
 	private readonly ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, MaxColors);
 
@@ -51,7 +51,7 @@ internal unsafe partial struct ProcessState
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <param name="writer">The writer.</param>
-	public static void Print(ref readonly Grid grid, ref readonly ProcessState state, TextWriter writer)
+	public static void Print(ref readonly Grid grid, ref readonly GridInterimState state, TextWriter writer)
 	{
 		const char blockChar = '#';
 

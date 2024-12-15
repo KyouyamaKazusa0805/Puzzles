@@ -27,7 +27,7 @@ internal unsafe partial struct TreeNode :
 	/// <summary>
 	/// Indicates the current progress state.
 	/// </summary>
-	public ProcessState State;
+	public GridInterimState State;
 
 	/// <summary>
 	/// Indicates the parent of this node (can also be <see langword="null"/>).
