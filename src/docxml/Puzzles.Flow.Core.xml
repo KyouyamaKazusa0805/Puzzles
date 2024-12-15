@@ -4,6 +4,120 @@
         <name>Puzzles.Flow.Core</name>
     </assembly>
     <members>
+        <member name="T:Puzzles.Flow.Concepts.Coordinate">
+            <summary>
+            Represents a coordinate.
+            </summary>
+            <param name="X">Indicates the row index.</param>
+            <param name="Y">Indicates the column index.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Represents a coordinate.
+            </summary>
+            <param name="X">Indicates the row index.</param>
+            <param name="Y">Indicates the column index.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Coordinate.X">
+            <summary>Indicates the row index.</summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Coordinate.Y">
+            <summary>Indicates the column index.</summary>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.FlowCell">
+            <summary>
+            Represents a flow cell.
+            </summary>
+            <param name="StartCoodinate">Indicates the start coordinate.</param>
+            <param name="EndCoordinate">Indicates the end coordinate.</param>
+            <param name="Color">Indicates the color used.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.FlowCell.#ctor(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate,System.Byte)">
+            <summary>
+            Represents a flow cell.
+            </summary>
+            <param name="StartCoodinate">Indicates the start coordinate.</param>
+            <param name="EndCoordinate">Indicates the end coordinate.</param>
+            <param name="Color">Indicates the color used.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.FlowCell.StartCoodinate">
+            <summary>Indicates the start coordinate.</summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.FlowCell.EndCoordinate">
+            <summary>Indicates the end coordinate.</summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.FlowCell.Color">
+            <summary>Indicates the color used.</summary>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Grid">
+            <summary>
+            Represents a grid that defines the start and end points of flows.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid._size">
+            <summary>
+            Indicates the size.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid._cells">
+            <summary>
+            Indicates the flow cells.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.#ctor(System.Int32,Puzzles.Flow.Concepts.FlowCell[])">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Flow.Concepts.Grid"/> with a flow cell list.
+            </summary>
+            <param name="size">The size.</param>
+            <param name="cells">The cells.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#IBoard#Rows">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#IBoard#Columns">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Comparer">
+            <summary>
+            Indicates the backing comparer to compare equality of field <see cref="F:Puzzles.Flow.Concepts.Grid._cells"/>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.Equals(Puzzles.Flow.Concepts.Grid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.ToString(System.IFormatProvider)">
+            <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.ToString(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.TryParse(System.String,Puzzles.Flow.Concepts.Grid@)">
+            <inheritdoc cref="M:System.IParsable`1.TryParse(System.String,System.IFormatProvider,`0@)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.TryParse(System.String,System.IFormatProvider,Puzzles.Flow.Concepts.Grid@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.Parse(System.String)">
+            <inheritdoc cref="M:System.IParsable`1.Parse(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.Parse(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.ToString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.op_Equality(Puzzles.Flow.Concepts.Grid,Puzzles.Flow.Concepts.Grid)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.op_Inequality(Puzzles.Flow.Concepts.Grid,Puzzles.Flow.Concepts.Grid)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
         <member name="T:Puzzles.Flow.Concepts.Primitives.CellType">
             <summary>
             Represents a type of cell used.
