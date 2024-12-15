@@ -509,6 +509,27 @@
             <param name="state">The state.</param>
             <param name="writer">The writer.</param>
         </member>
+        <member name="T:Puzzles.Flow.Analytics.ConsoleOut">
+            <summary>
+            Provides a way to handle console output text.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ConsoleOut.GetColorString(System.String,System.Char)">
+            <summary>
+            Get color string.
+            </summary>
+            <param name="colorString">The color console out string.</param>
+            <param name="inputChar">The input character.</param>
+            <returns>The string.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.ConsoleOut.GetColorCellString(Puzzles.Flow.Concepts.Grid@,System.Byte)">
+            <summary>
+            Get color cell string.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="cell">The cell.</param>
+            <returns>The string.</returns>
+        </member>
         <member name="T:Puzzles.Flow.Analytics.HeapBasedQueue">
             <summary>
             Indicates the data structure for heap-based priority queue.
