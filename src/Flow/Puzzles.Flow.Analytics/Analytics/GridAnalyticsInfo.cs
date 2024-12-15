@@ -1,4 +1,4 @@
-namespace Puzzles.Flow.Concepts;
+namespace Puzzles.Flow.Analytics;
 
 /// <summary>
 /// Represents a grid.
@@ -7,7 +7,7 @@ namespace Puzzles.Flow.Concepts;
 /// <param name="colorsCount">Indicates the number of colors used.</param>
 /// <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
 [StructLayout(LayoutKind.Auto)]
-public unsafe partial struct Grid(
+internal unsafe partial struct GridAnalyticsInfo(
 	[Property(Setter = PropertySetters.Set)] int size,
 	[Property(Setter = PropertySetters.Set)] byte colorsCount,
 	[Property(Setter = PropertySetters.Set)] bool isUserOrdered
@@ -54,7 +54,7 @@ public unsafe partial struct Grid(
 	/// <summary>
 	/// Provides <see langword="this"/> pointer.
 	/// </summary>
-	private readonly Grid* ThisPointer => (Grid*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
+	private readonly GridAnalyticsInfo* ThisPointer => (GridAnalyticsInfo*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
 
 	private readonly ReadOnlySpan<byte> InitPositionsSpan => new(ThisPointer->InitPositions, MaxColors);
 

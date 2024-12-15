@@ -173,7 +173,7 @@ public sealed unsafe class Analyzer
 		}
 
 
-		bool tryLoadPuzzle(string gridString, int size, out Grid grid, out GridInterimState state)
+		bool tryLoadPuzzle(string gridString, int size, out GridAnalyticsInfo grid, out GridInterimState state)
 		{
 			state = default;
 			new Span<byte>(Unsafe.AsPointer(ref state.Positions[0]), MaxColors).Fill(byte.MaxValue);
@@ -314,7 +314,7 @@ public sealed unsafe class Analyzer
 	/// <param name="cFlag">The flag.</param>
 	/// <param name="resultFlags">The result flags.</param>
 	private void AddColor(
-		Grid* grid,
+		GridAnalyticsInfo* grid,
 		GridInterimState* state,
 		Span<byte> resultMap,
 		byte pos,
@@ -344,7 +344,7 @@ public sealed unsafe class Analyzer
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <param name="userOrder">User order.</param>
-	private void OrderColors(Grid* grid, GridInterimState* state, string? userOrder)
+	private void OrderColors(GridAnalyticsInfo* grid, GridInterimState* state, string? userOrder)
 	{
 		if (RandomOrdering)
 		{
@@ -439,7 +439,7 @@ public sealed unsafe class Analyzer
 	/// <param name="node">The node.</param>
 	/// <param name="actionCost">The action cost.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private void UpdateNodeCosts(Grid* grid, TreeNode* node, int actionCost)
+	private void UpdateNodeCosts(GridAnalyticsInfo* grid, TreeNode* node, int actionCost)
 	{
 		node->CostToCome = node->Parent != null ? node->Parent->CostToCome + actionCost : 0;
 		node->CostToGo = node->State.FreeCellsCount;
@@ -456,7 +456,7 @@ public sealed unsafe class Analyzer
 	/// <exception cref="ArgumentOutOfRangeException">
 	/// Throws when the argument <paramref name="grid"/> or <paramref name="color"/> is invalid.
 	/// </exception>
-	private bool CanMove(Grid* grid, GridInterimState* state, byte color, Direction direction)
+	private bool CanMove(GridAnalyticsInfo* grid, GridInterimState* state, byte color, Direction direction)
 	{
 		ArgumentOutOfRangeException.ThrowIfNotEqual(color == byte.MaxValue || color < grid->ColorsCount, true);
 		ArgumentOutOfRangeException.ThrowIfNotEqual(state->CompletedMask >> color & 1, 0);
@@ -520,7 +520,7 @@ public sealed unsafe class Analyzer
 	/// <param name="state">The state.</param>
 	/// <param name="pos">The position.</param>
 	/// <returns>A <see cref="bool"/> result indicating that.</returns>
-	private bool IsDeadend(Grid* grid, GridInterimState* state, byte pos)
+	private bool IsDeadend(GridAnalyticsInfo* grid, GridInterimState* state, byte pos)
 	{
 		Debug.Assert(pos != InvalidPos && state->Cells[pos] == 0);
 
@@ -564,7 +564,7 @@ public sealed unsafe class Analyzer
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>A <see cref="bool"/> result.</returns>
-	private bool CheckDeadends(Grid* grid, GridInterimState* state)
+	private bool CheckDeadends(GridAnalyticsInfo* grid, GridInterimState* state)
 	{
 		var color = state->LastColor;
 		if (color >= grid->ColorsCount && color != byte.MaxValue)
@@ -593,7 +593,7 @@ public sealed unsafe class Analyzer
 	/// <param name="color">The color.</param>
 	/// <param name="pos">The position.</param>
 	/// <returns>A <see cref="bool"/> result.</returns>
-	private bool IsForced(Grid* grid, GridInterimState* state, byte color, byte pos)
+	private bool IsForced(GridAnalyticsInfo* grid, GridInterimState* state, byte color, byte pos)
 	{
 		var freeCount = 0;
 		var otherEndpointsCount = 0;
@@ -635,7 +635,7 @@ public sealed unsafe class Analyzer
 	/// <param name="x">The coordinate x value.</param>
 	/// <param name="y">The coordinate y value.</param>
 	/// <returns>A <see cref="bool"/> result.</returns>
-	private bool IsFree(Grid* grid, GridInterimState* state, byte x, byte y)
+	private bool IsFree(GridAnalyticsInfo* grid, GridInterimState* state, byte x, byte y)
 		=> Position.IsCoordinateValid(in *grid, x, y) && state->Cells[Position.GetPositionFromCoordinate(x, y)] == 0;
 
 	/// <summary>
@@ -646,7 +646,7 @@ public sealed unsafe class Analyzer
 	/// <param name="forcedColor">The forced color.</param>
 	/// <param name="forcedDirection">The forced direction.</param>
 	/// <returns>A <see cref="bool"/> result.</returns>
-	private bool FindForced(Grid* grid, GridInterimState* state, out byte forcedColor, out Direction forcedDirection)
+	private bool FindForced(GridAnalyticsInfo* grid, GridInterimState* state, out byte forcedColor, out Direction forcedDirection)
 	{
 		// If there is a free-space next to an endpoint and the free-space has only one free neighbor,
 		// we must extend the endpoint into it.
@@ -700,7 +700,7 @@ public sealed unsafe class Analyzer
 	/// <param name="state">The state.</param>
 	/// <param name="resultMap">The map.</param>
 	/// <returns>The regions.</returns>
-	private byte BuildRegions(Grid* grid, GridInterimState* state, Span<byte> resultMap)
+	private byte BuildRegions(GridAnalyticsInfo* grid, GridInterimState* state, Span<byte> resultMap)
 	{
 		var regions = (stackalloc Region[MaxCells]);
 		regions.Clear();
@@ -773,7 +773,7 @@ public sealed unsafe class Analyzer
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>The next color chosen.</returns>
-	private byte GetNextMoveColor(Grid* grid, GridInterimState* state)
+	private byte GetNextMoveColor(GridAnalyticsInfo* grid, GridInterimState* state)
 	{
 		var lastColor = state->LastColor;
 		if (lastColor < grid->ColorsCount && (state->CompletedMask >> lastColor & 1) == 0)
@@ -833,7 +833,7 @@ public sealed unsafe class Analyzer
 	/// <exception cref="ArgumentOutOfRangeException">
 	/// Throws when the <paramref name="color"/> specified is exceeded the limit.
 	/// </exception>
-	private int MakeMove(Grid* grid, GridInterimState* state, byte color, Direction direction, bool forced)
+	private int MakeMove(GridAnalyticsInfo* grid, GridInterimState* state, byte color, Direction direction, bool forced)
 	{
 		// Make sure the color is valid.
 		ArgumentOutOfRangeException.ThrowIfNotEqual(color == byte.MaxValue || color < grid->ColorsCount, true);
@@ -913,7 +913,7 @@ public sealed unsafe class Analyzer
 	/// <param name="x">The x coordinate value.</param>
 	/// <param name="y">The y coordinate value.</param>
 	/// <returns>An <see cref="int"/> value indicating the number.</returns>
-	private int GetFreeCoordinatesCount(Grid* grid, GridInterimState* state, int x, int y)
+	private int GetFreeCoordinatesCount(GridAnalyticsInfo* grid, GridInterimState* state, int x, int y)
 	{
 		var result = 0;
 		foreach (var direction in Directions)
@@ -935,7 +935,7 @@ public sealed unsafe class Analyzer
 	/// <param name="position">The position.</param>
 	/// <returns>An <see cref="int"/> value indicating the number.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private int GetFreeCoordinatesCount(Grid* grid, GridInterimState* state, byte position)
+	private int GetFreeCoordinatesCount(GridAnalyticsInfo* grid, GridInterimState* state, byte position)
 	{
 		Position.GetCoordinateFromPosition(position, out var x, out var y);
 		return GetFreeCoordinatesCount(grid, state, x, y);
@@ -948,7 +948,7 @@ public sealed unsafe class Analyzer
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>The value.</returns>
-	private int CheckBottleneck(Grid* grid, GridInterimState* state)
+	private int CheckBottleneck(GridAnalyticsInfo* grid, GridInterimState* state)
 	{
 		var color = state->LastColor;
 		if (color >= grid->ColorsCount && color != byte.MaxValue)
@@ -988,7 +988,7 @@ public sealed unsafe class Analyzer
 		return 0;
 
 
-		short checkChokepoint(Grid* grid, GridInterimState* state, byte color, Direction direction, int n)
+		short checkChokepoint(GridAnalyticsInfo* grid, GridInterimState* state, byte color, Direction direction, int n)
 		{
 			var copy = *state;
 
@@ -1018,7 +1018,7 @@ public sealed unsafe class Analyzer
 	/// <param name="maxStranded">The maximum stranded.</param>
 	/// <returns>The mask of colors stranded.</returns>
 	private short GetStrandedColors(
-		Grid* grid,
+		GridAnalyticsInfo* grid,
 		GridInterimState* state,
 		int resultCount,
 		Span<byte> resultMap,
@@ -1111,7 +1111,7 @@ public sealed unsafe class Analyzer
 	/// <param name="finalState">The final state.</param>
 	/// <returns>A <see cref="SearchingResult"/> value.</returns>
 	private SearchingResult Search(
-		Grid* grid,
+		GridAnalyticsInfo* grid,
 		GridInterimState* initState,
 		out TimeSpan elapsed,
 		out int nodes,
@@ -1219,7 +1219,7 @@ public sealed unsafe class Analyzer
 	/// <param name="node">The node.</param>
 	/// <param name="storage">The storage.</param>
 	/// <returns>The final tree node created.</returns>
-	private TreeNode* Validate(Grid* grid, TreeNode* node, NodeStorage* storage)
+	private TreeNode* Validate(GridAnalyticsInfo* grid, TreeNode* node, NodeStorage* storage)
 	{
 		Debug.Assert(node == storage->Start + storage->Count - 1);
 

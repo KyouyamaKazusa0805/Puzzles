@@ -1,9 +1,9 @@
-namespace Puzzles.Flow.Concepts;
+namespace Puzzles.Flow.Analytics;
 
 /// <summary>
 /// Represents an easy way to convert values to position.
 /// </summary>
-public static class Position
+internal static class Position
 {
 	/// <summary>
 	/// Get position index from coordinate values <paramref name="x"/> and <paramref name="y"/>.
@@ -24,7 +24,7 @@ public static class Position
 	/// <returns>The offset value.</returns>
 	/// <seealso cref="InvalidPos"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetOffsetPosition(ref readonly Grid grid, int x, int y, Direction direction)
+	public static byte GetOffsetPosition(ref readonly GridAnalyticsInfo grid, int x, int y, Direction direction)
 	{
 		var delta = direction.GetDirectionDelta();
 		var offsetX = (byte)(x + delta[0]);
@@ -40,7 +40,7 @@ public static class Position
 	/// <param name="direction">The direction.</param>
 	/// <returns>The position result.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetOffsetPosition(ref readonly Grid grid, byte pos, Direction direction)
+	public static byte GetOffsetPosition(ref readonly GridAnalyticsInfo grid, byte pos, Direction direction)
 	{
 		GetCoordinateFromPosition(pos, out var x, out var y);
 		return GetOffsetPosition(in grid, x, y, direction);
@@ -54,7 +54,7 @@ public static class Position
 	/// <param name="y">The y value.</param>
 	/// <returns>A <see cref="bool"/> result indicating that.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool IsCoordinateValid(ref readonly Grid grid, int x, int y) => x >= 0 && x < grid.Size && y >= 0 && y < grid.Size;
+	public static bool IsCoordinateValid(ref readonly GridAnalyticsInfo grid, int x, int y) => x >= 0 && x < grid.Size && y >= 0 && y < grid.Size;
 
 	/// <summary>
 	/// Gets coordinate values from a position index.

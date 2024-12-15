@@ -4,7 +4,7 @@ namespace Puzzles.Flow.Analytics;
 /// Represents a grid interim state.
 /// </summary>
 [StructLayout(LayoutKind.Auto)]
-internal unsafe partial struct GridInterimState
+internal unsafe struct GridInterimState
 {
 	/// <summary>
 	/// Indicates the cell states.
@@ -53,7 +53,7 @@ internal unsafe partial struct GridInterimState
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <param name="writer">The writer.</param>
-	public static void Print(ref readonly Grid grid, ref readonly GridInterimState state, TextWriter writer)
+	public static void Print(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state, TextWriter writer)
 	{
 		const char blockChar = '#';
 
@@ -110,7 +110,7 @@ file static unsafe class ConsoleOut
 	/// <param name="cell">The cell.</param>
 	/// <returns>The string.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static string GetColorCellString(ref readonly Grid grid, byte cell)
+	public static string GetColorCellString(ref readonly GridAnalyticsInfo grid, byte cell)
 	{
 		var type = Cell.GetTypeFromCell(cell);
 		var color = Cell.GetCellColor(cell);

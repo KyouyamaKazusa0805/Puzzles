@@ -1,9 +1,9 @@
-namespace Puzzles.Flow.Concepts;
+namespace Puzzles.Flow.Analytics;
 
 /// <summary>
 /// Provides a way to operate with cells.
 /// </summary>
-public static class Cell
+internal static class Cell
 {
 	/// <summary>
 	/// Create a cell via type, color and direction.
