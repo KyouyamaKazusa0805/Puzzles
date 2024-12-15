@@ -6,7 +6,7 @@ namespace Puzzles.Flow.Concepts.Primitives;
 public enum CellType : byte
 {
 	/// <summary>
-	/// Indicates the cell is freed (unused).
+	/// Indicates the cell is free (unused).
 	/// </summary>
 	Free = 0,
 

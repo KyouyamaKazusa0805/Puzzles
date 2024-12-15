@@ -32,7 +32,7 @@ public sealed partial class Puzzle([Field] params List<Layer> layers) :
 	/// Please note that there're two possible cases to be checked:
 	/// <list type="number">
 	/// <item>Whether a tile is under a tile</item>
-	/// <item>Whether a tile is freed from both left and right side</item>
+	/// <item>Whether a tile is free from both left and right side</item>
 	/// </list>
 	/// <i>For the second point, we may not check up and down side.</i>
 	/// </remarks>

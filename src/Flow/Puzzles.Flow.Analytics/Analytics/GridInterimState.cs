@@ -20,7 +20,7 @@ internal unsafe partial struct GridInterimState
 
 
 	/// <summary>
-	/// Indicates the number of freed cells.
+	/// Indicates the number of free cells.
 	/// </summary>
 	public byte FreeCellsCount { get; set; }
 

@@ -482,7 +482,7 @@
         </member>
         <member name="P:Puzzles.Flow.Analytics.GridInterimState.FreeCellsCount">
             <summary>
-            Indicates the number of freed cells.
+            Indicates the number of free cells.
             </summary>
         </member>
         <member name="P:Puzzles.Flow.Analytics.GridInterimState.LastColor">

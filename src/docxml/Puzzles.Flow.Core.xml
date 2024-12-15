@@ -178,7 +178,7 @@
         </member>
         <member name="F:Puzzles.Flow.Concepts.Primitives.CellType.Free">
             <summary>
-            Indicates the cell is freed (unused).
+            Indicates the cell is free (unused).
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Concepts.Primitives.CellType.Path">
