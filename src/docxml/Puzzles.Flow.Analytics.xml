@@ -284,9 +284,9 @@
             Throws when the <paramref name="color"/> specified is exceeded the limit.
             </exception>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetFreedCoordinatesCount(Puzzles.Flow.Concepts.Grid*,Puzzles.Flow.Analytics.GridInterimState*,System.Int32,System.Int32)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetFreeCoordinatesCount(Puzzles.Flow.Concepts.Grid*,Puzzles.Flow.Analytics.GridInterimState*,System.Int32,System.Int32)">
             <summary>
-            Get the number of freed spaces around coordinate x and y.
+            Get the number of free spaces around coordinate x and y.
             </summary>
             <param name="grid">The grid.</param>
             <param name="state">The state.</param>
@@ -294,9 +294,9 @@
             <param name="y">The y coordinate value.</param>
             <returns>An <see cref="T:System.Int32"/> value indicating the number.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetFreedCoordinatesCount(Puzzles.Flow.Concepts.Grid*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetFreeCoordinatesCount(Puzzles.Flow.Concepts.Grid*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte)">
             <summary>
-            Get the number of freed spaces around coordinate x and y.
+            Get the number of free spaces around coordinate x and y.
             </summary>
             <param name="grid">The grid.</param>
             <param name="state">The state.</param>
@@ -480,7 +480,7 @@
             Indicates the positions.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.GridInterimState.FreedCellsCount">
+        <member name="P:Puzzles.Flow.Analytics.GridInterimState.FreeCellsCount">
             <summary>
             Indicates the number of freed cells.
             </summary>

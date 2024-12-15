@@ -73,7 +73,7 @@ internal unsafe struct NodeStorage
 		result->State = new()
 		{
 			LastColor = state->LastColor,
-			FreedCellsCount = state->FreedCellsCount,
+			FreeCellsCount = state->FreeCellsCount,
 			CompletedMask = state->CompletedMask
 		};
 		Unsafe.CopyBlock(result->State.Cells, state->Cells, sizeof(byte) * Analyzer.MaxCells);

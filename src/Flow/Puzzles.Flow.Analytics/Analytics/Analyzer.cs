@@ -196,7 +196,7 @@ public sealed unsafe class Analyzer
 					var c = char.ToUpper(line[x]);
 					if (!ValidCharacters.Contains(c))
 					{
-						state.FreedCellsCount++;
+						state.FreeCellsCount++;
 						continue;
 					}
 
@@ -442,7 +442,7 @@ public sealed unsafe class Analyzer
 	private void UpdateNodeCosts(Grid* grid, TreeNode* node, int actionCost)
 	{
 		node->CostToCome = node->Parent != null ? node->Parent->CostToCome + actionCost : 0;
-		node->CostToGo = node->State.FreedCellsCount;
+		node->CostToGo = node->State.FreeCellsCount;
 	}
 
 	/// <summary>
@@ -525,7 +525,7 @@ public sealed unsafe class Analyzer
 		Debug.Assert(pos != InvalidPos && state->Cells[pos] == 0);
 
 		Position.GetCoordinateFromPosition(pos, out var x, out var y);
-		var freedCount = 0;
+		var freeCount = 0;
 		foreach (var direction in Directions)
 		{
 			var neighborPos = Position.GetOffsetPosition(in *grid, x, y, direction);
@@ -536,7 +536,7 @@ public sealed unsafe class Analyzer
 
 			if (state->Cells[neighborPos] == 0)
 			{
-				freedCount++;
+				freeCount++;
 				continue;
 			}
 
@@ -549,11 +549,11 @@ public sealed unsafe class Analyzer
 
 				if (neighborPos == state->Positions[color] || neighborPos == grid->GoalPositions[color])
 				{
-					freedCount++;
+					freeCount++;
 				}
 			}
 		}
-		return freedCount <= 1;
+		return freeCount <= 1;
 	}
 
 	/// <summary>
@@ -595,7 +595,7 @@ public sealed unsafe class Analyzer
 	/// <returns>A <see cref="bool"/> result.</returns>
 	private bool IsForced(Grid* grid, GridInterimState* state, byte color, byte pos)
 	{
-		var freedCount = 0;
+		var freeCount = 0;
 		var otherEndpointsCount = 0;
 		foreach (var direction in Directions)
 		{
@@ -607,7 +607,7 @@ public sealed unsafe class Analyzer
 
 			if (state->Cells[neighborPos] == 0)
 			{
-				freedCount++;
+				freeCount++;
 				continue;
 			}
 
@@ -624,7 +624,7 @@ public sealed unsafe class Analyzer
 				}
 			}
 		}
-		return freedCount == 1 && otherEndpointsCount == 0;
+		return freeCount == 1 && otherEndpointsCount == 0;
 	}
 
 	/// <summary>
@@ -658,8 +658,8 @@ public sealed unsafe class Analyzer
 				continue;
 			}
 
-			var freedDirection = (Direction)byte.MaxValue;
-			var freedCount = 0;
+			var freeDirection = (Direction)byte.MaxValue;
+			var freeCount = 0;
 			foreach (var direction in Directions)
 			{
 				var neighborPos = Position.GetOffsetPosition(in *grid, state->Positions[color], direction);
@@ -670,8 +670,8 @@ public sealed unsafe class Analyzer
 
 				if (state->Cells[neighborPos] == 0)
 				{
-					freedDirection = direction;
-					freedCount++;
+					freeDirection = direction;
+					freeCount++;
 
 					if (IsForced(grid, state, color, neighborPos))
 					{
@@ -795,10 +795,10 @@ public sealed unsafe class Analyzer
 					continue;
 				}
 
-				var freedCount = GetFreedCoordinatesCount(grid, state, state->Positions[color]);
-				if (freedCount < bestFree)
+				var freeCount = GetFreeCoordinatesCount(grid, state, state->Positions[color]);
+				if (freeCount < bestFree)
 				{
-					bestFree = freedCount;
+					bestFree = freeCount;
 					bestColor = color;
 				}
 			}
@@ -869,7 +869,7 @@ public sealed unsafe class Analyzer
 		// Update cells and new position.
 		state->Cells[newPosition] = move;
 		state->Positions[color] = newPosition;
-		state->FreedCellsCount--;
+		state->FreeCellsCount--;
 
 		state->LastColor = color;
 
@@ -895,8 +895,8 @@ public sealed unsafe class Analyzer
 		}
 		else
 		{
-			var freedCount = GetFreedCoordinatesCount(grid, state, newX, newY);
-			if (PenalizeExploration && freedCount == 2)
+			var freeCount = GetFreeCoordinatesCount(grid, state, newX, newY);
+			if (PenalizeExploration && freeCount == 2)
 			{
 				actionCost = 2;
 			}
@@ -906,14 +906,14 @@ public sealed unsafe class Analyzer
 	}
 
 	/// <summary>
-	/// Get the number of freed spaces around coordinate x and y.
+	/// Get the number of free spaces around coordinate x and y.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <param name="x">The x coordinate value.</param>
 	/// <param name="y">The y coordinate value.</param>
 	/// <returns>An <see cref="int"/> value indicating the number.</returns>
-	private int GetFreedCoordinatesCount(Grid* grid, GridInterimState* state, int x, int y)
+	private int GetFreeCoordinatesCount(Grid* grid, GridInterimState* state, int x, int y)
 	{
 		var result = 0;
 		foreach (var direction in Directions)
@@ -928,17 +928,17 @@ public sealed unsafe class Analyzer
 	}
 
 	/// <summary>
-	/// Get the number of freed spaces around coordinate x and y.
+	/// Get the number of free spaces around coordinate x and y.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
 	/// <param name="position">The position.</param>
 	/// <returns>An <see cref="int"/> value indicating the number.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private int GetFreedCoordinatesCount(Grid* grid, GridInterimState* state, byte position)
+	private int GetFreeCoordinatesCount(Grid* grid, GridInterimState* state, byte position)
 	{
 		Position.GetCoordinateFromPosition(position, out var x, out var y);
-		return GetFreedCoordinatesCount(grid, state, x, y);
+		return GetFreeCoordinatesCount(grid, state, x, y);
 	}
 
 	/// <summary>
@@ -1173,7 +1173,7 @@ public sealed unsafe class Analyzer
 					if (child != null)
 					{
 						ref readonly var childState = ref child->State;
-						if (childState.FreedCellsCount == 0 && childState.CompletedMask == (1 << grid->ColorsCount) - 1)
+						if (childState.FreeCellsCount == 0 && childState.CompletedMask == (1 << grid->ColorsCount) - 1)
 						{
 							result = SearchingResult.Success;
 							solutionNode = child;
