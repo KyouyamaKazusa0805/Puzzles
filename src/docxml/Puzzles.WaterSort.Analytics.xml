@@ -97,6 +97,21 @@
             <param name="puzzle">The puzzle.</param>
             <returns>An <see cref="T:Puzzles.WaterSort.Analytics.AnalysisResult"/> instance indicating result.</returns>
         </member>
+        <member name="T:Puzzles.WaterSort.Analytics.Extensions">
+            <target name="class" when="extension">
+				<summary>
+					Provides with file-local extension methods.
+				</summary>
+			</target>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Extensions.MakeDifficulty(System.ReadOnlySpan{Puzzles.WaterSort.Analytics.Step},Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Create a dictionary that stores difficulty rating and steps.
+            </summary>
+            <param name="steps">The steps.</param>
+            <param name="puzzle">The puzzle.</param>
+            <returns>A dictionary.</returns>
+        </member>
         <member name="T:Puzzles.WaterSort.Analytics.BruteForce">
             <summary>
             Provides a way to make an exhaustive search to find for all possible valid steps in the whole solving environment.

@@ -211,6 +211,21 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	IEnumerator<Tube> IEnumerable<Tube>.GetEnumerator() => Tubes.ToArray().AsEnumerable().GetEnumerator();
 
 
+	/// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)"/>
+	public static bool TryParse(string? s, [NotNullWhen(true)] out Puzzle? result)
+	{
+		try
+		{
+			result = s is null ? throw new FormatException() : Parse(s);
+			return true;
+		}
+		catch (FormatException)
+		{
+			result = null;
+			return false;
+		}
+	}
+
 	/// <summary>
 	/// Create a <see cref="Puzzle"/> with tubes.
 	/// </summary>
@@ -219,4 +234,28 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static Puzzle Create(ReadOnlySpan<Tube> tubes) => new([.. tubes]);
+
+	/// <inheritdoc cref="IParsable{TSelf}.Parse(string, IFormatProvider?)"/>
+	public static Puzzle Parse(string s)
+	{
+		var tubes = new List<Tube>();
+		foreach (var textRange in TubePattern.EnumerateMatches(s))
+		{
+			var values = textRange.MatchString(s);
+			var tube = new List<Color>();
+			foreach (var digitRange in DigitPattern.EnumerateMatches(values))
+			{
+				tube.Add(Color.Parse(digitRange.MatchString(values)));
+			}
+			tubes.Add([.. tube]);
+		}
+		return [.. tubes];
+	}
+
+
+	[GeneratedRegex("""\[(|\d+(,\s*\d+)*)\]""", RegexOptions.Compiled)]
+	private static partial Regex TubePattern { get; }
+
+	[GeneratedRegex("""\d+""", RegexOptions.Compiled)]
+	private static partial Regex DigitPattern { get; }
 }
