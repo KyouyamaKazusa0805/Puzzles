@@ -24,6 +24,21 @@
         <member name="P:Puzzles.Flow.Concepts.Coordinate.Y">
             <summary>Indicates the column index.</summary>
         </member>
+        <member name="M:Puzzles.Flow.Concepts.Coordinate.CompareTo(Puzzles.Flow.Concepts.Coordinate)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_GreaterThan(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_LessThan(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_GreaterThanOrEqual(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_LessThanOrEqual(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
+        </member>
         <member name="T:Puzzles.Flow.Concepts.FlowCell">
             <summary>
             Represents a flow cell.
@@ -49,33 +64,119 @@
         <member name="P:Puzzles.Flow.Concepts.FlowCell.Color">
             <summary>Indicates the color used.</summary>
         </member>
+        <member name="M:Puzzles.Flow.Concepts.FlowCell.CompareTo(Puzzles.Flow.Concepts.FlowCell)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.FlowCell.op_GreaterThan(Puzzles.Flow.Concepts.FlowCell,Puzzles.Flow.Concepts.FlowCell)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.FlowCell.op_LessThan(Puzzles.Flow.Concepts.FlowCell,Puzzles.Flow.Concepts.FlowCell)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThan(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.FlowCell.op_GreaterThanOrEqual(Puzzles.Flow.Concepts.FlowCell,Puzzles.Flow.Concepts.FlowCell)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.FlowCell.op_LessThanOrEqual(Puzzles.Flow.Concepts.FlowCell,Puzzles.Flow.Concepts.FlowCell)">
+            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Formatting.GridFormatInfo">
+            <summary>
+            Represents a format provider for type <see cref="T:Puzzles.Flow.Concepts.Grid"/>.
+            </summary>
+            <seealso cref="T:Puzzles.Flow.Concepts.Grid"/>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Formatting.GridFormatInfo.EmptyChar">
+            <summary>
+            Represents empty character.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Formatting.GridFormatInfo.SupportedFlowCharacters">
+            <summary>
+            Indicates all supported flow characters.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Formatting.GridFormatInfo.FlowCharacters">
+            <summary>
+            Indicates all supported flow characters.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Formatting.GridFormatInfo.GetFormat(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Formatting.GridFormatInfo.FormatCore(Puzzles.Flow.Concepts.Grid)">
+            <summary>
+            Formats a <see cref="T:Puzzles.Flow.Concepts.Grid"/> into a <see cref="T:System.String"/> value.
+            </summary>
+            <param name="grid">The grid instance.</param>
+            <returns>The formatted string value.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Formatting.GridFormatInfo.ParseCore(System.String)">
+            <summary>
+            Parses a <see cref="T:System.String"/> value, converting it into a <see cref="T:Puzzles.Flow.Concepts.Grid"/>.
+            </summary>
+            <param name="str">The string value to be parsed.</param>
+            <returns>The converted <see cref="T:Puzzles.Flow.Concepts.Grid"/> instance.</returns>
+            <exception cref="T:System.FormatException">Throws when the parsing operation has encountered an unexpected error.</exception>
+            <exception cref="T:System.NotSupportedException">Throws when the parsing operation is not supported.</exception>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Formatting.MultilineGridFormatInfo">
+            <summary>
+            Represents a multi-line grid format.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Formatting.MultilineGridFormatInfo.FormatCore(Puzzles.Flow.Concepts.Grid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Formatting.MultilineGridFormatInfo.ParseCore(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="T:Puzzles.Flow.Concepts.Grid">
             <summary>
             Represents a grid that defines the start and end points of flows.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Concepts.Grid._size">
+        <member name="M:Puzzles.Flow.Concepts.Grid.#ctor(System.Int32,System.Collections.Generic.SortedSet{Puzzles.Flow.Concepts.FlowCell})">
             <summary>
-            Indicates the size.
+            Represents a grid that defines the start and end points of flows.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Concepts.Grid._cells">
+        <member name="P:Puzzles.Flow.Concepts.Grid.Length">
             <summary>
-            Indicates the flow cells.
+            Indicates the number of colors used.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.#ctor(System.Int32,Puzzles.Flow.Concepts.FlowCell[])">
+        <member name="P:Puzzles.Flow.Concepts.Grid.Min">
             <summary>
-            Initializes a <see cref="T:Puzzles.Flow.Concepts.Grid"/> with a flow cell list.
+            Indicates the minimum flow used.
             </summary>
-            <param name="size">The size.</param>
-            <param name="cells">The cells.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Max">
+            <summary>
+            Indicates the maximum flow used.
+            </summary>
         </member>
         <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#IBoard#Rows">
             <inheritdoc/>
         </member>
         <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#IBoard#Columns">
             <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.System#Collections#Generic#IReadOnlyCollection{Puzzles#Flow#Concepts#FlowCell}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#DataStructures#IDataStructure#Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#DataStructures#IDataStructure#Base">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Item(System.Int32)">
+            <summary>
+            Gets the flow at the specified index.
+            </summary>
+            <param name="index">The desired index.</param>
+            <returns>The flow.</returns>
+            <exception cref="T:System.IndexOutOfRangeException">Throws when the index is out of range.</exception>
         </member>
         <member name="P:Puzzles.Flow.Concepts.Grid.Comparer">
             <summary>
@@ -91,7 +192,31 @@
         <member name="M:Puzzles.Flow.Concepts.Grid.ToString(System.IFormatProvider)">
             <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.ToString(System.String,System.IFormatProvider)">
+        <member name="M:Puzzles.Flow.Concepts.Grid.EnumerateFlows">
+            <summary>
+            Returns an enumerator object that can iterate on each element of each flow.
+            </summary>
+            <returns>The flow instances.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.AsSpan">
+            <summary>
+            Create a <see cref="T:System.ReadOnlySpan`1"/> to store all flows.
+            </summary>
+            <returns>A <see cref="T:System.ReadOnlySpan`1"/> instance.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.Clone">
+            <inheritdoc cref="M:System.ICloneable.Clone"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.System#ICloneable#Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.System#IFormattable#ToString(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.System#Collections#Generic#IEnumerable{Puzzles#Flow#Concepts#FlowCell}#GetEnumerator">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.TryParse(System.String,Puzzles.Flow.Concepts.Grid@)">
@@ -105,6 +230,57 @@
         </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.Parse(System.String,System.IFormatProvider)">
             <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator">
+            <summary>
+            Represents an enumerator type that can iterate on each flow cell.
+            </summary>
+            <param name="_grid">The grid.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.#ctor(Puzzles.Flow.Concepts.Grid)">
+            <summary>
+            Represents an enumerator type that can iterate on each flow cell.
+            </summary>
+            <param name="_grid">The grid.</param>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator._enumerator">
+            <summary>
+            Indicates the backing enumerator.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#Generic#IEnumerable{Puzzles#Flow#Concepts#FlowCell}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid._cells">
+            <summary>
+            The generated field declaration for parameter <c>cells</c>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Size">
+            <summary>
+            The generated property declaration for parameter <c>size</c>.
+            </summary>
         </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.Equals(System.Object)">
             <inheritdoc cref="M:System.Object.Equals(System.Object)"/>

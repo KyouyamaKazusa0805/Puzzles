@@ -147,51 +147,50 @@ public sealed unsafe class Analyzer
 	/// <summary>
 	/// Analyzes the grid.
 	/// </summary>
-	/// <param name="gridString">The grid string.</param>
-	/// <param name="size">The size.</param>
+	/// <param name="grid">The grid.</param>
 	/// <param name="writer">The writer.</param>
 	/// <exception cref="InvalidOperationException">Throws when the string is invalid.</exception>
-	public void Analyze(string gridString, int size, TextWriter writer)
+	public void Analyze(Grid grid, TextWriter writer)
 	{
 		setupQueueFunctions();
 
-		if (!tryLoadPuzzle(gridString, size, out var grid, out var state))
+		if (!tryLoadPuzzle(grid.ToString(), grid.Size, out var gridInfo, out var state))
 		{
 			throw new InvalidOperationException("Invalid format of grid.");
 		}
 
-		OrderColors(&grid, &state, null);
+		OrderColors(&gridInfo, &state, null);
 
-		var result = Search(&grid, &state, out var elapsed, out var nodes, out var finalState);
+		var result = Search(&gridInfo, &state, out var elapsed, out var nodes, out var finalState);
 		Debug.Assert(Enum.IsDefined(result));
 
 		if (result == SearchingResult.Success)
 		{
 #if DEBUG
-			GridInterimState.Print(in grid, in finalState, writer);
+			GridInterimState.Print(in gridInfo, in finalState, writer);
 #endif
 		}
 
 
-		bool tryLoadPuzzle(string gridString, int size, out GridAnalyticsInfo grid, out GridInterimState state)
+		bool tryLoadPuzzle(string gridString, int size, out GridAnalyticsInfo gridInfo, out GridInterimState state)
 		{
 			state = default;
 			new Span<byte>(Unsafe.AsPointer(ref state.Positions[0]), MaxColors).Fill(byte.MaxValue);
 			state.LastColor = MaxColors;
 
-			grid = default;
-			new Span<byte>(Unsafe.AsPointer(ref grid.ColorTable[0]), 1 << 7).Fill(byte.MaxValue);
-			new Span<byte>(Unsafe.AsPointer(ref grid.InitPositions[0]), MaxColors).Fill(byte.MaxValue);
-			new Span<byte>(Unsafe.AsPointer(ref grid.GoalPositions[0]), MaxColors).Fill(byte.MaxValue);
+			gridInfo = default;
+			new Span<byte>(Unsafe.AsPointer(ref gridInfo.ColorTable[0]), 1 << 7).Fill(byte.MaxValue);
+			new Span<byte>(Unsafe.AsPointer(ref gridInfo.InitPositions[0]), MaxColors).Fill(byte.MaxValue);
+			new Span<byte>(Unsafe.AsPointer(ref gridInfo.GoalPositions[0]), MaxColors).Fill(byte.MaxValue);
 
-			grid.Size = size;
+			gridInfo.Size = size;
 
 			var y = (byte)0;
 			var lines = gridString.Split("\r\n", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-			while (grid.Size == 0 || y < grid.Size)
+			while (gridInfo.Size == 0 || y < gridInfo.Size)
 			{
 				var line = lines[y];
-				for (var x = (byte)0; x < grid.Size; x++)
+				for (var x = (byte)0; x < gridInfo.Size; x++)
 				{
 					var c = char.ToUpper(line[x]);
 					if (!ValidCharacters.Contains(c))
@@ -203,14 +202,14 @@ public sealed unsafe class Analyzer
 					var pos = Position.GetPositionFromCoordinate(x, y);
 					Debug.Assert(pos < MaxCells);
 
-					var color = grid.ColorTable[c];
-					if (color >= grid.ColorsCount)
+					var color = gridInfo.ColorTable[c];
+					if (color >= gridInfo.ColorsCount)
 					{
-						color = grid.ColorsCount;
-						if (grid.ColorsCount == MaxColors)
+						color = gridInfo.ColorsCount;
+						if (gridInfo.ColorsCount == MaxColors)
 						{
 							// Too many colors.
-							(grid, state) = (default, default);
+							(gridInfo, state) = (default, default);
 							return false;
 						}
 
@@ -218,28 +217,28 @@ public sealed unsafe class Analyzer
 						if (id < 0 || id >= MaxColors)
 						{
 							// Color value is invalid or not supported.
-							(grid, state) = (default, default);
+							(gridInfo, state) = (default, default);
 							return false;
 						}
 
-						grid.ColorIds[color] = id;
-						grid.ColorOrder[color] = color;
+						gridInfo.ColorIds[color] = id;
+						gridInfo.ColorOrder[color] = color;
 
-						grid.ColorsCount++;
-						grid.ColorTable[c] = color;
-						grid.InitPositions[color] = state.Positions[color] = pos;
+						gridInfo.ColorsCount++;
+						gridInfo.ColorTable[c] = color;
+						gridInfo.InitPositions[color] = state.Positions[color] = pos;
 						state.Cells[pos] = Cell.Create(CellType.Init, color, 0);
 					}
 					else
 					{
-						if (grid.GoalPositions[color] != InvalidPos)
+						if (gridInfo.GoalPositions[color] != InvalidPos)
 						{
 							// Multiple endpoints found.
-							(grid, state) = (default, default);
+							(gridInfo, state) = (default, default);
 							return false;
 						}
 
-						grid.GoalPositions[color] = pos;
+						gridInfo.GoalPositions[color] = pos;
 						state.Cells[pos] = Cell.Create(CellType.Goal, color, 0);
 					}
 				}
@@ -247,34 +246,34 @@ public sealed unsafe class Analyzer
 				y++;
 			}
 
-			if (grid.ColorsCount == 0)
+			if (gridInfo.ColorsCount == 0)
 			{
 				// The grid is empty.
-				(grid, state) = (default, default);
+				(gridInfo, state) = (default, default);
 				return false;
 			}
 
-			for (var color = (byte)0; color < grid.ColorsCount; color++)
+			for (var color = (byte)0; color < gridInfo.ColorsCount; color++)
 			{
-				if (grid.GoalPositions[color] == InvalidPos)
+				if (gridInfo.GoalPositions[color] == InvalidPos)
 				{
 					// Such color contains start point but not for end point.
-					(grid, state) = (default, default);
+					(gridInfo, state) = (default, default);
 					return false;
 				}
 
 				if (SearchOutsideIn)
 				{
-					var initDistance = grid.GetWallDistance(grid.InitPositions[color]);
-					var goalDistance = grid.GetWallDistance(grid.GoalPositions[color]);
+					var initDistance = gridInfo.GetWallDistance(gridInfo.InitPositions[color]);
+					var goalDistance = gridInfo.GetWallDistance(gridInfo.GoalPositions[color]);
 					if (goalDistance < initDistance)
 					{
 						// Swap.
-						(grid.InitPositions[color], grid.GoalPositions[color]) = (grid.GoalPositions[color], grid.InitPositions[color]);
+						(gridInfo.InitPositions[color], gridInfo.GoalPositions[color]) = (gridInfo.GoalPositions[color], gridInfo.InitPositions[color]);
 
-						state.Cells[grid.InitPositions[color]] = Cell.Create(CellType.Init, color, 0);
-						state.Cells[grid.GoalPositions[color]] = Cell.Create(CellType.Goal, color, 0);
-						state.Positions[color] = grid.InitPositions[color];
+						state.Cells[gridInfo.InitPositions[color]] = Cell.Create(CellType.Init, color, 0);
+						state.Cells[gridInfo.GoalPositions[color]] = Cell.Create(CellType.Goal, color, 0);
+						state.Positions[color] = gridInfo.InitPositions[color];
 					}
 				}
 			}

@@ -145,12 +145,11 @@
             Indicates the number of maximum nodes can be reached.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.Analyze(System.String,System.Int32,System.IO.TextWriter)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Analyze(Puzzles.Flow.Concepts.Grid,System.IO.TextWriter)">
             <summary>
             Analyzes the grid.
             </summary>
-            <param name="gridString">The grid string.</param>
-            <param name="size">The size.</param>
+            <param name="grid">The grid.</param>
             <param name="writer">The writer.</param>
             <exception cref="T:System.InvalidOperationException">Throws when the string is invalid.</exception>
         </member>
