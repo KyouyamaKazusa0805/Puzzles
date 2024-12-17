@@ -43,16 +43,20 @@ public sealed class Analyzer
 			while (!playground.IsSolved)
 			{
 				var foundSteps = _collector.Collect(playground);
-				if (foundSteps.Length == 0)
+				if (foundSteps.Length == 0
+					|| (
+						RandomSelectSteps
+							? foundSteps[_rng.Next(0, foundSteps.Length)]
+							: foundSteps.MakeDifficulty(playground, true) is var stepsDictionary
+								? stepsDictionary.TryGetValue(stepsDictionary.Keys.First(), out var candidates) && candidates.Count != 0
+									? candidates[0]
+									: (Step?)null
+								: null
+					) is not { } step)
 				{
 					return new(puzzle) { IsSolved = false, InterimSteps = [.. steps], FailedReason = FailedReason.PuzzleInvalid };
 				}
 
-				var step = RandomSelectSteps
-					? foundSteps[_rng.Next(0, foundSteps.Length)]
-					: foundSteps.MakeDifficulty(playground, true) is var stepsDictionary
-						? stepsDictionary[stepsDictionary.Keys.First()][0]
-						: throw new();
 				steps.Add(step);
 				playground.Apply(step);
 			}
@@ -133,11 +137,11 @@ file static class Extensions
 		// In working, case (1) has priority with (2), and (2) has priority with (3).
 
 		// Now we should sort them by scores of each color, in ascending order.
+		var case1Key = (int.MinValue, int.MinValue);
+		var resultComparer = Comparer<ScorePair>.Create(scorePairComparison);
+		var result = new SortedDictionary<(int, int), List<Step>>(resultComparer);
 		foreach (var minimumValueColor in from kvp in scoreDic orderby kvp.Value, kvp.Key select kvp.Key)
 		{
-			var resultComparer = Comparer<ScorePair>.Create(scorePairComparison);
-			var result = new SortedDictionary<(int, int), List<Step>>(resultComparer);
-			var case1Key = (int.MinValue, int.MinValue);
 			foreach (var step in steps)
 			{
 				var (startIndex, endIndex) = step;
@@ -168,6 +172,12 @@ file static class Extensions
 					continue;
 				}
 
+				// If the chosen step cannot make the color to be completed, we should skip for the step.
+				//if (startTube.ColorsCount == 1 && puzzle.ColorDistribution[endTube.TopColor].Length != 2)
+				//{
+				//	continue;
+				//}
+
 				// Check (2).
 				// Now we should check scores of bottle, in order to sort them by the score.
 				var tubeScorePair = (tubeDic[startIndex], tubeDic[endIndex]);
@@ -181,7 +191,7 @@ file static class Extensions
 				return result;
 			}
 		}
-		return [];
+		return result;
 
 
 		static int scorePairComparison(ScorePair x, ScorePair y)
