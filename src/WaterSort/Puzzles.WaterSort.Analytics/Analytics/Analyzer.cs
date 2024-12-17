@@ -116,54 +116,64 @@ file static class Extensions
 			}
 		}
 
+		// Remove color entries that is not as top color in tubes.
+		foreach (var color in scoreDic.Keys.Except(from tube in puzzle select tube.TopColor))
+		{
+			scoreDic.Remove(color);
+		}
+
 		// Update scores of each step.
 		// We choosing a step to be applied will create 3 different cases:
 		//   (1) Two tubes with only one same color
 		//   (2) The step chooses the same color with the minimum score of color table
 		//   (3) The step chooses the different color with the minimum score of color table
 		// In working, case (1) has priority with (2), and (2) has priority with (3).
-		var minimumValueColor = scoreDic.GetKey(scoreDic.Values.Min());
-		var resultComparer = Comparer<ScorePair>.Create(scorePairComparison);
-		var result = new SortedDictionary<(int, int), List<Step>>(resultComparer);
-		var case1Key = (-1, -1);
-		var case2Key = (0, 0);
-		foreach (var step in steps)
+
+		// Now we should sort them by scores of each color, in ascending order.
+		foreach (var minimumValueColor in from kvp in scoreDic orderby kvp.Value select kvp.Key)
 		{
-			var (startIndex, endIndex) = step;
-
-			// Check (1).
-			var startTube = puzzle[startIndex];
-			var endTube = puzzle[endIndex];
-			if (startTube.ColorsCount == 1 && endTube.ColorsCount == 1
-				&& startTube.TopColor == endTube.TopColor
-				&& startTube.TopColor == scoreDic.First().Key)
+			var resultComparer = Comparer<ScorePair>.Create(scorePairComparison);
+			var result = new SortedDictionary<(int, int), List<Step>>(resultComparer);
+			var case1Key = (int.MinValue, int.MinValue);
+			foreach (var step in steps)
 			{
-				if (!result.TryAdd(case1Key, [step]))
+				var (startIndex, endIndex) = step;
+
+				// Check (1).
+				var startTube = puzzle[startIndex];
+				var endTube = puzzle[endIndex];
+				if (startTube.ColorsCount == 1 && endTube.ColorsCount == 1
+					&& startTube.TopColor == endTube.TopColor
+					&& startTube.TopColor == scoreDic.First().Key)
 				{
-					result[case1Key].Add(step);
+					if (!result.TryAdd(case1Key, [step]))
+					{
+						result[case1Key].Add(step);
+					}
+					continue;
 				}
-				continue;
-			}
 
-			// Check (3).
-			if (startTube.TopColor != minimumValueColor)
-			{
-				if (!result.TryAdd(case2Key, [step]))
+				// Check (3).
+				if (startTube.TopColor != minimumValueColor)
 				{
-					result[case2Key].Add(step);
+					// Fallback to the next step.
+					continue;
 				}
-				continue;
-			}
 
-			// Check (2).
-			// Now we should check scores of bottle, in order to sort them by the score.
-			var tubeScorePair = (tubeDic[startIndex], tubeDic[endIndex]);
-			if (!result.TryAdd(tubeScorePair, [step]))
+				// Check (2).
+				// Now we should check scores of bottle, in order to sort them by the score.
+				var tubeScorePair = (tubeDic[startIndex], tubeDic[endIndex]);
+				if (!result.TryAdd(tubeScorePair, [step]))
+				{
+					result[tubeScorePair].Add(step);
+				}
+			}
+			if (result.Count != 0)
 			{
-				result[tubeScorePair].Add(step);
+				return result;
 			}
 		}
-		return result;
+		return [];
 
 
 		static int scorePairComparison(ScorePair x, ScorePair y)
