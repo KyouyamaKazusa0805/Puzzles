@@ -16,7 +16,29 @@ internal unsafe struct GridInterimState
 	/// Indicates the positions.
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed byte Positions[MaxColors];
+	public fixed byte Positions[Analyzer.MaxColors];
+
+	/// <summary>
+	/// Indicates the color lookup dictionary.
+	/// </summary>
+	internal static readonly ColorLookup[] ColorDictionary = [
+		new('0', "101", "ff0000", "723939"), // red
+		new('1', "104", "0000ff", "393972"), // blue
+		new('2', "103", "eeee00", "6e6e39"), // yellow
+		new('3', "42", "008100", "395539"), // green
+		new('4', "43", "ff8000", "725539"), // orange
+		new('5', "106", "00ffff", "397272"), // cyan
+		new('6', "105", "ff00ff", "723972"), // magenta
+		new('7', "41", "a52a2a", "5f4242"), // maroon
+		new('8', "45", "800080", "553955"), // purple
+		new('9', "100", "a6a6a6", "5f5e5f"), // gray
+		new('A', "107", "ffffff", "727272"), // white
+		new('B', "102", "00ff00", "397239"), // bright green
+		new('C', "47", "bdb76b", "646251"), // tan
+		new('D', "44", "00008b", "393958"), // dark blue
+		new('E', "46", "008180", "395555"), // dark cyan
+		new('F', "35", "ff1493", "72415a") // pink?
+	];
 
 
 	/// <summary>
@@ -41,7 +63,7 @@ internal unsafe struct GridInterimState
 	/// </summary>
 	private readonly GridInterimState* ThisPointer => (GridInterimState*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
 
-	private readonly ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, MaxColors);
+	private readonly ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, Analyzer.MaxColors);
 
 	private readonly ReadOnlySpan<byte> CellsSpan => new(ThisPointer->Cells, Analyzer.MaxCells);
 #endif
@@ -82,6 +104,25 @@ internal unsafe struct GridInterimState
 		}
 		writer.WriteLine(blockChar);
 	}
+
+	/// <summary>
+	/// Returns the color index of dictionary table <see cref="ColorDictionary"/>.
+	/// </summary>
+	/// <param name="c">The input character.</param>
+	/// <returns>The index.</returns>
+	/// <seealso cref="ColorDictionary"/>
+	internal static int GetColor(char c)
+	{
+		c = char.ToUpper(c);
+		for (var i = 0; i < Analyzer.MaxColors; i++)
+		{
+			if (ColorDictionary[i].InputChar == c)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
 }
 
 /// <summary>
@@ -115,7 +156,7 @@ file static unsafe class ConsoleOut
 		var type = Cell.GetTypeFromCell(cell);
 		var color = Cell.GetCellColor(cell);
 		var direction = Cell.GetDirectionFromCell(cell);
-		ref readonly var l = ref ColorDictionary[grid.ColorIds[color]];
+		ref readonly var l = ref GridInterimState.ColorDictionary[grid.ColorIds[color]];
 		return type switch
 		{
 			CellType.Free => " ",

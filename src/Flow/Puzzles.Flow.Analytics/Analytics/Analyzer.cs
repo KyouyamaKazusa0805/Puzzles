@@ -22,6 +22,11 @@ namespace Puzzles.Flow.Analytics;
 public sealed unsafe class Analyzer
 {
 	/// <summary>
+	/// Indicates the invalid position value.
+	/// </summary>
+	public const byte InvalidPosition = 0xFF;
+
+	/// <summary>
 	/// Indicates the maximum size of the grid. This value is a constant and cannot be modified due to massive complexity.
 	/// </summary>
 	public const int MaxSize = 15;
@@ -37,9 +42,20 @@ public sealed unsafe class Analyzer
 	public const int MegaByte = 1 << 20;
 
 	/// <summary>
+	/// Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
+	/// </summary>
+	public const int MaxColors = 16;
+
+	/// <summary>
 	/// Indicates the valid color characters.
 	/// </summary>
 	private const string ValidCharacters = "0123456789ABCDEF";
+
+
+	/// <summary>
+	/// Indicates all directions.
+	/// </summary>
+	private static readonly Direction[] Directions = [Direction.Left, Direction.Right, Direction.Up, Direction.Down];
 
 
 	/// <summary>
@@ -213,7 +229,7 @@ public sealed unsafe class Analyzer
 							return false;
 						}
 
-						var id = GetColor(c);
+						var id = GridInterimState.GetColor(c);
 						if (id < 0 || id >= MaxColors)
 						{
 							// Color value is invalid or not supported.
@@ -231,7 +247,7 @@ public sealed unsafe class Analyzer
 					}
 					else
 					{
-						if (gridInfo.GoalPositions[color] != InvalidPos)
+						if (gridInfo.GoalPositions[color] != InvalidPosition)
 						{
 							// Multiple endpoints found.
 							(gridInfo, state) = (default, default);
@@ -255,7 +271,7 @@ public sealed unsafe class Analyzer
 
 			for (var color = (byte)0; color < gridInfo.ColorsCount; color++)
 			{
-				if (gridInfo.GoalPositions[color] == InvalidPos)
+				if (gridInfo.GoalPositions[color] == InvalidPosition)
 				{
 					// Such color contains start point but not for end point.
 					(gridInfo, state) = (default, default);
@@ -324,12 +340,12 @@ public sealed unsafe class Analyzer
 		foreach (var direction in Directions)
 		{
 			var neighborPos = Position.GetOffsetPosition(in *grid, pos, direction);
-			if (neighborPos != InvalidPos)
+			if (neighborPos != InvalidPosition)
 			{
 				// Find out what region it is in.
 				// If it is in a valid region, we should add this color to the region.
 				var neighborRegion = resultMap[neighborPos];
-				if (neighborRegion != InvalidPos)
+				if (neighborRegion != InvalidPosition)
 				{
 					resultFlags[neighborRegion] |= cFlag;
 				}
@@ -498,7 +514,7 @@ public sealed unsafe class Analyzer
 			{
 				// Assemble position.
 				var neighborPosition = Position.GetOffsetPosition(in *grid, newX, newY, neighborDirection);
-				if (neighborPosition != InvalidPos && state->Cells[neighborPosition] != 0
+				if (neighborPosition != InvalidPosition && state->Cells[neighborPosition] != 0
 					&& neighborPosition != state->Positions[color]
 					&& neighborPosition != grid->GoalPositions[color]
 					&& Cell.GetCellColor(state->Cells[neighborPosition]) == color)
@@ -521,14 +537,14 @@ public sealed unsafe class Analyzer
 	/// <returns>A <see cref="bool"/> result indicating that.</returns>
 	private bool IsDeadend(GridAnalyticsInfo* grid, GridInterimState* state, byte pos)
 	{
-		Debug.Assert(pos != InvalidPos && state->Cells[pos] == 0);
+		Debug.Assert(pos != InvalidPosition && state->Cells[pos] == 0);
 
 		Position.GetCoordinateFromPosition(pos, out var x, out var y);
 		var freeCount = 0;
 		foreach (var direction in Directions)
 		{
 			var neighborPos = Position.GetOffsetPosition(in *grid, x, y, direction);
-			if (neighborPos == InvalidPos)
+			if (neighborPos == InvalidPosition)
 			{
 				continue;
 			}
@@ -576,7 +592,7 @@ public sealed unsafe class Analyzer
 		foreach (var direction in Directions)
 		{
 			var neighborPos = Position.GetOffsetPosition(in *grid, x, y, direction);
-			if (neighborPos != InvalidPos && state->Cells[neighborPos] == 0 && IsDeadend(grid, state, neighborPos))
+			if (neighborPos != InvalidPosition && state->Cells[neighborPos] == 0 && IsDeadend(grid, state, neighborPos))
 			{
 				return true;
 			}
@@ -599,7 +615,7 @@ public sealed unsafe class Analyzer
 		foreach (var direction in Directions)
 		{
 			var neighborPos = Position.GetOffsetPosition(in *grid, pos, direction);
-			if (neighborPos == InvalidPos || neighborPos == state->Positions[color])
+			if (neighborPos == InvalidPosition || neighborPos == state->Positions[color])
 			{
 				continue;
 			}
@@ -662,7 +678,7 @@ public sealed unsafe class Analyzer
 			foreach (var direction in Directions)
 			{
 				var neighborPos = Position.GetOffsetPosition(in *grid, state->Positions[color], direction);
-				if (neighborPos == InvalidPos)
+				if (neighborPos == InvalidPosition)
 				{
 					continue;
 				}
@@ -712,7 +728,7 @@ public sealed unsafe class Analyzer
 				var pos = Position.GetPositionFromCoordinate(x, y);
 				if (state->Cells[pos] != 0)
 				{
-					regions[pos] = Region.Create(InvalidPos);
+					regions[pos] = Region.Create(InvalidPosition);
 					continue;
 				}
 
@@ -749,9 +765,9 @@ public sealed unsafe class Analyzer
 			{
 				var pos = Position.GetPositionFromCoordinate(x, y);
 				var root = Region.Find(regions, pos);
-				if (root != InvalidPos)
+				if (root != InvalidPosition)
 				{
-					if (resultLookup[root] == InvalidPos)
+					if (resultLookup[root] == InvalidPosition)
 					{
 						resultLookup[root] = result++;
 					}
@@ -759,7 +775,7 @@ public sealed unsafe class Analyzer
 				}
 				else
 				{
-					resultMap[pos] = InvalidPos;
+					resultMap[pos] = InvalidPosition;
 				}
 			}
 		}
@@ -918,7 +934,7 @@ public sealed unsafe class Analyzer
 		foreach (var direction in Directions)
 		{
 			var neighborPosition = Position.GetOffsetPosition(in *grid, x, y, direction);
-			if (neighborPosition != InvalidPos && state->Cells[neighborPosition] == 0)
+			if (neighborPosition != InvalidPosition && state->Cells[neighborPosition] == 0)
 			{
 				result++;
 			}

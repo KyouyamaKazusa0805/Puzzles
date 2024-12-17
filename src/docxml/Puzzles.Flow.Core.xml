@@ -396,38 +396,5 @@
         <member name="P:Puzzles.Flow.Drawing.ColorLookup.BackgroundRgbString">
             <summary>Indicates the background color string.</summary>
         </member>
-        <member name="T:Puzzles.Flow.ProjectWideConstants">
-            <summary>
-            Represents a list of constants and read-only fields used in project.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.ProjectWideConstants.InvalidPos">
-            <summary>
-            Indicates the invalid position value.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.ProjectWideConstants.MaxColors">
-            <summary>
-            Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.ProjectWideConstants.Directions">
-            <summary>
-            Indicates all directions.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.ProjectWideConstants.ColorDictionary">
-            <summary>
-            Indicates the color lookup dictionary.
-            </summary>
-        </member>
-        <member name="M:Puzzles.Flow.ProjectWideConstants.GetColor(System.Char)">
-            <summary>
-            Returns the color index of dictionary table <see cref="F:Puzzles.Flow.ProjectWideConstants.ColorDictionary"/>.
-            </summary>
-            <param name="c">The input character.</param>
-            <returns>The index.</returns>
-            <seealso cref="F:Puzzles.Flow.ProjectWideConstants.ColorDictionary"/>
-        </member>
     </members>
 </doc>

@@ -77,7 +77,7 @@ internal unsafe struct NodeStorage
 			CompletedMask = state->CompletedMask
 		};
 		Unsafe.CopyBlock(result->State.Cells, state->Cells, sizeof(byte) * Analyzer.MaxCells);
-		Unsafe.CopyBlock(result->State.Positions, state->Positions, sizeof(byte) * MaxColors);
+		Unsafe.CopyBlock(result->State.Positions, state->Positions, sizeof(byte) * Analyzer.MaxColors);
 		return result;
 	}
 

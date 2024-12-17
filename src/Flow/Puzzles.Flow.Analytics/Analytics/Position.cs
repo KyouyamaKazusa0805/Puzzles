@@ -15,21 +15,21 @@ internal static class Position
 	public static byte GetPositionFromCoordinate(byte x, byte y) => (byte)((y & 0xF) << 4 | x & 0xF);
 
 	/// <summary>
-	/// Get position offset, or return <see cref="InvalidPos"/> if bounds.
+	/// Get position offset, or return <see cref="Analyzer.InvalidPosition"/> if bounds.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="x">The x value.</param>
 	/// <param name="y">The y value.</param>
 	/// <param name="direction">The direction.</param>
 	/// <returns>The offset value.</returns>
-	/// <seealso cref="InvalidPos"/>
+	/// <seealso cref="Analyzer.InvalidPosition"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static byte GetOffsetPosition(ref readonly GridAnalyticsInfo grid, int x, int y, Direction direction)
 	{
 		var delta = direction.GetDirectionDelta();
 		var offsetX = (byte)(x + delta[0]);
 		var offsetY = (byte)(y + delta[1]);
-		return IsCoordinateValid(in grid, offsetX, offsetY) ? GetPositionFromCoordinate(offsetX, offsetY) : InvalidPos;
+		return IsCoordinateValid(in grid, offsetX, offsetY) ? GetPositionFromCoordinate(offsetX, offsetY) : Analyzer.InvalidPosition;
 	}
 
 	/// <summary>
