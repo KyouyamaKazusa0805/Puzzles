@@ -17,7 +17,7 @@ public static class PathEntropy
 		{
 			var a = @this[i];
 			var b = @this[i + 1];
-			var flag = a.RowIndex != b.RowIndex;
+			var flag = a.X != b.X;
 			if (series.Count == 0)
 			{
 				series.Add(flag);

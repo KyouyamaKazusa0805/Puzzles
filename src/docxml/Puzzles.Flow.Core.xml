@@ -4,41 +4,6 @@
         <name>Puzzles.Flow.Core</name>
     </assembly>
     <members>
-        <member name="T:Puzzles.Flow.Concepts.Coordinate">
-            <summary>
-            Represents a coordinate.
-            </summary>
-            <param name="X">Indicates the row index.</param>
-            <param name="Y">Indicates the column index.</param>
-        </member>
-        <member name="M:Puzzles.Flow.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
-            <summary>
-            Represents a coordinate.
-            </summary>
-            <param name="X">Indicates the row index.</param>
-            <param name="Y">Indicates the column index.</param>
-        </member>
-        <member name="P:Puzzles.Flow.Concepts.Coordinate.X">
-            <summary>Indicates the row index.</summary>
-        </member>
-        <member name="P:Puzzles.Flow.Concepts.Coordinate.Y">
-            <summary>Indicates the column index.</summary>
-        </member>
-        <member name="M:Puzzles.Flow.Concepts.Coordinate.CompareTo(Puzzles.Flow.Concepts.Coordinate)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_GreaterThan(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
-            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThan(`0,`1)"/>
-        </member>
-        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_LessThan(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
-            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThan(`0,`1)"/>
-        </member>
-        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_GreaterThanOrEqual(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
-            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThanOrEqual(`0,`1)"/>
-        </member>
-        <member name="M:Puzzles.Flow.Concepts.Coordinate.op_LessThanOrEqual(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate)">
-            <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
-        </member>
         <member name="T:Puzzles.Flow.Concepts.FlowCell">
             <summary>
             Represents a flow cell.
@@ -47,7 +12,7 @@
             <param name="EndCoordinate">Indicates the end coordinate.</param>
             <param name="Color">Indicates the color used.</param>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.FlowCell.#ctor(Puzzles.Flow.Concepts.Coordinate,Puzzles.Flow.Concepts.Coordinate,System.Byte)">
+        <member name="M:Puzzles.Flow.Concepts.FlowCell.#ctor(Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate,System.Byte)">
             <summary>
             Represents a flow cell.
             </summary>

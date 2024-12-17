@@ -4,26 +4,6 @@
         <name>Puzzles.Onet.Core</name>
     </assembly>
     <members>
-        <member name="T:Puzzles.Onet.Concepts.Coordinate">
-            <summary>
-            Represents a coordinate.
-            </summary>
-            <param name="X">Indicates the row index.</param>
-            <param name="Y">Indicates the column index.</param>
-        </member>
-        <member name="M:Puzzles.Onet.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
-            <summary>
-            Represents a coordinate.
-            </summary>
-            <param name="X">Indicates the row index.</param>
-            <param name="Y">Indicates the column index.</param>
-        </member>
-        <member name="P:Puzzles.Onet.Concepts.Coordinate.X">
-            <summary>Indicates the row index.</summary>
-        </member>
-        <member name="P:Puzzles.Onet.Concepts.Coordinate.Y">
-            <summary>Indicates the column index.</summary>
-        </member>
         <member name="T:Puzzles.Onet.Concepts.Grid">
             <summary>
             Represents a grid of match.
@@ -119,7 +99,7 @@
             <param name="column">The desired column index.</param>
             <returns>The item.</returns>
         </member>
-        <member name="P:Puzzles.Onet.Concepts.Grid.Item(Puzzles.Onet.Concepts.Coordinate)">
+        <member name="P:Puzzles.Onet.Concepts.Grid.Item(Puzzles.Concepts.Coordinate)">
             <summary>
             Gets the element at the specified coordinate.
             </summary>
@@ -273,7 +253,7 @@
             <param name="End">Indicates the end.</param>
             <param name="Interims">Indicates the interim coordinates.</param>
         </member>
-        <member name="M:Puzzles.Onet.Concepts.ItemMatch.#ctor(Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate[])">
+        <member name="M:Puzzles.Onet.Concepts.ItemMatch.#ctor(Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate[])">
             <summary>
             Represents a match of item pair.
             </summary>

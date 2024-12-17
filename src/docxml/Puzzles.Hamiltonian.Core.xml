@@ -4,138 +4,38 @@
         <name>Puzzles.Hamiltonian.Core</name>
     </assembly>
     <members>
-        <member name="T:Puzzles.Hamiltonian.Concepts.Coordinate">
+        <member name="T:Puzzles.Hamiltonian.Concepts.CoordinateExtensions">
             <summary>
             Represents a coordinate.
             </summary>
-            <param name="RowIndex">Indicates the row label.</param>
-            <param name="ColumnIndex">Indicates the column label.</param>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.#ctor(System.Int32,System.Int32)">
-            <summary>
-            Represents a coordinate.
-            </summary>
-            <param name="RowIndex">Indicates the row label.</param>
-            <param name="ColumnIndex">Indicates the column label.</param>
-        </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.RowIndex">
-            <summary>Indicates the row label.</summary>
-        </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.ColumnIndex">
-            <summary>Indicates the column label.</summary>
-        </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Up">
-            <summary>
-            Indicates the left cell.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Down">
-            <summary>
-            Indicates the right cell.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Left">
-            <summary>
-            Indicates the up cell.
-            </summary>
-        </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Coordinate.Right">
-            <summary>
-            Indicates the down cell.
-            </summary>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.IsOutOfBound(Puzzles.Hamiltonian.Concepts.Graph)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateExtensions.IsOutOfBound(Puzzles.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Graph)">
             <summary>
             Indicates whether the coordinate is out of bound.
             </summary>
+            <param name="this">The coordinate.</param>
             <param name="graph">The graph.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.ToIndex(Puzzles.Hamiltonian.Concepts.Graph)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateExtensions.ToIndex(Puzzles.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Graph)">
             <summary>
             Converts the current coordinate into an absolute index.
             </summary>
+            <param name="this">The coordinate.</param>
             <param name="graph">The graph.</param>
             <returns>The absolute index.</returns>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.PrintMembers(System.Text.StringBuilder)">
-            <target name="method" cref="M:Puzzles.Hamiltonian.Concepts.Coordinate.PrintMembers(System.Text.StringBuilder)">
-				<summary>
-					Provides an easy way to concatenate output members inside a <see langword="record" />
-					or a <see langword="record struct" /> type.
-				</summary>
-				<param name="builder">
-					A <see cref="T:System.Text.StringBuilder" /> instance to concatenate values.
-				</param>
-				<returns>
-					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
-					by implementing to-string method <see cref="M:Puzzles.Hamiltonian.Concepts.Coordinate.ToString" />.
-				</returns>
-				<remarks>
-					<para>
-						By design of <see langword="record" /> and <see langword="record struct" /> types,
-						emit text should be formatted as follows:
-						<code><![CDATA[RecordType { Property1 = Value1, Property2 = Value2, Property3 = { NestedProperty = Value3 } }]]></code>
-					</para>
-					<para>
-						This method won't emit type name and curly brackets. If you want to customize emit text,
-						you can only change values inside a pair of brackets.
-					</para>
-					<para>
-						The suggested implementation is like this:
-						<code><![CDATA[private bool PrintMembers(StringBuilder builder)
-{
-    builder.Append($"{nameof(Property1)} = {Property1}");
-    builder.Append(", ");
-    builder.Append($"{nameof(Property2)} = {Property2}");
-    builder.Append(", ");
-    builder.Append($"{nameof(Property3)} = {{ {Property3} }}");
-    return true;
-}]]>
-						</code>
-					</para>
-				</remarks>
-			</target>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_Subtraction(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Coordinate)">
-            <inheritdoc/>
-            <exception cref="T:System.InvalidOperationException">
-            Throws when the two coordinates has a gap between them, or they cannot see each other in their own direction.
-            </exception>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_RightShift(Puzzles.Hamiltonian.Concepts.Coordinate,System.Char)">
-            <summary>
-            Moves the coordinate one step forward to the next coordinate by the specified direction.
-            </summary>
-            <param name="coordinate">The coordinate.</param>
-            <param name="arrow">The direction.</param>
-            <returns>The new coordinate.</returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Throws when the argument <paramref name="arrow"/> is out of range.
-            </exception>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_RightShift(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Concepts.Direction)">
-            <summary>
-            Moves the coordinate one step forward to the next coordinate by the specified direction.
-            </summary>
-            <param name="coordinate">The coordinate.</param>
-            <param name="direction">The direction.</param>
-            <returns>The new coordinate.</returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Throws when the argument <paramref name="direction"/> is out of range.
-            </exception>
         </member>
         <member name="T:Puzzles.Hamiltonian.Concepts.CoordinateNode">
             <summary>
             Represents a linked node for a coordinate.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.#ctor(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.CoordinateNode)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.#ctor(Puzzles.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.CoordinateNode)">
             <summary>
             Represents a linked node for a coordinate.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.#ctor(Puzzles.Hamiltonian.Concepts.Coordinate)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.#ctor(Puzzles.Concepts.Coordinate)">
             <summary>
             Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.CoordinateNode"/> instance.
             </summary>
@@ -487,7 +387,7 @@
             <param name="index">The desired index.</param>
             <returns>The boolean state to get or set.</returns>
         </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Item(Puzzles.Hamiltonian.Concepts.Coordinate)">
+        <member name="P:Puzzles.Hamiltonian.Concepts.Graph.Item(Puzzles.Concepts.Coordinate)">
             <inheritdoc cref="P:Puzzles.Hamiltonian.Concepts.Graph.Item(System.Int32)"/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Graph.ToBooleanArray">
@@ -499,7 +399,7 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetHashCode">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetDegreeAt(Puzzles.Hamiltonian.Concepts.Coordinate)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.GetDegreeAt(Puzzles.Concepts.Coordinate)">
             <summary>
             Gets the degree value at the specified coordinate.
             </summary>
@@ -605,7 +505,7 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.Graph.Parse(System.String,System.IFormatProvider)">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Addition(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Addition(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Concepts.Coordinate)">
             <summary>
             Adds a new coordinate into the graph.
             </summary>
@@ -613,7 +513,7 @@
             <param name="coordinate">The coordinate.</param>
             <returns>The new graph with the specified coordinate added.</returns>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Subtraction(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.Graph.op_Subtraction(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Concepts.Coordinate)">
             <summary>
             Removes a coordinate from the graph.
             </summary>
@@ -703,7 +603,7 @@
             Indicates the coordinates.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Path.#ctor(Puzzles.Hamiltonian.Concepts.Coordinate[])">
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.#ctor(Puzzles.Concepts.Coordinate[])">
             <summary>
             Initializes a <see cref="T:Puzzles.Hamiltonian.Concepts.Path"/> instance via the specified path.
             </summary>
@@ -735,7 +635,7 @@
             Returns the backing elements, integrated as a <see cref="T:System.ReadOnlySpan`1"/>, in reversed order.
             </summary>
         </member>
-        <member name="P:Puzzles.Hamiltonian.Concepts.Path.System#Collections#Generic#IReadOnlyCollection{Puzzles#Hamiltonian#Concepts#Coordinate}#Count">
+        <member name="P:Puzzles.Hamiltonian.Concepts.Path.System#Collections#Generic#IReadOnlyCollection{Puzzles#Concepts#Coordinate}#Count">
             <inheritdoc/>
         </member>
         <member name="P:Puzzles.Hamiltonian.Concepts.Path.Item(System.Int32)">
@@ -784,7 +684,7 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#Collections#Generic#IEnumerable{Puzzles#Hamiltonian#Concepts#Coordinate}#GetEnumerator">
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.System#Collections#Generic#IEnumerable{Puzzles#Concepts#Coordinate}#GetEnumerator">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.TryParse(System.String,Puzzles.Hamiltonian.Concepts.Path@)">
@@ -811,7 +711,7 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.Path.Parse(System.ReadOnlySpan{System.Char},System.IFormatProvider)">
             <inheritdoc cref="M:System.IParsable`1.Parse(System.String,System.IFormatProvider)"/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Create(System.ReadOnlySpan{Puzzles.Hamiltonian.Concepts.Coordinate})">
+        <member name="M:Puzzles.Hamiltonian.Concepts.Path.Create(System.ReadOnlySpan{Puzzles.Concepts.Coordinate})">
             <summary>
             Creates a <see cref="T:Puzzles.Hamiltonian.Concepts.Path"/> instance via the specified coordinates.
             </summary>
@@ -840,7 +740,7 @@
             <param name="End">Indicates the end position.</param>
             <param name="Path">Indicates the path.</param>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Generating.GenerationResult.#ctor(System.Boolean,Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Path)">
+        <member name="M:Puzzles.Hamiltonian.Generating.GenerationResult.#ctor(System.Boolean,Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Path)">
             <summary>
             Represents a generation result.
             </summary>
@@ -901,7 +801,7 @@
             Indicates the number of columns should be generated.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Generating.Generator.Generate(Puzzles.Hamiltonian.Concepts.Coordinate,System.Double,System.Double,System.Threading.CancellationToken)">
+        <member name="M:Puzzles.Hamiltonian.Generating.Generator.Generate(Puzzles.Concepts.Coordinate,System.Double,System.Double,System.Threading.CancellationToken)">
             <summary>
             Generate a graph puzzle with a unique path, by using the specified cell as the start.
             </summary>
@@ -953,7 +853,7 @@
             <param name="graph">The graph.</param>
             <returns>The dictionary that describes the times of appearing.</returns>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Measuring.Degree.GetDegreeAt(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate,System.Collections.Generic.HashSet{Puzzles.Hamiltonian.Concepts.Coordinate})">
+        <member name="M:Puzzles.Hamiltonian.Measuring.Degree.GetDegreeAt(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Concepts.Coordinate,System.Collections.Generic.HashSet{Puzzles.Concepts.Coordinate})">
             <summary>
             Gets the degree value at the specified coordinate.
             </summary>
@@ -979,7 +879,7 @@
             Provides a way to verify validity of a Hamiltonian graph.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Solving.Solver.Solve(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate)">
+        <member name="M:Puzzles.Hamiltonian.Solving.Solver.Solve(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Concepts.Coordinate)">
             <summary>
             Solve the current graph and return a path.
             </summary>
@@ -988,7 +888,7 @@
             <returns>The path describing the details of steps advanced.</returns>
             <exception cref="T:System.InvalidOperationException">Throws when the puzzle is invalid.</exception>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Solving.Solver.IsValid(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Hamiltonian.Concepts.Coordinate,System.Nullable{Puzzles.Hamiltonian.Concepts.Coordinate},Puzzles.Hamiltonian.Concepts.Path@)">
+        <member name="M:Puzzles.Hamiltonian.Solving.Solver.IsValid(Puzzles.Hamiltonian.Concepts.Graph,Puzzles.Concepts.Coordinate,System.Nullable{Puzzles.Concepts.Coordinate},Puzzles.Hamiltonian.Concepts.Path@)">
             <summary>
             Determine whether the specified graph has a unique path, from the specified cell as the start,
             to the specified cell as the end.

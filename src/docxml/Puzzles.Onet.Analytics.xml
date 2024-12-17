@@ -312,7 +312,7 @@
             <param name="grid">The grid.</param>
             <returns>All matched items.</returns>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.Collector.IsCoordinateOutOfBound(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsCoordinateOutOfBound(Puzzles.Onet.Concepts.Grid,Puzzles.Concepts.Coordinate)">
             <summary>
             Determine whether the current coordinate is out of bound.
             </summary>
@@ -320,7 +320,7 @@
             <param name="coordinate">The coordinate.</param>
             <returns>A <see cref="T:System.Boolean"/> result.</returns>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.Collector.TryPair(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.ItemMatch@)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.TryPair(Puzzles.Onet.Concepts.Grid,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate,Puzzles.Onet.Concepts.ItemMatch@)">
             <summary>
             Determine whether two values are paired under the matching rule;
             if so, return <see langword="true"/> and return an <see cref="T:Puzzles.Onet.Concepts.ItemMatch"/> object
@@ -333,7 +333,7 @@
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
             <exception cref="T:System.InvalidOperationException">Throws when the grid is too small (lower than 2x2).</exception>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.Collector.IsSameRowPaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsSameRowPaired(Puzzles.Onet.Concepts.Grid,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate)">
             <summary>
             Determine whether two coordinates is in same row, and can be paired.
             </summary>
@@ -342,7 +342,7 @@
             <param name="coordinate2">Indicates the second coordinate.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.Collector.IsSameColumnPaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsSameColumnPaired(Puzzles.Onet.Concepts.Grid,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate)">
             <summary>
             Determine whether two coordinates is in same column, and can be paired.
             </summary>
@@ -351,7 +351,7 @@
             <param name="coordinate2">Indicates the second coordinate.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.Collector.IsTurningOncePaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate@)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsTurningOncePaired(Puzzles.Onet.Concepts.Grid,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate@)">
             <summary>
             Determine whether two coordinates can be paired with one-time turning.
             </summary>
@@ -361,7 +361,7 @@
             <param name="interim">Indicates the interim on turning.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.Collector.IsTurningTwicePaired(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate,Puzzles.Onet.Concepts.Coordinate[]@)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.IsTurningTwicePaired(Puzzles.Onet.Concepts.Grid,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate[]@)">
             <summary>
             Determine whether two coordinates can be paired with two-time turning.
             </summary>
@@ -380,7 +380,7 @@
             <param name="y">The column index.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.Collector.Blocks(Puzzles.Onet.Concepts.Grid,Puzzles.Onet.Concepts.Coordinate)">
+        <member name="M:Puzzles.Onet.Analytics.Collector.Blocks(Puzzles.Onet.Concepts.Grid,Puzzles.Concepts.Coordinate)">
             <summary>
             Determine whether the grid has blocked the specified coordinate.
             </summary>
