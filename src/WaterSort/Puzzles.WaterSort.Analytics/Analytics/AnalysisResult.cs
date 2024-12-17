@@ -12,7 +12,7 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 	/// <summary>
 	/// Indicates whether the puzzle is fully solved.
 	/// </summary>
-	[MemberNotNullWhen(true, nameof(InterimSteps))]
+	[MemberNotNullWhen(true, nameof(InterimSteps), nameof(InterimPuzzleStates))]
 	[HashCodeMember]
 	[EquatableMember]
 	public required bool IsSolved { get; init; }
@@ -28,6 +28,11 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 	public ReadOnlySpan<Step> Steps => InterimSteps;
 
 	/// <summary>
+	/// Indicates the interim puzzle states during the analysis.
+	/// </summary>
+	public ReadOnlySpan<Puzzle> PuzzleStates => InterimPuzzleStates;
+
+	/// <summary>
 	/// Indicates the elapsed time.
 	/// </summary>
 	public TimeSpan ElapsedTime { get; init; }
@@ -41,6 +46,29 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 	/// Indicates the steps.
 	/// </summary>
 	internal Step[]? InterimSteps { get; init; }
+
+	/// <summary>
+	/// Indicates the interim puzzles.
+	/// </summary>
+	private Puzzle[]? InterimPuzzleStates
+	{
+		get
+		{
+			if (InterimSteps is null)
+			{
+				return null;
+			}
+
+			var result = new Puzzle[InterimSteps.Length];
+			var playground = Puzzle.Clone();
+			for (var i = 0; i < InterimSteps.Length; i++)
+			{
+				playground.Apply(InterimSteps[i]);
+				result[i] = playground.Clone();
+			}
+			return result;
+		}
+	}
 
 	[EquatableMember]
 	private Puzzle PuzzleEntry => Puzzle;

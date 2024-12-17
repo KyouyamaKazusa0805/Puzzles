@@ -45,7 +45,7 @@ public sealed class Analyzer
 				var foundSteps = _collector.Collect(playground);
 				if (foundSteps.Length == 0)
 				{
-					return new(puzzle) { IsSolved = false, FailedReason = FailedReason.PuzzleInvalid };
+					return new(puzzle) { IsSolved = false, InterimSteps = [.. steps], FailedReason = FailedReason.PuzzleInvalid };
 				}
 
 				var step = RandomSelectSteps
@@ -82,8 +82,7 @@ file static class Extensions
 	public static SortedDictionary<ScorePair, List<Step>> MakeDifficulty(this ReadOnlySpan<Step> steps, Puzzle puzzle)
 	{
 		// Record scores on color and tube, in order to be used later.
-		var colorKeyComparer = Comparer<Color>.Create(static (x, y) => -x.CompareTo(y));
-		var scoreDic = new SortedDictionary<Color, int>(colorKeyComparer);
+		var scoreDic = new Dictionary<Color, int>();
 		var tubeDic = new Dictionary<int, int>();
 		for (var i = 0; i < puzzle.Length; i++)
 		{
@@ -123,7 +122,7 @@ file static class Extensions
 		//   (2) The step chooses the same color with the minimum score of color table
 		//   (3) The step chooses the different color with the minimum score of color table
 		// In working, case (1) has priority with (2), and (2) has priority with (3).
-		var minimumValueColor = scoreDic[scoreDic.Keys.First()];
+		var minimumValueColor = scoreDic.GetKey(scoreDic.Values.Min());
 		var resultComparer = Comparer<ScorePair>.Create(scorePairComparison);
 		var result = new SortedDictionary<(int, int), List<Step>>(resultComparer);
 		var case1Key = (-1, -1);
@@ -173,5 +172,28 @@ file static class Extensions
 			var (ys, ye) = y;
 			return xs.CompareTo(ys) is var r1 and not 0 ? r1 : xe.CompareTo(ye) is var r2 and not 0 ? r2 : 0;
 		}
+	}
+
+	/// <summary>
+	/// Try to fetch the key whose cooresponding value is the specified one.
+	/// </summary>
+	/// <typeparam name="TKey">The type of key.</typeparam>
+	/// <typeparam name="TValue">The type of value.</typeparam>
+	/// <param name="dictionary">The dictionary to look up.</param>
+	/// <param name="value">The value to look up.</param>
+	/// <returns>The key.</returns>
+	/// <exception cref="InvalidOperationException">Throws when the dictionary has no valid value.</exception>
+	private static TKey GetKey<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TValue value)
+		where TKey : notnull
+		where TValue : IEqualityOperators<TValue, TValue, bool>
+	{
+		foreach (var (k, v) in dictionary)
+		{
+			if (v == value)
+			{
+				return k;
+			}
+		}
+		throw new InvalidOperationException();
 	}
 }

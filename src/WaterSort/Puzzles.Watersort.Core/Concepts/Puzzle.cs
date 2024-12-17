@@ -68,7 +68,25 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 	/// <summary>
 	/// Indicates the depth of the puzzle.
 	/// </summary>
-	public int Depth => Tubes.Max(static tube => tube.Length);
+	public int Depth
+	{
+		get
+		{
+			// The depth of the puzzle, is the number of same-color items in the puzzle.
+			var dictionary = new Dictionary<Color, int>();
+			foreach (var tube in Tubes)
+			{
+				foreach (var color in tube)
+				{
+					if (!dictionary.TryAdd(color, 1))
+					{
+						dictionary[color]++;
+					}
+				}
+			}
+			return dictionary.First().Value;
+		}
+	}
 
 	/// <summary>
 	/// Indicates the tubes.
