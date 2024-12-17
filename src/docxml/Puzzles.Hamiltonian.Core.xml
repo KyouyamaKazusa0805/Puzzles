@@ -159,20 +159,6 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
-        <member name="T:Puzzles.Hamiltonian.Concepts.DirectionExtensions">
-            <summary>
-            Provides with extension methods on <see cref="T:Puzzles.Concepts.Direction"/>.
-            </summary>
-            <seealso cref="T:Puzzles.Concepts.Direction"/>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.DirectionExtensions.GetArrow(Puzzles.Concepts.Direction)">
-            <summary>
-            Gets an arrow text that represents the specified direction.
-            </summary>
-            <param name="this">The direction.</param>
-            <returns>The character.</returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument is out of range.</exception>
-        </member>
         <member name="T:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo">
             <summary>
             Provides a coordinate format information.
