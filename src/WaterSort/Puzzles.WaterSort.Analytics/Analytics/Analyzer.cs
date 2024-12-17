@@ -90,9 +90,6 @@ file static class Extensions
 
 			// Update tube dictionary table.
 			var colorsCount = tube.ColorsCount;
-			var usedCellsCount = tube.Length;
-			var tubeDifficulty = colorsCount * usedCellsCount;
-			tubeDic.Add(i, tubeDifficulty);
 
 			// Push colors into the temporary list.
 			var colorsList = new List<Color>();
@@ -103,6 +100,8 @@ file static class Extensions
 					colorsList.Add(color);
 				}
 			}
+			var tubeDifficulty = colorsCount * colorsList.Count;
+			tubeDic.Add(i, tubeDifficulty);
 
 			// Check the colors in order to update score dictionary table.
 			var j = 1;
