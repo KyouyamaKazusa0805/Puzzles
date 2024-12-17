@@ -11,6 +11,7 @@ global using System.Runtime.CompilerServices;
 global using System.Text;
 global using System.Text.RegularExpressions;
 global using System.Threading;
+global using Puzzles.Concepts;
 global using Puzzles.Hamiltonian.Concepts;
 global using Puzzles.Hamiltonian.Concepts.Formatting;
 global using Puzzles.Hamiltonian.Solving;

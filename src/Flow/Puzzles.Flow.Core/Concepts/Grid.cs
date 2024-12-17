@@ -100,7 +100,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell
 	public ReadOnlySpan<FlowCell> AsSpan() => _cells.ToArray();
 
 	/// <inheritdoc cref="ICloneable.Clone"/>
-	public Grid Clone() => new(size, [.. _cells]);
+	public Grid Clone() => new(Size, [.. _cells]);
 
 	/// <inheritdoc/>
 	object ICloneable.Clone() => Clone();

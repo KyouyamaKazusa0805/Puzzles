@@ -114,7 +114,7 @@
             Throws when the argument <paramref name="arrow"/> is out of range.
             </exception>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_RightShift(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Hamiltonian.Concepts.Direction)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.Coordinate.op_RightShift(Puzzles.Hamiltonian.Concepts.Coordinate,Puzzles.Concepts.Direction)">
             <summary>
             Moves the coordinate one step forward to the next coordinate by the specified direction.
             </summary>
@@ -159,43 +159,13 @@
         <member name="M:Puzzles.Hamiltonian.Concepts.CoordinateNode.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
-        <member name="T:Puzzles.Hamiltonian.Concepts.Direction">
-            <summary>
-            Represents a direction.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.None">
-            <summary>
-            Indicates the direction is none.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Up">
-            <summary>
-            Indicates the direction is up.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Down">
-            <summary>
-            Indicates the direction is down.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Left">
-            <summary>
-            Indicates the direction is left.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Hamiltonian.Concepts.Direction.Right">
-            <summary>
-            Indicates the direction is right.
-            </summary>
-        </member>
         <member name="T:Puzzles.Hamiltonian.Concepts.DirectionExtensions">
             <summary>
-            Provides with extension methods on <see cref="T:Puzzles.Hamiltonian.Concepts.Direction"/>.
+            Provides with extension methods on <see cref="T:Puzzles.Concepts.Direction"/>.
             </summary>
-            <seealso cref="T:Puzzles.Hamiltonian.Concepts.Direction"/>
+            <seealso cref="T:Puzzles.Concepts.Direction"/>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.DirectionExtensions.GetArrow(Puzzles.Hamiltonian.Concepts.Direction)">
+        <member name="M:Puzzles.Hamiltonian.Concepts.DirectionExtensions.GetArrow(Puzzles.Concepts.Direction)">
             <summary>
             Gets an arrow text that represents the specified direction.
             </summary>

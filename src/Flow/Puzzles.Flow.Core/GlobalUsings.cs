@@ -6,8 +6,6 @@ global using System.Numerics;
 global using System.Runtime.CompilerServices;
 global using System.Text;
 global using Puzzles.Flow.Concepts.Formatting;
-global using Puzzles.Flow.Concepts.Primitives;
-global using Puzzles.Flow.Drawing;
 global using Puzzles.Meta;
 global using Puzzles.Meta.DataStructures;
 global using Color = byte;
