@@ -122,17 +122,6 @@
             <param name="puzzle">The puzzle.</param>
             <returns>A dictionary.</returns>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Extensions.GetKey``2(System.Collections.Generic.Dictionary{``0,``1},``1)">
-            <summary>
-            Try to fetch the key whose cooresponding value is the specified one.
-            </summary>
-            <typeparam name="TKey">The type of key.</typeparam>
-            <typeparam name="TValue">The type of value.</typeparam>
-            <param name="dictionary">The dictionary to look up.</param>
-            <param name="value">The value to look up.</param>
-            <returns>The key.</returns>
-            <exception cref="T:System.InvalidOperationException">Throws when the dictionary has no valid value.</exception>
-        </member>
         <member name="T:Puzzles.WaterSort.Analytics.BruteForce">
             <summary>
             Provides a way to make an exhaustive search to find for all possible valid steps in the whole solving environment.

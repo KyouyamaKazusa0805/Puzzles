@@ -173,27 +173,4 @@ file static class Extensions
 			return xs.CompareTo(ys) is var r1 and not 0 ? r1 : xe.CompareTo(ye) is var r2 and not 0 ? r2 : 0;
 		}
 	}
-
-	/// <summary>
-	/// Try to fetch the key whose cooresponding value is the specified one.
-	/// </summary>
-	/// <typeparam name="TKey">The type of key.</typeparam>
-	/// <typeparam name="TValue">The type of value.</typeparam>
-	/// <param name="dictionary">The dictionary to look up.</param>
-	/// <param name="value">The value to look up.</param>
-	/// <returns>The key.</returns>
-	/// <exception cref="InvalidOperationException">Throws when the dictionary has no valid value.</exception>
-	private static TKey GetKey<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TValue value)
-		where TKey : notnull
-		where TValue : IEqualityOperators<TValue, TValue, bool>
-	{
-		foreach (var (k, v) in dictionary)
-		{
-			if (v == value)
-			{
-				return k;
-			}
-		}
-		throw new InvalidOperationException();
-	}
 }
