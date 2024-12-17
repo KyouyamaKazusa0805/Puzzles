@@ -8,6 +8,7 @@ namespace Puzzles.WaterSort.Concepts;
 [CollectionBuilder(typeof(Tube), nameof(Create))]
 public sealed partial class Tube(Stack<Color> _items) :
 	ICloneable,
+	IDataStructure,
 	IEquatable<Tube>,
 	IEqualityOperators<Tube, Tube, bool>,
 	IReadOnlyCollection<Color>
@@ -119,6 +120,12 @@ public sealed partial class Tube(Stack<Color> _items) :
 
 	/// <inheritdoc/>
 	int IReadOnlyCollection<Color>.Count => Length;
+
+	/// <inheritdoc/>
+	DataStructureType IDataStructure.Type => DataStructureType.Stack;
+
+	/// <inheritdoc/>
+	DataStructureBase IDataStructure.Base => DataStructureBase.ArrayBased;
 
 
 	/// <summary>

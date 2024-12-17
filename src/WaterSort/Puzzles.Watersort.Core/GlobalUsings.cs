@@ -8,4 +8,5 @@ global using System.Linq;
 global using System.Numerics;
 global using System.Runtime.CompilerServices;
 global using System.Text.RegularExpressions;
+global using Puzzles.Meta.DataStructures;
 global using Color = byte;

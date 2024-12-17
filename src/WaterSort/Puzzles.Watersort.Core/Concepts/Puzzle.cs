@@ -8,6 +8,7 @@ namespace Puzzles.WaterSort.Concepts;
 [CollectionBuilder(typeof(Puzzle), nameof(Create))]
 public sealed partial class Puzzle(params Tube[] tubes) :
 	ICloneable,
+	IDataStructure,
 	IEquatable<Puzzle>,
 	IEqualityOperators<Puzzle, Puzzle, bool>,
 	IReadOnlyCollection<Tube>,
@@ -142,6 +143,12 @@ public sealed partial class Puzzle(params Tube[] tubes) :
 
 	/// <inheritdoc/>
 	int IReadOnlyCollection<Tube>.Count => Length;
+
+	/// <inheritdoc/>
+	DataStructureType IDataStructure.Type => DataStructureType.Array;
+
+	/// <inheritdoc/>
+	DataStructureBase IDataStructure.Base => DataStructureBase.ArrayBased;
 
 
 	/// <summary>

@@ -55,6 +55,12 @@
         <member name="P:Puzzles.WaterSort.Concepts.Puzzle.System#Collections#Generic#IReadOnlyCollection{Puzzles#WaterSort#Concepts#Tube}#Count">
             <inheritdoc/>
         </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Puzzles#Meta#DataStructures#IDataStructure#Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Puzzles#Meta#DataStructures#IDataStructure#Base">
+            <inheritdoc/>
+        </member>
         <member name="P:Puzzles.WaterSort.Concepts.Puzzle.Item(System.Int32)">
             <summary>
             Gets the tube at the specified index.
@@ -272,6 +278,12 @@
             </summary>
         </member>
         <member name="P:Puzzles.WaterSort.Concepts.Tube.System#Collections#Generic#IReadOnlyCollection{System#Byte}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.Puzzles#Meta#DataStructures#IDataStructure#Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.WaterSort.Concepts.Tube.Puzzles#Meta#DataStructures#IDataStructure#Base">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.WaterSort.Concepts.Tube.Push(System.Byte,System.Int32)">
