@@ -114,12 +114,16 @@
 				</summary>
 			</target>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Extensions.MakeDifficulty(System.ReadOnlySpan{Puzzles.WaterSort.Analytics.Step},Puzzles.WaterSort.Concepts.Puzzle)">
+        <member name="M:Puzzles.WaterSort.Analytics.Extensions.MakeDifficulty(System.ReadOnlySpan{Puzzles.WaterSort.Analytics.Step},Puzzles.WaterSort.Concepts.Puzzle,System.Boolean)">
             <summary>
             Create a dictionary that stores difficulty rating and steps.
             </summary>
             <param name="steps">The steps.</param>
             <param name="puzzle">The puzzle.</param>
+            <param name="fixRoot">
+            Indicates whether the tube will be fixed and won't create steps on root tubes
+            (a tube that only contains one color, with size 1).
+            </param>
             <returns>A dictionary.</returns>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.BruteForce">

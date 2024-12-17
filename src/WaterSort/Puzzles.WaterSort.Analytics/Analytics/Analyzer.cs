@@ -50,7 +50,7 @@ public sealed class Analyzer
 
 				var step = RandomSelectSteps
 					? foundSteps[_rng.Next(0, foundSteps.Length)]
-					: foundSteps.MakeDifficulty(playground) is var stepsDictionary
+					: foundSteps.MakeDifficulty(playground, true) is var stepsDictionary
 						? stepsDictionary[stepsDictionary.Keys.First()][0]
 						: throw new();
 				steps.Add(step);
@@ -78,8 +78,12 @@ file static class Extensions
 	/// </summary>
 	/// <param name="steps">The steps.</param>
 	/// <param name="puzzle">The puzzle.</param>
+	/// <param name="fixRoot">
+	/// Indicates whether the tube will be fixed and won't create steps on root tubes
+	/// (a tube that only contains one color, with size 1).
+	/// </param>
 	/// <returns>A dictionary.</returns>
-	public static SortedDictionary<ScorePair, List<Step>> MakeDifficulty(this ReadOnlySpan<Step> steps, Puzzle puzzle)
+	public static SortedDictionary<ScorePair, List<Step>> MakeDifficulty(this ReadOnlySpan<Step> steps, Puzzle puzzle, bool fixRoot)
 	{
 		// Record scores on color and tube, in order to be used later.
 		var scoreDic = new Dictionary<Color, int>();
@@ -129,7 +133,7 @@ file static class Extensions
 		// In working, case (1) has priority with (2), and (2) has priority with (3).
 
 		// Now we should sort them by scores of each color, in ascending order.
-		foreach (var minimumValueColor in from kvp in scoreDic orderby kvp.Value select kvp.Key)
+		foreach (var minimumValueColor in from kvp in scoreDic orderby kvp.Value, kvp.Key select kvp.Key)
 		{
 			var resultComparer = Comparer<ScorePair>.Create(scorePairComparison);
 			var result = new SortedDictionary<(int, int), List<Step>>(resultComparer);
@@ -137,10 +141,15 @@ file static class Extensions
 			foreach (var step in steps)
 			{
 				var (startIndex, endIndex) = step;
-
-				// Check (1).
 				var startTube = puzzle[startIndex];
 				var endTube = puzzle[endIndex];
+				if (fixRoot && startTube.Length == 1)
+				{
+					// Fix for root tube.
+					continue;
+				}
+
+				// Check (1).
 				if (startTube.ColorsCount == 1 && endTube.ColorsCount == 1
 					&& startTube.TopColor == endTube.TopColor
 					&& startTube.TopColor == scoreDic.First().Key)
