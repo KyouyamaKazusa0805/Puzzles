@@ -81,4 +81,13 @@ public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordina
 		}
 		return true;
 	}
+
+
+	/// <summary>
+	/// Reverses the match, making start coordinate to be end one, and end coordinate to be start one.
+	/// </summary>
+	/// <param name="value">The value.</param>
+	/// <returns>The reversed result.</returns>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static ItemMatch operator ~(ItemMatch value) => new(value.End, value.Start, [.. value.Interims.Reverse()]);
 }

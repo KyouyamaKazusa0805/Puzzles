@@ -488,6 +488,147 @@
 				</remarks>
 			</target>
         </member>
+        <member name="T:Puzzles.Onet.Analytics.ScoredAnalyzer">
+            <summary>
+            Represents an analyzer that will find a list of steps, with scoring rules that makes each step have a minimal one.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Onet.Analytics.ScoredAnalyzer._collector">
+            <summary>
+            Indicates the backing collector.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.ScoredAnalyzer.Analyze(Puzzles.Onet.Concepts.Grid,System.Int32,System.Func{System.ValueTuple{System.Double,System.Double}},Puzzles.Onet.Measuring.DistanceType,System.Int32,System.Int32)">
+            <summary>
+            Try to analyze the grid.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="maxBranchesCount">The maximum branches count.</param>
+            <param name="startPointCreator">
+            The start point to be checked. The default is <see langword="null"/> (un-assigned).
+            It will be initialized as the center of the grid (half width and height).
+            The default is <see langword="null"/>.
+            </param>
+            <param name="distanceType">
+            Indicates the distance type to be checked. The default is <see cref="F:Puzzles.Onet.Measuring.DistanceType.Manhattan"/>.
+            </param>
+            <param name="distanceWeight">Indicates the distance weight. The default is 10.</param>
+            <param name="visualDistanceWeight">Indicates the visual distance weight. The default is 1.</param>
+            <returns>Returns an array of steps, and the internal and visual distance values.</returns>
+        </member>
+        <member name="T:Puzzles.Onet.Analytics.SolvingPath">
+            <summary>
+            Represents a solving path.
+            </summary>
+            <param name="lastNode">The last node.</param>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPath.#ctor(Puzzles.Onet.Analytics.SolvingPathNode)">
+            <summary>
+            Represents a solving path.
+            </summary>
+            <param name="lastNode">The last node.</param>
+        </member>
+        <member name="P:Puzzles.Onet.Analytics.SolvingPath.TotalDifficulty">
+            <summary>
+            Indicates the total difficulty.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Onet.Analytics.SolvingPath.DifficultyValues">
+            <summary>
+            Indicates the difficulty values.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPath.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPath.GetNodes(Puzzles.Onet.Analytics.SolvingPathNode)">
+            <summary>
+            Create a list of <see cref="T:Puzzles.Onet.Analytics.SolvingPathNode"/> instance via the last node.
+            </summary>
+            <param name="lastNode">The last node.</param>
+            <returns>A list of nodes.</returns>
+        </member>
+        <member name="T:Puzzles.Onet.Analytics.SolvingPathNode">
+            <summary>
+            Represents a solving path node.
+            </summary>
+            <param name="Match">Indicates the match.</param>
+            <param name="GridState">Indicates the current grid state.</param>
+            <param name="Difficulty">Indicates the difficulty rating.</param>
+            <param name="Parent">Indicates the parent node.</param>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.#ctor(Puzzles.Onet.Concepts.ItemMatch,Puzzles.Onet.Concepts.Grid,System.Double,Puzzles.Onet.Analytics.SolvingPathNode)">
+            <summary>
+            Represents a solving path node.
+            </summary>
+            <param name="Match">Indicates the match.</param>
+            <param name="GridState">Indicates the current grid state.</param>
+            <param name="Difficulty">Indicates the difficulty rating.</param>
+            <param name="Parent">Indicates the parent node.</param>
+        </member>
+        <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.Match">
+            <summary>Indicates the match.</summary>
+        </member>
+        <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.GridState">
+            <summary>Indicates the current grid state.</summary>
+        </member>
+        <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.Difficulty">
+            <summary>Indicates the difficulty rating.</summary>
+        </member>
+        <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.Parent">
+            <summary>Indicates the parent node.</summary>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.#ctor(Puzzles.Onet.Concepts.Grid)">
+            <summary>
+            Initializes a <see cref="T:Puzzles.Onet.Analytics.SolvingPathNode"/> instance.
+            </summary>
+            <param name="gridState">The grid state.</param>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.Equals(Puzzles.Onet.Analytics.SolvingPathNode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.PrintMembers(System.Text.StringBuilder)">
+            <target name="method" cref="M:Puzzles.Onet.Analytics.SolvingPathNode.PrintMembers(System.Text.StringBuilder)">
+				<summary>
+					Provides an easy way to concatenate output members inside a <see langword="record" />
+					or a <see langword="record struct" /> type.
+				</summary>
+				<param name="builder">
+					A <see cref="T:System.Text.StringBuilder" /> instance to concatenate values.
+				</param>
+				<returns>
+					A <see cref="T:System.Boolean" /> value indicating whether the method should be consumed by compiler,
+					by implementing to-string method <see cref="M:Puzzles.Onet.Analytics.SolvingPathNode.ToString" />.
+				</returns>
+				<remarks>
+					<para>
+						By design of <see langword="record" /> and <see langword="record struct" /> types,
+						emit text should be formatted as follows:
+						<code><![CDATA[RecordType { Property1 = Value1, Property2 = Value2, Property3 = { NestedProperty = Value3 } }]]></code>
+					</para>
+					<para>
+						This method won't emit type name and curly brackets. If you want to customize emit text,
+						you can only change values inside a pair of brackets.
+					</para>
+					<para>
+						The suggested implementation is like this:
+						<code><![CDATA[private bool PrintMembers(StringBuilder builder)
+{
+    builder.Append($"{nameof(Property1)} = {Property1}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property2)} = {Property2}");
+    builder.Append(", ");
+    builder.Append($"{nameof(Property3)} = {{ {Property3} }}");
+    return true;
+}]]>
+						</code>
+					</para>
+				</remarks>
+			</target>
+        </member>
         <member name="T:Puzzles.Onet.Generating.Generator">
             <summary>
             Represents a generator.
@@ -577,6 +718,64 @@
         </member>
         <member name="M:Puzzles.Onet.Generating.Generator.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
+        <member name="T:Puzzles.Onet.Measuring.Distance">
+            <summary>
+            Provides a list of methods that operate with distances.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Onet.Measuring.Distance.GetDistance(Puzzles.Onet.Concepts.ItemMatch,Puzzles.Onet.Measuring.DistanceType)">
+            <summary>
+            Get distance value.
+            </summary>
+            <param name="match">The match.</param>
+            <param name="type">The type.</param>
+            <returns>The distance.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">The distance type.</exception>
+        </member>
+        <member name="M:Puzzles.Onet.Measuring.Distance.GetEuclidDistance(Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate)">
+            <summary>
+            Get Euclid distance for two <see cref="T:Puzzles.Concepts.Coordinate"/> instances.
+            </summary>
+            <param name="a">Indicates the first coordinate to be checked.</param>
+            <param name="b">Indicates the second coordinate to be checked.</param>
+            <returns>A <see cref="T:System.Double"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.Onet.Measuring.Distance.GetManhattanDistance(Puzzles.Concepts.Coordinate,Puzzles.Concepts.Coordinate)">
+            <summary>
+            Get Manhattan distance for two <see cref="T:Puzzles.Concepts.Coordinate"/> instances.
+            </summary>
+            <param name="a">Indicates the first coordinate to be checked.</param>
+            <param name="b">Indicates the second coordinate to be checked.</param>
+            <returns>A <see cref="T:System.Double"/> result.</returns>
+        </member>
+        <member name="M:Puzzles.Onet.Measuring.Distance.GetSolvedDistance(Puzzles.Onet.Concepts.ItemMatch,System.Int32)">
+            <summary>
+            Get solved distance for two <see cref="T:Puzzles.Concepts.Coordinate"/> instances.
+            </summary>
+            <param name="match">Indicates the match to be checked.</param>
+            <param name="weight">The weight value. By default the value is 3.</param>
+            <returns>A <see cref="T:System.Double"/> result.</returns>
+        </member>
+        <member name="T:Puzzles.Onet.Measuring.DistanceType">
+            <summary>
+            Represents a type of distance to be measured.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Onet.Measuring.DistanceType.Euclid">
+            <summary>
+            Indicates Euclid distance.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Onet.Measuring.DistanceType.Manhattan">
+            <summary>
+            Indicates Manhattan distance.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Onet.Measuring.DistanceType.Solved">
+            <summary>
+            Indicates solved distance.
+            </summary>
         </member>
     </members>
 </doc>

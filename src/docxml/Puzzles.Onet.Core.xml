@@ -327,6 +327,13 @@
 				</remarks>
 			</target>
         </member>
+        <member name="M:Puzzles.Onet.Concepts.ItemMatch.op_OnesComplement(Puzzles.Onet.Concepts.ItemMatch)">
+            <summary>
+            Reverses the match, making start coordinate to be end one, and end coordinate to be start one.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The reversed result.</returns>
+        </member>
         <member name="T:System.Text.RegularExpressions.Generated.Pattern_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the Pattern method.</summary>
         </member>
