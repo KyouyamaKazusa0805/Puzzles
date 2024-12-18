@@ -12,10 +12,6 @@ public sealed class CoordinatePathFormatInfo : PathFormatInfo
 
 
 	/// <inheritdoc/>
-	[return: NotNullIfNotNull(nameof(formatType))]
-	public override object? GetFormat(Type? formatType) => formatType == typeof(CoordinatePathFormatInfo) ? this : null;
-
-	/// <inheritdoc/>
 	protected internal override string FormatCore(Path path)
 	{
 		var sb = new StringBuilder();

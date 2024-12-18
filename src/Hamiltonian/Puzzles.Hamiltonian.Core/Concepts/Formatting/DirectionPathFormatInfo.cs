@@ -16,10 +16,6 @@ namespace Puzzles.Hamiltonian.Concepts.Formatting;
 public sealed class DirectionPathFormatInfo : PathFormatInfo
 {
 	/// <inheritdoc/>
-	[return: NotNullIfNotNull(nameof(formatType))]
-	public override object? GetFormat(Type? formatType) => formatType == typeof(PathFormatInfo) ? this : null;
-
-	/// <inheritdoc/>
 	protected internal override string FormatCore(Path path) => new(from direction in path.Directions select direction.GetArrow());
 
 	/// <inheritdoc/>

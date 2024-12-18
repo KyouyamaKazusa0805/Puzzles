@@ -12,10 +12,6 @@ public sealed partial class IndexedPathFormatInfo(
 ) : PathFormatInfo
 {
 	/// <inheritdoc/>
-	[return: NotNullIfNotNull(nameof(formatType))]
-	public override object? GetFormat(Type? formatType) => formatType == typeof(IndexedPathFormatInfo) ? this : null;
-
-	/// <inheritdoc/>
 	protected internal override string FormatCore(Path path)
 	{
 		var sb = new StringBuilder();

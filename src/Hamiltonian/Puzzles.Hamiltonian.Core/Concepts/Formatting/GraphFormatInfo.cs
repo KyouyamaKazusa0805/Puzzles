@@ -7,7 +7,7 @@ public abstract class GraphFormatInfo : IFormatProvider
 {
 	/// <inheritdoc/>
 	[return: NotNullIfNotNull(nameof(formatType))]
-	public abstract object? GetFormat(Type? formatType);
+	public object? GetFormat(Type? formatType) => formatType == GetType() ? this : null;
 
 	/// <summary>
 	/// Formats a <see cref="Graph"/> into a <see cref="string"/> value.

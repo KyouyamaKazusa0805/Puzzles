@@ -19,10 +19,6 @@ public sealed partial class OnOffGraphFormatInfo : GraphFormatInfo
 
 
 	/// <inheritdoc/>
-	[return: NotNullIfNotNull(nameof(formatType))]
-	public override object? GetFormat(Type? formatType) => formatType == typeof(OnOffGraphFormatInfo) ? this : null;
-
-	/// <inheritdoc/>
 	protected internal override string FormatCore(Graph graph)
 	{
 		var charSequence = (stackalloc char[graph.Size]);

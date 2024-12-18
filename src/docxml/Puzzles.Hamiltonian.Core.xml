@@ -69,9 +69,6 @@
             Indicates the separator. By default its <c>" -> "</c>.
             </summary>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo.GetFormat(System.Type)">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.CoordinatePathFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Path)">
             <inheritdoc/>
         </member>
@@ -92,9 +89,6 @@
             0:0:↓↓↓→→→↓↓←↑←←↓↓→↓←↓→→↑→↓→→↑↑←↑→→↑↑←←↑↑→↑←←↓←
             ]]></code>
             </remarks>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.DirectionPathFormatInfo.GetFormat(System.Type)">
-            <inheritdoc/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.DirectionPathFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Path)">
             <inheritdoc/>
@@ -139,9 +133,6 @@
             </summary>
             <param name="rows">Indicates the rows used.</param>
             <param name="columns">Indicates the columns used.</param>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.GetFormat(System.Type)">
-            <inheritdoc/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.IndexedPathFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Path)">
             <inheritdoc/>
@@ -204,9 +195,6 @@
             </code>
             </remarks>
         </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.GetFormat(System.Type)">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.OnOffGraphFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Graph)">
             <inheritdoc/>
         </member>
@@ -246,9 +234,6 @@
             <summary>
             Indicates the display chars. By default its <c>('#', ' ')</c>.
             </summary>
-        </member>
-        <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.TableGraphFormatInfo.GetFormat(System.Type)">
-            <inheritdoc/>
         </member>
         <member name="M:Puzzles.Hamiltonian.Concepts.Formatting.TableGraphFormatInfo.FormatCore(Puzzles.Hamiltonian.Concepts.Graph)">
             <inheritdoc/>

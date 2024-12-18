@@ -12,10 +12,6 @@ public sealed class TableGraphFormatInfo : GraphFormatInfo
 
 
 	/// <inheritdoc/>
-	[return: NotNullIfNotNull(nameof(formatType))]
-	public override object? GetFormat(Type? formatType) => formatType == typeof(TableGraphFormatInfo) ? this : null;
-
-	/// <inheritdoc/>
 	protected internal override string FormatCore(Graph graph)
 	{
 		var sb = new StringBuilder();
