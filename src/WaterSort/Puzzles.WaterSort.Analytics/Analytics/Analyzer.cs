@@ -12,18 +12,6 @@ public sealed class Analyzer
 	/// </summary>
 	private readonly Collector _collector = new();
 
-	/// <summary>
-	/// Indicates the random number generator.
-	/// </summary>
-	private readonly Random _rng = Random.Shared;
-
-
-	/// <summary>
-	/// Indicates whether the analyzer randomly choose a step to be applied.
-	/// </summary>
-	/// <remarks><b><i>Please note that this option may cause the puzzle to be failed to analyze.</i></b></remarks>
-	public bool RandomSelectSteps { get; set; }
-
 
 	/// <summary>
 	/// Try to analyze a puzzle.
@@ -40,28 +28,34 @@ public sealed class Analyzer
 			var steps = new List<Step>();
 			var playground = puzzle.Clone();
 			var depth = puzzle.Depth;
+			var d = 0;
 			while (!playground.IsSolved)
 			{
 				var foundSteps = _collector.Collect(playground);
 				if (foundSteps.Length == 0
 					|| (
-						RandomSelectSteps
-							? foundSteps[_rng.Next(0, foundSteps.Length)]
-							: foundSteps.MakeDifficulty(playground, true) is var stepsDictionary
-								? stepsDictionary.TryGetValue(stepsDictionary.Keys.First(), out var candidates) && candidates.Count != 0
-									? candidates[0]
-									: (Step?)null
-								: null
-					) is not { } step)
+						foundSteps.MakeDifficulty(playground, false) is { Keys: { Count: not 0 } keys } stepsDictionary
+							? stepsDictionary.TryGetValue(keys.First(), out var candidates) && candidates.Count != 0
+								? candidates[0]
+								: ((Step, int)?)null
+							: null
+					) is not var (step, difficulty))
 				{
 					return new(puzzle) { IsSolved = false, InterimSteps = [.. steps], FailedReason = FailedReason.PuzzleInvalid };
 				}
 
+				d += difficulty;
 				steps.Add(step);
 				playground.Apply(step);
 			}
 
-			return new(puzzle) { IsSolved = true, InterimSteps = [.. steps], ElapsedTime = stopwatch.Elapsed };
+			return new(puzzle)
+			{
+				IsSolved = true,
+				InterimSteps = [.. steps],
+				TotalDifficulty = d,
+				ElapsedTime = stopwatch.Elapsed
+			};
 		}
 		catch (Exception ex)
 		{
@@ -87,7 +81,7 @@ file static class Extensions
 	/// (a tube that only contains one color, with size 1).
 	/// </param>
 	/// <returns>A dictionary.</returns>
-	public static SortedDictionary<ScorePair, List<Step>> MakeDifficulty(this ReadOnlySpan<Step> steps, Puzzle puzzle, bool fixRoot)
+	public static SortedDictionary<ScorePair, List<(Step Step, int Difficulty)>> MakeDifficulty(this ReadOnlySpan<Step> steps, Puzzle puzzle, bool fixRoot)
 	{
 		// Record scores on color and tube, in order to be used later.
 		var scoreDic = new Dictionary<Color, int>();
@@ -137,9 +131,10 @@ file static class Extensions
 		// In working, case (1) has priority with (2), and (2) has priority with (3).
 
 		// Now we should sort them by scores of each color, in ascending order.
-		var case1Key = (int.MinValue, int.MinValue);
+		var case1Key = (0, 0);
 		var resultComparer = Comparer<ScorePair>.Create(scorePairComparison);
-		var result = new SortedDictionary<(int, int), List<Step>>(resultComparer);
+		var result = new SortedDictionary<(int, int), List<(Step, int)>>(resultComparer);
+		var invalidSteps = new HashSet<Step>();
 		foreach (var minimumValueColor in from kvp in scoreDic orderby kvp.Value, kvp.Key select kvp.Key)
 		{
 			foreach (var step in steps)
@@ -158,10 +153,13 @@ file static class Extensions
 					&& startTube.TopColor == endTube.TopColor
 					&& startTube.TopColor == scoreDic.First().Key)
 				{
-					if (!result.TryAdd(case1Key, [step]))
+					var diff = getDifficulty(step, minimumValueColor);
+					if (!result.TryAdd(case1Key, [(step, diff)]))
 					{
-						result[case1Key].Add(step);
+						result[case1Key].Add((step, diff));
 					}
+
+					invalidSteps.Remove(step);
 					continue;
 				}
 
@@ -169,26 +167,33 @@ file static class Extensions
 				if (startTube.TopColor != minimumValueColor)
 				{
 					// Fallback to the next step.
+					invalidSteps.Add(step);
 					continue;
 				}
-
-				// If the chosen step cannot make the color to be completed, we should skip for the step.
-				//if (startTube.ColorsCount == 1 && puzzle.ColorDistribution[endTube.TopColor].Length != 2)
-				//{
-				//	continue;
-				//}
 
 				// Check (2).
 				// Now we should check scores of bottle, in order to sort them by the score.
 				var tubeScorePair = (tubeDic[startIndex], tubeDic[endIndex]);
-				if (!result.TryAdd(tubeScorePair, [step]))
+				var case2Diff = getDifficulty(step, minimumValueColor);
+				if (!result.TryAdd(tubeScorePair, [(step, case2Diff)]))
 				{
-					result[tubeScorePair].Add(step);
+					result[tubeScorePair].Add((step, case2Diff));
 				}
+				invalidSteps.Remove(step);
 			}
 			if (result.Count != 0)
 			{
 				return result;
+			}
+		}
+
+		var case3Key = (100, 100);
+		foreach (var invalidStep in invalidSteps)
+		{
+			var pair = (invalidStep, 100);
+			if (result.TryAdd(case3Key, [pair]))
+			{
+				result[case3Key].Add(pair);
 			}
 		}
 		return result;
@@ -200,5 +205,7 @@ file static class Extensions
 			var (ys, ye) = y;
 			return xs.CompareTo(ys) is var r1 and not 0 ? r1 : xe.CompareTo(ye) is var r2 and not 0 ? r2 : 0;
 		}
+
+		int getDifficulty(Step step, Color color) => (tubeDic[step.StartTubeIndex] + color) * 5;
 	}
 }

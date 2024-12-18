@@ -18,6 +18,11 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 	public required bool IsSolved { get; init; }
 
 	/// <summary>
+	/// Indicates the total difficulty.
+	/// </summary>
+	public int TotalDifficulty { get; init; }
+
+	/// <summary>
 	/// Indicates the failed reason.
 	/// </summary>
 	public FailedReason FailedReason { get; init; }
@@ -93,6 +98,7 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 			}
 			sb.AppendLine("---");
 			sb.AppendLine("Puzzle is solved.");
+			sb.AppendLine($"Difficulty: {TotalDifficulty}");
 			sb.AppendLine($@"Elapsed time: {ElapsedTime:hh\:mm\:ss\.fff}");
 		}
 		else

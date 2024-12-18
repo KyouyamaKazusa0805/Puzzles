@@ -21,6 +21,11 @@
             Indicates whether the puzzle is fully solved.
             </summary>
         </member>
+        <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.TotalDifficulty">
+            <summary>
+            Indicates the total difficulty.
+            </summary>
+        </member>
         <member name="P:Puzzles.WaterSort.Analytics.AnalysisResult.FailedReason">
             <summary>
             Indicates the failed reason.
@@ -88,17 +93,6 @@
             <summary>
             Indicates the backing collector.
             </summary>
-        </member>
-        <member name="F:Puzzles.WaterSort.Analytics.Analyzer._rng">
-            <summary>
-            Indicates the random number generator.
-            </summary>
-        </member>
-        <member name="P:Puzzles.WaterSort.Analytics.Analyzer.RandomSelectSteps">
-            <summary>
-            Indicates whether the analyzer randomly choose a step to be applied.
-            </summary>
-            <remarks><b><i>Please note that this option may cause the puzzle to be failed to analyze.</i></b></remarks>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.Analyzer.Analyze(Puzzles.WaterSort.Concepts.Puzzle)">
             <summary>
