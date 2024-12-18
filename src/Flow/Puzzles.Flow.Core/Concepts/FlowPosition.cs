@@ -1,19 +1,19 @@
 namespace Puzzles.Flow.Concepts;
 
 /// <summary>
-/// Represents a flow cell.
+/// Represents a flow, including its start and end position, and its color.
 /// </summary>
 /// <param name="StartCoodinate">Indicates the start coordinate.</param>
 /// <param name="EndCoordinate">Indicates the end coordinate.</param>
 /// <param name="Color">Indicates the color used.</param>
 [TypeImpl(TypeImplFlags.ComparisonOperators)]
-public readonly partial record struct FlowCell(Coordinate StartCoodinate, Coordinate EndCoordinate, Color Color) :
-	IComparable<FlowCell>,
-	IComparisonOperators<FlowCell, FlowCell, bool>,
-	IEqualityOperators<FlowCell, FlowCell, bool>
+public readonly partial record struct FlowPosition(Coordinate StartCoodinate, Coordinate EndCoordinate, Color Color) :
+	IComparable<FlowPosition>,
+	IComparisonOperators<FlowPosition, FlowPosition, bool>,
+	IEqualityOperators<FlowPosition, FlowPosition, bool>
 {
 	/// <inheritdoc/>
-	public int CompareTo(FlowCell other)
+	public int CompareTo(FlowPosition other)
 	{
 		if (Color.CompareTo(other.Color) is var r1 and not 0)
 		{

@@ -6,16 +6,16 @@ public partial class Grid
 	/// Represents an enumerator type that can iterate on each flow cell.
 	/// </summary>
 	/// <param name="_grid">The grid.</param>
-	public ref struct FlowCellEnumerator(Grid _grid) : IEnumerator<FlowCell>, IEnumerable<FlowCell>
+	public ref struct FlowCellEnumerator(Grid _grid) : IEnumerator<FlowPosition>, IEnumerable<FlowPosition>
 	{
 		/// <summary>
 		/// Indicates the backing enumerator.
 		/// </summary>
-		private SortedSet<FlowCell>.Enumerator _enumerator = _grid._cells.GetEnumerator();
+		private SortedSet<FlowPosition>.Enumerator _enumerator = _grid._cells.GetEnumerator();
 
 
 		/// <inheritdoc/>
-		public readonly FlowCell Current => _enumerator.Current;
+		public readonly FlowPosition Current => _enumerator.Current;
 
 		/// <inheritdoc/>
 		readonly object IEnumerator.Current => Current;
@@ -38,6 +38,6 @@ public partial class Grid
 		readonly IEnumerator IEnumerable.GetEnumerator() => _grid._cells.GetEnumerator();
 
 		/// <inheritdoc/>
-		readonly IEnumerator<FlowCell> IEnumerable<FlowCell>.GetEnumerator() => _grid._cells.GetEnumerator();
+		readonly IEnumerator<FlowPosition> IEnumerable<FlowPosition>.GetEnumerator() => _grid._cells.GetEnumerator();
 	}
 }

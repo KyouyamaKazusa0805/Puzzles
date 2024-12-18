@@ -4,17 +4,17 @@ namespace Puzzles.Flow.Concepts;
 /// Represents a grid that defines the start and end points of flows.
 /// </summary>
 [TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Object_ToString | TypeImplFlags.EqualityOperators)]
-public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell> cells) :
+public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosition> cells) :
 	IBoard,
 	ICloneable,
 	IDataStructure,
-	IEnumerable<FlowCell>,
+	IEnumerable<FlowPosition>,
 	IEquatable<Grid>,
 	IEqualityOperators<Grid, Grid, bool>,
 	IFormattable,
 	IParsable<Grid>,
-	IReadOnlyCollection<FlowCell>,
-	IReadOnlyList<FlowCell>
+	IReadOnlyCollection<FlowPosition>,
+	IReadOnlyList<FlowPosition>
 {
 	/// <summary>
 	/// Indicates the number of colors used.
@@ -24,12 +24,12 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell
 	/// <summary>
 	/// Indicates the minimum flow used.
 	/// </summary>
-	public FlowCell Min => _cells.Min;
+	public FlowPosition Min => _cells.Min;
 
 	/// <summary>
 	/// Indicates the maximum flow used.
 	/// </summary>
-	public FlowCell Max => _cells.Max;
+	public FlowPosition Max => _cells.Max;
 
 	/// <inheritdoc/>
 	int IBoard.Rows => Size;
@@ -38,7 +38,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell
 	int IBoard.Columns => Size;
 
 	/// <inheritdoc/>
-	int IReadOnlyCollection<FlowCell>.Count => Length;
+	int IReadOnlyCollection<FlowPosition>.Count => Length;
 
 	/// <inheritdoc/>
 	DataStructureType IDataStructure.Type => DataStructureType.Set;
@@ -53,7 +53,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell
 	/// <param name="index">The desired index.</param>
 	/// <returns>The flow.</returns>
 	/// <exception cref="IndexOutOfRangeException">Throws when the index is out of range.</exception>
-	public FlowCell this[int index]
+	public FlowPosition this[int index]
 	{
 		get
 		{
@@ -74,7 +74,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell
 	/// Indicates the backing comparer to compare equality of field <see cref="_cells"/>.
 	/// </summary>
 	[field: MaybeNull]
-	private static IEqualityComparer<SortedSet<FlowCell>> Comparer => field ??= SortedSet<FlowCell>.CreateSetComparer();
+	private static IEqualityComparer<SortedSet<FlowPosition>> Comparer => field ??= SortedSet<FlowPosition>.CreateSetComparer();
 
 
 	/// <inheritdoc/>
@@ -97,7 +97,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell
 	/// Create a <see cref="ReadOnlySpan{T}"/> to store all flows.
 	/// </summary>
 	/// <returns>A <see cref="ReadOnlySpan{T}"/> instance.</returns>
-	public ReadOnlySpan<FlowCell> AsSpan() => _cells.ToArray();
+	public ReadOnlySpan<FlowPosition> AsSpan() => _cells.ToArray();
 
 	/// <inheritdoc cref="ICloneable.Clone"/>
 	public Grid Clone() => new(Size, [.. _cells]);
@@ -112,7 +112,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowCell
 	IEnumerator IEnumerable.GetEnumerator() => _cells.GetEnumerator();
 
 	/// <inheritdoc/>
-	IEnumerator<FlowCell> IEnumerable<FlowCell>.GetEnumerator() => _cells.GetEnumerator();
+	IEnumerator<FlowPosition> IEnumerable<FlowPosition>.GetEnumerator() => _cells.GetEnumerator();
 
 
 	/// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)"/>

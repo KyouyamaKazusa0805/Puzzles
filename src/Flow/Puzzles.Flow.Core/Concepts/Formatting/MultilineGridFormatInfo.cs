@@ -71,7 +71,7 @@ public sealed class MultilineGridFormatInfo : GridFormatInfo
 
 		// Now we have a dictionary that stores start and end points of colors. Now check validity of such points.
 		// If valid, store them into a SortedSet<FlowCell> and return.
-		var set = new SortedSet<FlowCell>();
+		var set = new SortedSet<FlowPosition>();
 		foreach (var (color, coordinates) in colorCoordinates)
 		{
 			set.Add(
