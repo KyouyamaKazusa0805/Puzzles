@@ -584,6 +584,11 @@
             </summary>
             <param name="gridState">The grid state.</param>
         </member>
+        <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.AncestorsCount">
+            <summary>
+            Indicates the number of ancestors.
+            </summary>
+        </member>
         <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.Equals(Puzzles.Onet.Analytics.SolvingPathNode)">
             <inheritdoc/>
         </member>

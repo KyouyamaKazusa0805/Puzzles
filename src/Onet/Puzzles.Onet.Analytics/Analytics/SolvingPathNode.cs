@@ -19,6 +19,23 @@ public sealed record SolvingPathNode(ItemMatch? Match, Grid GridState, double Di
 	}
 
 
+	/// <summary>
+	/// Indicates the number of ancestors.
+	/// </summary>
+	public int AncestorsCount
+	{
+		get
+		{
+			var result = 0;
+			for (var node = this; node is not null; node = node.Parent)
+			{
+				result++;
+			}
+			return result;
+		}
+	}
+
+
 	/// <inheritdoc/>
 	public bool Equals([NotNullWhen(true)] SolvingPathNode? other)
 		=> other is not null && Match == other.Match && GridState == other.GridState/* && Difficulty == other.Difficulty*/;
