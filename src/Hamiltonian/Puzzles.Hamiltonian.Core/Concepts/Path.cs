@@ -127,8 +127,7 @@ public sealed partial class Path :
 	public AnonymousSpanEnumerator<Coordinate> EnumerateReversed()
 	{
 		var pathCloned = (Coordinate[])_coordinates.Clone();
-		pathCloned.Reverse();
-		return new(pathCloned);
+		return new(pathCloned.Reverse());
 	}
 
 	/// <summary>
@@ -195,7 +194,7 @@ public sealed partial class Path :
 
 	/// <inheritdoc/>
 	public static Path Parse(string s, IFormatProvider? provider)
-		=> Parse(s, provider as PathFormatInfo ?? new DirectionPathFormatInfo());
+		=> (provider as PathFormatInfo ?? new DirectionPathFormatInfo()).ParseCore(s);
 
 	/// <inheritdoc cref="Parse(string)"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
