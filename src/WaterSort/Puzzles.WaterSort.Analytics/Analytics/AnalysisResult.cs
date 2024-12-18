@@ -20,7 +20,12 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 	/// <summary>
 	/// Indicates the total difficulty.
 	/// </summary>
-	public int TotalDifficulty { get; init; }
+	public int TotalDifficulty => Steps.Sum(static step => step.Difficulty);
+
+	/// <summary>
+	/// Indicates the maximum difficulty.
+	/// </summary>
+	public int MaxDifficulty => Steps.Max(static step => step.Difficulty);
 
 	/// <summary>
 	/// Indicates the failed reason.

@@ -40,7 +40,8 @@ public sealed class Collector
 			// Iterate two dictionaries "from" and "to", to make valid moves.
 			foreach (var fromTubeIndex in validTubes)
 			{
-				if (puzzle[fromTubeIndex].TopColor == Color.MaxValue)
+				var chosenColor = puzzle[fromTubeIndex].TopColor;
+				if (chosenColor == Color.MaxValue)
 				{
 					continue;
 				}
@@ -68,7 +69,8 @@ public sealed class Collector
 						continue;
 					}
 
-					result.Add(new(fromTubeIndex, toTubeIndex));
+					var difficulty = (Complexity.GetTubeComplexity(puzzle[fromTubeIndex], puzzle) + chosenColor) * 5;
+					result.Add(new(fromTubeIndex, toTubeIndex, difficulty));
 				}
 			}
 		}
