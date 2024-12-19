@@ -51,6 +51,15 @@
         <member name="M:Puzzles.Flow.Analytics.AnalysisResult.ToString">
             <inheritdoc/>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.System#Collections#Generic#IEnumerable{Puzzles#Flow#Concepts#Path}#GetEnumerator">
+            <inheritdoc/>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.AnalysisResult.Create(Puzzles.Flow.Concepts.Grid,Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.TimeSpan)">
             <summary>
             Creates an <see cref="T:Puzzles.Flow.Analytics.AnalysisResult"/> instance via the current grid information and state.
@@ -65,6 +74,21 @@
             <summary>
             The generated property declaration for parameter <c>grid</c>.
             </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.GetHashCode">
+            <inheritdoc cref="M:System.Object.GetHashCode"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.op_Equality(Puzzles.Flow.Analytics.AnalysisResult,Puzzles.Flow.Analytics.AnalysisResult)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.op_Inequality(Puzzles.Flow.Analytics.AnalysisResult,Puzzles.Flow.Analytics.AnalysisResult)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.Equals(Puzzles.Flow.Analytics.AnalysisResult)">
+            <inheritdoc/>
         </member>
         <member name="T:Puzzles.Flow.Analytics.Analyzer">
             <summary>

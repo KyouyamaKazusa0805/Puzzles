@@ -4,12 +4,18 @@ namespace Puzzles.Flow.Analytics;
 /// Represents the analysis result.
 /// </summary>
 /// <param name="grid">The grid to be used.</param>
-public sealed partial class AnalysisResult([Property] Grid grid)
+[TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Object_GetHashCode | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
+public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid) :
+	IEnumerable<Path>,
+	IEquatable<AnalysisResult>,
+	IEqualityOperators<AnalysisResult, AnalysisResult, bool>
 {
 	/// <summary>
 	/// Indicates whether the puzzle has been solved.
 	/// </summary>
 	[MemberNotNullWhen(true, nameof(InterimPaths))]
+	[HashCodeMember]
+	[EquatableMember]
 	public required bool IsSolved { get; init; }
 
 	/// <summary>
@@ -25,6 +31,7 @@ public sealed partial class AnalysisResult([Property] Grid grid)
 	/// <summary>
 	/// Indicates the found paths.
 	/// </summary>
+	[EquatableMember]
 	public ReadOnlySpan<Path> Paths => InterimPaths;
 
 	/// <summary>
@@ -38,6 +45,9 @@ public sealed partial class AnalysisResult([Property] Grid grid)
 	/// Indicates the paths.
 	/// </summary>
 	internal Path[]? InterimPaths { get; init; }
+
+	[EquatableMember]
+	private Grid GridEntry => Grid;
 
 
 	/// <inheritdoc/>
@@ -69,6 +79,15 @@ public sealed partial class AnalysisResult([Property] Grid grid)
 		}
 		return sb.ToString();
 	}
+
+	/// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
+	public AnonymousSpanEnumerator<Path> GetEnumerator() => new(Paths);
+
+	/// <inheritdoc/>
+	IEnumerator IEnumerable.GetEnumerator() => Paths.ToArray().GetEnumerator();
+
+	/// <inheritdoc/>
+	IEnumerator<Path> IEnumerable<Path>.GetEnumerator() => Paths.ToArray().AsEnumerable().GetEnumerator();
 
 
 	/// <summary>
