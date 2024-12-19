@@ -76,8 +76,8 @@ internal unsafe struct NodeStorage
 			FreeCellsCount = state->FreeCellsCount,
 			CompletedMask = state->CompletedMask
 		};
-		Unsafe.CopyBlock(result->State.Cells, state->Cells, sizeof(byte) * Analyzer.MaxCells);
-		Unsafe.CopyBlock(result->State.Positions, state->Positions, sizeof(byte) * Analyzer.MaxColors);
+		Unsafe.CopyBlock(result->State.Cells, state->Cells, sizeof(byte) * Analyzer.MaxGridCellsCount);
+		Unsafe.CopyBlock(result->State.Positions, state->Positions, sizeof(byte) * Analyzer.MaxSupportedColorsCount);
 		return result;
 	}
 

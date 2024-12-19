@@ -98,6 +98,7 @@
             <para>
             This implementation is just a copy from <see href="https://github.com/mzucker/flow_solver">this repository</see>,
             but I change the algorithm into C# implementation instead.
+            <i>In addition, some items are modified in order to make such API more unified in the whole puzzles project.</i>
             </para>
             <para>
             Also, this algorithm uses some logical techniques to reduce complexity of brute forces.
@@ -113,15 +114,19 @@
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition">
             <summary>
-            Indicates the invalid position value.
+            Indicates the invalid position value. This value is used as placeholder.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer.MaxSize">
             <summary>
             Indicates the maximum size of the grid. This value is a constant and cannot be modified due to massive complexity.
+            Please note that the maximum value is not 16,
+            because the coordinate at (15, 15) is a reserved coordinate to represent information "invalid",
+            which cooresponds to field <see cref="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition"/>.
             </summary>
+            <seealso cref="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition"/>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer.MaxCells">
+        <member name="F:Puzzles.Flow.Analytics.Analyzer.MaxGridCellsCount">
             <summary>
             Indicates the maximum length of cells available in the grid. The value is equal to 239.
             </summary>
@@ -131,7 +136,7 @@
             Represents mega-bytes. The value is equal to 1048576.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer.MaxColors">
+        <member name="F:Puzzles.Flow.Analytics.Analyzer.MaxSupportedColorsCount">
             <summary>
             Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
             </summary>
@@ -148,32 +153,32 @@
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer._queueCreator">
             <summary>
-            Indicates the queue creator method.
+            Indicates the queue creator method. This field will be initialized in analysis.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer._queueEnqueuer">
             <summary>
-            Indicates the queue enqueuer method.
+            Indicates the queue enqueuer method. This field will be initialized in analysis.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer._queueDequeuer">
             <summary>
-            Indicates the queue dequeuer method.
+            Indicates the queue dequeuer method. This field will be initialized in analysis.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer._queueDestroyer">
             <summary>
-            Indicatees the queue destroyer method.
+            Indicatees the queue destroyer method. This field will be initialized in analysis.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer._queueEmptyChecker">
             <summary>
-            Indicates the queue empty checker method.
+            Indicates the queue empty checker method. This field will be initialized in analysis.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer._queuePeeker">
             <summary>
-            Indicates thee queue peeker method.
+            Indicates thee queue peeker method. This field will be initialized in analysis.
             </summary>
         </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckTouchness">

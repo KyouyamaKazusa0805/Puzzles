@@ -7,6 +7,7 @@ namespace Puzzles.Flow.Analytics;
 /// <para>
 /// This implementation is just a copy from <see href="https://github.com/mzucker/flow_solver">this repository</see>,
 /// but I change the algorithm into C# implementation instead.
+/// <i>In addition, some items are modified in order to make such API more unified in the whole puzzles project.</i>
 /// </para>
 /// <para>
 /// Also, this algorithm uses some logical techniques to reduce complexity of brute forces.
@@ -22,19 +23,23 @@ namespace Puzzles.Flow.Analytics;
 public sealed unsafe class Analyzer
 {
 	/// <summary>
-	/// Indicates the invalid position value.
+	/// Indicates the invalid position value. This value is used as placeholder.
 	/// </summary>
 	public const byte InvalidPosition = 0xFF;
 
 	/// <summary>
 	/// Indicates the maximum size of the grid. This value is a constant and cannot be modified due to massive complexity.
+	/// Please note that the maximum value is not 16,
+	/// because the coordinate at (15, 15) is a reserved coordinate to represent information "invalid",
+	/// which cooresponds to field <see cref="InvalidPosition"/>.
 	/// </summary>
+	/// <seealso cref="InvalidPosition"/>
 	public const int MaxSize = 15;
 
 	/// <summary>
 	/// Indicates the maximum length of cells available in the grid. The value is equal to 239.
 	/// </summary>
-	public const int MaxCells = (MaxSize + 1) * MaxSize - 1;
+	public const int MaxGridCellsCount = (MaxSize + 1) * MaxSize - 1;
 
 	/// <summary>
 	/// Represents mega-bytes. The value is equal to 1048576.
@@ -44,7 +49,7 @@ public sealed unsafe class Analyzer
 	/// <summary>
 	/// Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
 	/// </summary>
-	public const int MaxColors = 16;
+	public const int MaxSupportedColorsCount = 16;
 
 	/// <summary>
 	/// Indicates the valid color characters.
@@ -59,32 +64,32 @@ public sealed unsafe class Analyzer
 
 
 	/// <summary>
-	/// Indicates the queue creator method.
+	/// Indicates the queue creator method. This field will be initialized in analysis.
 	/// </summary>
 	private delegate*<int, Queue> _queueCreator;
 
 	/// <summary>
-	/// Indicates the queue enqueuer method.
+	/// Indicates the queue enqueuer method. This field will be initialized in analysis.
 	/// </summary>
 	private delegate*<Queue*, TreeNode*, void> _queueEnqueuer;
 
 	/// <summary>
-	/// Indicates the queue dequeuer method.
+	/// Indicates the queue dequeuer method. This field will be initialized in analysis.
 	/// </summary>
 	private delegate*<Queue*, TreeNode*> _queueDequeuer;
 
 	/// <summary>
-	/// Indicatees the queue destroyer method.
+	/// Indicatees the queue destroyer method. This field will be initialized in analysis.
 	/// </summary>
 	private delegate*<Queue*, void> _queueDestroyer;
 
 	/// <summary>
-	/// Indicates the queue empty checker method.
+	/// Indicates the queue empty checker method. This field will be initialized in analysis.
 	/// </summary>
 	private delegate*<Queue*, bool> _queueEmptyChecker;
 
 	/// <summary>
-	/// Indicates thee queue peeker method.
+	/// Indicates thee queue peeker method. This field will be initialized in analysis.
 	/// </summary>
 	private delegate*<Queue*, TreeNode*> _queuePeeker;
 
@@ -191,13 +196,13 @@ public sealed unsafe class Analyzer
 		bool tryLoadPuzzle(string gridString, int size, out GridAnalyticsInfo gridInfo, out GridInterimState state)
 		{
 			state = default;
-			new Span<byte>(Unsafe.AsPointer(ref state.Positions[0]), MaxColors).Fill(byte.MaxValue);
-			state.LastColor = MaxColors;
+			new Span<byte>(Unsafe.AsPointer(ref state.Positions[0]), MaxSupportedColorsCount).Fill(byte.MaxValue);
+			state.LastColor = MaxSupportedColorsCount;
 
 			gridInfo = default;
 			new Span<byte>(Unsafe.AsPointer(ref gridInfo.ColorTable[0]), 1 << 7).Fill(byte.MaxValue);
-			new Span<byte>(Unsafe.AsPointer(ref gridInfo.InitPositions[0]), MaxColors).Fill(byte.MaxValue);
-			new Span<byte>(Unsafe.AsPointer(ref gridInfo.GoalPositions[0]), MaxColors).Fill(byte.MaxValue);
+			new Span<byte>(Unsafe.AsPointer(ref gridInfo.InitPositions[0]), MaxSupportedColorsCount).Fill(byte.MaxValue);
+			new Span<byte>(Unsafe.AsPointer(ref gridInfo.GoalPositions[0]), MaxSupportedColorsCount).Fill(byte.MaxValue);
 
 			gridInfo.Size = size;
 
@@ -216,13 +221,13 @@ public sealed unsafe class Analyzer
 					}
 
 					var pos = Position.GetPositionFromCoordinate(x, y);
-					Debug.Assert(pos < MaxCells);
+					Debug.Assert(pos < MaxGridCellsCount);
 
 					var color = gridInfo.ColorTable[c];
 					if (color >= gridInfo.ColorsCount)
 					{
 						color = gridInfo.ColorsCount;
-						if (gridInfo.ColorsCount == MaxColors)
+						if (gridInfo.ColorsCount == MaxSupportedColorsCount)
 						{
 							// Too many colors.
 							(gridInfo, state) = (default, default);
@@ -230,7 +235,7 @@ public sealed unsafe class Analyzer
 						}
 
 						var id = c is >= 'A' and <= 'F' ? c - 'A' + 10 : c - '0';
-						if (id < 0 || id >= MaxColors)
+						if (id < 0 || id >= MaxSupportedColorsCount)
 						{
 							// Color value is invalid or not supported.
 							(gridInfo, state) = (default, default);
@@ -372,13 +377,13 @@ public sealed unsafe class Analyzer
 			return;
 		}
 
-		var cf = (stackalloc ColorFeature[MaxColors]);
+		var cf = (stackalloc ColorFeature[MaxSupportedColorsCount]);
 		cf.Clear();
 
 		for (var color = (byte)0; color < grid->ColorsCount; color++)
 		{
 			cf[color].Index = color;
-			cf[color].UserIndex = MaxColors;
+			cf[color].UserIndex = MaxSupportedColorsCount;
 		}
 
 		if (ReorderColors)
@@ -409,7 +414,7 @@ public sealed unsafe class Analyzer
 			var k = 0;
 			foreach (var c in userOrder.ToUpper())
 			{
-				var color = c < 127 ? grid->ColorTable[c] : MaxColors;
+				var color = c < 127 ? grid->ColorTable[c] : MaxSupportedColorsCount;
 				if (color >= grid->ColorsCount)
 				{
 					throw new InvalidOperationException("The current color specified in user list is not used in the puzzle.");
@@ -492,7 +497,7 @@ public sealed unsafe class Analyzer
 
 		// Create a new position.
 		var newPosition = Position.GetPositionFromCoordinate(newX, newY);
-		Debug.Assert(newPosition < MaxCells);
+		Debug.Assert(newPosition < MaxGridCellsCount);
 
 		if (!CheckTouchness && newPosition == grid->GoalPositions[color])
 		{
@@ -717,7 +722,7 @@ public sealed unsafe class Analyzer
 	/// <returns>The regions.</returns>
 	private byte BuildRegions(GridAnalyticsInfo* grid, GridInterimState* state, Span<byte> resultMap)
 	{
-		var regions = (stackalloc Region[MaxCells]);
+		var regions = (stackalloc Region[MaxGridCellsCount]);
 		regions.Clear();
 
 		// Build regions.
@@ -752,7 +757,7 @@ public sealed unsafe class Analyzer
 			}
 		}
 
-		var resultLookup = (stackalloc byte[MaxCells]);
+		var resultLookup = (stackalloc byte[MaxGridCellsCount]);
 		var result = (byte)0;
 
 		resultLookup.Fill(byte.MaxValue);
@@ -869,7 +874,7 @@ public sealed unsafe class Analyzer
 
 		// Make position.
 		var newPosition = Position.GetPositionFromCoordinate(newX, newY);
-		Debug.Assert(newPosition < MaxCells);
+		Debug.Assert(newPosition < MaxGridCellsCount);
 
 		if (!CheckTouchness && newPosition == grid->GoalPositions[color])
 		{
@@ -1013,7 +1018,7 @@ public sealed unsafe class Analyzer
 			}
 
 			// Build new region map.
-			var resultMap = (stackalloc byte[MaxCells]);
+			var resultMap = (stackalloc byte[MaxGridCellsCount]);
 			var resultCount = BuildRegions(grid, state, resultMap);
 
 			// See if we are stranded.
@@ -1269,9 +1274,9 @@ public sealed unsafe class Analyzer
 
 		if (CheckStrandedCases)
 		{
-			var resultMap = (stackalloc byte[MaxCells]);
+			var resultMap = (stackalloc byte[MaxGridCellsCount]);
 			var resultCount = BuildRegions(grid, nodeState, resultMap);
-			if (GetStrandedColors(grid, nodeState, resultCount, resultMap, MaxColors, 1) != 0)
+			if (GetStrandedColors(grid, nodeState, resultCount, resultMap, MaxSupportedColorsCount, 1) != 0)
 			{
 				goto UnallocReturnNull;
 			}

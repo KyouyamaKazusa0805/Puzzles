@@ -51,7 +51,7 @@ internal record struct Region(byte Parent, byte Rank)
 		if (regions[p].Parent != Analyzer.InvalidPosition && regions[p].Parent != p)
 		{
 			Debug.Assert(p != Analyzer.InvalidPosition);
-			Debug.Assert(p < Analyzer.MaxCells);
+			Debug.Assert(p < Analyzer.MaxGridCellsCount);
 			regions[p].Parent = Find(regions, regions[p].Parent);
 		}
 		return regions[p].Parent;
