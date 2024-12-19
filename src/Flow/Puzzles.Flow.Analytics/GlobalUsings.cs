@@ -1,11 +1,13 @@
 global using System;
+global using System.Collections.Generic;
 global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
-global using System.IO;
 global using System.Numerics;
 global using System.Runtime.CompilerServices;
 global using System.Runtime.InteropServices;
+global using System.Text;
+global using Puzzles.Concepts;
 global using Puzzles.Flow.Concepts;
-global using Puzzles.Flow.Concepts.Primitives;
-global using Puzzles.Flow.Drawing;
 global using Puzzles.Meta;
+global using Color = byte;
+global using Path = Puzzles.Flow.Concepts.Path;

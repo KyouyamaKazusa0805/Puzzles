@@ -6,7 +6,7 @@ namespace Puzzles.Flow.Concepts;
 /// <param name="flow">Indicates the flow.</param>
 /// <param name="coordinates">Indiactes the coordinates used as path.</param>
 [TypeImpl(TypeImplFlags.Object_Equals | TypeImplFlags.Equatable | TypeImplFlags.EqualityOperators)]
-public sealed partial class Path([Property] FlowPosition flow, [Field] Coordinate[] coordinates) :
+public sealed partial class Path([Property] FlowPosition flow, [Field] params Coordinate[] coordinates) :
 	IEquatable<Path>,
 	IEqualityOperators<Path, Path, bool>,
 	IReadOnlyList<Coordinate>
@@ -69,7 +69,11 @@ public sealed partial class Path([Property] FlowPosition flow, [Field] Coordinat
 	}
 
 	/// <inheritdoc/>
-	public override string ToString() => string.Join(" -> ", _coordinates);
+	public override string ToString()
+	{
+		var coordinateStrings = from coordinate in _coordinates select (coordinate.X, coordinate.Y).ToString();
+		return $"Color #{Flow.Color + 1}: {string.Join(" -> ", coordinateStrings)}";
+	}
 
 	/// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
 	public AnonymousSpanEnumerator<Coordinate> GetEnumerator() => new(_coordinates);

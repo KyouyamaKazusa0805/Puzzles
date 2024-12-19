@@ -4,6 +4,68 @@
         <name>Puzzles.Flow.Analytics</name>
     </assembly>
     <members>
+        <member name="T:Puzzles.Flow.Analytics.AnalysisResult">
+            <summary>
+            Represents the analysis result.
+            </summary>
+            <param name="grid">The grid to be used.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.#ctor(Puzzles.Flow.Concepts.Grid)">
+            <summary>
+            Represents the analysis result.
+            </summary>
+            <param name="grid">The grid to be used.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.AnalysisResult.IsSolved">
+            <summary>
+            Indicates whether the puzzle has been solved.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.AnalysisResult.FailedReason">
+            <summary>
+            Indicates the failed reason.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.AnalysisResult.ElapsedTime">
+            <summary>
+            Indicates the elapsed time.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.AnalysisResult.Paths">
+            <summary>
+            Indicates the found paths.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.AnalysisResult.UnhandledException">
+            <summary>
+            Indicates the exception thrown while solution searching.
+            This property won't be <see langword="null"/> if property <see cref="P:Puzzles.Flow.Analytics.AnalysisResult.FailedReason"/>
+            returns <see cref="F:Puzzles.Flow.Analytics.FailedReason.ExceptionThrown"/>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.AnalysisResult.InterimPaths">
+            <summary>
+            Indicates the paths.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.AnalysisResult.Create(Puzzles.Flow.Concepts.Grid,Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.TimeSpan)">
+            <summary>
+            Creates an <see cref="T:Puzzles.Flow.Analytics.AnalysisResult"/> instance via the current grid information and state.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="gridInfo">The grid information.</param>
+            <param name="state">The grid state.</param>
+            <param name="elapsed">The time elapsed.</param>
+            <returns>The analysis result.</returns>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.AnalysisResult.Grid">
+            <summary>
+            The generated property declaration for parameter <c>grid</c>.
+            </summary>
+        </member>
         <member name="T:Puzzles.Flow.Analytics.Analyzer">
             <summary>
             Represents an analyzer.
@@ -160,12 +222,11 @@
             Indicates the number of maximum nodes can be reached.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.Analyze(Puzzles.Flow.Concepts.Grid,System.IO.TextWriter)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Analyze(Puzzles.Flow.Concepts.Grid)">
             <summary>
-            Analyzes the grid.
+            Try to analyze the grid, and return an <see cref="T:Puzzles.Flow.Analytics.AnalysisResult"/> instance indicating the solved result.
             </summary>
             <param name="grid">The grid.</param>
-            <param name="writer">The writer.</param>
             <exception cref="T:System.InvalidOperationException">Throws when the string is invalid.</exception>
         </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.AddColor(Puzzles.Flow.Analytics.GridAnalyticsInfo*,Puzzles.Flow.Analytics.GridInterimState*,System.Span{System.Byte},System.Byte,System.Int16,System.Span{System.Int16})">
@@ -200,7 +261,7 @@
             <param name="node">The node.</param>
             <param name="actionCost">The action cost.</param>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.CanMove(Puzzles.Flow.Analytics.GridAnalyticsInfo*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.CanMove(Puzzles.Flow.Analytics.GridAnalyticsInfo*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte,Puzzles.Concepts.Direction)">
             <summary>
             Determine whether the current grid can move.
             </summary>
@@ -252,7 +313,7 @@
             <param name="y">The coordinate y value.</param>
             <returns>A <see cref="T:System.Boolean"/> result.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.FindForced(Puzzles.Flow.Analytics.GridAnalyticsInfo*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte@,Puzzles.Flow.Concepts.Primitives.Direction@)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.FindForced(Puzzles.Flow.Analytics.GridAnalyticsInfo*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte@,Puzzles.Concepts.Direction@)">
             <summary>
             Find a forced color.
             </summary>
@@ -284,7 +345,7 @@
             <param name="state">The state.</param>
             <returns>The next color chosen.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.MakeMove(Puzzles.Flow.Analytics.GridAnalyticsInfo*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction,System.Boolean)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.MakeMove(Puzzles.Flow.Analytics.GridAnalyticsInfo*,Puzzles.Flow.Analytics.GridInterimState*,System.Byte,Puzzles.Concepts.Direction,System.Boolean)">
             <summary>
             Make a valid move.
             </summary>
@@ -364,7 +425,7 @@
             Provides a way to operate with cells.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Cell.Create(Puzzles.Flow.Concepts.Primitives.CellType,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.Cell.Create(Puzzles.Flow.Concepts.CellState,System.Byte,Puzzles.Concepts.Direction)">
             <summary>
             Create a cell via type, color and direction.
             </summary>
@@ -481,6 +542,45 @@
         </member>
         <member name="M:Puzzles.Flow.Analytics.ColorFeature.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#ColorFeature,Puzzles#Flow#Analytics#ColorFeature,System#Boolean}#op_LessThanOrEqual(Puzzles.Flow.Analytics.ColorFeature,Puzzles.Flow.Analytics.ColorFeature)">
             <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.DirectionExtensions">
+            <summary>
+            Provides with extension methods on <see cref="T:Puzzles.Concepts.Direction"/>.
+            </summary>
+            <seealso cref="T:Puzzles.Concepts.Direction"/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.DirectionExtensions.GetDirectionDelta(Puzzles.Concepts.Direction)">
+            <summary>
+            Gets the direction delta value that represents the coordinate advancing.
+            </summary>
+            <param name="this">The direction.</param>
+            <returns>The delta array.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Throws when the argument is not defined.</exception>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.FailedReason">
+            <summary>
+            Represents the failed reason.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FailedReason.None">
+            <summary>
+            Indicates there's no failure.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FailedReason.Invalid">
+            <summary>
+            Indicates the failed reason is that the puzzle has no valid solutions.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FailedReason.OutOfMemory">
+            <summary>
+            Indicates the failed reason is that the puzzle has run out of memory to be allocated.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FailedReason.ExceptionThrown">
+            <summary>
+            Indicates the failed reason is that an unexpected exception is thrown.
+            </summary>
         </member>
         <member name="T:Puzzles.Flow.Analytics.FifoBasedQueue">
             <summary>
@@ -611,11 +711,6 @@
             Indicates the positions.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.GridInterimState.ColorDictionary">
-            <summary>
-            Indicates the color lookup dictionary.
-            </summary>
-        </member>
         <member name="P:Puzzles.Flow.Analytics.GridInterimState.FreeCellsCount">
             <summary>
             Indicates the number of free cells.
@@ -636,43 +731,6 @@
             <summary>
             Provides <see langword="this"/> pointer.
             </summary>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.GridInterimState.Print(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.IO.TextWriter)">
-            <summary>
-            Print the grid to the specified stream.
-            </summary>
-            <param name="grid">The grid.</param>
-            <param name="state">The state.</param>
-            <param name="writer">The writer.</param>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.GridInterimState.GetColor(System.Char)">
-            <summary>
-            Returns the color index of dictionary table <see cref="F:Puzzles.Flow.Analytics.GridInterimState.ColorDictionary"/>.
-            </summary>
-            <param name="c">The input character.</param>
-            <returns>The index.</returns>
-            <seealso cref="F:Puzzles.Flow.Analytics.GridInterimState.ColorDictionary"/>
-        </member>
-        <member name="T:Puzzles.Flow.Analytics.ConsoleOut">
-            <summary>
-            Provides a way to handle console output text.
-            </summary>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.ConsoleOut.GetColorString(System.String,System.Char)">
-            <summary>
-            Get color string.
-            </summary>
-            <param name="colorString">The color console out string.</param>
-            <param name="inputChar">The input character.</param>
-            <returns>The string.</returns>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.ConsoleOut.GetColorCellString(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Byte)">
-            <summary>
-            Get color cell string.
-            </summary>
-            <param name="grid">The grid.</param>
-            <param name="cell">The cell.</param>
-            <returns>The string.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.HeapBasedQueue">
             <summary>
@@ -766,7 +824,7 @@
             <param name="y">The y value.</param>
             <returns>The position index.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Position.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Int32,System.Int32,Puzzles.Flow.Concepts.Primitives.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.Position.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Int32,System.Int32,Puzzles.Concepts.Direction)">
             <summary>
             Get position offset, or return <see cref="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition"/> if bounds.
             </summary>
@@ -777,7 +835,7 @@
             <returns>The offset value.</returns>
             <seealso cref="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition"/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Position.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Byte,Puzzles.Flow.Concepts.Primitives.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.Position.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Byte,Puzzles.Concepts.Direction)">
             <summary>
             Get position from another position with advanced direction.
             </summary>

@@ -161,31 +161,31 @@ public sealed unsafe class Analyzer
 
 
 	/// <summary>
-	/// Analyzes the grid.
+	/// Try to analyze the grid, and return an <see cref="AnalysisResult"/> instance indicating the solved result.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
-	/// <param name="writer">The writer.</param>
 	/// <exception cref="InvalidOperationException">Throws when the string is invalid.</exception>
-	public void Analyze(Grid grid, TextWriter writer)
+	public AnalysisResult Analyze(Grid grid)
 	{
+		var stopwatch = new Stopwatch();
+		stopwatch.Start();
+
 		setupQueueFunctions();
 
 		if (!tryLoadPuzzle(grid.ToString(), grid.Size, out var gridInfo, out var state))
 		{
-			throw new InvalidOperationException("Invalid format of grid.");
+			stopwatch.Stop();
+			return new(grid) { IsSolved = false, FailedReason = FailedReason.Invalid, ElapsedTime = stopwatch.Elapsed };
 		}
 
 		OrderColors(&gridInfo, &state, null);
 
 		var result = Search(&gridInfo, &state, out var elapsed, out var nodes, out var finalState);
-		Debug.Assert(Enum.IsDefined(result));
+		stopwatch.Stop();
 
-		if (result == SearchingResult.Success)
-		{
-#if DEBUG
-			GridInterimState.Print(in gridInfo, in finalState, writer);
-#endif
-		}
+		return result == SearchingResult.Success
+			? AnalysisResult.Create(grid, in gridInfo, in finalState, stopwatch.Elapsed)
+			: new(grid) { IsSolved = false, FailedReason = (FailedReason)(int)result, ElapsedTime = elapsed };
 
 
 		bool tryLoadPuzzle(string gridString, int size, out GridAnalyticsInfo gridInfo, out GridInterimState state)
@@ -229,7 +229,7 @@ public sealed unsafe class Analyzer
 							return false;
 						}
 
-						var id = GridInterimState.GetColor(c);
+						var id = c is >= 'A' and <= 'F' ? c - 'A' + 10 : c - '0';
 						if (id < 0 || id >= MaxColors)
 						{
 							// Color value is invalid or not supported.
@@ -243,7 +243,7 @@ public sealed unsafe class Analyzer
 						gridInfo.ColorsCount++;
 						gridInfo.ColorTable[c] = color;
 						gridInfo.InitPositions[color] = state.Positions[color] = pos;
-						state.Cells[pos] = Cell.Create(CellType.Init, color, 0);
+						state.Cells[pos] = Cell.Create(CellState.Start, color, 0);
 					}
 					else
 					{
@@ -255,7 +255,7 @@ public sealed unsafe class Analyzer
 						}
 
 						gridInfo.GoalPositions[color] = pos;
-						state.Cells[pos] = Cell.Create(CellType.Goal, color, 0);
+						state.Cells[pos] = Cell.Create(CellState.End, color, 0);
 					}
 				}
 
@@ -287,8 +287,8 @@ public sealed unsafe class Analyzer
 						// Swap.
 						(gridInfo.InitPositions[color], gridInfo.GoalPositions[color]) = (gridInfo.GoalPositions[color], gridInfo.InitPositions[color]);
 
-						state.Cells[gridInfo.InitPositions[color]] = Cell.Create(CellType.Init, color, 0);
-						state.Cells[gridInfo.GoalPositions[color]] = Cell.Create(CellType.Goal, color, 0);
+						state.Cells[gridInfo.InitPositions[color]] = Cell.Create(CellState.Start, color, 0);
+						state.Cells[gridInfo.GoalPositions[color]] = Cell.Create(CellState.End, color, 0);
 						state.Positions[color] = gridInfo.InitPositions[color];
 					}
 				}
@@ -854,7 +854,7 @@ public sealed unsafe class Analyzer
 		ArgumentOutOfRangeException.ThrowIfNotEqual(color == byte.MaxValue || color < grid->ColorsCount, true);
 
 		// Update the cell with the new cell value.
-		var move = Cell.Create(CellType.Path, color, direction);
+		var move = Cell.Create(CellState.Path, color, direction);
 
 		// Get the current x and y coordinate.
 		Position.GetCoordinateFromPosition(state->Positions[color], out var currentX, out var currentY);
@@ -873,7 +873,7 @@ public sealed unsafe class Analyzer
 
 		if (!CheckTouchness && newPosition == grid->GoalPositions[color])
 		{
-			state->Cells[grid->GoalPositions[color]] = Cell.Create(CellType.Goal, color, direction);
+			state->Cells[grid->GoalPositions[color]] = Cell.Create(CellState.End, color, direction);
 			state->CompletedMask |= (short)(1 << color);
 			return 0;
 		}
@@ -904,7 +904,7 @@ public sealed unsafe class Analyzer
 
 		if (goalDirection != (Direction)byte.MaxValue)
 		{
-			state->Cells[grid->GoalPositions[color]] = Cell.Create(CellType.Goal, color, goalDirection);
+			state->Cells[grid->GoalPositions[color]] = Cell.Create(CellState.End, color, goalDirection);
 			state->CompletedMask |= (short)(1 << color);
 			actionCost = 0;
 		}
