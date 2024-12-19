@@ -4,7 +4,7 @@ namespace Puzzles.Flow.Analytics;
 /// Represents a grid interim state.
 /// </summary>
 [StructLayout(LayoutKind.Auto)]
-internal unsafe struct GridInterimState
+internal unsafe ref struct GridInterimState
 {
 	/// <summary>
 	/// Indicates the cell states.

@@ -7,7 +7,7 @@ namespace Puzzles.Flow.Analytics;
 /// <param name="colorsCount">Indicates the number of colors used.</param>
 /// <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
 [StructLayout(LayoutKind.Auto)]
-internal unsafe partial struct GridAnalyticsInfo(
+internal unsafe ref partial struct GridAnalyticsInfo(
 	[Property(Setter = PropertySetters.Set)] int size,
 	[Property(Setter = PropertySetters.Set)] byte colorsCount,
 	[Property(Setter = PropertySetters.Set)] bool isUserOrdered

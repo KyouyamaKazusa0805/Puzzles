@@ -232,16 +232,14 @@ public sealed unsafe class Analyzer
 						if (gridInfo.ColorsCount == MaxSupportedColorsCount)
 						{
 							// Too many colors.
-							(gridInfo, state) = (default, default);
-							return false;
+							goto ReturnFalse;
 						}
 
 						var id = c is >= 'A' and <= 'F' ? c - 'A' + 10 : c - '0';
 						if (id < 0 || id >= MaxSupportedColorsCount)
 						{
 							// Color value is invalid or not supported.
-							(gridInfo, state) = (default, default);
-							return false;
+							goto ReturnFalse;
 						}
 
 						gridInfo.ColorIds[color] = id;
@@ -257,8 +255,7 @@ public sealed unsafe class Analyzer
 						if (gridInfo.GoalPositions[color] != InvalidPosition)
 						{
 							// Multiple endpoints found.
-							(gridInfo, state) = (default, default);
-							return false;
+							goto ReturnFalse;
 						}
 
 						gridInfo.GoalPositions[color] = pos;
@@ -272,8 +269,7 @@ public sealed unsafe class Analyzer
 			if (gridInfo.ColorsCount == 0)
 			{
 				// The grid is empty.
-				(gridInfo, state) = (default, default);
-				return false;
+				goto ReturnFalse;
 			}
 
 			for (var color = (byte)0; color < gridInfo.ColorsCount; color++)
@@ -281,8 +277,7 @@ public sealed unsafe class Analyzer
 				if (gridInfo.GoalPositions[color] == InvalidPosition)
 				{
 					// Such color contains start point but not for end point.
-					(gridInfo, state) = (default, default);
-					return false;
+					goto ReturnFalse;
 				}
 
 				if (SearchOutsideIn)
@@ -301,6 +296,11 @@ public sealed unsafe class Analyzer
 				}
 			}
 			return true;
+
+		ReturnFalse:
+			gridInfo = default;
+			state = default;
+			return false;
 		}
 
 		void setupQueueFunctions()

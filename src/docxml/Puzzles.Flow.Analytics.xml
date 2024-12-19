@@ -1026,12 +1026,6 @@
         <member name="M:Puzzles.Flow.Analytics.TreeNode.op_Inequality(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IEqualityOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_Equality(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IEqualityOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_Inequality(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.Flow.Analytics.TreeNode.op_GreaterThan(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
             <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_GreaterThan(`0,`1)"/>
         </member>
@@ -1043,15 +1037,6 @@
         </member>
         <member name="M:Puzzles.Flow.Analytics.TreeNode.op_LessThanOrEqual(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
             <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_GreaterThan(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_LessThan(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNode.System#Numerics#IComparisonOperators{Puzzles#Flow#Analytics#TreeNode,Puzzles#Flow#Analytics#TreeNode,System#Boolean}#op_LessThanOrEqual(Puzzles.Flow.Analytics.TreeNode,Puzzles.Flow.Analytics.TreeNode)">
-            <inheritdoc/>
         </member>
     </members>
 </doc>
