@@ -1,3 +1,5 @@
+#undef PERFORM_STABLE_SORT
+
 namespace Puzzles.Flow.Analytics;
 
 /// <summary>
@@ -428,28 +430,32 @@ public sealed unsafe class Analyzer
 			grid->IsUserOrdered = true;
 		}
 
-		BubbleSort(cf[..grid->ColorsCount], ColorFeature.Compare);
+#if PERFORM_STABLE_SORT
+		bubbleSort(cf[..grid->ColorsCount], ColorFeature.Compare);
+#else
+		cf[..grid->ColorsCount].Sort(ColorFeature.Compare);
+#endif
 		for (var i = 0; i < grid->ColorsCount; i++)
 		{
 			grid->ColorOrder[i] = cf[i].Index;
 		}
-	}
 
-	/// <summary>
-	/// Performs a bubble sort.
-	/// </summary>
-	private void BubbleSort<T>(Span<T> cf, Comparison<T> comparison)
-	{
-		for (var i = 0; i < cf.Length - 1; i++)
+
+#if PERFORM_STABLE_SORT
+		static void bubbleSort<T>(Span<T> cf, Comparison<T> comparison)
 		{
-			for (var j = 0; j < cf.Length - 1 - i; j++)
+			for (var i = 0; i < cf.Length - 1; i++)
 			{
-				if (comparison(cf[j], cf[j + 1]) >= 0)
+				for (var j = 0; j < cf.Length - 1 - i; j++)
 				{
-					(cf[j], cf[j + 1]) = (cf[j + 1], cf[j]);
+					if (comparison(cf[j], cf[j + 1]) >= 0)
+					{
+						(cf[j], cf[j + 1]) = (cf[j + 1], cf[j]);
+					}
 				}
 			}
 		}
+#endif
 	}
 
 	/// <summary>
