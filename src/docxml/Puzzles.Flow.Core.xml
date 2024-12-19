@@ -259,6 +259,85 @@
         <member name="M:Puzzles.Flow.Concepts.Grid.op_Inequality(Puzzles.Flow.Concepts.Grid,Puzzles.Flow.Concepts.Grid)">
             <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
+        <member name="T:Puzzles.Flow.Concepts.Path">
+            <summary>
+            Represents a path of a flow.
+            </summary>
+            <param name="flow">Indicates the flow.</param>
+            <param name="coordinates">Indiactes the coordinates used as path.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.#ctor(Puzzles.Flow.Concepts.FlowPosition,Puzzles.Concepts.Coordinate[])">
+            <summary>
+            Represents a path of a flow.
+            </summary>
+            <param name="flow">Indicates the flow.</param>
+            <param name="coordinates">Indiactes the coordinates used as path.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Path.Length">
+            <summary>
+            Indicates the cells used.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Path.Coordinates">
+            <summary>
+            Indicates the cells used.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Path.Directions">
+            <summary>
+            Indicates the directions used.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Path.System#Collections#Generic#IReadOnlyCollection{Puzzles#Concepts#Coordinate}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Path.Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.Overlaps(Puzzles.Flow.Concepts.Path)">
+            <summary>
+            Check whether two <see cref="T:Puzzles.Flow.Concepts.Path"/> overlap with each other.
+            </summary>
+            <param name="other">The other instance to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.System#Collections#Generic#IEnumerable{Puzzles#Concepts#Coordinate}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Path._coordinates">
+            <summary>
+            The generated field declaration for parameter <c>coordinates</c>.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Path.Flow">
+            <summary>
+            The generated property declaration for parameter <c>flow</c>.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.Equals(System.Object)">
+            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.op_Equality(Puzzles.Flow.Concepts.Path,Puzzles.Flow.Concepts.Path)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.op_Inequality(Puzzles.Flow.Concepts.Path,Puzzles.Flow.Concepts.Path)">
+            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Path.Equals(Puzzles.Flow.Concepts.Path)">
+            <inheritdoc/>
+        </member>
         <member name="T:Puzzles.Flow.Concepts.Primitives.CellType">
             <summary>
             Represents a type of cell used.
