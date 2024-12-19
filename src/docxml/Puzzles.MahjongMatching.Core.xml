@@ -148,7 +148,7 @@
             <param name="mask">The mask.</param>
             <returns>The coordinate value.</returns>
         </member>
-        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_RightShift(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Direction)">
+        <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_RightShift(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.Concepts.Direction)">
             <summary>
             Advances the pointer to move a step into a new position in the specified direction.
             </summary>
@@ -168,31 +168,6 @@
         </member>
         <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_LessThanOrEqual(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Coordinate)">
             <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
-        </member>
-        <member name="T:Puzzles.MahjongMatching.Concepts.Direction">
-            <summary>
-            Represents a direction.
-            </summary>
-        </member>
-        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Up">
-            <summary>
-            Indicates the direction is up.
-            </summary>
-        </member>
-        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Down">
-            <summary>
-            Indicates the direction is down.
-            </summary>
-        </member>
-        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Left">
-            <summary>
-            Indicates the direction is left.
-            </summary>
-        </member>
-        <member name="F:Puzzles.MahjongMatching.Concepts.Direction.Right">
-            <summary>
-            Indicates the diretcion is right.
-            </summary>
         </member>
         <member name="T:Puzzles.MahjongMatching.Concepts.Layer">
             <summary>
