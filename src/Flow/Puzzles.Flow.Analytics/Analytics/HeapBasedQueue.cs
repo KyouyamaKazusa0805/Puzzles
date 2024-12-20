@@ -3,22 +3,23 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Indicates the data structure for heap-based priority queue.
 /// </summary>
-internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
+/// <param name="maxNodes">The number of elements allocated.</param>
+internal unsafe struct HeapBasedQueue(int maxNodes) : IAnalysisQueue<HeapBasedQueue>
 {
 	/// <summary>
 	/// Indicates the number enqueued.
 	/// </summary>
-	public int Count;
+	public int Count = 0;
 
 	/// <summary>
 	/// Indicates the maximum allowable queue size.
 	/// </summary>
-	public int Capacity;
+	public int Capacity = maxNodes;
 
 	/// <summary>
 	/// Indicates the array of nodes.
 	/// </summary>
-	public TreeNode** Start;
+	public TreeNode** Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*));
 
 
 	/// <inheritdoc/>
@@ -111,11 +112,5 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 
 
 	/// <inheritdoc/>
-	public static HeapBasedQueue Create(int maxNodes)
-		=> new()
-		{
-			Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*)),
-			Count = 0,
-			Capacity = maxNodes
-		};
+	static HeapBasedQueue IAnalysisQueue<HeapBasedQueue>.Create(int maxNodes) => new(maxNodes);
 }

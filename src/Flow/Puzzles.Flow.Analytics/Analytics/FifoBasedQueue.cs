@@ -3,27 +3,28 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Indicates the data structure for FIFO-based priority queue.
 /// </summary>
-internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
+/// <param name="maxNodes">The number of elements allocated.</param>
+internal unsafe struct FifoBasedQueue(int maxNodes) : IAnalysisQueue<FifoBasedQueue>
 {
 	/// <summary>
 	/// Indicates the number enqueued.
 	/// </summary>
-	public int Count;
+	public int Count = 0;
 
 	/// <summary>
 	/// Indicates the maximum allowable queue size.
 	/// </summary>
-	public int Capacity;
+	public int Capacity = maxNodes;
 
 	/// <summary>
 	/// Indicates the array of nodes.
 	/// </summary>
-	public TreeNode** Start;
+	public TreeNode** Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*));
 
 	/// <summary>
 	/// Indicates the next index to dequeue.
 	/// </summary>
-	private int _next;
+	private int _next = 0;
 
 
 	/// <inheritdoc/>
@@ -65,12 +66,5 @@ internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
 
 
 	/// <inheritdoc/>
-	public static FifoBasedQueue Create(int maxNodes)
-		=> new()
-		{
-			Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*)),
-			Count = 0,
-			Capacity = maxNodes,
-			_next = 0
-		};
+	static FifoBasedQueue IAnalysisQueue<FifoBasedQueue>.Create(int maxNodes) => new(maxNodes);
 }

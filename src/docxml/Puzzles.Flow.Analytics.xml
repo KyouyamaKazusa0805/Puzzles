@@ -574,6 +574,13 @@
             <summary>
             Indicates the data structure for FIFO-based priority queue.
             </summary>
+            <param name="maxNodes">The number of elements allocated.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.#ctor(System.Int32)">
+            <summary>
+            Indicates the data structure for FIFO-based priority queue.
+            </summary>
+            <param name="maxNodes">The number of elements allocated.</param>
         </member>
         <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Count">
             <summary>
@@ -619,7 +626,7 @@
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Dequeue">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Create(System.Int32)">
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Create(System.Int32)">
             <inheritdoc/>
         </member>
         <member name="T:Puzzles.Flow.Analytics.GridAnalyticsInfo">
@@ -744,6 +751,13 @@
             <summary>
             Indicates the data structure for heap-based priority queue.
             </summary>
+            <param name="maxNodes">The number of elements allocated.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.#ctor(System.Int32)">
+            <summary>
+            Indicates the data structure for heap-based priority queue.
+            </summary>
+            <param name="maxNodes">The number of elements allocated.</param>
         </member>
         <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Count">
             <summary>
@@ -784,7 +798,7 @@
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Dequeue">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Create(System.Int32)">
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Create(System.Int32)">
             <inheritdoc/>
         </member>
         <member name="T:Puzzles.Flow.Analytics.IAnalysisQueue`1">
@@ -807,7 +821,6 @@
             <summary>
             Determine whether the specified queue is empty.
             </summary>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
         <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Count">
             <summary>

@@ -11,7 +11,6 @@ internal interface IAnalysisQueue<TSelf> : IDisposable
 	/// <summary>
 	/// Determine whether the specified queue is empty.
 	/// </summary>
-	/// <returns>A <see cref="bool"/> result indicating that.</returns>
 	public abstract bool IsEmpty { get; }
 
 	/// <summary>
