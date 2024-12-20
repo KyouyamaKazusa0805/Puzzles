@@ -1108,7 +1108,7 @@ public sealed unsafe class Analyzer
 		{
 			var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * (1 << 20) / sizeof(TreeNode));
 			nodeMemoryManager = new(maxNodes);
-			scoped ref var root = ref nodeMemoryManager.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
+			ref var root = ref nodeMemoryManager.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
 			UpdateNodeCosts(ref root, 0);
 
 			queue = TQueue.Create(maxNodes);
