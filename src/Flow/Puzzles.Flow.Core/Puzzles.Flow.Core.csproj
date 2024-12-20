@@ -4,7 +4,6 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<RootNamespace>Puzzles.Flow</RootNamespace>
 		<DocumentationFile>../../docxml/Puzzles.Flow.Core.xml</DocumentationFile>
-		<DefineConstants>DISPLAY_COLOR_CONOSLE</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>

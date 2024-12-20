@@ -1102,20 +1102,20 @@ public sealed unsafe class Analyzer
 	)
 		where TQueue : unmanaged, IAnalysisQueue<TQueue>, allows ref struct
 	{
-		var storage = default(NodeStorage);
+		var nodeMemoryManager = default(TreeNodeMemoryManager)!;
 		var queue = default(TQueue);
 		try
 		{
 			var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * (1 << 20) / sizeof(TreeNode));
-			storage = NodeStorage.Create(maxNodes);
-			scoped ref var root = ref storage.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
+			nodeMemoryManager = new(maxNodes);
+			scoped ref var root = ref nodeMemoryManager.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
 			UpdateNodeCosts(ref root, 0);
 
 			queue = TQueue.Create(maxNodes);
 			var result = SearchingResult.InProgress;
 			ref var solutionNode = ref Unsafe.NullRef<TreeNode>();
 			var start = Stopwatch.GetTimestamp();
-			root = ref Validate(in grid, ref root, ref storage);
+			root = ref Validate(in grid, ref root, nodeMemoryManager);
 			if (Unsafe.IsNullRef(in root))
 			{
 				result = SearchingResult.Unreachable;
@@ -1149,7 +1149,7 @@ public sealed unsafe class Analyzer
 
 					if (CanMove(in grid, in n.State, color, direction))
 					{
-						ref var child = ref storage.CreateNode(in n, ref parentState);
+						ref var child = ref nodeMemoryManager.CreateNode(in n, ref parentState);
 						if (Unsafe.IsNullRef(in child))
 						{
 							result = SearchingResult.Full;
@@ -1179,16 +1179,16 @@ public sealed unsafe class Analyzer
 			}
 
 			elapsed = new(Stopwatch.GetTimestamp() - start);
-			nodes = storage.Count;
+			nodes = nodeMemoryManager.Count;
 
 			if (result == SearchingResult.Success)
 			{
 				Debug.Assert(!Unsafe.IsNullRef(in solutionNode));
 				finalState = solutionNode.State;
 			}
-			else if (storage.Count != 0)
+			else if (nodeMemoryManager.Count != 0)
 			{
-				finalState = storage.Start[storage.Count - 1].State;
+				finalState = nodeMemoryManager.Entry[nodeMemoryManager.Count - 1].State;
 			}
 			else
 			{
@@ -1201,7 +1201,7 @@ public sealed unsafe class Analyzer
 		}
 		finally
 		{
-			storage.Dispose();
+			nodeMemoryManager.Dispose();
 			queue.Dispose();
 		}
 	}
@@ -1211,30 +1211,30 @@ public sealed unsafe class Analyzer
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="node">The node.</param>
-	/// <param name="storage">The storage.</param>
-	/// <returns>The final tree node created.</returns>
-	private ref TreeNode Validate(ref readonly GridAnalyticsInfo grid, ref TreeNode node, ref NodeStorage storage)
+	/// <param name="memoryManager">The memory manager of <see cref="TreeNode"/> instances.</param>
+	/// <returns>The final <see cref="TreeNode"/> instance created.</returns>
+	private ref TreeNode Validate(ref readonly GridAnalyticsInfo grid, ref TreeNode node, TreeNodeMemoryManager memoryManager)
 	{
-		Debug.Assert(Unsafe.AreSame(in node, in storage.Start[storage.Count - 1]));
+		Debug.Assert(Unsafe.AreSame(in node, in memoryManager.Entry[memoryManager.Count - 1]));
 
 		ref var nodeState = ref node.State;
 		if (SearchFastForward && ForcesFirstColor && FindForced(in grid, in nodeState, out var color, out var direction))
 		{
 			if (!CanMove(in grid, in nodeState, color, direction))
 			{
-				goto UnallocReturnNull;
+				goto ReturnNull;
 			}
 
-			ref var forcedChild = ref storage.CreateNode(in node, ref nodeState);
+			ref var forcedChild = ref memoryManager.CreateNode(in node, ref nodeState);
 			if (!Unsafe.IsNullRef(in forcedChild))
 			{
 				MakeMove(in grid, ref forcedChild.State, color, direction, true);
 				UpdateNodeCosts(ref forcedChild, 0);
 
-				forcedChild = ref Validate(in grid, ref forcedChild, ref storage);
+				forcedChild = ref Validate(in grid, ref forcedChild, memoryManager);
 				if (Unsafe.IsNullRef(in forcedChild))
 				{
-					goto UnallocReturnNull;
+					goto ReturnNull;
 				}
 				return ref forcedChild;
 			}
@@ -1242,7 +1242,7 @@ public sealed unsafe class Analyzer
 
 		if (CheckDeadendCases && CheckDeadends(in grid, in nodeState))
 		{
-			goto UnallocReturnNull;
+			goto ReturnNull;
 		}
 
 		if (CheckStrandedCases)
@@ -1251,19 +1251,19 @@ public sealed unsafe class Analyzer
 			var resultCount = BuildRegions(in grid, in nodeState, resultMap);
 			if (GetStrandedColors(in grid, in nodeState, resultCount, resultMap, MaxSupportedColorsCount, 1) != 0)
 			{
-				goto UnallocReturnNull;
+				goto ReturnNull;
 			}
 		}
 
 		if (BottleneckLimit != 0 && CheckBottleneck(in grid, in nodeState) != 0)
 		{
-			goto UnallocReturnNull;
+			goto ReturnNull;
 		}
 		return ref node;
 
-	UnallocReturnNull:
-		Debug.Assert(Unsafe.AreSame(in node, in storage.Start[storage.Count - 1]));
-		storage.Unalloc(in node);
+	ReturnNull:
+		Debug.Assert(Unsafe.AreSame(in node, in memoryManager.Entry[memoryManager.Count - 1]));
+		memoryManager.Return(in node);
 		return ref Unsafe.NullRef<TreeNode>();
 	}
 }

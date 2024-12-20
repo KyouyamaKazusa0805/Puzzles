@@ -405,14 +405,14 @@
             <param name="finalState">The final state.</param>
             <returns>A <see cref="T:Puzzles.Flow.Analytics.SearchingResult"/> value.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.Validate(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.NodeStorage@)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Validate(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNodeMemoryManager)">
             <summary>
             Validate the puzzle, and return the tree node in use.
             </summary>
             <param name="grid">The grid.</param>
             <param name="node">The node.</param>
-            <param name="storage">The storage.</param>
-            <returns>The final tree node created.</returns>
+            <param name="memoryManager">The memory manager of <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances.</param>
+            <returns>The final <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instance created.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.Cell">
             <summary>
@@ -868,56 +868,6 @@
             <param name="maxNodes">The number of elements allocated.</param>
             <returns>An instance of type <typeparamref name="TSelf"/>.</returns>
         </member>
-        <member name="T:Puzzles.Flow.Analytics.NodeStorage">
-            <summary>
-            Represents data structure for node storage.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.NodeStorage.Capacity">
-            <summary>
-            Indicates the capacity.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.NodeStorage.Count">
-            <summary>
-            Indicates the number of nodes solved.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.NodeStorage.Start">
-            <summary>
-            Indicates the allocated block.
-            </summary>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Unalloc(Puzzles.Flow.Analytics.TreeNode@)">
-            <summary>
-            Unallocate the tree node.
-            </summary>
-            <param name="n">The node.</param>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Alloc">
-            <summary>
-            Try allocate the next node.
-            </summary>
-            <returns>The next node pointer.</returns>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.NodeStorage.CreateNode(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.GridInterimState@)">
-            <summary>
-            Create a node via the specified parent and state.
-            </summary>
-            <param name="parent">The parent node.</param>
-            <param name="state">The state.</param>
-            <returns>The created node.</returns>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Create(System.Int32)">
-            <summary>
-            Create single linear allocator for searching nodes.
-            </summary>
-            <param name="maxNodes">The maximum nodes.</param>
-            <returns>The <see cref="T:Puzzles.Flow.Analytics.NodeStorage"/> value.</returns>
-        </member>
         <member name="T:Puzzles.Flow.Analytics.Position">
             <summary>
             Represents an easy way to convert values to position.
@@ -1105,6 +1055,56 @@
         </member>
         <member name="M:Puzzles.Flow.Analytics.TreeNode.op_LessThanOrEqual(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
             <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.TreeNodeMemoryManager">
+            <summary>
+            Represents a memory manager for <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances allocation.
+            </summary>
+            <param name="capacity">The capacity.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.#ctor(System.Int32)">
+            <summary>
+            Represents a memory manager for <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances allocation.
+            </summary>
+            <param name="capacity">The capacity.</param>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Capacity">
+            <summary>
+            Indicates the capacity.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Count">
+            <summary>
+            Indicates the number of nodes solved.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Entry">
+            <summary>
+            Indicates the allocated block.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Return(Puzzles.Flow.Analytics.TreeNode@)">
+            <summary>
+            Return the tree node to memory, to free the memory up.
+            </summary>
+            <param name="n">The node.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Rent">
+            <summary>
+            Try to create a new <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> from memory.
+            </summary>
+            <returns>The reference to the next node; or <see langword="ref null"/> if failed to create.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.CreateNode(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.GridInterimState@)">
+            <summary>
+            Create a node via the specified parent and state.
+            </summary>
+            <param name="parent">The parent node.</param>
+            <param name="state">The state.</param>
+            <returns>The created node, or return <see langword="ref null"/> if failed to allocate.</returns>
         </member>
     </members>
 </doc>

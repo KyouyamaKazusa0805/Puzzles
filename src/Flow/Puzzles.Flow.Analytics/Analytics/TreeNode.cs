@@ -6,7 +6,7 @@ namespace Puzzles.Flow.Analytics;
 [TypeImpl(
 	TypeImplFlags.Object_Equals | TypeImplFlags.Object_GetHashCode | TypeImplFlags.AllEqualityComparisonOperators,
 	IsLargeStructure = true)]
-internal ref partial struct TreeNode : IComparable<TreeNode>, IEquatable<TreeNode>
+internal partial struct TreeNode : IComparable<TreeNode>, IEquatable<TreeNode>
 {
 	/// <summary>
 	/// Indicates the cost to come (this field will be ignored in BFS).
