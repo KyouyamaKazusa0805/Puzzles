@@ -231,11 +231,6 @@
             Indicates whether analyzer will randomize colors.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.UsesBestFirstSearch">
-            <summary>
-            Indicates whether analyzer will use best-first search (BFS) rule to check grid.
-            </summary>
-        </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.MaxMemoryUsage">
             <summary>
             Indicates the maximum memory usage in mega-bytes.

@@ -1,4 +1,5 @@
 #undef PERFORM_STABLE_SORT
+#define USE_BEST_FIRST_SEARCH
 
 namespace Puzzles.Flow.Analytics;
 
@@ -145,11 +146,6 @@ public sealed unsafe class Analyzer
 	/// Indicates whether analyzer will randomize colors.
 	/// </summary>
 	public bool RandomOrdering { get; set; }
-
-	/// <summary>
-	/// Indicates whether analyzer will use best-first search (BFS) rule to check grid.
-	/// </summary>
-	public bool UsesBestFirstSearch { get; set; } = true;
 
 	/// <summary>
 	/// Indicates the maximum memory usage in mega-bytes.
@@ -303,26 +299,24 @@ public sealed unsafe class Analyzer
 			return false;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void setupQueueFunctions()
 		{
-			if (UsesBestFirstSearch)
-			{
-				_queueCreator = &HeapBasedQueue.Create;
-				_queueEnqueuer = &HeapBasedQueue.Enqueue;
-				_queueDequeuer = &HeapBasedQueue.Dequeue;
-				_queueDestroyer = &HeapBasedQueue.Destroy;
-				_queueEmptyChecker = &HeapBasedQueue.IsEmpty;
-				_queuePeeker = &HeapBasedQueue.Peek;
-			}
-			else
-			{
-				_queueCreator = &FifoBasedQueue.Create;
-				_queueEnqueuer = &FifoBasedQueue.Enqueue;
-				_queueDequeuer = &FifoBasedQueue.Dequeue;
-				_queueDestroyer = &FifoBasedQueue.Destroy;
-				_queueEmptyChecker = &FifoBasedQueue.IsEmpty;
-				_queuePeeker = &FifoBasedQueue.Peek;
-			}
+#if USE_BEST_FIRST_SEARCH
+			_queueCreator = &HeapBasedQueue.Create;
+			_queueEnqueuer = &HeapBasedQueue.Enqueue;
+			_queueDequeuer = &HeapBasedQueue.Dequeue;
+			_queueDestroyer = &HeapBasedQueue.Destroy;
+			_queueEmptyChecker = &HeapBasedQueue.IsEmpty;
+			_queuePeeker = &HeapBasedQueue.Peek;
+#else
+			_queueCreator = &FifoBasedQueue.Create;
+			_queueEnqueuer = &FifoBasedQueue.Enqueue;
+			_queueDequeuer = &FifoBasedQueue.Dequeue;
+			_queueDestroyer = &FifoBasedQueue.Destroy;
+			_queueEmptyChecker = &FifoBasedQueue.IsEmpty;
+			_queuePeeker = &FifoBasedQueue.Peek;
+#endif
 		}
 	}
 
