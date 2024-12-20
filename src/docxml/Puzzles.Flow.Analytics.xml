@@ -1060,18 +1060,13 @@
             <summary>
             Represents a memory manager for <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances allocation.
             </summary>
-            <param name="capacity">The capacity.</param>
+            <param name="capacity">Indicates the capacity.</param>
         </member>
         <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.#ctor(System.Int32)">
             <summary>
             Represents a memory manager for <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances allocation.
             </summary>
-            <param name="capacity">The capacity.</param>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Capacity">
-            <summary>
-            Indicates the capacity.
-            </summary>
+            <param name="capacity">Indicates the capacity.</param>
         </member>
         <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Count">
             <summary>
@@ -1105,6 +1100,11 @@
             <param name="parent">The parent node.</param>
             <param name="state">The state.</param>
             <returns>The created node, or return <see langword="ref null"/> if failed to allocate.</returns>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Capacity">
+            <summary>
+            The generated property declaration for parameter <c>capacity</c>.
+            </summary>
         </member>
     </members>
 </doc>

@@ -11,14 +11,9 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Represents a memory manager for <see cref="TreeNode"/> instances allocation.
 /// </summary>
-/// <param name="capacity">The capacity.</param>
-internal sealed unsafe class TreeNodeMemoryManager(int capacity) : IDisposable
+/// <param name="capacity">Indicates the capacity.</param>
+internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capacity) : IDisposable
 {
-	/// <summary>
-	/// Indicates the capacity.
-	/// </summary>
-	public int Capacity { get; } = capacity;
-
 	/// <summary>
 	/// Indicates the number of nodes solved.
 	/// </summary>
