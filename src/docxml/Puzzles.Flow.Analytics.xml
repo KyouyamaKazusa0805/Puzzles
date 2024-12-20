@@ -595,6 +595,9 @@
             Indicates the next index to dequeue.
             </summary>
         </member>
+        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.IsEmpty">
+            <inheritdoc/>
+        </member>
         <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Count">
             <inheritdoc/>
         </member>
@@ -605,9 +608,6 @@
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.IsEmpty">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Peek">
@@ -760,6 +760,9 @@
             Indicates the array of nodes.
             </summary>
         </member>
+        <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.IsEmpty">
+            <inheritdoc/>
+        </member>
         <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Count">
             <inheritdoc/>
         </member>
@@ -770,9 +773,6 @@
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.IsEmpty">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Peek">
@@ -803,6 +803,12 @@
 	</self-type-constraint></typeparam>
             <seealso cref="T:Puzzles.Flow.Analytics.TreeNode" />
         </member>
+        <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.IsEmpty">
+            <summary>
+            Determine whether the specified queue is empty.
+            </summary>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
         <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Count">
             <summary>
             Indicates the number of elements in the collection.
@@ -823,12 +829,6 @@
             Try to enqueue a <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> into <typeparamref name="TSelf"/>.
             </summary>
             <param name="node">The node to be added.</param>
-        </member>
-        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.IsEmpty">
-            <summary>
-            Determine whether the specified queue is empty.
-            </summary>
-            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
         <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Peek">
             <summary>

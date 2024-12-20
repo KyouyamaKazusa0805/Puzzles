@@ -5,23 +5,29 @@ namespace Puzzles.Flow.Analytics;
 /// </summary>
 /// <typeparam name="TSelf"><include file="../../../global-doc-comments.xml" path="/g/self-type-constraint"/></typeparam>
 /// <seealso cref="TreeNode"/>
-internal unsafe interface IAnalysisQueue<TSelf> : IDisposable
+internal interface IAnalysisQueue<TSelf> : IDisposable
 	where TSelf : unmanaged, IAnalysisQueue<TSelf>, allows ref struct
 {
 	/// <summary>
+	/// Determine whether the specified queue is empty.
+	/// </summary>
+	/// <returns>A <see cref="bool"/> result indicating that.</returns>
+	public abstract bool IsEmpty { get; }
+
+	/// <summary>
 	/// Indicates the number of elements in the collection.
 	/// </summary>
-	public int Count { get; }
+	public abstract int Count { get; }
 
 	/// <summary>
 	/// Indicates the capacity of the collection.
 	/// </summary>
-	public int Capacity { get; }
+	public abstract int Capacity { get; }
 
 	/// <summary>
 	/// Indicates the nodes of a 2D array, specified as pointer.
 	/// </summary>
-	public TreeNode** Start { get; }
+	public abstract unsafe TreeNode** Start { get; }
 
 
 	/// <summary>
@@ -29,12 +35,6 @@ internal unsafe interface IAnalysisQueue<TSelf> : IDisposable
 	/// </summary>
 	/// <param name="node">The node to be added.</param>
 	public abstract void Enqueue(ref readonly TreeNode node);
-
-	/// <summary>
-	/// Determine whether the specified queue is empty.
-	/// </summary>
-	/// <returns>A <see cref="bool"/> result indicating that.</returns>
-	public abstract bool IsEmpty();
 
 	/// <summary>
 	/// Try to peek the specified queue, and return the last element in the collection, without any operation to effect the collection.

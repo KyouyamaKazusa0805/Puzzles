@@ -27,6 +27,9 @@ internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
 
 
 	/// <inheritdoc/>
+	public readonly bool IsEmpty => _next == Count;
+
+	/// <inheritdoc/>
 	readonly int IAnalysisQueue<FifoBasedQueue>.Count => Count;
 
 	/// <inheritdoc/>
@@ -40,12 +43,9 @@ internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
 	public readonly void Dispose() => NativeMemory.Free(Start);
 
 	/// <inheritdoc/>
-	public readonly bool IsEmpty() => _next == Count;
-
-	/// <inheritdoc/>
 	public readonly ref TreeNode Peek()
 	{
-		Debug.Assert(!IsEmpty());
+		Debug.Assert(!IsEmpty);
 		return ref *Start[_next];
 	}
 
@@ -59,7 +59,7 @@ internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
 	/// <inheritdoc/>
 	public ref TreeNode Dequeue()
 	{
-		Debug.Assert(!IsEmpty());
+		Debug.Assert(!IsEmpty);
 		return ref *Start[_next++];
 	}
 

@@ -22,6 +22,9 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 
 
 	/// <inheritdoc/>
+	public readonly bool IsEmpty => Count == 0;
+
+	/// <inheritdoc/>
 	readonly int IAnalysisQueue<HeapBasedQueue>.Count => Count;
 
 	/// <inheritdoc/>
@@ -35,12 +38,9 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 	public readonly void Dispose() => NativeMemory.Free(Start);
 
 	/// <inheritdoc/>
-	public readonly bool IsEmpty() => Count == 0;
-
-	/// <inheritdoc/>
 	public readonly ref TreeNode Peek()
 	{
-		Debug.Assert(!IsEmpty());
+		Debug.Assert(!IsEmpty);
 		return ref *Start[0];
 	}
 
@@ -70,7 +70,7 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 	/// <inheritdoc/>
 	public ref TreeNode Dequeue()
 	{
-		Debug.Assert(!IsEmpty());
+		Debug.Assert(!IsEmpty);
 
 		ref var result = ref *Start[0];
 		Count--;

@@ -1121,7 +1121,7 @@ public sealed unsafe class Analyzer
 
 			while (result == SearchingResult.InProgress)
 			{
-				if (queue.IsEmpty())
+				if (queue.IsEmpty)
 				{
 					result = SearchingResult.Unreachable;
 					break;
