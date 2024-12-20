@@ -37,33 +37,30 @@ internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
 
 
 	/// <inheritdoc/>
-	public static void Enqueue(Queue* queue, TreeNode* node)
+	public static void Enqueue(ref Queue queue, ref readonly TreeNode node)
 	{
-		Debug.Assert(queue->FifoBased.Count < queue->FifoBased.Capacity);
-
-		queue->FifoBased.Start[queue->FifoBased.Count++] = node;
+		Debug.Assert(queue.FifoBased.Count < queue.FifoBased.Capacity);
+		queue.FifoBased.Start[queue.FifoBased.Count++] = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in node));
 	}
 
 	/// <inheritdoc/>
-	public static void Destroy(Queue* queue) => NativeMemory.Free(queue->FifoBased.Start);
+	public static void Destroy(ref readonly Queue queue) => NativeMemory.Free(queue.FifoBased.Start);
 
 	/// <inheritdoc/>
-	public static bool IsEmpty(Queue* queue) => queue->FifoBased._next == queue->FifoBased.Count;
+	public static bool IsEmpty(ref readonly Queue queue) => queue.FifoBased._next == queue.FifoBased.Count;
 
 	/// <inheritdoc/>
-	public static TreeNode* Peek(Queue* queue)
+	public static ref TreeNode Peek(scoped ref readonly Queue queue)
 	{
-		Debug.Assert(!IsEmpty(queue));
-
-		return queue->FifoBased.Start[queue->FifoBased._next];
+		Debug.Assert(!IsEmpty(in queue));
+		return ref *queue.FifoBased.Start[queue.FifoBased._next];
 	}
 
 	/// <inheritdoc/>
-	public static TreeNode* Dequeue(Queue* queue)
+	public static ref TreeNode Dequeue(scoped ref Queue queue)
 	{
-		Debug.Assert(!IsEmpty(queue));
-
-		return queue->FifoBased.Start[queue->FifoBased._next++];
+		Debug.Assert(!IsEmpty(in queue));
+		return ref *queue.FifoBased.Start[queue.FifoBased._next++];
 	}
 
 	/// <inheritdoc/>

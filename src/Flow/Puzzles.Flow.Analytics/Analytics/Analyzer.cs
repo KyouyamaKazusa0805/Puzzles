@@ -1112,18 +1112,18 @@ public sealed unsafe class Analyzer
 		}
 		else
 		{
-			TQueue.Enqueue(&queue, (TreeNode*)Unsafe.AsPointer(ref root));
+			TQueue.Enqueue(ref queue, in root);
 		}
 
 		while (result == SearchingResult.InProgress)
 		{
-			if (TQueue.IsEmpty(&queue))
+			if (TQueue.IsEmpty(in queue))
 			{
 				result = SearchingResult.Unreachable;
 				break;
 			}
 
-			ref var n = ref *TQueue.Dequeue(&queue);
+			ref var n = ref TQueue.Dequeue(ref queue);
 			Debug.Assert(!Unsafe.IsNullRef(in n));
 
 			ref var parentState = ref n.State;
@@ -1158,7 +1158,7 @@ public sealed unsafe class Analyzer
 							break;
 						}
 
-						TQueue.Enqueue(&queue, (TreeNode*)Unsafe.AsPointer(ref child));
+						TQueue.Enqueue(ref queue, in child);
 					}
 				}
 				if (forced)
@@ -1186,7 +1186,7 @@ public sealed unsafe class Analyzer
 		}
 
 		storage.Destroy();
-		TQueue.Destroy(&queue);
+		TQueue.Destroy(in queue);
 		return result;
 	}
 
