@@ -1,10 +1,10 @@
-﻿namespace Puzzles.Flow.Analytics;
+namespace Puzzles.Flow.Analytics;
 
 /// <summary>
 /// Represents a local queue union type.
 /// </summary>
 [StructLayout(LayoutKind.Explicit)]
-internal struct Queue
+internal ref struct Queue
 {
 	/// <summary>
 	/// Indicates the heap-based value.

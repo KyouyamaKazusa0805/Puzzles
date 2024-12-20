@@ -3,7 +3,7 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Represents data structure for node storage.
 /// </summary>
-internal unsafe struct NodeStorage
+internal unsafe ref struct NodeStorage
 {
 	/// <summary>
 	/// Indicates the capacity.
@@ -31,9 +31,9 @@ internal unsafe struct NodeStorage
 	/// Unallocate the tree node.
 	/// </summary>
 	/// <param name="n">The node.</param>
-	public void Unalloc(TreeNode* n)
+	public void Unalloc(scoped ref readonly TreeNode n)
 	{
-		Debug.Assert(Count != 0 && n == Start + Count - 1);
+		Debug.Assert(Count != 0 && Unsafe.AreSame(in n, in Start[Count - 1]));
 		Count--;
 	}
 
@@ -41,16 +41,16 @@ internal unsafe struct NodeStorage
 	/// Try allocate the next node.
 	/// </summary>
 	/// <returns>The next node pointer.</returns>
-	public TreeNode* Alloc()
+	public ref TreeNode Alloc()
 	{
 		if (Count >= Capacity)
 		{
-			return null;
+			return ref Unsafe.NullRef<TreeNode>();
 		}
 
-		var result = Start + Count;
+		ref var result = ref Start[Count];
 		Count++;
-		return result;
+		return ref result;
 	}
 
 	/// <summary>
@@ -59,26 +59,29 @@ internal unsafe struct NodeStorage
 	/// <param name="parent">The parent node.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>The created node.</returns>
-	public TreeNode* CreateNode(TreeNode* parent, GridInterimState* state)
+	public ref TreeNode CreateNode(ref readonly TreeNode parent, ref GridInterimState state)
 	{
-		var result = Alloc();
-		if (result == null)
+		ref var result = ref Alloc();
+		if (Unsafe.IsNullRef(in result))
 		{
-			return null;
+			return ref Unsafe.NullRef<TreeNode>();
 		}
 
-		result->Parent = parent;
-		result->CostToCome = 0;
-		result->CostToGo = 0;
-		result->State = new()
+		result.Parent = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in parent));
+		result.CostToCome = 0;
+		result.CostToGo = 0;
+		result.State = new()
 		{
-			LastColor = state->LastColor,
-			FreeCellsCount = state->FreeCellsCount,
-			CompletedMask = state->CompletedMask
+			LastColor = state.LastColor,
+			FreeCellsCount = state.FreeCellsCount,
+			CompletedMask = state.CompletedMask
 		};
-		Unsafe.CopyBlock(result->State.Cells, state->Cells, sizeof(byte) * Analyzer.MaxGridCellsCount);
-		Unsafe.CopyBlock(result->State.Positions, state->Positions, sizeof(byte) * Analyzer.MaxSupportedColorsCount);
-		return result;
+
+		var pResult = (TreeNode*)Unsafe.AsPointer(ref result);
+		var pState = (GridInterimState*)Unsafe.AsPointer(ref state);
+		Unsafe.CopyBlock(pResult->State.Cells, pState->Cells, sizeof(byte) * Analyzer.MaxGridCellsCount);
+		Unsafe.CopyBlock(pResult->State.Positions, pState->Positions, sizeof(byte) * Analyzer.MaxSupportedColorsCount);
+		return ref result;
 	}
 
 
