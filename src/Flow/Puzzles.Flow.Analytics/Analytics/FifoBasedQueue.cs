@@ -3,8 +3,10 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Indicates the data structure for FIFO-based priority queue.
 /// </summary>
-/// <param name="maxNodes">The number of elements allocated.</param>
-internal unsafe struct FifoBasedQueue(int maxNodes) : IAnalysisQueue<FifoBasedQueue>
+/// <param name="capacity">The number of elements allocated.</param>
+[StructLayout(LayoutKind.Auto)]
+internal unsafe partial struct FifoBasedQueue([Field(Accessibility = "public", NamingRule = NamingRules.Property)] int capacity) :
+	IAnalysisQueue<FifoBasedQueue>
 {
 	/// <summary>
 	/// Indicates the number enqueued.
@@ -12,14 +14,9 @@ internal unsafe struct FifoBasedQueue(int maxNodes) : IAnalysisQueue<FifoBasedQu
 	public int Count = 0;
 
 	/// <summary>
-	/// Indicates the maximum allowable queue size.
-	/// </summary>
-	public int Capacity = maxNodes;
-
-	/// <summary>
 	/// Indicates the array of nodes.
 	/// </summary>
-	public TreeNode** Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*));
+	public TreeNode*[] Start = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(capacity));
 
 	/// <summary>
 	/// Indicates the next index to dequeue.
@@ -37,11 +34,11 @@ internal unsafe struct FifoBasedQueue(int maxNodes) : IAnalysisQueue<FifoBasedQu
 	readonly int IAnalysisQueue<FifoBasedQueue>.Capacity => Capacity;
 
 	/// <inheritdoc/>
-	readonly TreeNode** IAnalysisQueue<FifoBasedQueue>.Start => Start;
+	readonly TreeNode*[] IAnalysisQueue<FifoBasedQueue>.Start => Start;
 
 
 	/// <inheritdoc/>
-	public readonly void Dispose() => NativeMemory.Free(Start);
+	public readonly void Dispose() => ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Start));
 
 	/// <inheritdoc/>
 	public readonly ref TreeNode Peek()

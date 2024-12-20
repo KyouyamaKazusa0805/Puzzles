@@ -3,8 +3,10 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Indicates the data structure for heap-based priority queue.
 /// </summary>
-/// <param name="maxNodes">The number of elements allocated.</param>
-internal unsafe struct HeapBasedQueue(int maxNodes) : IAnalysisQueue<HeapBasedQueue>
+/// <param name="capacity">The number of elements allocated.</param>
+[StructLayout(LayoutKind.Auto)]
+internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", NamingRule = NamingRules.Property)] int capacity) :
+	IAnalysisQueue<HeapBasedQueue>
 {
 	/// <summary>
 	/// Indicates the number enqueued.
@@ -12,14 +14,9 @@ internal unsafe struct HeapBasedQueue(int maxNodes) : IAnalysisQueue<HeapBasedQu
 	public int Count = 0;
 
 	/// <summary>
-	/// Indicates the maximum allowable queue size.
-	/// </summary>
-	public int Capacity = maxNodes;
-
-	/// <summary>
 	/// Indicates the array of nodes.
 	/// </summary>
-	public TreeNode** Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*));
+	public TreeNode*[] Start = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(capacity));
 
 
 	/// <inheritdoc/>
@@ -32,11 +29,11 @@ internal unsafe struct HeapBasedQueue(int maxNodes) : IAnalysisQueue<HeapBasedQu
 	readonly int IAnalysisQueue<HeapBasedQueue>.Capacity => Capacity;
 
 	/// <inheritdoc/>
-	readonly TreeNode** IAnalysisQueue<HeapBasedQueue>.Start => Start;
+	readonly TreeNode*[] IAnalysisQueue<HeapBasedQueue>.Start => Start;
 
 
 	/// <inheritdoc/>
-	public readonly void Dispose() => NativeMemory.Free(Start);
+	public readonly void Dispose() => ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Start));
 
 	/// <inheritdoc/>
 	public readonly ref TreeNode Peek()

@@ -1100,7 +1100,7 @@ public sealed unsafe class Analyzer
 		out int nodes,
 		out GridInterimState finalState
 	)
-		where TQueue : unmanaged, IAnalysisQueue<TQueue>, allows ref struct
+		where TQueue : struct, IAnalysisQueue<TQueue>, allows ref struct
 	{
 		var nodeMemoryManager = default(TreeNodeMemoryManager)!;
 		var queue = default(TQueue);

@@ -5,8 +5,7 @@ namespace Puzzles.Flow.Analytics;
 /// </summary>
 /// <typeparam name="TSelf"><include file="../../../global-doc-comments.xml" path="/g/self-type-constraint"/></typeparam>
 /// <seealso cref="TreeNode"/>
-internal interface IAnalysisQueue<TSelf> : IDisposable
-	where TSelf : unmanaged, IAnalysisQueue<TSelf>, allows ref struct
+internal interface IAnalysisQueue<TSelf> : IDisposable where TSelf : struct, IAnalysisQueue<TSelf>, allows ref struct
 {
 	/// <summary>
 	/// Determine whether the specified queue is empty.
@@ -24,9 +23,9 @@ internal interface IAnalysisQueue<TSelf> : IDisposable
 	public abstract int Capacity { get; }
 
 	/// <summary>
-	/// Indicates the nodes of a 2D array, specified as pointer.
+	/// Indicates the nodes stored. All elements are stored as pointers.
 	/// </summary>
-	public abstract unsafe TreeNode** Start { get; }
+	public abstract unsafe TreeNode*[] Start { get; }
 
 
 	/// <summary>

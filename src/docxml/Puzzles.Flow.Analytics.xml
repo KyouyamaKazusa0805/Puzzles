@@ -580,22 +580,17 @@
             <summary>
             Indicates the data structure for FIFO-based priority queue.
             </summary>
-            <param name="maxNodes">The number of elements allocated.</param>
+            <param name="capacity">The number of elements allocated.</param>
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.#ctor(System.Int32)">
             <summary>
             Indicates the data structure for FIFO-based priority queue.
             </summary>
-            <param name="maxNodes">The number of elements allocated.</param>
+            <param name="capacity">The number of elements allocated.</param>
         </member>
         <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Count">
             <summary>
             Indicates the number enqueued.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Capacity">
-            <summary>
-            Indicates the maximum allowable queue size.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Start">
@@ -634,6 +629,11 @@
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Create(System.Int32)">
             <inheritdoc/>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Capacity">
+            <summary>
+            The generated field declaration for parameter <c>capacity</c>.
+            </summary>
         </member>
         <member name="T:Puzzles.Flow.Analytics.GridAnalyticsInfo">
             <summary>
@@ -757,22 +757,17 @@
             <summary>
             Indicates the data structure for heap-based priority queue.
             </summary>
-            <param name="maxNodes">The number of elements allocated.</param>
+            <param name="capacity">The number of elements allocated.</param>
         </member>
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.#ctor(System.Int32)">
             <summary>
             Indicates the data structure for heap-based priority queue.
             </summary>
-            <param name="maxNodes">The number of elements allocated.</param>
+            <param name="capacity">The number of elements allocated.</param>
         </member>
         <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Count">
             <summary>
             Indicates the number enqueued.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Capacity">
-            <summary>
-            Indicates the maximum allowable queue size.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Start">
@@ -807,6 +802,11 @@
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Create(System.Int32)">
             <inheritdoc/>
         </member>
+        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Capacity">
+            <summary>
+            The generated field declaration for parameter <c>capacity</c>.
+            </summary>
+        </member>
         <member name="T:Puzzles.Flow.Analytics.IAnalysisQueue`1">
             <summary>
             Represents a queue that supports analysis as node used by <see cref="T:Puzzles.Flow.Analytics.TreeNode" />.
@@ -840,7 +840,7 @@
         </member>
         <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Start">
             <summary>
-            Indicates the nodes of a 2D array, specified as pointer.
+            Indicates the nodes stored. All elements are stored as pointers.
             </summary>
         </member>
         <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Enqueue(Puzzles.Flow.Analytics.TreeNode@)">
