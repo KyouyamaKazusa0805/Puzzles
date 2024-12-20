@@ -151,9 +151,19 @@
             Indicates all directions.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckTouchness">
+        <member name="P:Puzzles.Flow.Analytics.Analyzer.DisableAdjacentTouchness">
             <summary>
-            Indicates whether analyzer will check on touchness.
+            <para>
+            Indicates whether analyzer ignores adjacent pairs of cells are start point and end point respectively.
+            For example, cells (1, 1) and (1, 2) are an adjacent pair of cells. If (1, 1) is the start point and (1, 2) is the end point,
+            they will be "adjacent-touched" with each other.
+            </para>
+            <para>
+            If this option is set to <see langword="false"/> (enabled checking touchness), the complexity will be much massive
+            to the case setting this option to <see langword="true"/> (disabled checking touchness);
+            however, adjacent-touched cases will be checked, so the solution to a puzzle can be checked exhaustively.
+            </para>
+            <para>By default the value is <see langword="true"/> (disabled).</para>
             </summary>
         </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckStrandedCases">

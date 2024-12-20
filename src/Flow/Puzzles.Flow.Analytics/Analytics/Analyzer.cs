@@ -67,9 +67,19 @@ public sealed unsafe class Analyzer
 
 
 	/// <summary>
-	/// Indicates whether analyzer will check on touchness.
+	/// <para>
+	/// Indicates whether analyzer ignores adjacent pairs of cells are start point and end point respectively.
+	/// For example, cells (1, 1) and (1, 2) are an adjacent pair of cells. If (1, 1) is the start point and (1, 2) is the end point,
+	/// they will be "adjacent-touched" with each other.
+	/// </para>
+	/// <para>
+	/// If this option is set to <see langword="false"/> (enabled checking touchness), the complexity will be much massive
+	/// to the case setting this option to <see langword="true"/> (disabled checking touchness);
+	/// however, adjacent-touched cases will be checked, so the solution to a puzzle can be checked exhaustively.
+	/// </para>
+	/// <para>By default the value is <see langword="true"/> (disabled).</para>
 	/// </summary>
-	public bool CheckTouchness { get; set; } = true;
+	public bool DisableAdjacentTouchness { get; set; } = true;
 
 	/// <summary>
 	/// Indicates whether analyzer will check on stranded cases.
@@ -445,7 +455,7 @@ public sealed unsafe class Analyzer
 		var newPosition = Position.GetPositionFromCoordinate(newX, newY);
 		Debug.Assert(newPosition < MaxGridCellsCount);
 
-		if (!CheckTouchness && newPosition == grid.GoalPositions[color])
+		if (!DisableAdjacentTouchness && newPosition == grid.GoalPositions[color])
 		{
 			return true;
 		}
@@ -456,7 +466,7 @@ public sealed unsafe class Analyzer
 			return false;
 		}
 
-		if (CheckTouchness)
+		if (DisableAdjacentTouchness)
 		{
 			// All puzzles are designed so that a new path segment is adjacent to at most one path segment of the same color -
 			// the predecessor to the new segment.
@@ -827,7 +837,7 @@ public sealed unsafe class Analyzer
 		var newPosition = Position.GetPositionFromCoordinate(newX, newY);
 		Debug.Assert(newPosition < MaxGridCellsCount);
 
-		if (!CheckTouchness && newPosition == grid.GoalPositions[color])
+		if (!DisableAdjacentTouchness && newPosition == grid.GoalPositions[color])
 		{
 			state.Cells[grid.GoalPositions[color]] = Cell.Create(CellState.End, color, direction);
 			state.CompletedMask |= (ColorMask)(1 << color);
@@ -846,7 +856,7 @@ public sealed unsafe class Analyzer
 
 		var actionCost = 1;
 		var goalDirection = (Direction)byte.MaxValue;
-		if (CheckTouchness)
+		if (DisableAdjacentTouchness)
 		{
 			foreach (var neighborDirection in Directions)
 			{
@@ -1028,7 +1038,7 @@ public sealed unsafe class Analyzer
 			AddColor(in grid, resultMap, state.Positions[color], cFlag, currentResultFlags);
 			AddColor(in grid, resultMap, grid.GoalPositions[color], cFlag, goalResultFlags);
 
-			if (!CheckTouchness)
+			if (!DisableAdjacentTouchness)
 			{
 				var delta = Abs(state.Positions[color] - grid.GoalPositions[color]);
 				if (delta == 1 || delta == 16)
