@@ -8,15 +8,17 @@ namespace Puzzles.Flow.Analytics;
 internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", NamingRule = NamingRules.Property)] int capacity) :
 	IAnalysisQueue<HeapBasedQueue>
 {
-	/// <summary>
-	/// Indicates the number enqueued.
-	/// </summary>
+	/// <inheritdoc cref="IAnalysisQueue{TSelf}.Count"/>
 	public int Count = 0;
 
-	/// <summary>
-	/// Indicates the array of nodes.
-	/// </summary>
+	/// <inheritdoc cref="IAnalysisQueue{TSelf}.Entry"/>
+#if USE_ARRAY_POOL
 	public TreeNode*[] Entry = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(capacity));
+#elif USE_NATIVE_MEMORY
+	public TreeNode** Entry = (TreeNode**)NativeMemory.Alloc((nuint)capacity, (nuint)sizeof(TreeNode*));
+#else
+	public TreeNode** Entry = null;
+#endif
 
 
 	/// <inheritdoc/>
@@ -33,7 +35,14 @@ internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", N
 
 
 	/// <inheritdoc/>
-	public readonly void Dispose() => ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Entry));
+	public readonly void Dispose()
+#if USE_ARRAY_POOL
+		=> ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Entry));
+#elif USE_NATIVE_MEMORY
+		=> NativeMemory.Free(Entry);
+#else
+		=> throw new NotImplementedException();
+#endif
 
 	/// <inheritdoc/>
 	public readonly ref TreeNode Peek()

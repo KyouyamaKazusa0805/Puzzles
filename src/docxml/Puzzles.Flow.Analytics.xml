@@ -405,7 +405,7 @@
             <param name="finalState">The final state.</param>
             <returns>A <see cref="T:Puzzles.Flow.Analytics.SearchingResult"/> value.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.Validate(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNodeMemoryManager)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Validate(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Buffers.TreeNodeMemoryManager)">
             <summary>
             Validate the puzzle, and return the tree node in use.
             </summary>
@@ -589,14 +589,10 @@
             <param name="capacity">The number of elements allocated.</param>
         </member>
         <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Count">
-            <summary>
-            Indicates the number enqueued.
-            </summary>
+            <inheritdoc cref="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Count"/>
         </member>
         <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Entry">
-            <summary>
-            Indicates the array of nodes.
-            </summary>
+            <inheritdoc cref="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Entry"/>
         </member>
         <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue._next">
             <summary>
@@ -766,14 +762,10 @@
             <param name="capacity">The number of elements allocated.</param>
         </member>
         <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Count">
-            <summary>
-            Indicates the number enqueued.
-            </summary>
+            <inheritdoc cref="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Count"/>
         </member>
         <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Entry">
-            <summary>
-            Indicates the array of nodes.
-            </summary>
+            <inheritdoc cref="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Entry"/>
         </member>
         <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.IsEmpty">
             <inheritdoc/>
@@ -1056,47 +1048,47 @@
         <member name="M:Puzzles.Flow.Analytics.TreeNode.op_LessThanOrEqual(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.TreeNode@)">
             <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
         </member>
-        <member name="T:Puzzles.Flow.Analytics.TreeNodeMemoryManager">
+        <member name="T:Puzzles.Flow.Buffers.TreeNodeMemoryManager">
             <summary>
             Represents a memory manager for <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances allocation.
             </summary>
             <param name="capacity">Indicates the capacity.</param>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.#ctor(System.Int32)">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.#ctor(System.Int32)">
             <summary>
             Represents a memory manager for <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances allocation.
             </summary>
             <param name="capacity">Indicates the capacity.</param>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Count">
+        <member name="P:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Count">
             <summary>
             Indicates the number of nodes solved.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Entry">
+        <member name="P:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Entry">
             <summary>
             Indicates the allocated block.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Memory">
+        <member name="P:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Memory">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Dispose">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Dispose">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Return(Puzzles.Flow.Analytics.TreeNode@)">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Return(Puzzles.Flow.Analytics.TreeNode@)">
             <summary>
             Return the tree node to memory, to free the memory up.
             </summary>
             <param name="n">The node.</param>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Rent">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Rent">
             <summary>
             Try to create a new <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> from memory.
             </summary>
             <returns>The reference to the next node; or <see langword="ref null"/> if failed to create.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.CreateNode(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.GridInterimState@)">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.CreateNode(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.GridInterimState@)">
             <summary>
             Create a node via the specified parent and state.
             </summary>
@@ -1104,19 +1096,19 @@
             <param name="state">The state.</param>
             <returns>The created node, or return <see langword="ref null"/> if failed to allocate.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Unpin">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Unpin">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.GetSpan">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.GetSpan">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Pin(System.Int32)">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Pin(System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Dispose(System.Boolean)">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Dispose(System.Boolean)">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Capacity">
+        <member name="P:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Capacity">
             <summary>
             The generated property declaration for parameter <c>capacity</c>.
             </summary>

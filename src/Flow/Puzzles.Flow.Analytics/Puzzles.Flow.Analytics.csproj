@@ -4,6 +4,8 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<RootNamespace>Puzzles.Flow</RootNamespace>
 		<DocumentationFile>../../docxml/Puzzles.Flow.Analytics.xml</DocumentationFile>
+		<!--;USE_NATIVE_MEMORY-->
+		<DefineConstants>USE_ARRAY_POOL</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>

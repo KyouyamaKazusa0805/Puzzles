@@ -1,12 +1,4 @@
-#define USE_ARRAY_POOL
-#undef USE_NATIVE_MEMORY
-#if USE_ARRAY_POOL && USE_NATIVE_MEMORY
-#warning If both symbols 'USE_ARRAY_POOL' and 'USE_NATIVE_MEMORY' are set, symbol 'USE_NATIVE_MEMORY' will be ignored.
-#elif !USE_ARRAY_POOL && !USE_NATIVE_MEMORY
-#error You must set at least one symbol 'USE_ARRAY_POOL' and 'USE_NATIVE_MEMORY'.
-#endif
-
-namespace Puzzles.Flow.Analytics;
+namespace Puzzles.Flow.Buffers;
 
 /// <summary>
 /// Represents a memory manager for <see cref="TreeNode"/> instances allocation.
