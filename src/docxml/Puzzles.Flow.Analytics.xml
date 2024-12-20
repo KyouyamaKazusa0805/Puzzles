@@ -604,7 +604,7 @@
         <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Start">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Destroy">
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Dispose">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.IsEmpty">
@@ -769,7 +769,7 @@
         <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Start">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Destroy">
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Dispose">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.IsEmpty">
@@ -824,11 +824,6 @@
             </summary>
             <param name="node">The node to be added.</param>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Destroy">
-            <summary>
-            Try to release memory of <typeparamref name="TSelf"/>.
-            </summary>
-        </member>
         <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.IsEmpty">
             <summary>
             Determine whether the specified queue is empty.
@@ -874,10 +869,8 @@
             Indicates the allocated block.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Destroy">
-            <summary>
-            Destroy the memory allocated.
-            </summary>
+        <member name="M:Puzzles.Flow.Analytics.NodeStorage.Dispose">
+            <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.NodeStorage.Unalloc(Puzzles.Flow.Analytics.TreeNode@)">
             <summary>

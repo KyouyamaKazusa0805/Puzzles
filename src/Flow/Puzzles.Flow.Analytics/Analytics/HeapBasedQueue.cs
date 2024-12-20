@@ -32,7 +32,7 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 
 
 	/// <inheritdoc/>
-	public readonly void Destroy() => NativeMemory.Free(Start);
+	public readonly void Dispose() => NativeMemory.Free(Start);
 
 	/// <inheritdoc/>
 	public readonly bool IsEmpty() => Count == 0;

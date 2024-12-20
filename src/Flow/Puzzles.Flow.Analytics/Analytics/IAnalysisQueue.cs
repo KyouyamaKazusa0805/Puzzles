@@ -5,7 +5,8 @@ namespace Puzzles.Flow.Analytics;
 /// </summary>
 /// <typeparam name="TSelf"><include file="../../../global-doc-comments.xml" path="/g/self-type-constraint"/></typeparam>
 /// <seealso cref="TreeNode"/>
-internal unsafe interface IAnalysisQueue<TSelf> where TSelf : unmanaged, IAnalysisQueue<TSelf>, allows ref struct
+internal unsafe interface IAnalysisQueue<TSelf> : IDisposable
+	where TSelf : unmanaged, IAnalysisQueue<TSelf>, allows ref struct
 {
 	/// <summary>
 	/// Indicates the number of elements in the collection.
@@ -28,11 +29,6 @@ internal unsafe interface IAnalysisQueue<TSelf> where TSelf : unmanaged, IAnalys
 	/// </summary>
 	/// <param name="node">The node to be added.</param>
 	public abstract void Enqueue(ref readonly TreeNode node);
-
-	/// <summary>
-	/// Try to release memory of <typeparamref name="TSelf"/>.
-	/// </summary>
-	public abstract void Destroy();
 
 	/// <summary>
 	/// Determine whether the specified queue is empty.

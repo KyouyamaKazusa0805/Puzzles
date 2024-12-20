@@ -3,7 +3,7 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Represents data structure for node storage.
 /// </summary>
-internal unsafe ref struct NodeStorage
+internal unsafe ref struct NodeStorage : IDisposable
 {
 	/// <summary>
 	/// Indicates the capacity.
@@ -21,10 +21,8 @@ internal unsafe ref struct NodeStorage
 	public TreeNode* Start;
 
 
-	/// <summary>
-	/// Destroy the memory allocated.
-	/// </summary>
-	public readonly void Destroy() => NativeMemory.Free(Start);
+	/// <inheritdoc/>
+	public readonly void Dispose() => NativeMemory.Free(Start);
 
 	/// <summary>
 	/// Unallocate the tree node.

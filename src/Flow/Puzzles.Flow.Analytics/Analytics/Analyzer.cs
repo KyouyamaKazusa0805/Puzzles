@@ -1096,98 +1096,108 @@ public sealed unsafe class Analyzer
 	)
 		where TQueue : unmanaged, IAnalysisQueue<TQueue>, allows ref struct
 	{
-		var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * MegaByte / sizeof(TreeNode));
-		var storage = NodeStorage.Create(maxNodes);
-		scoped ref var root = ref storage.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
-		UpdateNodeCosts(ref root, 0);
+		var storage = default(NodeStorage);
+		var queue = default(TQueue);
+		try
+		{
+			var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * MegaByte / sizeof(TreeNode));
+			storage = NodeStorage.Create(maxNodes);
+			scoped ref var root = ref storage.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
+			UpdateNodeCosts(ref root, 0);
 
-		var queue = TQueue.Create(maxNodes);
-		var result = SearchingResult.InProgress;
-		ref var solutionNode = ref Unsafe.NullRef<TreeNode>();
-		var start = Stopwatch.GetTimestamp();
-		root = ref Validate(in grid, ref root, ref storage);
-		if (Unsafe.IsNullRef(in root))
-		{
-			result = SearchingResult.Unreachable;
-		}
-		else
-		{
-			queue.Enqueue(in root);
-		}
-
-		while (result == SearchingResult.InProgress)
-		{
-			if (queue.IsEmpty())
+			queue = TQueue.Create(maxNodes);
+			var result = SearchingResult.InProgress;
+			ref var solutionNode = ref Unsafe.NullRef<TreeNode>();
+			var start = Stopwatch.GetTimestamp();
+			root = ref Validate(in grid, ref root, ref storage);
+			if (Unsafe.IsNullRef(in root))
 			{
 				result = SearchingResult.Unreachable;
-				break;
+			}
+			else
+			{
+				queue.Enqueue(in root);
 			}
 
-			ref var n = ref queue.Dequeue();
-			Debug.Assert(!Unsafe.IsNullRef(in n));
-
-			ref var parentState = ref n.State;
-			var color = GetNextMoveColor(in grid, in parentState);
-
-			foreach (var direction in Directions)
+			while (result == SearchingResult.InProgress)
 			{
-				var forced = false;
-				if (ForcesFirstColor && !SearchFastForward)
+				if (queue.IsEmpty())
 				{
-					forced = FindForced(in grid, in n.State, out color, out _);
+					result = SearchingResult.Unreachable;
+					break;
 				}
 
-				if (CanMove(in grid, in n.State, color, direction))
+				ref var n = ref queue.Dequeue();
+				Debug.Assert(!Unsafe.IsNullRef(in n));
+
+				ref var parentState = ref n.State;
+				var color = GetNextMoveColor(in grid, in parentState);
+
+				foreach (var direction in Directions)
 				{
-					ref var child = ref storage.CreateNode(in n, ref parentState);
-					if (Unsafe.IsNullRef(in child))
+					var forced = false;
+					if (ForcesFirstColor && !SearchFastForward)
 					{
-						result = SearchingResult.Full;
-						break;
+						forced = FindForced(in grid, in n.State, out color, out _);
 					}
 
-					var actionCost = MakeMove(in grid, ref child.State, color, direction, forced);
-					UpdateNodeCosts(ref child, actionCost);
-					if (!Unsafe.IsNullRef(in child))
+					if (CanMove(in grid, in n.State, color, direction))
 					{
-						ref readonly var childState = ref child.State;
-						if (childState.FreeCellsCount == 0 && childState.CompletedMask == (1 << grid.ColorsCount) - 1)
+						ref var child = ref storage.CreateNode(in n, ref parentState);
+						if (Unsafe.IsNullRef(in child))
 						{
-							result = SearchingResult.Success;
-							solutionNode = ref child;
+							result = SearchingResult.Full;
 							break;
 						}
 
-						queue.Enqueue(in child);
+						var actionCost = MakeMove(in grid, ref child.State, color, direction, forced);
+						UpdateNodeCosts(ref child, actionCost);
+						if (!Unsafe.IsNullRef(in child))
+						{
+							ref readonly var childState = ref child.State;
+							if (childState.FreeCellsCount == 0 && childState.CompletedMask == (1 << grid.ColorsCount) - 1)
+							{
+								result = SearchingResult.Success;
+								solutionNode = ref child;
+								break;
+							}
+
+							queue.Enqueue(in child);
+						}
+					}
+					if (forced)
+					{
+						break;
 					}
 				}
-				if (forced)
-				{
-					break;
-				}
 			}
-		}
 
-		elapsed = new(Stopwatch.GetTimestamp() - start);
-		nodes = storage.Count;
+			elapsed = new(Stopwatch.GetTimestamp() - start);
+			nodes = storage.Count;
 
-		if (result == SearchingResult.Success)
-		{
-			Debug.Assert(!Unsafe.IsNullRef(in solutionNode));
-			finalState = solutionNode.State;
-		}
-		else if (storage.Count != 0)
-		{
-			finalState = storage.Start[storage.Count - 1].State;
-		}
-		else
-		{
-			finalState = initState;
-		}
+			if (result == SearchingResult.Success)
+			{
+				Debug.Assert(!Unsafe.IsNullRef(in solutionNode));
+				finalState = solutionNode.State;
+			}
+			else if (storage.Count != 0)
+			{
+				finalState = storage.Start[storage.Count - 1].State;
+			}
+			else
+			{
+				finalState = initState;
+			}
 
-		storage.Destroy();
-		queue.Destroy();
-		return result;
+			// Due to using variable cannot be passed as ref inside other methods,
+			// we should append an extra call here to keep memory releasing.
+			return result;
+		}
+		finally
+		{
+			storage.Dispose();
+			queue.Dispose();
+		}
 	}
 
 	/// <summary>

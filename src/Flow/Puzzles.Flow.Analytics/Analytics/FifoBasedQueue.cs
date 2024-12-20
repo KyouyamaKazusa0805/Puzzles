@@ -37,7 +37,7 @@ internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
 
 
 	/// <inheritdoc/>
-	public readonly void Destroy() => NativeMemory.Free(Start);
+	public readonly void Dispose() => NativeMemory.Free(Start);
 
 	/// <inheritdoc/>
 	public readonly bool IsEmpty() => _next == Count;
