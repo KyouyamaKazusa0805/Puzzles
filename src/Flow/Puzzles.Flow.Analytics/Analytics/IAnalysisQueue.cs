@@ -5,7 +5,7 @@ namespace Puzzles.Flow.Analytics;
 /// </summary>
 /// <typeparam name="TSelf"><include file="../../../global-doc-comments.xml" path="/g/self-type-constraint"/></typeparam>
 /// <seealso cref="TreeNode"/>
-internal unsafe interface IAnalysisQueue<TSelf> where TSelf : IAnalysisQueue<TSelf>, allows ref struct
+internal unsafe interface IAnalysisQueue<TSelf> where TSelf : unmanaged, IAnalysisQueue<TSelf>, allows ref struct
 {
 	/// <summary>
 	/// Indicates the number of elements in the collection.
@@ -24,43 +24,39 @@ internal unsafe interface IAnalysisQueue<TSelf> where TSelf : IAnalysisQueue<TSe
 
 
 	/// <summary>
-	/// Try to enqueue a <see cref="TreeNode"/> into a <see cref="Queue"/>.
+	/// Try to enqueue a <see cref="TreeNode"/> into <typeparamref name="TSelf"/>.
 	/// </summary>
-	/// <param name="queue">The queue to be used.</param>
 	/// <param name="node">The node to be added.</param>
-	public static abstract void Enqueue(ref Queue queue, ref readonly TreeNode node);
+	public abstract void Enqueue(ref readonly TreeNode node);
 
 	/// <summary>
-	/// Try to release memory of a <see cref="Queue"/>.
+	/// Try to release memory of <typeparamref name="TSelf"/>.
 	/// </summary>
-	/// <param name="queue">The queue to be released.</param>
-	public static abstract void Destroy(ref readonly Queue queue);
+	public abstract void Destroy();
 
 	/// <summary>
 	/// Determine whether the specified queue is empty.
 	/// </summary>
-	/// <param name="queue">The queue to be checked.</param>
 	/// <returns>A <see cref="bool"/> result indicating that.</returns>
-	public static abstract bool IsEmpty(ref readonly Queue queue);
+	public abstract bool IsEmpty();
 
 	/// <summary>
 	/// Try to peek the specified queue, and return the last element in the collection, without any operation to effect the collection.
 	/// </summary>
-	/// <param name="queue">The queue to be checked.</param>
 	/// <returns>The peek node.</returns>
-	public static abstract ref TreeNode Peek(scoped ref readonly Queue queue);
+	public abstract ref TreeNode Peek();
 
 	/// <summary>
 	/// Try to dequeue the specified queue, and return the removed element.
 	/// </summary>
-	/// <param name="queue">The queue to be checked.</param>
 	/// <returns>The removed node.</returns>
-	public static abstract ref TreeNode Dequeue(scoped ref Queue queue);
+	public abstract ref TreeNode Dequeue();
+
 
 	/// <summary>
-	/// Try to create a <see cref="Queue"/> instance via the specified length of nodes to be allocated.
+	/// Try to create an instance of type <typeparamref name="TSelf"/> via the specified length of nodes to be allocated.
 	/// </summary>
 	/// <param name="maxNodes">The number of elements allocated.</param>
-	/// <returns>A <see cref="Queue"/> instance.</returns>
-	public static abstract Queue Create(int maxNodes);
+	/// <returns>An instance of type <typeparamref name="TSelf"/>.</returns>
+	public static abstract TSelf Create(int maxNodes);
 }

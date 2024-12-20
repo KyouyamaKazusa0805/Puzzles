@@ -32,19 +32,32 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 
 
 	/// <inheritdoc/>
-	public static void Enqueue(ref Queue queue, ref readonly TreeNode node)
+	public readonly void Destroy() => NativeMemory.Free(Start);
+
+	/// <inheritdoc/>
+	public readonly bool IsEmpty() => Count == 0;
+
+	/// <inheritdoc/>
+	public readonly ref TreeNode Peek()
 	{
-		Debug.Assert(queue.HeapBased.Count < queue.HeapBased.Capacity);
+		Debug.Assert(!IsEmpty());
+		return ref *Start[0];
+	}
 
-		var i = queue.HeapBased.Count++;
+	/// <inheritdoc/>
+	public void Enqueue(ref readonly TreeNode node)
+	{
+		Debug.Assert(Count < Capacity);
+
+		var i = Count++;
 		var pi = parentIndex(i);
-		queue.HeapBased.Start[i] = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in node));
+		Start[i] = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in node));
 
-		while (i > 0 && TreeNode.Compare(in queue.HeapBased.Start[pi][0], in queue.HeapBased.Start[i][0]) > 0)
+		while (i > 0 && TreeNode.Compare(in Start[pi][0], in Start[i][0]) > 0)
 		{
-			var temp = queue.HeapBased.Start[pi];
-			queue.HeapBased.Start[pi] = queue.HeapBased.Start[i];
-			queue.HeapBased.Start[i] = temp;
+			var temp = Start[pi];
+			Start[pi] = Start[i];
+			Start[i] = temp;
 			i = pi;
 			pi = parentIndex(i);
 		}
@@ -55,54 +68,39 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 	}
 
 	/// <inheritdoc/>
-	public static void Destroy(ref readonly Queue queue) => NativeMemory.Free(queue.HeapBased.Start);
-
-	/// <inheritdoc/>
-	public static bool IsEmpty(ref readonly Queue queue) => queue.HeapBased.Count == 0;
-
-	/// <inheritdoc/>
-	public static ref TreeNode Peek(scoped ref readonly Queue queue)
+	public ref TreeNode Dequeue()
 	{
-		Debug.Assert(!IsEmpty(in queue));
-		return ref *queue.HeapBased.Start[0];
-	}
+		Debug.Assert(!IsEmpty());
 
-	/// <inheritdoc/>
-	public static ref TreeNode Dequeue(scoped ref Queue queue)
-	{
-		Debug.Assert(!IsEmpty(in queue));
-
-		ref var result = ref *queue.HeapBased.Start[0];
-		queue.HeapBased.Count--;
-		if (queue.HeapBased.Count != 0)
+		ref var result = ref *Start[0];
+		Count--;
+		if (Count != 0)
 		{
-			queue.HeapBased.Start[0] = queue.HeapBased.Start[queue.HeapBased.Count];
-			repair(ref queue, 0);
+			Start[0] = Start[Count];
+			repair(ref this, 0);
 		}
 		return ref result;
 
 
-		static void repair(ref Queue queue, int i)
+		static void repair(ref HeapBasedQueue queue, int i)
 		{
 			var li = leftChildIndex(i);
 			var ri = li + 1;
 			var smallest = i;
-			if (li < queue.HeapBased.Count
-				&& TreeNode.Compare(in queue.HeapBased.Start[i][0], in queue.HeapBased.Start[li][0]) > 0)
+			if (li < queue.Count && TreeNode.Compare(in queue.Start[i][0], in queue.Start[li][0]) > 0)
 			{
 				smallest = li;
 			}
-			if (ri < queue.HeapBased.Count
-				&& TreeNode.Compare(in queue.HeapBased.Start[smallest][0], in queue.HeapBased.Start[ri][0]) > 0)
+			if (ri < queue.Count && TreeNode.Compare(in queue.Start[smallest][0], in queue.Start[ri][0]) > 0)
 			{
 				smallest = ri;
 			}
 
 			if (smallest != i)
 			{
-				var temp = queue.HeapBased.Start[i];
-				queue.HeapBased.Start[i] = queue.HeapBased.Start[smallest];
-				queue.HeapBased.Start[smallest] = temp;
+				var temp = queue.Start[i];
+				queue.Start[i] = queue.Start[smallest];
+				queue.Start[smallest] = temp;
 				repair(ref queue, smallest);
 			}
 		}
@@ -111,15 +109,13 @@ internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 		static int leftChildIndex(int i) => (i << 1) + 1;
 	}
 
+
 	/// <inheritdoc/>
-	public static Queue Create(int maxNodes)
+	public static HeapBasedQueue Create(int maxNodes)
 		=> new()
 		{
-			HeapBased =
-			{
-				Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*)),
-				Count = 0,
-				Capacity = maxNodes
-			}
+			Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*)),
+			Count = 0,
+			Capacity = maxNodes
 		};
 }

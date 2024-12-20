@@ -1094,7 +1094,7 @@ public sealed unsafe class Analyzer
 		out int nodes,
 		out GridInterimState finalState
 	)
-		where TQueue : IAnalysisQueue<TQueue>, allows ref struct
+		where TQueue : unmanaged, IAnalysisQueue<TQueue>, allows ref struct
 	{
 		var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * MegaByte / sizeof(TreeNode));
 		var storage = NodeStorage.Create(maxNodes);
@@ -1112,18 +1112,18 @@ public sealed unsafe class Analyzer
 		}
 		else
 		{
-			TQueue.Enqueue(ref queue, in root);
+			queue.Enqueue(in root);
 		}
 
 		while (result == SearchingResult.InProgress)
 		{
-			if (TQueue.IsEmpty(in queue))
+			if (queue.IsEmpty())
 			{
 				result = SearchingResult.Unreachable;
 				break;
 			}
 
-			ref var n = ref TQueue.Dequeue(ref queue);
+			ref var n = ref queue.Dequeue();
 			Debug.Assert(!Unsafe.IsNullRef(in n));
 
 			ref var parentState = ref n.State;
@@ -1158,7 +1158,7 @@ public sealed unsafe class Analyzer
 							break;
 						}
 
-						TQueue.Enqueue(ref queue, in child);
+						queue.Enqueue(in child);
 					}
 				}
 				if (forced)
@@ -1186,7 +1186,7 @@ public sealed unsafe class Analyzer
 		}
 
 		storage.Destroy();
-		TQueue.Destroy(in queue);
+		queue.Destroy();
 		return result;
 	}
 
