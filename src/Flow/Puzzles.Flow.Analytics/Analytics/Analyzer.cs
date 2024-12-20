@@ -67,37 +67,6 @@ public sealed unsafe class Analyzer
 
 
 	/// <summary>
-	/// Indicates the queue creator method. This field will be initialized in analysis.
-	/// </summary>
-	private delegate*<int, Queue> _queueCreator;
-
-	/// <summary>
-	/// Indicates the queue enqueuer method. This field will be initialized in analysis.
-	/// </summary>
-	private delegate*<Queue*, TreeNode*, void> _queueEnqueuer;
-
-	/// <summary>
-	/// Indicates the queue dequeuer method. This field will be initialized in analysis.
-	/// </summary>
-	private delegate*<Queue*, TreeNode*> _queueDequeuer;
-
-	/// <summary>
-	/// Indicatees the queue destroyer method. This field will be initialized in analysis.
-	/// </summary>
-	private delegate*<Queue*, void> _queueDestroyer;
-
-	/// <summary>
-	/// Indicates the queue empty checker method. This field will be initialized in analysis.
-	/// </summary>
-	private delegate*<Queue*, bool> _queueEmptyChecker;
-
-	/// <summary>
-	/// Indicates thee queue peeker method. This field will be initialized in analysis.
-	/// </summary>
-	private delegate*<Queue*, TreeNode*> _queuePeeker;
-
-
-	/// <summary>
 	/// Indicates whether analyzer will check on touchness.
 	/// </summary>
 	public bool CheckTouchness { get; set; } = true;
@@ -173,8 +142,6 @@ public sealed unsafe class Analyzer
 		var stopwatch = new Stopwatch();
 		stopwatch.Start();
 
-		setupQueueFunctions();
-
 		if (!tryLoadPuzzle(grid.ToString(), grid.Size, out var gridInfo, out var state))
 		{
 			stopwatch.Stop();
@@ -183,7 +150,13 @@ public sealed unsafe class Analyzer
 
 		OrderColors(ref gridInfo, in state, null);
 
-		var result = Search(in gridInfo, ref state, out var elapsed, out var nodes, out var finalState);
+		var result = Search<
+#if USE_BEST_FIRST_SEARCH
+			HeapBasedQueue
+#else
+			FifoBasedQueue
+#endif
+		>(in gridInfo, ref state, out var elapsed, out var nodes, out var finalState);
 		stopwatch.Stop();
 
 		return result == SearchingResult.Success
@@ -297,26 +270,6 @@ public sealed unsafe class Analyzer
 			gridInfo = default;
 			state = default;
 			return false;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void setupQueueFunctions()
-		{
-#if USE_BEST_FIRST_SEARCH
-			_queueCreator = &HeapBasedQueue.Create;
-			_queueEnqueuer = &HeapBasedQueue.Enqueue;
-			_queueDequeuer = &HeapBasedQueue.Dequeue;
-			_queueDestroyer = &HeapBasedQueue.Destroy;
-			_queueEmptyChecker = &HeapBasedQueue.IsEmpty;
-			_queuePeeker = &HeapBasedQueue.Peek;
-#else
-			_queueCreator = &FifoBasedQueue.Create;
-			_queueEnqueuer = &FifoBasedQueue.Enqueue;
-			_queueDequeuer = &FifoBasedQueue.Dequeue;
-			_queueDestroyer = &FifoBasedQueue.Destroy;
-			_queueEmptyChecker = &FifoBasedQueue.IsEmpty;
-			_queuePeeker = &FifoBasedQueue.Peek;
-#endif
 		}
 	}
 
@@ -1127,26 +1080,28 @@ public sealed unsafe class Analyzer
 	/// <summary>
 	/// The core method to search, performing A* or BFS (best-first search) algorithm to find a solution.
 	/// </summary>
+	/// <typeparam name="TQueue">The type of the queue to be operated.</typeparam>
 	/// <param name="grid">The grid.</param>
 	/// <param name="initState">The init state.</param>
 	/// <param name="elapsed">The elapsed time.</param>
 	/// <param name="nodes">The nodes created.</param>
 	/// <param name="finalState">The final state.</param>
 	/// <returns>A <see cref="SearchingResult"/> value.</returns>
-	private SearchingResult Search(
+	private SearchingResult Search<TQueue>(
 		ref readonly GridAnalyticsInfo grid,
 		ref GridInterimState initState,
 		out TimeSpan elapsed,
 		out int nodes,
 		out GridInterimState finalState
 	)
+		where TQueue : IAnalysisQueue<TQueue>, allows ref struct
 	{
 		var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * MegaByte / sizeof(TreeNode));
 		var storage = NodeStorage.Create(maxNodes);
 		scoped ref var root = ref storage.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
 		UpdateNodeCosts(ref root, 0);
 
-		var queue = _queueCreator(maxNodes);
+		var queue = TQueue.Create(maxNodes);
 		var result = SearchingResult.InProgress;
 		ref var solutionNode = ref Unsafe.NullRef<TreeNode>();
 		var start = Stopwatch.GetTimestamp();
@@ -1157,18 +1112,18 @@ public sealed unsafe class Analyzer
 		}
 		else
 		{
-			_queueEnqueuer(&queue, (TreeNode*)Unsafe.AsPointer(ref root));
+			TQueue.Enqueue(&queue, (TreeNode*)Unsafe.AsPointer(ref root));
 		}
 
 		while (result == SearchingResult.InProgress)
 		{
-			if (_queueEmptyChecker(&queue))
+			if (TQueue.IsEmpty(&queue))
 			{
 				result = SearchingResult.Unreachable;
 				break;
 			}
 
-			ref var n = ref *_queueDequeuer(&queue);
+			ref var n = ref *TQueue.Dequeue(&queue);
 			Debug.Assert(!Unsafe.IsNullRef(in n));
 
 			ref var parentState = ref n.State;
@@ -1203,7 +1158,7 @@ public sealed unsafe class Analyzer
 							break;
 						}
 
-						_queueEnqueuer(&queue, (TreeNode*)Unsafe.AsPointer(ref child));
+						TQueue.Enqueue(&queue, (TreeNode*)Unsafe.AsPointer(ref child));
 					}
 				}
 				if (forced)
@@ -1231,7 +1186,7 @@ public sealed unsafe class Analyzer
 		}
 
 		storage.Destroy();
-		_queueDestroyer(&queue);
+		TQueue.Destroy(&queue);
 		return result;
 	}
 

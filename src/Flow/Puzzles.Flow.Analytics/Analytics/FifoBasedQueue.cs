@@ -3,7 +3,7 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Indicates the data structure for FIFO-based priority queue.
 /// </summary>
-internal unsafe struct FifoBasedQueue
+internal unsafe struct FifoBasedQueue : IAnalysisQueue<FifoBasedQueue>
 {
 	/// <summary>
 	/// Indicates the number enqueued.
@@ -16,46 +16,57 @@ internal unsafe struct FifoBasedQueue
 	public int Capacity;
 
 	/// <summary>
-	/// Indicates the next index to dequeue.
-	/// </summary>
-	public int Next;
-
-	/// <summary>
 	/// Indicates the array of nodes.
 	/// </summary>
 	public TreeNode** Start;
 
+	/// <summary>
+	/// Indicates the next index to dequeue.
+	/// </summary>
+	private int _next;
 
-	public static void Enqueue(Queue* queue, TreeNode* n)
+
+	/// <inheritdoc/>
+	readonly int IAnalysisQueue<FifoBasedQueue>.Count => Count;
+
+	/// <inheritdoc/>
+	readonly int IAnalysisQueue<FifoBasedQueue>.Capacity => Capacity;
+
+	/// <inheritdoc/>
+	readonly TreeNode** IAnalysisQueue<FifoBasedQueue>.Start => Start;
+
+
+	/// <inheritdoc/>
+	public static void Enqueue(Queue* queue, TreeNode* node)
 	{
 		Debug.Assert(queue->FifoBased.Count < queue->FifoBased.Capacity);
 
-		queue->FifoBased.Start[queue->FifoBased.Count++] = n;
+		queue->FifoBased.Start[queue->FifoBased.Count++] = node;
 	}
 
+	/// <inheritdoc/>
 	public static void Destroy(Queue* queue) => NativeMemory.Free(queue->FifoBased.Start);
 
-	public static bool IsEmpty(Queue* queue) => queue->FifoBased.Next == queue->FifoBased.Count;
+	/// <inheritdoc/>
+	public static bool IsEmpty(Queue* queue) => queue->FifoBased._next == queue->FifoBased.Count;
 
+	/// <inheritdoc/>
 	public static TreeNode* Peek(Queue* queue)
 	{
 		Debug.Assert(!IsEmpty(queue));
 
-		return queue->FifoBased.Start[queue->FifoBased.Next];
+		return queue->FifoBased.Start[queue->FifoBased._next];
 	}
 
+	/// <inheritdoc/>
 	public static TreeNode* Dequeue(Queue* queue)
 	{
 		Debug.Assert(!IsEmpty(queue));
 
-		return queue->FifoBased.Start[queue->FifoBased.Next++];
+		return queue->FifoBased.Start[queue->FifoBased._next++];
 	}
 
-	/// <summary>
-	/// Create a <see cref="FifoBasedQueue"/> instance.
-	/// </summary>
-	/// <param name="maxNodes">The maximum nodes.</param>
-	/// <returns>The <see cref="FifoBasedQueue"/> created.</returns>
+	/// <inheritdoc/>
 	public static Queue Create(int maxNodes)
 		=> new()
 		{
@@ -64,7 +75,7 @@ internal unsafe struct FifoBasedQueue
 				Start = (TreeNode**)NativeMemory.Alloc((nuint)maxNodes, (nuint)sizeof(TreeNode*)),
 				Count = 0,
 				Capacity = maxNodes,
-				Next = 0
+				_next = 0
 			}
 		};
 }

@@ -151,36 +151,6 @@
             Indicates all directions.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueCreator">
-            <summary>
-            Indicates the queue creator method. This field will be initialized in analysis.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueEnqueuer">
-            <summary>
-            Indicates the queue enqueuer method. This field will be initialized in analysis.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueDequeuer">
-            <summary>
-            Indicates the queue dequeuer method. This field will be initialized in analysis.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueDestroyer">
-            <summary>
-            Indicatees the queue destroyer method. This field will be initialized in analysis.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer._queueEmptyChecker">
-            <summary>
-            Indicates the queue empty checker method. This field will be initialized in analysis.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer._queuePeeker">
-            <summary>
-            Indicates thee queue peeker method. This field will be initialized in analysis.
-            </summary>
-        </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.CheckTouchness">
             <summary>
             Indicates whether analyzer will check on touchness.
@@ -417,10 +387,11 @@
             <param name="maxStranded">The maximum stranded.</param>
             <returns>The mask of colors stranded.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.Search(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.TimeSpan@,System.Int32@,Puzzles.Flow.Analytics.GridInterimState@)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Search``1(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.TimeSpan@,System.Int32@,Puzzles.Flow.Analytics.GridInterimState@)">
             <summary>
             The core method to search, performing A* or BFS (best-first search) algorithm to find a solution.
             </summary>
+            <typeparam name="TQueue">The type of the queue to be operated.</typeparam>
             <param name="grid">The grid.</param>
             <param name="initState">The init state.</param>
             <param name="elapsed">The elapsed time.</param>
@@ -614,22 +585,42 @@
             Indicates the maximum allowable queue size.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Next">
-            <summary>
-            Indicates the next index to dequeue.
-            </summary>
-        </member>
         <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Start">
             <summary>
             Indicates the array of nodes.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Create(System.Int32)">
+        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue._next">
             <summary>
-            Create a <see cref="T:Puzzles.Flow.Analytics.FifoBasedQueue"/> instance.
+            Indicates the next index to dequeue.
             </summary>
-            <param name="maxNodes">The maximum nodes.</param>
-            <returns>The <see cref="T:Puzzles.Flow.Analytics.FifoBasedQueue"/> created.</returns>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Capacity">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Start">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Enqueue(Puzzles.Flow.Analytics.Queue*,Puzzles.Flow.Analytics.TreeNode*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Destroy(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.IsEmpty(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Peek(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Dequeue(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Create(System.Int32)">
+            <inheritdoc/>
         </member>
         <member name="T:Puzzles.Flow.Analytics.GridAnalyticsInfo">
             <summary>
@@ -769,12 +760,104 @@
             Indicates the array of nodes.
             </summary>
         </member>
+        <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Capacity">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Start">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Enqueue(Puzzles.Flow.Analytics.Queue*,Puzzles.Flow.Analytics.TreeNode*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Destroy(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.IsEmpty(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Peek(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Dequeue(Puzzles.Flow.Analytics.Queue*)">
+            <inheritdoc/>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Create(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Puzzles.Flow.Analytics.IAnalysisQueue`1">
             <summary>
-            Create a <see cref="T:Puzzles.Flow.Analytics.HeapBasedQueue"/> instance.
+            Represents a queue that supports analysis as node used by <see cref="T:Puzzles.Flow.Analytics.TreeNode" />.
             </summary>
-            <param name="maxNodes">The maximum nodes.</param>
-            <returns>A <see cref="T:Puzzles.Flow.Analytics.HeapBasedQueue"/> instance.</returns>
+            <typeparam name="TSelf"><self-type-constraint>
+		<para>Indicates the type implementing this interface.</para>
+		<para>
+			This type doesn't use any extra syntax to constraint such usage, but C# will check for it.
+			The type will include a <see langword="where" /> constraint that implements the interface itself
+			to declare such "self constraint" usage:
+			<code><![CDATA[interface ISelfType<TSelf> where TSelf : ISelfType<TSelf>]]></code>
+			In addition, the type should be named <c>TSelf</c> in order to tell type parameters with the others.
+		</para>
+	</self-type-constraint></typeparam>
+            <seealso cref="T:Puzzles.Flow.Analytics.TreeNode" />
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Count">
+            <summary>
+            Indicates the number of elements in the collection.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Capacity">
+            <summary>
+            Indicates the capacity of the collection.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Start">
+            <summary>
+            Indicates the nodes of a 2D array, specified as pointer.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Enqueue(Puzzles.Flow.Analytics.Queue*,Puzzles.Flow.Analytics.TreeNode*)">
+            <summary>
+            Try to enqueue a <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> into a <see cref="T:Puzzles.Flow.Analytics.Queue"/>.
+            </summary>
+            <param name="queue">The queue to be used.</param>
+            <param name="node">The node to be added.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Destroy(Puzzles.Flow.Analytics.Queue*)">
+            <summary>
+            Try to release memory of a <see cref="T:Puzzles.Flow.Analytics.Queue"/>.
+            </summary>
+            <param name="queue">The queue to be released.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.IsEmpty(Puzzles.Flow.Analytics.Queue*)">
+            <summary>
+            Determine whether the specified queue is empty.
+            </summary>
+            <param name="queue">The queue to be checked.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Peek(Puzzles.Flow.Analytics.Queue*)">
+            <summary>
+            Try to peek the specified queue, and return the last element in the collection, without any operation to effect the collection.
+            </summary>
+            <param name="queue">The queue to be checked.</param>
+            <returns>The peek node.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Dequeue(Puzzles.Flow.Analytics.Queue*)">
+            <summary>
+            Try to dequeue the specified queue, and return the removed element.
+            </summary>
+            <param name="queue">The queue to be checked.</param>
+            <returns>The removed node.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Create(System.Int32)">
+            <summary>
+            Try to create a <see cref="T:Puzzles.Flow.Analytics.Queue"/> instance via the specified length of nodes to be allocated.
+            </summary>
+            <param name="maxNodes">The number of elements allocated.</param>
+            <returns>A <see cref="T:Puzzles.Flow.Analytics.Queue"/> instance.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.NodeStorage">
             <summary>

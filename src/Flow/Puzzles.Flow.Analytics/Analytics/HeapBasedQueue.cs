@@ -3,7 +3,7 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Indicates the data structure for heap-based priority queue.
 /// </summary>
-internal unsafe struct HeapBasedQueue
+internal unsafe struct HeapBasedQueue : IAnalysisQueue<HeapBasedQueue>
 {
 	/// <summary>
 	/// Indicates the number enqueued.
@@ -21,12 +21,23 @@ internal unsafe struct HeapBasedQueue
 	public TreeNode** Start;
 
 
+	/// <inheritdoc/>
+	readonly int IAnalysisQueue<HeapBasedQueue>.Count => Count;
+
+	/// <inheritdoc/>
+	readonly int IAnalysisQueue<HeapBasedQueue>.Capacity => Capacity;
+
+	/// <inheritdoc/>
+	readonly TreeNode** IAnalysisQueue<HeapBasedQueue>.Start => Start;
+
+
+	/// <inheritdoc/>
 	public static void Enqueue(Queue* queue, TreeNode* node)
 	{
 		Debug.Assert(queue->HeapBased.Count < queue->HeapBased.Capacity);
 
 		var i = queue->HeapBased.Count++;
-		var pi = HeapQueueParentIndex(i);
+		var pi = parentIndex(i);
 		queue->HeapBased.Start[i] = node;
 
 		while (i > 0 && TreeNode.Compare(in queue->HeapBased.Start[pi][0], in queue->HeapBased.Start[i][0]) > 0)
@@ -35,20 +46,28 @@ internal unsafe struct HeapBasedQueue
 			queue->HeapBased.Start[pi] = queue->HeapBased.Start[i];
 			queue->HeapBased.Start[i] = temp;
 			i = pi;
-			pi = HeapQueueParentIndex(i);
+			pi = parentIndex(i);
 		}
+
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static int parentIndex(int i) => i - 1 >> 1;
 	}
 
+	/// <inheritdoc/>
 	public static void Destroy(Queue* queue) => NativeMemory.Free(queue->HeapBased.Start);
 
+	/// <inheritdoc/>
 	public static bool IsEmpty(Queue* queue) => queue->HeapBased.Count == 0;
 
+	/// <inheritdoc/>
 	public static TreeNode* Peek(Queue* queue)
 	{
 		Debug.Assert(!IsEmpty(queue));
 		return queue->HeapBased.Start[0];
 	}
 
+	/// <inheritdoc/>
 	public static TreeNode* Dequeue(Queue* queue)
 	{
 		Debug.Assert(!IsEmpty(queue));
@@ -65,7 +84,7 @@ internal unsafe struct HeapBasedQueue
 
 		static void repair(Queue* queue, int i)
 		{
-			var li = HeapQueueLeftChildIndex(i);
+			var li = leftChildIndex(i);
 			var ri = li + 1;
 			var smallest = i;
 			if (li < queue->HeapBased.Count
@@ -87,13 +106,12 @@ internal unsafe struct HeapBasedQueue
 				repair(queue, smallest);
 			}
 		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static int leftChildIndex(int i) => (i << 1) + 1;
 	}
 
-	/// <summary>
-	/// Create a <see cref="HeapBasedQueue"/> instance.
-	/// </summary>
-	/// <param name="maxNodes">The maximum nodes.</param>
-	/// <returns>A <see cref="HeapBasedQueue"/> instance.</returns>
+	/// <inheritdoc/>
 	public static Queue Create(int maxNodes)
 		=> new()
 		{
@@ -104,10 +122,4 @@ internal unsafe struct HeapBasedQueue
 				Capacity = maxNodes
 			}
 		};
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static int HeapQueueParentIndex(int i) => i - 1 >> 1;
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static int HeapQueueLeftChildIndex(int i) => (i << 1) + 1;
 }
