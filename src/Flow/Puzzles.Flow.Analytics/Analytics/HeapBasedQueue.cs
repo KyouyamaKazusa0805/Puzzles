@@ -16,7 +16,7 @@ internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", N
 	/// <summary>
 	/// Indicates the array of nodes.
 	/// </summary>
-	public TreeNode*[] Start = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(capacity));
+	public TreeNode*[] Entry = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(capacity));
 
 
 	/// <inheritdoc/>
@@ -29,17 +29,17 @@ internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", N
 	readonly int IAnalysisQueue<HeapBasedQueue>.Capacity => Capacity;
 
 	/// <inheritdoc/>
-	readonly TreeNode*[] IAnalysisQueue<HeapBasedQueue>.Start => Start;
+	readonly TreeNode*[] IAnalysisQueue<HeapBasedQueue>.Entry => Entry;
 
 
 	/// <inheritdoc/>
-	public readonly void Dispose() => ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Start));
+	public readonly void Dispose() => ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Entry));
 
 	/// <inheritdoc/>
 	public readonly ref TreeNode Peek()
 	{
 		Debug.Assert(!IsEmpty);
-		return ref *Start[0];
+		return ref *Entry[0];
 	}
 
 	/// <inheritdoc/>
@@ -49,13 +49,13 @@ internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", N
 
 		var i = Count++;
 		var pi = parentIndex(i);
-		Start[i] = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in node));
+		Entry[i] = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in node));
 
-		while (i > 0 && TreeNode.Compare(in Start[pi][0], in Start[i][0]) > 0)
+		while (i > 0 && TreeNode.Compare(in Entry[pi][0], in Entry[i][0]) > 0)
 		{
-			var temp = Start[pi];
-			Start[pi] = Start[i];
-			Start[i] = temp;
+			var temp = Entry[pi];
+			Entry[pi] = Entry[i];
+			Entry[i] = temp;
 			i = pi;
 			pi = parentIndex(i);
 		}
@@ -70,11 +70,11 @@ internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", N
 	{
 		Debug.Assert(!IsEmpty);
 
-		ref var result = ref *Start[0];
+		ref var result = ref *Entry[0];
 		Count--;
 		if (Count != 0)
 		{
-			Start[0] = Start[Count];
+			Entry[0] = Entry[Count];
 			repair(ref this, 0);
 		}
 		return ref result;
@@ -85,20 +85,20 @@ internal unsafe partial struct HeapBasedQueue([Field(Accessibility = "public", N
 			var li = leftChildIndex(i);
 			var ri = li + 1;
 			var smallest = i;
-			if (li < queue.Count && TreeNode.Compare(in queue.Start[i][0], in queue.Start[li][0]) > 0)
+			if (li < queue.Count && TreeNode.Compare(in queue.Entry[i][0], in queue.Entry[li][0]) > 0)
 			{
 				smallest = li;
 			}
-			if (ri < queue.Count && TreeNode.Compare(in queue.Start[smallest][0], in queue.Start[ri][0]) > 0)
+			if (ri < queue.Count && TreeNode.Compare(in queue.Entry[smallest][0], in queue.Entry[ri][0]) > 0)
 			{
 				smallest = ri;
 			}
 
 			if (smallest != i)
 			{
-				var temp = queue.Start[i];
-				queue.Start[i] = queue.Start[smallest];
-				queue.Start[smallest] = temp;
+				var temp = queue.Entry[i];
+				queue.Entry[i] = queue.Entry[smallest];
+				queue.Entry[smallest] = temp;
 				repair(ref queue, smallest);
 			}
 		}

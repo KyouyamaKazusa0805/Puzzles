@@ -25,7 +25,7 @@ internal interface IAnalysisQueue<TSelf> : IDisposable where TSelf : struct, IAn
 	/// <summary>
 	/// Indicates the nodes stored. All elements are stored as pointers.
 	/// </summary>
-	public abstract unsafe TreeNode*[] Start { get; }
+	public abstract unsafe TreeNode*[] Entry { get; }
 
 
 	/// <summary>

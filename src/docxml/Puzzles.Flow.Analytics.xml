@@ -593,7 +593,7 @@
             Indicates the number enqueued.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Start">
+        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Entry">
             <summary>
             Indicates the array of nodes.
             </summary>
@@ -612,7 +612,7 @@
         <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Capacity">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Start">
+        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Entry">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Dispose">
@@ -770,7 +770,7 @@
             Indicates the number enqueued.
             </summary>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Start">
+        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Entry">
             <summary>
             Indicates the array of nodes.
             </summary>
@@ -784,7 +784,7 @@
         <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Capacity">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Start">
+        <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Entry">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Dispose">
@@ -838,7 +838,7 @@
             Indicates the capacity of the collection.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Start">
+        <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Entry">
             <summary>
             Indicates the nodes stored. All elements are stored as pointers.
             </summary>

@@ -16,7 +16,7 @@ internal unsafe partial struct FifoBasedQueue([Field(Accessibility = "public", N
 	/// <summary>
 	/// Indicates the array of nodes.
 	/// </summary>
-	public TreeNode*[] Start = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(capacity));
+	public TreeNode*[] Entry = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(capacity));
 
 	/// <summary>
 	/// Indicates the next index to dequeue.
@@ -34,31 +34,31 @@ internal unsafe partial struct FifoBasedQueue([Field(Accessibility = "public", N
 	readonly int IAnalysisQueue<FifoBasedQueue>.Capacity => Capacity;
 
 	/// <inheritdoc/>
-	readonly TreeNode*[] IAnalysisQueue<FifoBasedQueue>.Start => Start;
+	readonly TreeNode*[] IAnalysisQueue<FifoBasedQueue>.Entry => Entry;
 
 
 	/// <inheritdoc/>
-	public readonly void Dispose() => ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Start));
+	public readonly void Dispose() => ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Entry));
 
 	/// <inheritdoc/>
 	public readonly ref TreeNode Peek()
 	{
 		Debug.Assert(!IsEmpty);
-		return ref *Start[_next];
+		return ref *Entry[_next];
 	}
 
 	/// <inheritdoc/>
 	public void Enqueue(ref readonly TreeNode node)
 	{
 		Debug.Assert(Count < Capacity);
-		Start[Count++] = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in node));
+		Entry[Count++] = (TreeNode*)Unsafe.AsPointer(ref Unsafe.AsRef(in node));
 	}
 
 	/// <inheritdoc/>
 	public ref TreeNode Dequeue()
 	{
 		Debug.Assert(!IsEmpty);
-		return ref *Start[_next++];
+		return ref *Entry[_next++];
 	}
 
 
