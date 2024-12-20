@@ -9,7 +9,7 @@ namespace Puzzles.Flow.Analytics;
 [StructLayout(LayoutKind.Auto)]
 internal unsafe ref partial struct GridAnalyticsInfo(
 	[Property(Setter = PropertySetters.Set)] int size,
-	[Property(Setter = PropertySetters.Set)] byte colorsCount,
+	[Property(Setter = PropertySetters.Set)] Color colorsCount,
 	[Property(Setter = PropertySetters.Set)] bool isUserOrdered
 ) : IBoard
 {
@@ -29,7 +29,7 @@ internal unsafe ref partial struct GridAnalyticsInfo(
 	/// Indicates the color table looking up color ID.
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed byte ColorTable[1 << 7];
+	public fixed Color ColorTable[1 << 7];
 
 	/// <summary>
 	/// Indicates the index values of color lookup table of codes.
@@ -82,9 +82,9 @@ internal unsafe ref partial struct GridAnalyticsInfo(
 		{
 			var d0 = p[i];
 			var d1 = Size - 1 - p[i];
-			d[i] = Math.Min(d0, d1);
+			d[i] = Min(d0, d1);
 		}
-		return Math.Min(d[0], d[1]);
+		return Min(d[0], d[1]);
 	}
 
 	/// <summary>

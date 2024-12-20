@@ -13,16 +13,8 @@ internal static class Cell
 	/// <param name="direction">The direction.</param>
 	/// <returns>The cell.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte Create(CellState type, byte color, Direction direction)
+	public static byte Create(CellState type, Color color, Direction direction)
 		=> (byte)((color & 0xF) << 4 | (((byte)direction & 0x3) << 2) | (byte)type & 0x3);
-
-	/// <summary>
-	/// Get the color from the cell.
-	/// </summary>
-	/// <param name="c">The cell.</param>
-	/// <returns>The color.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetCellColor(byte c) => (byte)(c >> 4 & 0xF);
 
 	/// <summary>
 	/// Get the type from a cell value.
@@ -39,4 +31,12 @@ internal static class Cell
 	/// <returns>The direction.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static Direction GetDirectionFromCell(byte c) => (Direction)(c >> 2 & 0x3);
+
+	/// <summary>
+	/// Get the color from the cell.
+	/// </summary>
+	/// <param name="c">The cell.</param>
+	/// <returns>The color.</returns>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static Color GetCellColor(byte c) => (Color)(c >> 4 & 0xF);
 }

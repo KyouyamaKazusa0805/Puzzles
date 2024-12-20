@@ -6,7 +6,7 @@ namespace Puzzles.Flow.Analytics;
 [TypeImpl(
 	TypeImplFlags.Object_Equals | TypeImplFlags.Object_GetHashCode | TypeImplFlags.AllEqualityComparisonOperators,
 	IsLargeStructure = true)]
-internal unsafe ref partial struct TreeNode : IComparable<TreeNode>, IEquatable<TreeNode>
+internal ref partial struct TreeNode : IComparable<TreeNode>, IEquatable<TreeNode>
 {
 	/// <summary>
 	/// Indicates the cost to come (this field will be ignored in BFS).
@@ -28,7 +28,7 @@ internal unsafe ref partial struct TreeNode : IComparable<TreeNode>, IEquatable<
 	/// <summary>
 	/// Indicates the parent of this node (can also be <see langword="null"/>).
 	/// </summary>
-	public TreeNode* Parent;
+	public unsafe TreeNode* Parent;
 
 
 	/// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
@@ -55,6 +55,6 @@ internal unsafe ref partial struct TreeNode : IComparable<TreeNode>, IEquatable<
 	{
 		var af = a.CostToCome + a.CostToGo;
 		var bf = b.CostToCome + b.CostToGo;
-		return af != bf ? Math.Sign(af - bf) : Unsafe.IsAddressLessThan(in a, in b) ? -1 : 1;
+		return af != bf ? Sign(af - bf) : Unsafe.IsAddressLessThan(in a, in b) ? -1 : 1;
 	}
 }

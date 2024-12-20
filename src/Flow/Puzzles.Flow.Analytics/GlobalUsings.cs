@@ -12,5 +12,7 @@ global using System.Text;
 global using Puzzles.Concepts;
 global using Puzzles.Flow.Concepts;
 global using Puzzles.Meta;
+global using static System.Math;
 global using Color = byte;
+global using ColorMask = short;
 global using Path = Puzzles.Flow.Concepts.Path;

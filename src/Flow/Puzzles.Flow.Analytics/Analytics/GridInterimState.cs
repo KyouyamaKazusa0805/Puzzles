@@ -27,13 +27,13 @@ internal unsafe ref struct GridInterimState
 	/// <summary>
 	/// Indicates the last color.
 	/// </summary>
-	public byte LastColor { get; set; }
+	public Color LastColor { get; set; }
 
 	/// <summary>
 	/// Indicates the bit flags indicating whether each color has been completed or not
 	/// (<c>currentPosition</c> is adjacent to <c>goalPosition</c>).
 	/// </summary>
-	public short CompletedMask { get; set; }
+	public ColorMask CompletedMask { get; set; }
 
 #if DEBUG
 	/// <summary>

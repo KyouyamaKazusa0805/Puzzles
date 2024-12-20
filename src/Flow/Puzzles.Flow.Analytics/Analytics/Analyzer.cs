@@ -198,7 +198,7 @@ public sealed unsafe class Analyzer
 			state.LastColor = MaxSupportedColorsCount;
 
 			gridInfo = default;
-			new Span<byte>(Unsafe.AsPointer(ref gridInfo.ColorTable[0]), 1 << 7).Fill(byte.MaxValue);
+			new Span<Color>(Unsafe.AsPointer(ref gridInfo.ColorTable[0]), 1 << 7).Fill(Color.MaxValue);
 			new Span<byte>(Unsafe.AsPointer(ref gridInfo.InitPositions[0]), MaxSupportedColorsCount).Fill(byte.MaxValue);
 			new Span<byte>(Unsafe.AsPointer(ref gridInfo.GoalPositions[0]), MaxSupportedColorsCount).Fill(byte.MaxValue);
 
@@ -268,7 +268,7 @@ public sealed unsafe class Analyzer
 				goto ReturnFalse;
 			}
 
-			for (var color = (byte)0; color < gridInfo.ColorsCount; color++)
+			for (var color = (Color)0; color < gridInfo.ColorsCount; color++)
 			{
 				if (gridInfo.GoalPositions[color] == InvalidPosition)
 				{
@@ -332,8 +332,8 @@ public sealed unsafe class Analyzer
 		ref readonly GridAnalyticsInfo grid,
 		Span<byte> resultMap,
 		byte pos,
-		short cFlag,
-		Span<short> resultFlags
+		ColorMask cFlag,
+		Span<ColorMask> resultFlags
 	)
 	{
 		foreach (var direction in Directions)
@@ -374,7 +374,7 @@ public sealed unsafe class Analyzer
 		var cf = (stackalloc ColorFeature[MaxSupportedColorsCount]);
 		cf.Clear();
 
-		for (var color = (byte)0; color < grid.ColorsCount; color++)
+		for (var color = (Color)0; color < grid.ColorsCount; color++)
 		{
 			cf[color].Index = color;
 			cf[color].UserIndex = MaxSupportedColorsCount;
@@ -382,23 +382,19 @@ public sealed unsafe class Analyzer
 
 		if (ReorderColors)
 		{
-			for (var color = (byte)0; color < grid.ColorsCount; color++)
+			for (var color = (Color)0; color < grid.ColorsCount; color++)
 			{
 				var (xf, xs) = (0, 0);
 				var (yf, ys) = (0, 0);
 				foreach (var isFirst in (true, false))
 				{
 					ref var p = ref isFirst ? ref cf[color].WallDistance.First : ref cf[color].WallDistance.Second;
-					Position.GetCoordinateFromPosition(
-						state.Positions[color],
-						out isFirst ? ref xf : ref xs,
-						out isFirst ? ref yf : ref ys
-					);
+					Position.GetCoordinateFromPosition(state.Positions[color], out isFirst ? ref xf : ref xs, out isFirst ? ref yf : ref ys);
 					p = grid.GetWallDistance(isFirst ? xf : xs, isFirst ? yf : ys);
 				}
 
-				var dx = Math.Abs(xs - xf);
-				var dy = Math.Abs(ys - yf);
+				var dx = Abs(xs - xf);
+				var dy = Abs(ys - yf);
 				cf[color].MinDistance = dx + dy;
 			}
 		}
@@ -473,9 +469,9 @@ public sealed unsafe class Analyzer
 	/// <exception cref="ArgumentOutOfRangeException">
 	/// Throws when the argument <paramref name="grid"/> or <paramref name="color"/> is invalid.
 	/// </exception>
-	private bool CanMove(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state, byte color, Direction direction)
+	private bool CanMove(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state, Color color, Direction direction)
 	{
-		ArgumentOutOfRangeException.ThrowIfNotEqual(color == byte.MaxValue || color < grid.ColorsCount, true);
+		ArgumentOutOfRangeException.ThrowIfNotEqual(color == Color.MaxValue || color < grid.ColorsCount, true);
 		ArgumentOutOfRangeException.ThrowIfNotEqual(state.CompletedMask >> color & 1, 0);
 
 		// Get current position x and y.
@@ -584,7 +580,7 @@ public sealed unsafe class Analyzer
 	private bool CheckDeadends(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state)
 	{
 		var color = state.LastColor;
-		if (color >= grid.ColorsCount && color != byte.MaxValue)
+		if (color >= grid.ColorsCount && color != Color.MaxValue)
 		{
 			return false;
 		}
@@ -610,7 +606,7 @@ public sealed unsafe class Analyzer
 	/// <param name="color">The color.</param>
 	/// <param name="pos">The position.</param>
 	/// <returns>A <see cref="bool"/> result.</returns>
-	private bool IsForced(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state, byte color, byte pos)
+	private bool IsForced(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state, Color color, byte pos)
 	{
 		var freeCount = 0;
 		var otherEndpointsCount = 0;
@@ -666,7 +662,7 @@ public sealed unsafe class Analyzer
 	private bool FindForced(
 		ref readonly GridAnalyticsInfo grid,
 		ref readonly GridInterimState state,
-		out byte forcedColor,
+		out Color forcedColor,
 		out Direction forcedDirection
 	)
 	{
@@ -805,7 +801,7 @@ public sealed unsafe class Analyzer
 
 		if (!grid.IsUserOrdered && ReorderOnMostConstrained)
 		{
-			var bestColor = byte.MaxValue;
+			var bestColor = Color.MaxValue;
 			var bestFree = 4;
 
 			for (var i = 0; i < grid.ColorsCount; i++)
@@ -825,7 +821,7 @@ public sealed unsafe class Analyzer
 				}
 			}
 
-			Debug.Assert(bestColor == byte.MaxValue || bestColor < grid.ColorsCount);
+			Debug.Assert(bestColor == Color.MaxValue || bestColor < grid.ColorsCount);
 			return bestColor;
 		}
 		else
@@ -855,10 +851,10 @@ public sealed unsafe class Analyzer
 	/// <exception cref="ArgumentOutOfRangeException">
 	/// Throws when the <paramref name="color"/> specified is exceeded the limit.
 	/// </exception>
-	private int MakeMove(ref readonly GridAnalyticsInfo grid, ref GridInterimState state, byte color, Direction direction, bool forced)
+	private int MakeMove(ref readonly GridAnalyticsInfo grid, ref GridInterimState state, Color color, Direction direction, bool forced)
 	{
 		// Make sure the color is valid.
-		ArgumentOutOfRangeException.ThrowIfNotEqual(color == byte.MaxValue || color < grid.ColorsCount, true);
+		ArgumentOutOfRangeException.ThrowIfNotEqual(color == Color.MaxValue || color < grid.ColorsCount, true);
 
 		// Update the cell with the new cell value.
 		var move = Cell.Create(CellState.Path, color, direction);
@@ -881,7 +877,7 @@ public sealed unsafe class Analyzer
 		if (!CheckTouchness && newPosition == grid.GoalPositions[color])
 		{
 			state.Cells[grid.GoalPositions[color]] = Cell.Create(CellState.End, color, direction);
-			state.CompletedMask |= (short)(1 << color);
+			state.CompletedMask |= (ColorMask)(1 << color);
 			return 0;
 		}
 
@@ -912,7 +908,7 @@ public sealed unsafe class Analyzer
 		if (goalDirection != (Direction)byte.MaxValue)
 		{
 			state.Cells[grid.GoalPositions[color]] = Cell.Create(CellState.End, color, goalDirection);
-			state.CompletedMask |= (short)(1 << color);
+			state.CompletedMask |= (ColorMask)(1 << color);
 			actionCost = 0;
 		}
 		else
@@ -973,7 +969,7 @@ public sealed unsafe class Analyzer
 	private int CheckBottleneck(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state)
 	{
 		var color = state.LastColor;
-		if (color >= grid.ColorsCount && color != byte.MaxValue)
+		if (color >= grid.ColorsCount && color != Color.MaxValue)
 		{
 			return 0;
 		}
@@ -1010,10 +1006,10 @@ public sealed unsafe class Analyzer
 		return 0;
 
 
-		short checkChokepoint(
+		ColorMask checkChokepoint(
 			ref readonly GridAnalyticsInfo grid,
 			ref readonly GridInterimState state,
-			byte color,
+			Color color,
 			Direction direction,
 			int n
 		)
@@ -1044,7 +1040,7 @@ public sealed unsafe class Analyzer
 	/// <param name="chokePointColor">The choke point color.</param>
 	/// <param name="maxStranded">The maximum stranded.</param>
 	/// <returns>The mask of colors stranded.</returns>
-	private short GetStrandedColors(
+	private ColorMask GetStrandedColors(
 		ref readonly GridAnalyticsInfo grid,
 		ref readonly GridInterimState state,
 		int resultCount,
@@ -1055,20 +1051,20 @@ public sealed unsafe class Analyzer
 	{
 		// For each region, we have bit flags to track whether current or goal position
 		// is adjacent to the region. These get init'ed to 0.
-		var currentResultFlags = (stackalloc short[resultCount]);
-		var goalResultFlags = (stackalloc short[resultCount]);
+		var currentResultFlags = (stackalloc ColorMask[resultCount]);
+		var goalResultFlags = (stackalloc ColorMask[resultCount]);
 		currentResultFlags.Clear();
 		goalResultFlags.Clear();
 
 		var strandedCount = 0;
-		var result = (short)0;
+		var result = (ColorMask)0;
 		var forChokePoint = chokePointColor < grid.ColorsCount;
 
 		// For each color, figure out which regions touch its current and goal position,
 		// and make sure no color is stranded.
 		for (var color = 0; color < grid.ColorsCount; color++)
 		{
-			var cFlag = (short)(1 << color);
+			var cFlag = (ColorMask)(1 << color);
 
 			// No worries if completed.
 			if ((state.CompletedMask & cFlag) != 0 || color == chokePointColor)
@@ -1081,7 +1077,7 @@ public sealed unsafe class Analyzer
 
 			if (!CheckTouchness)
 			{
-				var delta = Math.Abs(state.Positions[color] - grid.GoalPositions[color]);
+				var delta = Abs(state.Positions[color] - grid.GoalPositions[color]);
 				if (delta == 1 || delta == 16)
 				{
 					// Adjacent.
@@ -1145,7 +1141,7 @@ public sealed unsafe class Analyzer
 		out GridInterimState finalState
 	)
 	{
-		var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Math.Floor(MaxMemoryUsage * MegaByte / sizeof(TreeNode));
+		var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * MegaByte / sizeof(TreeNode));
 		var storage = NodeStorage.Create(maxNodes);
 		scoped ref var root = ref storage.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
 		UpdateNodeCosts(ref root, 0);

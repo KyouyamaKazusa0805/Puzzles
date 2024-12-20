@@ -451,13 +451,6 @@
             <param name="direction">The direction.</param>
             <returns>The cell.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Cell.GetCellColor(System.Byte)">
-            <summary>
-            Get the color from the cell.
-            </summary>
-            <param name="c">The cell.</param>
-            <returns>The color.</returns>
-        </member>
         <member name="M:Puzzles.Flow.Analytics.Cell.GetTypeFromCell(System.Byte)">
             <summary>
             Get the type from a cell value.
@@ -471,6 +464,13 @@
             </summary>
             <param name="c">The cell.</param>
             <returns>The direction.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.Cell.GetCellColor(System.Byte)">
+            <summary>
+            Get the color from the cell.
+            </summary>
+            <param name="c">The cell.</param>
+            <returns>The color.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.ColorFeature">
             <summary>
