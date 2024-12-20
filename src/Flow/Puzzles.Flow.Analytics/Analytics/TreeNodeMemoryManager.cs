@@ -102,15 +102,15 @@ internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capaci
 	}
 
 	/// <inheritdoc/>
-	[DoesNotReturn]
-	public override void Unpin() => throw new NotImplementedException();
+	public override void Unpin()
+	{
+	}
 
 	/// <inheritdoc/>
 	public override Span<TreeNode> GetSpan() => Memory.Span[..Count];
 
 	/// <inheritdoc/>
-	[DoesNotReturn]
-	public override MemoryHandle Pin(int elementIndex = 0) => throw new NotImplementedException();
+	public override MemoryHandle Pin(int elementIndex = 0) => default;
 
 	/// <inheritdoc/>
 	protected override void Dispose(bool disposing) => Dispose();
