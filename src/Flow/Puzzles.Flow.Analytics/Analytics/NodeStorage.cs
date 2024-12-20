@@ -24,8 +24,7 @@ internal unsafe ref struct NodeStorage
 	/// <summary>
 	/// Destroy the memory allocated.
 	/// </summary>
-	[SuppressMessage("Style", "IDE0251:Make member 'readonly'", Justification = "<Pending>")]
-	public void Destroy() => NativeMemory.Free(Start);
+	public readonly void Destroy() => NativeMemory.Free(Start);
 
 	/// <summary>
 	/// Unallocate the tree node.

@@ -13,15 +13,15 @@ internal enum SearchingResult
 	/// <summary>
 	/// Indicates the progress type is unreachable (failed).
 	/// </summary>
-	Unreachable = 1,
+	Unreachable,
 
 	/// <summary>
 	/// Indicates the progress type is full.
 	/// </summary>
-	Full = 2,
+	Full,
 
 	/// <summary>
 	/// Indicates the progress type is in-progress.
 	/// </summary>
-	InProgress = 3
+	InProgress
 }
