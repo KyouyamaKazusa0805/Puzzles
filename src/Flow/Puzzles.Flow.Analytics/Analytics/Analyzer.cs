@@ -9,8 +9,9 @@ namespace Puzzles.Flow.Analytics;
 /// <remarks>
 /// <para>
 /// This implementation is just a copy from <see href="https://github.com/mzucker/flow_solver">this repository</see>,
-/// but I change the algorithm into C# implementation instead.
-/// <i>In addition, some items are modified in order to make such API more unified in the whole puzzles project.</i>
+/// but I change the algorithm into C# implementation instead,
+/// with some minor updates (like using <see langword="ref"/> and <see langword="ref readonly"/> instead of naked pointer operations)
+/// in order to make API more unified in the whole repository.
 /// </para>
 /// <para>
 /// Also, this algorithm uses some logical techniques to reduce complexity of brute forces.
@@ -43,11 +44,6 @@ public sealed unsafe class Analyzer
 	/// Indicates the maximum length of cells available in the grid. The value is equal to 239.
 	/// </summary>
 	public const int MaxGridCellsCount = (MaxSize + 1) * MaxSize - 1;
-
-	/// <summary>
-	/// Represents mega-bytes. The value is equal to 1048576.
-	/// </summary>
-	public const int MegaByte = 1 << 20;
 
 	/// <summary>
 	/// Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
@@ -1110,7 +1106,7 @@ public sealed unsafe class Analyzer
 		var queue = default(TQueue);
 		try
 		{
-			var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * MegaByte / sizeof(TreeNode));
+			var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * (1 << 20) / sizeof(TreeNode));
 			storage = NodeStorage.Create(maxNodes);
 			scoped ref var root = ref storage.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
 			UpdateNodeCosts(ref root, 0);
