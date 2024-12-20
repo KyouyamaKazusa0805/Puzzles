@@ -1,5 +1,6 @@
 #undef PERFORM_STABLE_SORT
 #define USE_BEST_FIRST_SEARCH
+#undef RANDOM_ORDER_COLORS
 
 namespace Puzzles.Flow.Analytics;
 
@@ -118,11 +119,6 @@ public sealed unsafe class Analyzer
 	public bool ForcesFirstColor { get; set; } = true;
 
 	/// <summary>
-	/// Indicates whether analyzer will randomize colors.
-	/// </summary>
-	public bool RandomOrdering { get; set; }
-
-	/// <summary>
 	/// Indicates the maximum memory usage in mega-bytes.
 	/// </summary>
 	public double MaxMemoryUsage { get; set; } = 128;
@@ -154,7 +150,7 @@ public sealed unsafe class Analyzer
 			return new(grid) { IsSolved = false, FailedReason = FailedReason.Invalid, ElapsedTime = stopwatch.Elapsed };
 		}
 
-		OrderColors(ref gridInfo, in state, null);
+		OrderColors(ref gridInfo, in state);
 
 		var result = Search<
 #if USE_BEST_FIRST_SEARCH
@@ -316,20 +312,16 @@ public sealed unsafe class Analyzer
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="state">The state.</param>
-	/// <param name="userOrder">User order.</param>
-	private void OrderColors(ref GridAnalyticsInfo grid, ref readonly GridInterimState state, string? userOrder)
+	private void OrderColors(ref GridAnalyticsInfo grid, ref readonly GridInterimState state)
 	{
-		if (RandomOrdering)
+#if RANDOM_ORDER_COLORS
+		var rng = Random.Shared;
+		for (var i = grid.ColorsCount - 1; i > 0; i--)
 		{
-			var rng = Random.Shared;
-			for (var i = grid.ColorsCount - 1; i > 0; i--)
-			{
-				var j = rng.Next(0, i + 1);
-				(grid.ColorOrder[i], grid.ColorOrder[j]) = (grid.ColorOrder[j], grid.ColorOrder[i]);
-			}
-			return;
+			var j = rng.Next(0, i + 1);
+			(grid.ColorOrder[i], grid.ColorOrder[j]) = (grid.ColorOrder[j], grid.ColorOrder[i]);
 		}
-
+#else
 		var cf = (stackalloc ColorFeature[MaxSupportedColorsCount]);
 		cf.Clear();
 
@@ -358,25 +350,6 @@ public sealed unsafe class Analyzer
 			}
 		}
 
-		if (userOrder is not null)
-		{
-			var k = 0;
-			foreach (var c in userOrder.ToUpper())
-			{
-				var color = c < 127 ? grid.ColorTable[c] : MaxSupportedColorsCount;
-				if (color >= grid.ColorsCount)
-				{
-					throw new InvalidOperationException("The current color specified in user list is not used in the puzzle.");
-				}
-				if (cf[color].UserIndex < grid.ColorsCount)
-				{
-					throw new InvalidOperationException("The current color specified is already used.");
-				}
-				cf[color].UserIndex = k++;
-			}
-			grid.IsUserOrdered = true;
-		}
-
 #if PERFORM_STABLE_SORT
 		bubbleSort(cf[..grid.ColorsCount], ColorFeature.Compare);
 #else
@@ -402,6 +375,7 @@ public sealed unsafe class Analyzer
 				}
 			}
 		}
+#endif
 #endif
 	}
 

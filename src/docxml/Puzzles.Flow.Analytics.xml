@@ -202,11 +202,6 @@
             Indicates whether analyzer will force the first color as start.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.Analyzer.RandomOrdering">
-            <summary>
-            Indicates whether analyzer will randomize colors.
-            </summary>
-        </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.MaxMemoryUsage">
             <summary>
             Indicates the maximum memory usage in mega-bytes.
@@ -239,13 +234,12 @@
             <param name="cFlag">The flag.</param>
             <param name="resultFlags">The result flags.</param>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.OrderColors(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.String)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.OrderColors(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@)">
             <summary>
             Order colors.
             </summary>
             <param name="grid">The grid.</param>
             <param name="state">The state.</param>
-            <param name="userOrder">User order.</param>
         </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.UpdateNodeCosts(Puzzles.Flow.Analytics.TreeNode@,System.Int32)">
             <summary>
