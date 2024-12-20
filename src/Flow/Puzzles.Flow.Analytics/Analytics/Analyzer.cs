@@ -1037,7 +1037,7 @@ public sealed unsafe class Analyzer
 			if (!DisableAdjacentTouchness)
 			{
 				var delta = Abs(state.Positions[color] - grid.GoalPositions[color]);
-				if (delta == 1 || delta == 16)
+				if (delta is 1 or MaxSupportedColorsCount)
 				{
 					// Adjacent.
 					continue;
