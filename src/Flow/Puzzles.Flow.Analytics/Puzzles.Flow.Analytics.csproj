@@ -4,8 +4,8 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<RootNamespace>Puzzles.Flow</RootNamespace>
 		<DocumentationFile>../../docxml/Puzzles.Flow.Analytics.xml</DocumentationFile>
-		<!--;USE_NATIVE_MEMORY-->
-		<DefineConstants>USE_ARRAY_POOL</DefineConstants>
+		<!--USE_NEW_ARRAY;USE_ARRAY_POOL;USE_NATIVE_MEMORY;DYNAMIC_ALLOCATION-->
+		<DefineConstants>USE_NEW_ARRAY;DYNAMIC_ALLOCATION</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>

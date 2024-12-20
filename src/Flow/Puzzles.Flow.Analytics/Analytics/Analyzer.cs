@@ -121,7 +121,13 @@ public sealed unsafe class Analyzer
 	/// <summary>
 	/// Indicates the maximum memory usage in mega-bytes.
 	/// </summary>
-	public double MaxMemoryUsage { get; set; } = 128;
+	/// <remarks>
+	/// If you configured symbol <c>DYNAMIC_ALLOCATION</c>, this property will be the size of initial block.
+	/// It can be dynamic allocated if the block has been run out.
+	/// However, there's no limit value, it means that if a grid has a large complexity to be analyzed,
+	/// massive memory will be allocated, which is an unsafe operation.
+	/// </remarks>
+	public double MaxMemoryUsage { get; set; } = 16;
 
 	/// <summary>
 	/// Indicates the number of bottleneck limit.
@@ -1082,14 +1088,14 @@ public sealed unsafe class Analyzer
 		{
 			var maxNodes = MaxNodes != 0 ? MaxNodes : (int)Floor(MaxMemoryUsage * (1 << 20) / sizeof(TreeNode));
 			nodeMemoryManager = new(maxNodes);
-			ref var root = ref nodeMemoryManager.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState);
+			ref var root = ref nodeMemoryManager.CreateNode(in Unsafe.NullRef<TreeNode>(), ref initState, ref queue);
 			UpdateNodeCosts(ref root, 0);
 
 			queue = TQueue.Create(maxNodes);
 			var result = SearchingResult.InProgress;
 			ref var solutionNode = ref Unsafe.NullRef<TreeNode>();
 			var start = Stopwatch.GetTimestamp();
-			root = ref Validate(in grid, ref root, nodeMemoryManager);
+			root = ref Validate(in grid, ref root, nodeMemoryManager, ref queue);
 			if (Unsafe.IsNullRef(in root))
 			{
 				result = SearchingResult.Unreachable;
@@ -1123,7 +1129,7 @@ public sealed unsafe class Analyzer
 
 					if (CanMove(in grid, in n.State, color, direction))
 					{
-						ref var child = ref nodeMemoryManager.CreateNode(in n, ref parentState);
+						ref var child = ref nodeMemoryManager.CreateNode(in n, ref parentState, ref queue);
 						if (Unsafe.IsNullRef(in child))
 						{
 							result = SearchingResult.Full;
@@ -1183,11 +1189,19 @@ public sealed unsafe class Analyzer
 	/// <summary>
 	/// Validate the puzzle, and return the tree node in use.
 	/// </summary>
+	/// <typeparam name="TQueue">The type of queue.</typeparam>
 	/// <param name="grid">The grid.</param>
 	/// <param name="node">The node.</param>
 	/// <param name="memoryManager">The memory manager of <see cref="TreeNode"/> instances.</param>
+	/// <param name="queue">The queue.</param>
 	/// <returns>The final <see cref="TreeNode"/> instance created.</returns>
-	private ref TreeNode Validate(ref readonly GridAnalyticsInfo grid, ref TreeNode node, TreeNodeMemoryManager memoryManager)
+	private ref TreeNode Validate<TQueue>(
+		ref readonly GridAnalyticsInfo grid,
+		ref TreeNode node,
+		TreeNodeMemoryManager memoryManager,
+		scoped ref TQueue queue
+	)
+		where TQueue : struct, IAnalysisQueue<TQueue>, allows ref struct
 	{
 		Debug.Assert(Unsafe.AreSame(in node, in memoryManager.Entry[memoryManager.Count - 1]));
 
@@ -1199,13 +1213,13 @@ public sealed unsafe class Analyzer
 				goto ReturnNull;
 			}
 
-			ref var forcedChild = ref memoryManager.CreateNode(in node, ref nodeState);
+			ref var forcedChild = ref memoryManager.CreateNode(in node, ref nodeState, ref queue);
 			if (!Unsafe.IsNullRef(in forcedChild))
 			{
 				MakeMove(in grid, ref forcedChild.State, color, direction, true);
 				UpdateNodeCosts(ref forcedChild, 0);
 
-				forcedChild = ref Validate(in grid, ref forcedChild, memoryManager);
+				forcedChild = ref Validate(in grid, ref forcedChild, memoryManager, ref queue);
 				if (Unsafe.IsNullRef(in forcedChild))
 				{
 					goto ReturnNull;

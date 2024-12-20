@@ -25,8 +25,17 @@ internal interface IAnalysisQueue<TSelf> : IDisposable where TSelf : struct, IAn
 	/// <summary>
 	/// Indicates the nodes stored. All elements are stored as pointers.
 	/// </summary>
+#if USE_NEW_ARRAY || USE_ARRAY_POOL
 	public abstract unsafe TreeNode*[] Entry { get; }
+#else
+	public abstract unsafe TreeNode** Entry { get; }
+#endif
 
+
+	/// <summary>
+	/// Grow the memory allocation double-sized.
+	/// </summary>
+	public abstract void Grow();
 
 	/// <summary>
 	/// Try to enqueue a <see cref="TreeNode"/> into <typeparamref name="TSelf"/>.

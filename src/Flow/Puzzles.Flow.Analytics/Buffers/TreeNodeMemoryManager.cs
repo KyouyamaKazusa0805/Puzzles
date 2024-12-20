@@ -4,7 +4,13 @@ namespace Puzzles.Flow.Buffers;
 /// Represents a memory manager for <see cref="TreeNode"/> instances allocation.
 /// </summary>
 /// <param name="capacity">Indicates the capacity.</param>
-internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capacity) : MemoryManager<TreeNode>
+internal sealed unsafe partial class TreeNodeMemoryManager(
+#if DYNAMIC_ALLOCATION
+	[Property(Setter = PropertySetters.PrivateSet)] int capacity
+#else
+	[Property] int capacity
+#endif
+) : MemoryManager<TreeNode>
 {
 	/// <summary>
 	/// Indicates the number of nodes solved.
@@ -14,7 +20,9 @@ internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capaci
 	/// <summary>
 	/// Indicates the allocated block.
 	/// </summary>
-#if USE_ARRAY_POOL
+#if USE_NEW_ARRAY
+	public TreeNode[] Entry { get; private set; } = new TreeNode[capacity];
+#elif USE_ARRAY_POOL
 	public TreeNode[] Entry { get; private set; } = ArrayPool<TreeNode>.Shared.Rent(capacity);
 #elif USE_NATIVE_MEMORY
 	public TreeNode* Entry { get; private set; } = (TreeNode*)NativeMemory.Alloc((nuint)capacity, (nuint)sizeof(TreeNode));
@@ -23,12 +31,24 @@ internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capaci
 #endif
 
 	/// <inheritdoc/>
-	public override Memory<TreeNode> Memory => Entry.AsMemory()[..Count];
+	public override Memory<TreeNode> Memory
+#if USE_NEW_ARRAY || USE_ARRAY_POOL
+		=> Entry.AsMemory()[..Count];
+#else
+	{
+		[DoesNotReturn]
+		get => throw new NotSupportedException($"Cannot apply memory if member '{nameof(Entry)}' is a pointer type.");
+	}
+#endif
 
 
 	/// <inheritdoc/>
 	public void Dispose()
-#if USE_ARRAY_POOL
+#if USE_NEW_ARRAY
+	{
+		// Managed array may not be required to be released.
+	}
+#elif USE_ARRAY_POOL
 		=> ArrayPool<TreeNode>.Shared.Return(Entry);
 #elif USE_NATIVE_MEMORY
 		=> NativeMemory.Free(Entry);
@@ -49,28 +69,55 @@ internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capaci
 	/// <summary>
 	/// Try to create a new <see cref="TreeNode"/> from memory.
 	/// </summary>
+	/// <typeparam name="TQueue">The type of the queue.</typeparam>
+	/// <param name="queue">The queue.</param>
 	/// <returns>The reference to the next node; or <see langword="ref null"/> if failed to create.</returns>
-	public ref TreeNode Rent()
+	public ref TreeNode Rent<TQueue>(scoped ref TQueue queue) where TQueue : struct, IAnalysisQueue<TQueue>, allows ref struct
 	{
 		if (Count >= Capacity)
 		{
+#if DYNAMIC_ALLOCATION
+			Capacity <<= 1;
+#if USE_NEW_ARRAY
+			var entry = Entry;
+			Array.Resize(ref entry, Capacity);
+			Entry = entry;
+#elif USE_ARRAY_POOL
+			var tempArray = Entry[..];
+			ArrayPool<TreeNode>.Shared.Return(Entry);
+			Entry = ArrayPool<TreeNode>.Shared.Rent(Capacity);
+			tempArray.CopyTo(Entry, 0);
+#elif USE_NATIVE_MEMORY
+			Entry = (TreeNode*)NativeMemory.Realloc(Entry, (nuint)Capacity * (nuint)sizeof(TreeNode));
+
+			// Clears for the new-allocated memory block.
+			new Span<TreeNode>(Entry + (Capacity >> 1), Capacity >> 1).Clear();
+#else
 			return ref Unsafe.NullRef<TreeNode>();
+#endif
+
+			// Also execute dynamic allocation on queue.
+			queue.Grow();
+#else
+			return ref Unsafe.NullRef<TreeNode>();
+#endif
 		}
 
-		ref var result = ref Entry[Count];
-		Count++;
-		return ref result;
+		return ref Entry[Count++];
 	}
 
 	/// <summary>
 	/// Create a node via the specified parent and state.
 	/// </summary>
+	/// <typeparam name="TQueue">The type of the queue.</typeparam>
 	/// <param name="parent">The parent node.</param>
 	/// <param name="state">The state.</param>
+	/// <param name="queue">The queue.</param>
 	/// <returns>The created node, or return <see langword="ref null"/> if failed to allocate.</returns>
-	public ref TreeNode CreateNode(ref readonly TreeNode parent, ref GridInterimState state)
+	public ref TreeNode CreateNode<TQueue>(ref readonly TreeNode parent, ref GridInterimState state, scoped ref TQueue queue)
+		where TQueue : struct, IAnalysisQueue<TQueue>, allows ref struct
 	{
-		ref var result = ref Rent();
+		ref var result = ref Rent(ref queue);
 		if (Unsafe.IsNullRef(in result))
 		{
 			return ref Unsafe.NullRef<TreeNode>();

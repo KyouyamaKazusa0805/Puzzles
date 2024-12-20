@@ -4,19 +4,19 @@ namespace Puzzles.Flow.Analytics;
 /// Represents a grid interim state.
 /// </summary>
 [StructLayout(LayoutKind.Auto)]
-internal unsafe struct GridInterimState
+internal struct GridInterimState
 {
 	/// <summary>
 	/// Indicates the cell states.
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed byte Cells[Analyzer.MaxGridCellsCount];
+	public unsafe fixed byte Cells[Analyzer.MaxGridCellsCount];
 
 	/// <summary>
 	/// Indicates the positions.
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed byte Positions[Analyzer.MaxSupportedColorsCount];
+	public unsafe fixed byte Positions[Analyzer.MaxSupportedColorsCount];
 
 
 	/// <summary>
@@ -39,10 +39,10 @@ internal unsafe struct GridInterimState
 	/// <summary>
 	/// Provides <see langword="this"/> pointer.
 	/// </summary>
-	private readonly GridInterimState* ThisPointer => (GridInterimState*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
+	private readonly unsafe GridInterimState* ThisPointer => (GridInterimState*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
 
-	private readonly ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, Analyzer.MaxSupportedColorsCount);
+	private readonly unsafe ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, Analyzer.MaxSupportedColorsCount);
 
-	private readonly ReadOnlySpan<byte> CellsSpan => new(ThisPointer->Cells, Analyzer.MaxGridCellsCount);
+	private readonly unsafe ReadOnlySpan<byte> CellsSpan => new(ThisPointer->Cells, Analyzer.MaxGridCellsCount);
 #endif
 }

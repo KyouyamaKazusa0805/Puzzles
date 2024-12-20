@@ -206,6 +206,12 @@
             <summary>
             Indicates the maximum memory usage in mega-bytes.
             </summary>
+            <remarks>
+            If you configured symbol <c>DYNAMIC_ALLOCATION</c>, this property will be the size of initial block.
+            It can be dynamic allocated if the block has been run out.
+            However, there's no limit value, it means that if a grid has a large complexity to be analyzed,
+            massive memory will be allocated, which is an unsafe operation.
+            </remarks>
         </member>
         <member name="P:Puzzles.Flow.Analytics.Analyzer.BottleneckLimit">
             <summary>
@@ -399,13 +405,15 @@
             <param name="finalState">The final state.</param>
             <returns>A <see cref="T:Puzzles.Flow.Analytics.SearchingResult"/> value.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.Validate(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Buffers.TreeNodeMemoryManager)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.Validate``1(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Buffers.TreeNodeMemoryManager,``0@)">
             <summary>
             Validate the puzzle, and return the tree node in use.
             </summary>
+            <typeparam name="TQueue">The type of queue.</typeparam>
             <param name="grid">The grid.</param>
             <param name="node">The node.</param>
             <param name="memoryManager">The memory manager of <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instances.</param>
+            <param name="queue">The queue.</param>
             <returns>The final <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instance created.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.Cell">
@@ -572,13 +580,13 @@
         </member>
         <member name="T:Puzzles.Flow.Analytics.FifoBasedQueue">
             <summary>
-            Indicates the data structure for FIFO-based priority queue.
+            Indicates the data structure for FIFO-based (first in first out) priority queue.
             </summary>
             <param name="capacity">The number of elements allocated.</param>
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.#ctor(System.Int32)">
             <summary>
-            Indicates the data structure for FIFO-based priority queue.
+            Indicates the data structure for FIFO-based (first in first out) priority queue.
             </summary>
             <param name="capacity">The number of elements allocated.</param>
         </member>
@@ -599,10 +607,10 @@
         <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Count">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Capacity">
+        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Entry">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Entry">
+        <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Grow">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Dispose">
@@ -620,9 +628,9 @@
         <member name="M:Puzzles.Flow.Analytics.FifoBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#FifoBasedQueue}#Create(System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.FifoBasedQueue.Capacity">
+        <member name="P:Puzzles.Flow.Analytics.FifoBasedQueue.Capacity">
             <summary>
-            The generated field declaration for parameter <c>capacity</c>.
+            The generated property declaration for parameter <c>capacity</c>.
             </summary>
         </member>
         <member name="T:Puzzles.Flow.Analytics.GridAnalyticsInfo">
@@ -773,6 +781,9 @@
         <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Entry">
             <inheritdoc/>
         </member>
+        <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Grow">
+            <inheritdoc/>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Dispose">
             <inheritdoc/>
         </member>
@@ -788,9 +799,9 @@
         <member name="M:Puzzles.Flow.Analytics.HeapBasedQueue.Puzzles#Flow#Analytics#IAnalysisQueue{Puzzles#Flow#Analytics#HeapBasedQueue}#Create(System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.HeapBasedQueue.Capacity">
+        <member name="P:Puzzles.Flow.Analytics.HeapBasedQueue.Capacity">
             <summary>
-            The generated field declaration for parameter <c>capacity</c>.
+            The generated property declaration for parameter <c>capacity</c>.
             </summary>
         </member>
         <member name="T:Puzzles.Flow.Analytics.IAnalysisQueue`1">
@@ -827,6 +838,11 @@
         <member name="P:Puzzles.Flow.Analytics.IAnalysisQueue`1.Entry">
             <summary>
             Indicates the nodes stored. All elements are stored as pointers.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Grow">
+            <summary>
+            Grow the memory allocation double-sized.
             </summary>
         </member>
         <member name="M:Puzzles.Flow.Analytics.IAnalysisQueue`1.Enqueue(Puzzles.Flow.Analytics.TreeNode@)">
@@ -1076,18 +1092,22 @@
             </summary>
             <param name="n">The node.</param>
         </member>
-        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Rent">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Rent``1(``0@)">
             <summary>
             Try to create a new <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> from memory.
             </summary>
+            <typeparam name="TQueue">The type of the queue.</typeparam>
+            <param name="queue">The queue.</param>
             <returns>The reference to the next node; or <see langword="ref null"/> if failed to create.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.CreateNode(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.GridInterimState@)">
+        <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.CreateNode``1(Puzzles.Flow.Analytics.TreeNode@,Puzzles.Flow.Analytics.GridInterimState@,``0@)">
             <summary>
             Create a node via the specified parent and state.
             </summary>
+            <typeparam name="TQueue">The type of the queue.</typeparam>
             <param name="parent">The parent node.</param>
             <param name="state">The state.</param>
+            <param name="queue">The queue.</param>
             <returns>The created node, or return <see langword="ref null"/> if failed to allocate.</returns>
         </member>
         <member name="M:Puzzles.Flow.Buffers.TreeNodeMemoryManager.Unpin">
