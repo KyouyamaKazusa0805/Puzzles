@@ -1078,6 +1078,9 @@
             Indicates the allocated block.
             </summary>
         </member>
+        <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Memory">
+            <inheritdoc/>
+        </member>
         <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Dispose">
             <inheritdoc/>
         </member>
@@ -1100,6 +1103,18 @@
             <param name="parent">The parent node.</param>
             <param name="state">The state.</param>
             <returns>The created node, or return <see langword="ref null"/> if failed to allocate.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Unpin">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.GetSpan">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Pin(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Dispose(System.Boolean)">
+            <inheritdoc/>
         </member>
         <member name="P:Puzzles.Flow.Analytics.TreeNodeMemoryManager.Capacity">
             <summary>

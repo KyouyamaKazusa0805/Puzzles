@@ -12,7 +12,7 @@ namespace Puzzles.Flow.Analytics;
 /// Represents a memory manager for <see cref="TreeNode"/> instances allocation.
 /// </summary>
 /// <param name="capacity">Indicates the capacity.</param>
-internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capacity) : IDisposable
+internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capacity) : MemoryManager<TreeNode>
 {
 	/// <summary>
 	/// Indicates the number of nodes solved.
@@ -29,6 +29,9 @@ internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capaci
 #else
 	public TreeNode* Entry { get; private set; } = null;
 #endif
+
+	/// <inheritdoc/>
+	public override Memory<TreeNode> Memory => Entry.AsMemory()[..Count];
 
 
 	/// <inheritdoc/>
@@ -97,4 +100,18 @@ internal sealed unsafe partial class TreeNodeMemoryManager([Property] int capaci
 		Unsafe.CopyBlock(pResult->State.Positions, pState->Positions, sizeof(byte) * Analyzer.MaxSupportedColorsCount);
 		return ref result;
 	}
+
+	/// <inheritdoc/>
+	[DoesNotReturn]
+	public override void Unpin() => throw new NotImplementedException();
+
+	/// <inheritdoc/>
+	public override Span<TreeNode> GetSpan() => Memory.Span[..Count];
+
+	/// <inheritdoc/>
+	[DoesNotReturn]
+	public override MemoryHandle Pin(int elementIndex = 0) => throw new NotImplementedException();
+
+	/// <inheritdoc/>
+	protected override void Dispose(bool disposing) => Dispose();
 }
