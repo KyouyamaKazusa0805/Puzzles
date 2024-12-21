@@ -152,7 +152,7 @@ public sealed unsafe class Analyzer
 		var stopwatch = new Stopwatch();
 		stopwatch.Start();
 
-		if (!tryLoadPuzzle(grid.ToString(), grid.Size, out var gridInfo, out var state))
+		if (!tryLoadPuzzle(grid.ToString(new MultilineGridFormatInfo()), grid.Size, out var gridInfo, out var state))
 		{
 			stopwatch.Stop();
 			return new(grid) { IsSolved = false, FailedReason = FailedReason.Invalid, ElapsedTime = stopwatch.Elapsed };

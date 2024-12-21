@@ -55,7 +55,7 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 	{
 		var sb = new StringBuilder();
 		sb.AppendLine("Puzzle:");
-		sb.AppendLine(Grid.ToString());
+		sb.AppendLine(Grid.ToString(new MultilineGridFormatInfo()));
 		sb.AppendLine("---");
 
 		if (IsSolved)

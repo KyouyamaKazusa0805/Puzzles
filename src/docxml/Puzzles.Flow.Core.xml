@@ -141,6 +141,47 @@
             Represents a grid that defines the start and end points of flows.
             </summary>
         </member>
+        <member name="T:Puzzles.Flow.Concepts.Grid.CellStateEnumerator">
+            <summary>
+            Represents an enumerator that can iterate on each cell states of the grid.
+            </summary>
+            <param name="_grid">The grid.</param>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.#ctor(Puzzles.Flow.Concepts.Grid)">
+            <summary>
+            Represents an enumerator that can iterate on each cell states of the grid.
+            </summary>
+            <param name="_grid">The grid.</param>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Grid.CellStateEnumerator._index">
+            <summary>
+            Indicates the current index.
+            </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.System#Collections#IEnumerator#Reset">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.CellStateEnumerator.System#Collections#Generic#IEnumerable{Puzzles#Flow#Concepts#CellState}#GetEnumerator">
+            <inheritdoc/>
+        </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.#ctor(System.Int32,System.Collections.Generic.SortedSet{Puzzles.Flow.Concepts.FlowPosition})">
             <summary>
             Represents a grid that defines the start and end points of flows.
@@ -176,18 +217,13 @@
         <member name="P:Puzzles.Flow.Concepts.Grid.Puzzles#Meta#DataStructures#IDataStructure#Base">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Concepts.Grid.Item(System.Int32)">
-            <summary>
-            Gets the flow at the specified index.
-            </summary>
-            <param name="index">The desired index.</param>
-            <returns>The flow.</returns>
-            <exception cref="T:System.IndexOutOfRangeException">Throws when the index is out of range.</exception>
-        </member>
         <member name="P:Puzzles.Flow.Concepts.Grid.Comparer">
             <summary>
             Indicates the backing comparer to compare equality of field <see cref="F:Puzzles.Flow.Concepts.Grid._cells"/>.
             </summary>
+        </member>
+        <member name="P:Puzzles.Flow.Concepts.Grid.Item(System.Int32)">
+            <inheritdoc/>
         </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.Equals(Puzzles.Flow.Concepts.Grid)">
             <inheritdoc/>
@@ -198,11 +234,28 @@
         <member name="M:Puzzles.Flow.Concepts.Grid.ToString(System.IFormatProvider)">
             <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
         </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.GetState(System.Byte)">
+            <summary>
+            Gets the state at the specified cell. This method never returns <see cref="F:Puzzles.Flow.Concepts.CellState.Path"/>.
+            </summary>
+            <param name="cell">The desired cell.</param>
+            <returns>The cell state.</returns>
+            <seealso cref="F:Puzzles.Flow.Concepts.CellState.Path"/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.EnumerateCellStates">
+            <summary>
+            Returns an enumerator object that can iterate on each cell, to get its corresponding state.
+            </summary>
+            <returns>An enumerator instance.</returns>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Grid.GetEnumerator">
+            <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
+        </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.EnumerateFlows">
             <summary>
             Returns an enumerator object that can iterate on each element of each flow.
             </summary>
-            <returns>The flow instances.</returns>
+            <returns>An enumerator instance.</returns>
         </member>
         <member name="M:Puzzles.Flow.Concepts.Grid.AsSpan">
             <summary>

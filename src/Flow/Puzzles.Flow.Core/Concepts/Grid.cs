@@ -13,7 +13,6 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosi
 	IEqualityOperators<Grid, Grid, bool>,
 	IFormattable,
 	IParsable<Grid>,
-	IReadOnlyCollection<FlowPosition>,
 	IReadOnlyList<FlowPosition>
 {
 	/// <summary>
@@ -48,11 +47,13 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosi
 
 
 	/// <summary>
-	/// Gets the flow at the specified index.
+	/// Indicates the backing comparer to compare equality of field <see cref="_cells"/>.
 	/// </summary>
-	/// <param name="index">The desired index.</param>
-	/// <returns>The flow.</returns>
-	/// <exception cref="IndexOutOfRangeException">Throws when the index is out of range.</exception>
+	[field: MaybeNull]
+	private static IEqualityComparer<SortedSet<FlowPosition>> Comparer => field ??= SortedSet<FlowPosition>.CreateSetComparer();
+
+
+	/// <inheritdoc/>
 	public FlowPosition this[int index]
 	{
 		get
@@ -70,13 +71,6 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosi
 	}
 
 
-	/// <summary>
-	/// Indicates the backing comparer to compare equality of field <see cref="_cells"/>.
-	/// </summary>
-	[field: MaybeNull]
-	private static IEqualityComparer<SortedSet<FlowPosition>> Comparer => field ??= SortedSet<FlowPosition>.CreateSetComparer();
-
-
 	/// <inheritdoc/>
 	public bool Equals([NotNullWhen(true)] Grid? other) => other is not null && Comparer.Equals(_cells, other._cells);
 
@@ -85,12 +79,45 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosi
 
 	/// <inheritdoc cref="IFormattable.ToString(string?, IFormatProvider?)"/>
 	public string ToString(IFormatProvider? formatProvider)
-		=> (formatProvider as GridFormatInfo ?? new MultilineGridFormatInfo()).FormatCore(this);
+		=> (formatProvider as GridFormatInfo ?? new StandardGridFormatInfo()).FormatCore(this);
+
+	/// <summary>
+	/// Gets the state at the specified cell. This method never returns <see cref="CellState.Path"/>.
+	/// </summary>
+	/// <param name="cell">The desired cell.</param>
+	/// <returns>The cell state.</returns>
+	/// <seealso cref="CellState.Path"/>
+	public CellState GetState(byte cell)
+	{
+		foreach (var ((startX, startY), (endX, endY), _) in EnumerateFlows())
+		{
+			var start = startX * Size + startY;
+			var end = endX * Size + endY;
+			if (cell == start)
+			{
+				return CellState.Start;
+			}
+			if (cell == end)
+			{
+				return CellState.End;
+			}
+		}
+		return CellState.Empty;
+	}
+
+	/// <summary>
+	/// Returns an enumerator object that can iterate on each cell, to get its corresponding state.
+	/// </summary>
+	/// <returns>An enumerator instance.</returns>
+	public CellStateEnumerator EnumerateCellStates() => new(this);
+
+	/// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
+	public FlowPositionEnumerator GetEnumerator() => new(this);
 
 	/// <summary>
 	/// Returns an enumerator object that can iterate on each element of each flow.
 	/// </summary>
-	/// <returns>The flow instances.</returns>
+	/// <returns>An enumerator instance.</returns>
 	public FlowPositionEnumerator EnumerateFlows() => new(this);
 
 	/// <summary>
@@ -143,5 +170,5 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosi
 
 	/// <inheritdoc/>
 	public static Grid Parse(string s, IFormatProvider? provider)
-		=> (provider as GridFormatInfo ?? new MultilineGridFormatInfo()).ParseCore(s);
+		=> (provider as GridFormatInfo ?? new StandardGridFormatInfo()).ParseCore(s);
 }

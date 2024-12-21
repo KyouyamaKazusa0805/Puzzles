@@ -14,6 +14,7 @@ global using Puzzles.Concepts;
 global using Puzzles.Flow.Analytics;
 global using Puzzles.Flow.Buffers;
 global using Puzzles.Flow.Concepts;
+global using Puzzles.Flow.Concepts.Formatting;
 global using Puzzles.Meta;
 global using static System.Math;
 global using Cell = byte;
