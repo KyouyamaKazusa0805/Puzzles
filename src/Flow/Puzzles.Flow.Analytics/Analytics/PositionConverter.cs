@@ -3,7 +3,7 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Represents an easy way to convert values to position.
 /// </summary>
-internal static class Position
+internal static class PositionConverter
 {
 	/// <summary>
 	/// Get position index from coordinate values <paramref name="x"/> and <paramref name="y"/>.
@@ -12,7 +12,7 @@ internal static class Position
 	/// <param name="y">The y value.</param>
 	/// <returns>The position index.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetPositionFromCoordinate(byte x, byte y) => (byte)((y & 0xF) << 4 | x & 0xF);
+	public static Position GetPositionFromCoordinate(Position x, Position y) => (Position)((y & 0xF) << 4 | x & 0xF);
 
 	/// <summary>
 	/// Get position offset, or return <see cref="Analyzer.InvalidPosition"/> if bounds.
@@ -24,7 +24,7 @@ internal static class Position
 	/// <returns>The offset value.</returns>
 	/// <seealso cref="Analyzer.InvalidPosition"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetOffsetPosition(ref readonly GridAnalyticsInfo grid, int x, int y, Direction direction)
+	public static Position GetOffsetPosition(ref readonly GridAnalyticsInfo grid, int x, int y, Direction direction)
 	{
 		var delta = direction.GetDirectionDelta();
 		var offsetX = (byte)(x + delta[0]);
@@ -36,13 +36,13 @@ internal static class Position
 	/// Get position from another position with advanced direction.
 	/// </summary>
 	/// <param name="grid">The grid.</param>
-	/// <param name="pos">The position.</param>
+	/// <param name="position">The position.</param>
 	/// <param name="direction">The direction.</param>
 	/// <returns>The position result.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte GetOffsetPosition(ref readonly GridAnalyticsInfo grid, byte pos, Direction direction)
+	public static Position GetOffsetPosition(ref readonly GridAnalyticsInfo grid, Position position, Direction direction)
 	{
-		GetCoordinateFromPosition(pos, out var x, out var y);
+		GetCoordinateFromPosition(position, out var x, out var y);
 		return GetOffsetPosition(in grid, x, y, direction);
 	}
 
@@ -54,14 +54,16 @@ internal static class Position
 	/// <param name="y">The y value.</param>
 	/// <returns>A <see cref="bool"/> result indicating that.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool IsCoordinateValid(ref readonly GridAnalyticsInfo grid, int x, int y) => x >= 0 && x < grid.Size && y >= 0 && y < grid.Size;
+	public static bool IsCoordinateValid(ref readonly GridAnalyticsInfo grid, int x, int y)
+		=> x >= 0 && x < grid.Size && y >= 0 && y < grid.Size;
 
 	/// <summary>
 	/// Gets coordinate values from a position index.
 	/// </summary>
-	/// <param name="p">The position index.</param>
+	/// <param name="position">The position index.</param>
 	/// <param name="x">The x value.</param>
 	/// <param name="y">The y value.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void GetCoordinateFromPosition(byte p, out int x, out int y) => (x, y) = (p & 0xF, p >> 4 & 0xF);
+	public static void GetCoordinateFromPosition(Position position, out int x, out int y)
+		=> (x, y) = (position & 0xF, position >> 4 & 0xF);
 }

@@ -3,7 +3,7 @@ namespace Puzzles.Flow.Analytics;
 /// <summary>
 /// Provides a way to operate with cells.
 /// </summary>
-internal static class Cell
+internal static class CellConverter
 {
 	/// <summary>
 	/// Create a cell via type, color and direction.
@@ -13,30 +13,30 @@ internal static class Cell
 	/// <param name="direction">The direction.</param>
 	/// <returns>The cell.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte Create(CellState type, Color color, Direction direction)
-		=> (byte)((color & 0xF) << 4 | (((byte)direction & 0x3) << 2) | (byte)type & 0x3);
+	public static Cell Create(CellState type, Color color, Direction direction)
+		=> (Cell)((color & 0xF) << 4 | (((Cell)direction & 0x3) << 2) | (Cell)type & 0x3);
 
 	/// <summary>
 	/// Get the type from a cell value.
 	/// </summary>
-	/// <param name="c">The cell.</param>
+	/// <param name="cell">The cell.</param>
 	/// <returns>The value.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static CellState GetTypeFromCell(byte c) => (CellState)(c & 0x3);
+	public static CellState GetTypeFromCell(Cell cell) => (CellState)(cell & 0x3);
 
 	/// <summary>
 	/// Get the direction from the cell.
 	/// </summary>
-	/// <param name="c">The cell.</param>
+	/// <param name="cell">The cell.</param>
 	/// <returns>The direction.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Direction GetDirectionFromCell(byte c) => (Direction)(c >> 2 & 0x3);
+	public static Direction GetDirectionFromCell(Cell cell) => (Direction)(cell >> 2 & 0x3);
 
 	/// <summary>
 	/// Get the color from the cell.
 	/// </summary>
-	/// <param name="c">The cell.</param>
+	/// <param name="cell">The cell.</param>
 	/// <returns>The color.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Color GetCellColor(byte c) => (Color)(c >> 4 & 0xF);
+	public static Color GetCellColor(Cell cell) => (Color)(cell >> 4 & 0xF);
 }

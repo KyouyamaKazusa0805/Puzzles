@@ -112,10 +112,10 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 		{
 			for (var row = (byte)0; row < gridInfo.Size; row++)
 			{
-				var cell = state.Cells[Position.GetPositionFromCoordinate(column, row)];
+				var cell = state.Cells[PositionConverter.GetPositionFromCoordinate(column, row)];
 				var coordinate = new Coordinate(row, column);
-				var type = Cell.GetTypeFromCell(cell);
-				var color = Cell.GetCellColor(cell);
+				var type = CellConverter.GetTypeFromCell(cell);
+				var color = CellConverter.GetCellColor(cell);
 				switch (type)
 				{
 					case CellState.Start or CellState.End:

@@ -16,6 +16,8 @@ global using Puzzles.Flow.Buffers;
 global using Puzzles.Flow.Concepts;
 global using Puzzles.Meta;
 global using static System.Math;
+global using Cell = byte;
 global using Color = byte;
 global using ColorMask = short;
 global using Path = Puzzles.Flow.Concepts.Path;
+global using Position = byte;

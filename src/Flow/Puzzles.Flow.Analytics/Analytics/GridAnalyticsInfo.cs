@@ -95,7 +95,7 @@ internal unsafe ref partial struct GridAnalyticsInfo(
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public readonly int GetWallDistance(byte pos)
 	{
-		Position.GetCoordinateFromPosition(pos, out var x, out var y);
+		PositionConverter.GetCoordinateFromPosition(pos, out var x, out var y);
 		return GetWallDistance(x, y);
 	}
 }

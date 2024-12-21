@@ -113,11 +113,6 @@
             </para>
             </remarks>
         </member>
-        <member name="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition">
-            <summary>
-            Indicates the invalid position value. This value is used as placeholder.
-            </summary>
-        </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer.MaxSize">
             <summary>
             Indicates the maximum size of the grid. This value is a constant and cannot be modified due to massive complexity.
@@ -135,6 +130,11 @@
         <member name="F:Puzzles.Flow.Analytics.Analyzer.MaxSupportedColorsCount">
             <summary>
             Indicates the maximum number of supported colors. This value is a constant and cannot be modified due to massive complexity.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition">
+            <summary>
+            Indicates the invalid position value. This value is used as placeholder.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.Analyzer.ValidCharacters">
@@ -236,7 +236,7 @@
             </summary>
             <param name="grid">The grid.</param>
             <param name="resultMap">The result map.</param>
-            <param name="pos">The position.</param>
+            <param name="position">The position.</param>
             <param name="cFlag">The flag.</param>
             <param name="resultFlags">The result flags.</param>
         </member>
@@ -273,7 +273,7 @@
             </summary>
             <param name="grid">The grid.</param>
             <param name="state">The state.</param>
-            <param name="pos">The position.</param>
+            <param name="position">The position.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.CheckDeadends(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@)">
@@ -293,7 +293,7 @@
             <param name="grid">The grid.</param>
             <param name="state">The state.</param>
             <param name="color">The color.</param>
-            <param name="pos">The position.</param>
+            <param name="position">The position.</param>
             <returns>A <see cref="T:System.Boolean"/> result.</returns>
         </member>
         <member name="M:Puzzles.Flow.Analytics.Analyzer.IsFree(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.Byte,System.Byte)">
@@ -380,7 +380,7 @@
             <param name="state">The state.</param>
             <returns>The value.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetStrandedColors(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.Int32,System.Span{System.Byte},System.Int32,System.Int32)">
+        <member name="M:Puzzles.Flow.Analytics.Analyzer.GetStrandedColors(Puzzles.Flow.Analytics.GridAnalyticsInfo@,Puzzles.Flow.Analytics.GridInterimState@,System.Int32,System.Span{System.Byte},System.Byte,System.Int32)">
             <summary>
             Check the results of the connected-component analysis to make sure that
             every color can get solved and no free-space is isolated.
@@ -416,12 +416,12 @@
             <param name="queue">The queue.</param>
             <returns>The final <see cref="T:Puzzles.Flow.Analytics.TreeNode"/> instance created.</returns>
         </member>
-        <member name="T:Puzzles.Flow.Analytics.Cell">
+        <member name="T:Puzzles.Flow.Analytics.CellConverter">
             <summary>
             Provides a way to operate with cells.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Cell.Create(Puzzles.Flow.Concepts.CellState,System.Byte,Puzzles.Concepts.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.CellConverter.Create(Puzzles.Flow.Concepts.CellState,System.Byte,Puzzles.Concepts.Direction)">
             <summary>
             Create a cell via type, color and direction.
             </summary>
@@ -430,25 +430,25 @@
             <param name="direction">The direction.</param>
             <returns>The cell.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Cell.GetTypeFromCell(System.Byte)">
+        <member name="M:Puzzles.Flow.Analytics.CellConverter.GetTypeFromCell(System.Byte)">
             <summary>
             Get the type from a cell value.
             </summary>
-            <param name="c">The cell.</param>
+            <param name="cell">The cell.</param>
             <returns>The value.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Cell.GetDirectionFromCell(System.Byte)">
+        <member name="M:Puzzles.Flow.Analytics.CellConverter.GetDirectionFromCell(System.Byte)">
             <summary>
             Get the direction from the cell.
             </summary>
-            <param name="c">The cell.</param>
+            <param name="cell">The cell.</param>
             <returns>The direction.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Cell.GetCellColor(System.Byte)">
+        <member name="M:Puzzles.Flow.Analytics.CellConverter.GetCellColor(System.Byte)">
             <summary>
             Get the color from the cell.
             </summary>
-            <param name="c">The cell.</param>
+            <param name="cell">The cell.</param>
             <returns>The color.</returns>
         </member>
         <member name="T:Puzzles.Flow.Analytics.ColorFeature">
@@ -870,12 +870,12 @@
             <param name="maxNodes">The number of elements allocated.</param>
             <returns>An instance of type <typeparamref name="TSelf"/>.</returns>
         </member>
-        <member name="T:Puzzles.Flow.Analytics.Position">
+        <member name="T:Puzzles.Flow.Analytics.PositionConverter">
             <summary>
             Represents an easy way to convert values to position.
             </summary>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Position.GetPositionFromCoordinate(System.Byte,System.Byte)">
+        <member name="M:Puzzles.Flow.Analytics.PositionConverter.GetPositionFromCoordinate(System.Byte,System.Byte)">
             <summary>
             Get position index from coordinate values <paramref name="x"/> and <paramref name="y"/>.
             </summary>
@@ -883,7 +883,7 @@
             <param name="y">The y value.</param>
             <returns>The position index.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Position.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Int32,System.Int32,Puzzles.Concepts.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.PositionConverter.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Int32,System.Int32,Puzzles.Concepts.Direction)">
             <summary>
             Get position offset, or return <see cref="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition"/> if bounds.
             </summary>
@@ -894,16 +894,16 @@
             <returns>The offset value.</returns>
             <seealso cref="F:Puzzles.Flow.Analytics.Analyzer.InvalidPosition"/>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Position.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Byte,Puzzles.Concepts.Direction)">
+        <member name="M:Puzzles.Flow.Analytics.PositionConverter.GetOffsetPosition(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Byte,Puzzles.Concepts.Direction)">
             <summary>
             Get position from another position with advanced direction.
             </summary>
             <param name="grid">The grid.</param>
-            <param name="pos">The position.</param>
+            <param name="position">The position.</param>
             <param name="direction">The direction.</param>
             <returns>The position result.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Position.IsCoordinateValid(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Int32,System.Int32)">
+        <member name="M:Puzzles.Flow.Analytics.PositionConverter.IsCoordinateValid(Puzzles.Flow.Analytics.GridAnalyticsInfo@,System.Int32,System.Int32)">
             <summary>
             Determine whether the coordinate is valid.
             </summary>
@@ -912,11 +912,11 @@
             <param name="y">The y value.</param>
             <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
-        <member name="M:Puzzles.Flow.Analytics.Position.GetCoordinateFromPosition(System.Byte,System.Int32@,System.Int32@)">
+        <member name="M:Puzzles.Flow.Analytics.PositionConverter.GetCoordinateFromPosition(System.Byte,System.Int32@,System.Int32@)">
             <summary>
             Gets coordinate values from a position index.
             </summary>
-            <param name="p">The position index.</param>
+            <param name="position">The position index.</param>
             <param name="x">The x value.</param>
             <param name="y">The y value.</param>
         </member>
