@@ -91,7 +91,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosi
 	/// Returns an enumerator object that can iterate on each element of each flow.
 	/// </summary>
 	/// <returns>The flow instances.</returns>
-	public FlowCellEnumerator EnumerateFlows() => new(this);
+	public FlowPositionEnumerator EnumerateFlows() => new(this);
 
 	/// <summary>
 	/// Create a <see cref="ReadOnlySpan{T}"/> to store all flows.

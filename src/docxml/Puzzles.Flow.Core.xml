@@ -120,6 +120,22 @@
         <member name="M:Puzzles.Flow.Concepts.Formatting.MultilineGridFormatInfo.ParseCore(System.String)">
             <inheritdoc/>
         </member>
+        <member name="T:Puzzles.Flow.Concepts.Formatting.StandardGridFormatInfo">
+            <summary>
+            Represents a format information for stardard rules.
+            </summary>
+        </member>
+        <member name="F:Puzzles.Flow.Concepts.Formatting.StandardGridFormatInfo.SupportedLengths">
+            <summary>
+            Indicates all supported lengths.
+            </summary>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Formatting.StandardGridFormatInfo.FormatCore(Puzzles.Flow.Concepts.Grid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.Flow.Concepts.Formatting.StandardGridFormatInfo.ParseCore(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="T:Puzzles.Flow.Concepts.Grid">
             <summary>
             Represents a grid that defines the start and end points of flows.
@@ -221,45 +237,45 @@
         <member name="M:Puzzles.Flow.Concepts.Grid.Parse(System.String,System.IFormatProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator">
+        <member name="T:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator">
             <summary>
             Represents an enumerator type that can iterate on each flow cell.
             </summary>
             <param name="_grid">The grid.</param>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.#ctor(Puzzles.Flow.Concepts.Grid)">
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.#ctor(Puzzles.Flow.Concepts.Grid)">
             <summary>
             Represents an enumerator type that can iterate on each flow cell.
             </summary>
             <param name="_grid">The grid.</param>
         </member>
-        <member name="F:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator._enumerator">
+        <member name="F:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator._enumerator">
             <summary>
             Indicates the backing enumerator.
             </summary>
         </member>
-        <member name="P:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.Current">
+        <member name="P:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.Current">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#IEnumerator#Current">
+        <member name="P:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.System#Collections#IEnumerator#Current">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.GetEnumerator">
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.MoveNext">
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.MoveNext">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#IEnumerator#Reset">
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.System#Collections#IEnumerator#Reset">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#IDisposable#Dispose">
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.System#IDisposable#Dispose">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#IEnumerable#GetEnumerator">
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.Flow.Concepts.Grid.FlowCellEnumerator.System#Collections#Generic#IEnumerable{Puzzles#Flow#Concepts#FlowPosition}#GetEnumerator">
+        <member name="M:Puzzles.Flow.Concepts.Grid.FlowPositionEnumerator.System#Collections#Generic#IEnumerable{Puzzles#Flow#Concepts#FlowPosition}#GetEnumerator">
             <inheritdoc/>
         </member>
         <member name="F:Puzzles.Flow.Concepts.Grid._cells">
