@@ -13,8 +13,9 @@ using @c = Puzzles.Concepts;
 /// <para>
 /// This implementation is just a copy from <see href="https://github.com/mzucker/flow_solver">this repository</see>,
 /// but I change the algorithm into C# implementation instead,
-/// with some minor updates (like using <see langword="ref"/> and <see langword="ref readonly"/> instead of naked pointer operations)
-/// in order to make API more unified in the whole repository.
+/// with some minor updates (like using <see langword="ref"/> and <see langword="ref readonly"/> instead of naked pointer operations,
+/// and dynamic allocation if symbol <c>DYNAMIC_ALLOCATION</c> is configured in the project)
+/// in order to make such APIs more unified in the whole repository.
 /// </para>
 /// <para>
 /// Also, this algorithm uses some logical techniques to reduce complexity of brute forces.
