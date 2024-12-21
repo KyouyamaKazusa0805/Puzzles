@@ -649,6 +649,11 @@
             <param name="colorsCount">Indicates the number of colors used.</param>
             <param name="isUserOrdered">Indicates whether the ordering is specified by user.</param>
         </member>
+        <member name="F:Puzzles.Flow.Analytics.GridAnalyticsInfo.ColorIds">
+            <summary>
+            Indicates the index values of color lookup table of codes.
+            </summary>
+        </member>
         <member name="F:Puzzles.Flow.Analytics.GridAnalyticsInfo.InitPositions">
             <summary>
             Indicates the init positions (start positions).
@@ -662,11 +667,6 @@
         <member name="F:Puzzles.Flow.Analytics.GridAnalyticsInfo.ColorTable">
             <summary>
             Indicates the color table looking up color ID.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Flow.Analytics.GridAnalyticsInfo.ColorIds">
-            <summary>
-            Indicates the index values of color lookup table of codes.
             </summary>
         </member>
         <member name="F:Puzzles.Flow.Analytics.GridAnalyticsInfo.ColorOrder">
@@ -951,10 +951,10 @@
         </member>
         <member name="M:Puzzles.Flow.Analytics.Region.Find(System.Span{Puzzles.Flow.Analytics.Region},System.Byte)">
             <summary>
-            Find for the position from the given index <paramref name="p"/>.
+            Find for the position from the given index <paramref name="position"/>.
             </summary>
             <param name="regions">The regions.</param>
-            <param name="p">The index.</param>
+            <param name="position">The index.</param>
             <returns>The position.</returns>
         </member>
         <member name="M:Puzzles.Flow.Analytics.Region.Create(System.Byte)">

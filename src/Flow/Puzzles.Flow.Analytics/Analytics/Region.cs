@@ -5,7 +5,7 @@ namespace Puzzles.Flow.Analytics;
 /// </summary>
 /// <param name="Parent">Indicates the parent index.</param>
 /// <param name="Rank">Indicates rank (see Wikipedia article).</param>
-internal record struct Region(byte Parent, byte Rank)
+internal record struct Region(Position Parent, byte Rank)
 {
 	/// <summary>
 	/// Merge two regions.
@@ -15,7 +15,7 @@ internal record struct Region(byte Parent, byte Rank)
 	/// <param name="b">The second position.</param>
 	/// <returns>The merged result.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Unite(Span<Region> regions, byte a, byte b)
+	public static void Unite(Span<Region> regions, Position a, Position b)
 	{
 		var rootA = Find(regions, a);
 		var rootB = Find(regions, b);
@@ -40,21 +40,21 @@ internal record struct Region(byte Parent, byte Rank)
 	}
 
 	/// <summary>
-	/// Find for the position from the given index <paramref name="p"/>.
+	/// Find for the position from the given index <paramref name="position"/>.
 	/// </summary>
 	/// <param name="regions">The regions.</param>
-	/// <param name="p">The index.</param>
+	/// <param name="position">The index.</param>
 	/// <returns>The position.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static byte Find(Span<Region> regions, byte p)
+	public static byte Find(Span<Region> regions, Position position)
 	{
-		if (regions[p].Parent != Analyzer.InvalidPosition && regions[p].Parent != p)
+		if (regions[position].Parent != Analyzer.InvalidPosition && regions[position].Parent != position)
 		{
-			Debug.Assert(p != Analyzer.InvalidPosition);
-			Debug.Assert(p < Analyzer.MaxGridCellsCount);
-			regions[p].Parent = Find(regions, regions[p].Parent);
+			Debug.Assert(position != Analyzer.InvalidPosition);
+			Debug.Assert(position < Analyzer.MaxGridCellsCount);
+			regions[position].Parent = Find(regions, regions[position].Parent);
 		}
-		return regions[p].Parent;
+		return regions[position].Parent;
 	}
 
 	/// <summary>
@@ -63,5 +63,5 @@ internal record struct Region(byte Parent, byte Rank)
 	/// <param name="position">The position.</param>
 	/// <returns>The <see cref="Region"/> instance created.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Region Create(byte position) => new(position, 0);
+	public static Region Create(Position position) => new(position, 0);
 }

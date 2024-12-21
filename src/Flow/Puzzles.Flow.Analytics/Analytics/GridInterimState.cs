@@ -10,19 +10,19 @@ internal struct GridInterimState
 	/// Indicates the cell states.
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public unsafe fixed byte Cells[Analyzer.MaxGridCellsCount];
+	public unsafe fixed Cell Cells[Analyzer.MaxGridCellsCount];
 
 	/// <summary>
 	/// Indicates the positions.
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public unsafe fixed byte Positions[Analyzer.MaxSupportedColorsCount];
+	public unsafe fixed Position Positions[Analyzer.MaxSupportedColorsCount];
 
 
 	/// <summary>
 	/// Indicates the number of free cells.
 	/// </summary>
-	public byte FreeCellsCount { get; set; }
+	public Cell FreeCellsCount { get; set; }
 
 	/// <summary>
 	/// Indicates the last color.
@@ -41,8 +41,8 @@ internal struct GridInterimState
 	/// </summary>
 	private readonly unsafe GridInterimState* ThisPointer => (GridInterimState*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
 
-	private readonly unsafe ReadOnlySpan<byte> PositionsSpan => new(ThisPointer->Positions, Analyzer.MaxSupportedColorsCount);
+	private readonly unsafe ReadOnlySpan<Position> PositionsSpan => new(ThisPointer->Positions, Analyzer.MaxSupportedColorsCount);
 
-	private readonly unsafe ReadOnlySpan<byte> CellsSpan => new(ThisPointer->Cells, Analyzer.MaxGridCellsCount);
+	private readonly unsafe ReadOnlySpan<Cell> CellsSpan => new(ThisPointer->Cells, Analyzer.MaxGridCellsCount);
 #endif
 }

@@ -14,16 +14,22 @@ internal unsafe ref partial struct GridAnalyticsInfo(
 ) : IBoard
 {
 	/// <summary>
+	/// Indicates the index values of color lookup table of codes.
+	/// </summary>
+	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	public fixed int ColorIds[Analyzer.MaxSupportedColorsCount];
+
+	/// <summary>
 	/// Indicates the init positions (start positions).
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed byte InitPositions[Analyzer.MaxSupportedColorsCount];
+	public fixed Position InitPositions[Analyzer.MaxSupportedColorsCount];
 
 	/// <summary>
 	/// Indicates the goal positions (end positions).
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed byte GoalPositions[Analyzer.MaxSupportedColorsCount];
+	public fixed Position GoalPositions[Analyzer.MaxSupportedColorsCount];
 
 	/// <summary>
 	/// Indicates the color table looking up color ID.
@@ -32,16 +38,10 @@ internal unsafe ref partial struct GridAnalyticsInfo(
 	public fixed Color ColorTable[1 << 7];
 
 	/// <summary>
-	/// Indicates the index values of color lookup table of codes.
-	/// </summary>
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed int ColorIds[Analyzer.MaxSupportedColorsCount];
-
-	/// <summary>
 	/// Indicates the color ordering.
 	/// </summary>
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	public fixed byte ColorOrder[Analyzer.MaxSupportedColorsCount];
+	public fixed Color ColorOrder[Analyzer.MaxSupportedColorsCount];
 
 
 	/// <inheritdoc/>
@@ -56,15 +56,15 @@ internal unsafe ref partial struct GridAnalyticsInfo(
 	/// </summary>
 	private readonly GridAnalyticsInfo* ThisPointer => (GridAnalyticsInfo*)Unsafe.AsPointer(ref Unsafe.AsRef(in this));
 
-	private readonly ReadOnlySpan<byte> InitPositionsSpan => new(ThisPointer->InitPositions, Analyzer.MaxSupportedColorsCount);
-
-	private readonly ReadOnlySpan<byte> GoalPositionsSpan => new(ThisPointer->GoalPositions, Analyzer.MaxSupportedColorsCount);
-
-	private readonly ReadOnlySpan<byte> ColorTableSpan => new(ThisPointer->ColorTable, 1 << 7);
-
 	private readonly ReadOnlySpan<int> ColorIdsSpan => new(ThisPointer->ColorIds, Analyzer.MaxSupportedColorsCount);
 
-	private readonly ReadOnlySpan<byte> ColorOrderSpan => new(ThisPointer->ColorOrder, Analyzer.MaxSupportedColorsCount);
+	private readonly ReadOnlySpan<Position> InitPositionsSpan => new(ThisPointer->InitPositions, Analyzer.MaxSupportedColorsCount);
+
+	private readonly ReadOnlySpan<Position> GoalPositionsSpan => new(ThisPointer->GoalPositions, Analyzer.MaxSupportedColorsCount);
+
+	private readonly ReadOnlySpan<Color> ColorTableSpan => new(ThisPointer->ColorTable, 1 << 7);
+
+	private readonly ReadOnlySpan<Color> ColorOrderSpan => new(ThisPointer->ColorOrder, Analyzer.MaxSupportedColorsCount);
 #endif
 
 
