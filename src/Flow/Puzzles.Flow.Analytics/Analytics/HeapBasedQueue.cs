@@ -48,20 +48,11 @@ internal unsafe partial struct HeapBasedQueue(
 	/// <inheritdoc/>
 	public void Grow()
 	{
-#if DYNAMIC_ALLOCATION
+#if DYNAMIC_ALLOCATION && USE_NEW_ARRAY
 		Capacity <<= 1;
-#if USE_NEW_ARRAY
 		var entry = Unsafe.As<nint[]>(Entry);
 		Array.Resize(ref entry, Capacity);
 		Entry = Unsafe.As<TreeNode*[]>(entry);
-#elif USE_ARRAY_POOL
-		var tempArray = Entry[..];
-		ArrayPool<nint>.Shared.Return(Unsafe.As<nint[]>(Entry));
-		Entry = Unsafe.As<TreeNode*[]>(ArrayPool<nint>.Shared.Rent(Capacity));
-		tempArray.CopyTo(Entry, 0);
-#elif USE_NATIVE_MEMORY
-		Entry = (TreeNode**)NativeMemory.Realloc(Entry, (nuint)Capacity * (nuint)sizeof(TreeNode*));
-#endif
 #endif
 	}
 

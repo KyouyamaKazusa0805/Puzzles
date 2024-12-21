@@ -82,16 +82,6 @@ internal sealed unsafe partial class TreeNodeMemoryManager(
 			var entry = Entry;
 			Array.Resize(ref entry, Capacity);
 			Entry = entry;
-#elif USE_ARRAY_POOL
-			var tempArray = Entry[..];
-			ArrayPool<TreeNode>.Shared.Return(Entry);
-			Entry = ArrayPool<TreeNode>.Shared.Rent(Capacity);
-			tempArray.CopyTo(Entry, 0);
-#elif USE_NATIVE_MEMORY
-			Entry = (TreeNode*)NativeMemory.Realloc(Entry, (nuint)Capacity * (nuint)sizeof(TreeNode));
-
-			// Clears for the new-allocated memory block.
-			new Span<TreeNode>(Entry + (Capacity >> 1), Capacity >> 1).Clear();
 #else
 			return ref Unsafe.NullRef<TreeNode>();
 #endif

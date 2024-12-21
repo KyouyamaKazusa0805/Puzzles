@@ -13,5 +13,5 @@
 #endif
 
 #if DYNAMIC_ALLOCATION && (USE_ARRAY_POOL || USE_NATIVE_MEMORY)
-#warning Today the source code has a potential bug on growing memory for such allocation rule. Please be careful to modify code. It is suggested that you use symbol 'USE_NEW_ARRAY' to create a new array.
+#error Dynamic allocation is not supported with 'ArrayPool<TreeNode>' and 'NativeMemory.Alloc' pattern. Consider configuring symbol 'USE_NEW_ARRAY' to apply 'new TreeNode[]'.
 #endif
