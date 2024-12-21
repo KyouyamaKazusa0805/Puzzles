@@ -5,7 +5,7 @@
 		<RootNamespace>Puzzles.Flow</RootNamespace>
 		<DocumentationFile>../../docxml/Puzzles.Flow.Analytics.xml</DocumentationFile>
 		<!--USE_NEW_ARRAY;USE_ARRAY_POOL;USE_NATIVE_MEMORY;DYNAMIC_ALLOCATION-->
-		<DefineConstants>USE_NEW_ARRAY;DYNAMIC_ALLOCATION</DefineConstants>
+		<DefineConstants>USE_NEW_ARRAY</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>

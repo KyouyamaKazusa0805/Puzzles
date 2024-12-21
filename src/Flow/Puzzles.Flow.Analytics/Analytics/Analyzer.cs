@@ -4,8 +4,6 @@
 
 namespace Puzzles.Flow.Analytics;
 
-using @c = Puzzles.Concepts;
-
 /// <summary>
 /// Represents an analyzer.
 /// </summary>
@@ -130,7 +128,7 @@ public sealed unsafe class Analyzer
 	/// However, there's no limit value, it means that if a grid has a large complexity to be analyzed,
 	/// massive memory will be allocated, which is an unsafe operation.
 	/// </remarks>
-	public double MaxMemoryUsage { get; set; } = 16;
+	public double MaxMemoryUsage { get; set; } = 128;
 
 	/// <summary>
 	/// Indicates the number of bottleneck limit.
@@ -413,8 +411,8 @@ public sealed unsafe class Analyzer
 	/// </exception>
 	private bool CanMove(ref readonly GridAnalyticsInfo grid, ref readonly GridInterimState state, Color color, Direction direction)
 	{
-		ArgumentOutOfRangeException.ThrowIfNotEqual(color == Color.MaxValue || color < grid.ColorsCount, true);
-		ArgumentOutOfRangeException.ThrowIfNotEqual(state.CompletedMask >> color & 1, 0);
+		Debug.Assert(color == Color.MaxValue || color < grid.ColorsCount);
+		Debug.Assert((state.CompletedMask >> color & 1) == 0);
 
 		// Get current position x and y.
 		PositionConverter.GetCoordinateFromPosition(state.Positions[color], out var currentX, out var currentY);
@@ -619,7 +617,7 @@ public sealed unsafe class Analyzer
 				continue;
 			}
 
-			var freeDirection = c::Directions.MaxValue;
+			var freeDirection = Direction.None;
 			var freeCount = 0;
 			foreach (var direction in Directions)
 			{
@@ -835,7 +833,7 @@ public sealed unsafe class Analyzer
 		state.LastColor = color;
 
 		var actionCost = 1;
-		var goalDirection = c::Directions.MaxValue;
+		var goalDirection = Direction.None;
 		if (DisableAdjacentTouchness)
 		{
 			foreach (var neighborDirection in Directions)
@@ -848,7 +846,7 @@ public sealed unsafe class Analyzer
 			}
 		}
 
-		if (goalDirection != c::Directions.MaxValue)
+		if (goalDirection != Direction.None)
 		{
 			state.Cells[grid.GoalPositions[color]] = CellConverter.Create(CellState.End, color, goalDirection);
 			state.CompletedMask |= (ColorMask)(1 << color);
@@ -1126,12 +1124,13 @@ public sealed unsafe class Analyzer
 				foreach (var direction in Directions)
 				{
 					var forced = false;
+					var newDirection = Direction.None;
 					if (ForcesFirstColor && !SearchFastForward)
 					{
-						forced = FindForced(in grid, in n.State, out color, out _);
+						forced = FindForced(in grid, in n.State, out color, out newDirection);
 					}
 
-					if (CanMove(in grid, in n.State, color, direction))
+					if (CanMove(in grid, in n.State, color, newDirection == Direction.None ? direction : newDirection))
 					{
 						ref var child = ref nodeMemoryManager.CreateNode(in n, ref parentState, ref queue);
 						if (Unsafe.IsNullRef(in child))
@@ -1142,6 +1141,7 @@ public sealed unsafe class Analyzer
 
 						var actionCost = MakeMove(in grid, ref child.State, color, direction, forced);
 						UpdateNodeCosts(ref child, actionCost);
+						child = ref Validate(in grid, ref child, nodeMemoryManager, ref queue);
 						if (!Unsafe.IsNullRef(in child))
 						{
 							ref readonly var childState = ref child.State;
@@ -1200,7 +1200,7 @@ public sealed unsafe class Analyzer
 	/// <param name="queue">The queue.</param>
 	/// <returns>The final <see cref="TreeNode"/> instance created.</returns>
 	private ref TreeNode Validate<TQueue>(
-		ref readonly GridAnalyticsInfo grid,
+		scoped ref readonly GridAnalyticsInfo grid,
 		ref TreeNode node,
 		TreeNodeMemoryManager memoryManager,
 		scoped ref TQueue queue
