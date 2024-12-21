@@ -1,20 +1,20 @@
 <Solution>
-  <Folder Name="/Game - Flow/">
-    <Project Path="src/Flow/Puzzles.Flow.Analytics/Puzzles.Flow.Analytics.csproj" Id="7d169ac0-6cfb-4c50-acf2-2cee698ab2bf" />
-    <Project Path="src/Flow/Puzzles.Flow.Core/Puzzles.Flow.Core.csproj" Id="8fec8a57-d87e-486d-8cc3-af5e56b35d3b" />
+  <Folder Name="/Puzzle - Flow/">
+    <Project Path="src/Flow/Puzzles.Flow.Analytics/Puzzles.Flow.Analytics.csproj" />
+    <Project Path="src/Flow/Puzzles.Flow.Core/Puzzles.Flow.Core.csproj" />
   </Folder>
-  <Folder Name="/Game - Hamiltonian/">
+  <Folder Name="/Puzzle - Hamiltonian/">
     <Project Path="src/Hamiltonian/Puzzles.Hamiltonian.Core/Puzzles.Hamiltonian.Core.csproj" />
   </Folder>
-  <Folder Name="/Game - Mahjong Matching/">
+  <Folder Name="/Puzzle - Mahjong Matching/">
     <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Analytics/Puzzles.MahjongMatching.Analytics.csproj" />
     <Project Path="src/MahjongMatching/Puzzles.MahjongMatching.Core/Puzzles.MahjongMatching.Core.csproj" />
   </Folder>
-  <Folder Name="/Game - Onet/">
+  <Folder Name="/Puzzle - Onet/">
     <Project Path="src/Onet/Puzzles.Onet.Analytics/Puzzles.Onet.Analytics.csproj" />
     <Project Path="src/Onet/Puzzles.Onet.Core/Puzzles.Onet.Core.csproj" />
   </Folder>
-  <Folder Name="/Game - Water Sort/">
+  <Folder Name="/Puzzle - Water Sort/">
     <Project Path="src/WaterSort/Puzzles.WaterSort.Analytics/Puzzles.WaterSort.Analytics.csproj" />
     <Project Path="src/WaterSort/Puzzles.WaterSort.Core/Puzzles.WaterSort.Core.csproj" />
   </Folder>
