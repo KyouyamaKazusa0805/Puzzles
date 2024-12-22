@@ -139,7 +139,7 @@ internal sealed unsafe partial class TreeNodeMemoryManager(
 	public override Span<TreeNode> GetSpan() => Memory.Span[..Count];
 
 	/// <inheritdoc/>
-	public override MemoryHandle Pin(int elementIndex = 0) => default;
+	public override MemoryHandle Pin(int elementIndex = 0) => new((TreeNode*)Unsafe.AsPointer(ref Entry[0]) + elementIndex);
 
 	/// <inheritdoc/>
 	protected override void Dispose(bool disposing) => Dispose();
