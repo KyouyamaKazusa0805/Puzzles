@@ -16,7 +16,10 @@ namespace Puzzles.Flow.Analytics;
 /// in order to make such APIs more unified in the whole repository.
 /// </para>
 /// <para>
-/// Also, this algorithm uses some logical techniques to reduce complexity of brute forces.
+/// This analyzer uses <see href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* path-finding algorithm</see>
+/// with <see href="https://en.wikipedia.org/wiki/Heuristic_(computer_science)">heuristic search</see>
+/// instead of original brute forces.
+/// Also, this algorithm uses some logical techniques to reduce time complexity on exhaustive checking.
 /// For more information about checking dead-ends and some other techniques,
 /// please visit <see href="https://mzucker.github.io/2016/08/28/flow-solver.html">this link</see>.
 /// </para>
