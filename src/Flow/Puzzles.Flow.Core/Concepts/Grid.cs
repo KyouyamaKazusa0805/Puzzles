@@ -87,7 +87,7 @@ public sealed partial class Grid([Property] int size, [Field] SortedSet<FlowPosi
 	/// <param name="cell">The desired cell.</param>
 	/// <returns>The cell state.</returns>
 	/// <seealso cref="CellState.Path"/>
-	public CellState GetState(byte cell)
+	public CellState GetState(Cell cell)
 	{
 		foreach (var ((startX, startY), (endX, endY), _) in EnumerateFlows())
 		{

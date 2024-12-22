@@ -11,4 +11,6 @@ global using Puzzles.Concepts;
 global using Puzzles.Flow.Concepts.Formatting;
 global using Puzzles.Meta;
 global using Puzzles.Meta.DataStructures;
+global using Cell = byte;
 global using Color = byte;
+global using Position = byte;

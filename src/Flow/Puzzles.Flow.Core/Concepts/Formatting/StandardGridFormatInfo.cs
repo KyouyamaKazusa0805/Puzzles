@@ -8,7 +8,7 @@ public sealed class StandardGridFormatInfo : GridFormatInfo
 	/// <summary>
 	/// Indicates all supported lengths.
 	/// </summary>
-	private static readonly int[] SupportedLengths = [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256];
+	private static readonly Position[] SupportedLengths = [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225];
 
 
 	/// <inheritdoc/>
@@ -37,8 +37,8 @@ public sealed class StandardGridFormatInfo : GridFormatInfo
 		}
 
 		var size = (int)Math.Sqrt(strLength);
-		var flowsDictionary = new Dictionary<Color, List<byte>>();
-		for (var i = (byte)0; i < strLength; i++)
+		var flowsDictionary = new Dictionary<Color, List<Position>>();
+		for (var i = (Position)0; i < strLength; i++)
 		{
 			var ch = s[i];
 			switch (char.ToUpper(ch))
