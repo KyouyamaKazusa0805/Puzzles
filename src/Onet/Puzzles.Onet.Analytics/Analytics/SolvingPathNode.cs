@@ -5,8 +5,8 @@ namespace Puzzles.Onet.Analytics;
 /// </summary>
 /// <param name="Match">Indicates the match.</param>
 /// <param name="GridState">Indicates the current grid state.</param>
-/// <param name="Difficulty">Indicates the difficulty rating.</param>
-/// <param name="Parent">Indicates the parent node.</param>
+/// <param name="Difficulty">Indicates the difficulty rating. The value won't participate in equality comparison.</param>
+/// <param name="Parent">Indicates the parent node. The value won't participate in equality comparison.</param>
 public sealed record SolvingPathNode(ItemMatch? Match, Grid GridState, double Difficulty, SolvingPathNode? Parent) :
 	IEqualityOperators<SolvingPathNode, SolvingPathNode, bool>
 {
@@ -38,10 +38,10 @@ public sealed record SolvingPathNode(ItemMatch? Match, Grid GridState, double Di
 
 	/// <inheritdoc/>
 	public bool Equals([NotNullWhen(true)] SolvingPathNode? other)
-		=> other is not null && Match == other.Match && GridState == other.GridState/* && Difficulty == other.Difficulty*/;
+		=> other is not null && Match == other.Match && GridState == other.GridState;
 
 	/// <inheritdoc/>
-	public override int GetHashCode() => HashCode.Combine(Match, GridState/*, Difficulty*/);
+	public override int GetHashCode() => HashCode.Combine(Match, GridState);
 
 	/// <include
 	///     file="../../../global-doc-comments.xml"

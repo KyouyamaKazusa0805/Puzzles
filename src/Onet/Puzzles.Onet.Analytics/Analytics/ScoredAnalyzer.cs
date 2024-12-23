@@ -1,5 +1,7 @@
 namespace Puzzles.Onet.Analytics;
 
+using DoublePair = (double X, double Y);
+
 /// <summary>
 /// Represents an analyzer that will find a list of steps, with scoring rules that makes each step have a minimal one.
 /// </summary>
@@ -34,114 +36,200 @@ public sealed class ScoredAnalyzer
 		Grid grid,
 		int maxBranchesCount,
 		bool chooseMinimal = false,
-		Func<(double X, double Y)>? startPointCreator = null,
+		Func<DoublePair>? startPointCreator = null,
 		DistanceType distanceType = DistanceType.Manhattan,
 		int distanceWeight = 10,
 		int visualDistanceWeight = 1
 	)
 	{
-		var width = grid.RowsLength;
-		var height = grid.ColumnsLength;
-		var halfWidth = width / 2D;
-		var halfHeight = height / 2D;
-		startPointCreator ??= () => (halfWidth, halfHeight);
-
-		var playground = grid.Clone();
-		var queue = new LinkedList<SolvingPathNode>();
-		queue.AddLast(new SolvingPathNode(playground));
-
-		var scoreComparer = Comparer<double>.Create(
-			chooseMinimal
-				? static (left, right) => left.CompareTo(right)
-				: static (left, right) => -left.CompareTo(right)
-		);
-
 		var paths = new List<SolvingPath>(maxBranchesCount);
-		while (queue.Count != 0)
+		try
 		{
-			var node = queue.RemoveFirstNode();
-			_ = (node.Match is { End: var (x, y) } ? (X: x, Y: y) : startPointCreator()) is var (px, py);
-
-			var branches = new SortedDictionary<double, List<SolvingPathNode>>(scoreComparer);
-			foreach (var match in _collector.Collect(node.GridState))
-			{
-				var currentState = node.GridState.Clone();
-				currentState.Apply(match);
-
-				foreach (var isReversed in (false, true))
-				{
-					var newMatch = isReversed ? ~match : match;
-					_ = (newMatch.Start.X, newMatch.Start.Y) is (var nx, var ny) ns;
-					_ = (newMatch.End.X, newMatch.End.Y) is (var nex, var ney) ne;
-					var visualDistance = distanceType switch
-					{
-						DistanceType.Euclid => Math.Sqrt((px - nx) * (px - nx) + (py - ny) * (py - ny)),
-						DistanceType.Manhattan => Math.Abs(px - nx) + Math.Abs(py - ny),
-						_ => 0
-					};
-					var distance = distanceType switch
-					{
-						DistanceType.Euclid => Math.Sqrt((nex - nx) * (nex - nx) + (ney - ny) * (ney - ny)),
-						DistanceType.Manhattan => Math.Abs(nex - nx) + Math.Abs(ney - ny),
-						DistanceType.Solved => getSolvedDistance(
-							ns,
-							ne,
-							from interim in newMatch.Interims select ((double, double))(interim.X, interim.Y)
-						),
-						_ => 0
-					};
-					var difficulty = visualDistance * visualDistanceWeight + distance * distanceWeight;
-					var newNode = new SolvingPathNode(newMatch, currentState, difficulty, node);
-					if (!branches.TryAdd(difficulty, [newNode]))
-					{
-						branches[difficulty].Add(newNode);
-					}
-				}
-			}
-
-			// Find for the minimal-scored or maximal-scored match, and determine the next branches.
-			if (branches.Keys.FirstOrDefault(-1) is not (var chosenKey and >= 0))
-			{
-				continue;
-			}
-
-			foreach (var childNode in branches[chosenKey])
-			{
-				if (!childNode.GridState.IsEmpty)
-				{
-					queue.AddLast(childNode);
-					continue;
-				}
-
-				// The puzzle has already finished.
-				paths.Add(new(childNode));
-				if (paths.Count == maxBranchesCount)
-				{
-					return paths.AsSpan();
-				}
-			}
+			DoublePair defaultStartPointCreator() => (grid.RowsLength / 2D, grid.ColumnsLength / 2D);
+			analyzeRecursively(
+				grid,
+				grid,
+				maxBranchesCount,
+				chooseMinimal,
+				startPointCreator ?? defaultStartPointCreator,
+				distanceType,
+				distanceWeight,
+				visualDistanceWeight,
+				new(n()),
+				paths
+			);
 		}
-
-		// Not enough branches found.
+		catch
+		{
+		}
 		return paths.AsSpan();
 
 
-		static double getSolvedDistance((double X, double Y) start, (double X, double Y) end, ReadOnlySpan<(double X, double Y)> interims)
+		static bool node_Equals(SolvingPathNode? left, SolvingPathNode? right)
 		{
-#pragma warning disable format
-			return interims switch
+			SolvingPathNode? n1, n2;
+			for ((n1, n2) = (left, right); n1 is not null && n2 is not null; (n1, n2) = (n1.Parent, n2.Parent))
 			{
-				[var a, var b] => length(start, a) + length(a, b) + length(b, end),
-				[var a] => length(start, a) + length(a, end),
-				[] => length(start, end),
+				if (n1 != n2)
+				{
+					return false;
+				}
+			}
+			return n1 is null && n2 is null;
+		}
+
+		static int node_GetHashCode(SolvingPathNode obj)
+		{
+			var hashCode = new HashCode();
+			for (var node = obj; node is not null; node = node.Parent)
+			{
+				hashCode.Add(node);
+			}
+			return hashCode.ToHashCode();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static double getDistance(DistanceType distanceType, ItemMatch newMatch, int nx, int ny, (int X, int Y) ns, int nex, int ney, (int X, int Y) ne)
+			=> distanceType switch
+			{
+				DistanceType.Euclid => Math.Sqrt((nex - nx) * (nex - nx) + (ney - ny) * (ney - ny)),
+				DistanceType.Manhattan => Math.Abs(nex - nx) + Math.Abs(ney - ny),
+				DistanceType.Solved => getSolvedDistance(ns, ne, from i in newMatch.Interims select (DoublePair)(i.X, i.Y)),
+				_ => 0
+			};
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static double getVisualDistance(DistanceType distanceType, double px, double py, int nx, int ny)
+			=> distanceType switch
+			{
+				DistanceType.Euclid => Math.Sqrt((px - nx) * (px - nx) + (py - ny) * (py - ny)),
+				DistanceType.Manhattan => Math.Abs(px - nx) + Math.Abs(py - ny),
+				_ => 0
+			};
+
+#pragma warning disable format
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static double getSolvedDistance(DoublePair start, DoublePair end, ReadOnlySpan<DoublePair> interims)
+			=> interims switch
+			{
+				[var a, var b] => getLength(start, a) + getLength(a, b) + getLength(b, end),
+				[var a] => getLength(start, a) + getLength(a, end),
+				[] => getLength(start, end),
 				_ => throw new InvalidOperationException("The internal data is invalid.")
 			};
 #pragma warning restore format
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static double getLength(DoublePair coordinate1, DoublePair coordinate2)
+			=> Math.Abs(coordinate1.X - coordinate2.X) + Math.Abs(coordinate1.Y - coordinate2.Y);
 
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			static double length((double X, double Y) coordinate1, (double X, double Y) coordinate2)
-				=> Math.Abs(coordinate1.X - coordinate2.X) + Math.Abs(coordinate1.Y - coordinate2.Y);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static IEqualityComparer<SolvingPathNode> n() => EqualityComparer<SolvingPathNode>.Create(node_Equals, node_GetHashCode);
+
+		void analyzeRecursively(
+			Grid initialGrid,
+			Grid currentGrid,
+			int maxBranchesCount,
+			bool chooseMinimal,
+			Func<DoublePair> startPointCreator,
+			DistanceType distanceType,
+			int distanceWeight,
+			int visualDistanceWeight,
+			HashSet<SolvingPathNode> traversedNodes,
+			List<SolvingPath> paths
+		)
+		{
+			var queue = new LinkedList<SolvingPathNode>();
+			queue.AddLast(new SolvingPathNode(currentGrid.Clone()));
+
+			var scoreComparer = Comparer<double>.Create(chooseMinimal ? static (l, r) => l.CompareTo(r) : static (l, r) => -l.CompareTo(r));
+			while (queue.Count != 0)
+			{
+				var node = queue.RemoveFirstNode();
+				_ = (node.Match is { End: var (x, y) } ? (x, y) : startPointCreator()) is var (px, py);
+
+				var branches = new SortedDictionary<double, List<SolvingPathNode>>(scoreComparer);
+				foreach (var match in _collector.Collect(node.GridState))
+				{
+					var currentState = node.GridState.Clone();
+					currentState.Apply(match);
+
+					foreach (var isReversed in (false, true))
+					{
+						var newMatch = isReversed ? ~match : match;
+						_ = (newMatch.Start.X, newMatch.Start.Y) is (var nx, var ny) ns;
+						_ = (newMatch.End.X, newMatch.End.Y) is (var nex, var ney) ne;
+						var visualDistance = getVisualDistance(distanceType, px, py, nx, ny);
+						var distance = getDistance(distanceType, newMatch, nx, ny, ns, nex, ney, ne);
+						var difficulty = visualDistance * visualDistanceWeight + distance * distanceWeight;
+						var newNode = new SolvingPathNode(newMatch, currentState, difficulty, node);
+						if (!branches.TryAdd(difficulty, [newNode]))
+						{
+							branches[difficulty].Add(newNode);
+						}
+					}
+				}
+
+				// Find for the minimal-scored or maximal-scored match, and determine the next branches.
+				if (branches.Keys.FirstOrDefault(-1) is not (var chosenKey and >= 0))
+				{
+					continue;
+				}
+
+				foreach (var childNode in branches[chosenKey])
+				{
+					if (!childNode.GridState.IsEmpty)
+					{
+						queue.AddLast(childNode);
+						traversedNodes.Add(childNode);
+						continue;
+					}
+
+					// The puzzle has already finished.
+					paths.Add(new(childNode));
+					if (paths.Count == maxBranchesCount)
+					{
+						throw new("Enough!");
+					}
+				}
+			}
+
+			// Here we should make a recursion:
+			// If we cannot find enough number of branches, we should recursively checking for other branches from the root node,
+			// and check which nodes are not used and traversed, and adding them into the queue.
+			var recursionQueue = new LinkedList<SolvingPathNode>();
+			recursionQueue.AddLast(new SolvingPathNode(initialGrid.Clone()));
+			while (recursionQueue.Count != 0)
+			{
+				var node = recursionQueue.RemoveFirstNode();
+				foreach (var match in _collector.Collect(node.GridState))
+				{
+					var currentGridState = node.GridState.Clone();
+					currentGridState.Apply(match);
+
+					// Check whether the node is recorded in traversed nodes. If not, the node is a new one.
+					var newNode = new SolvingPathNode(match, currentGridState, default, node);
+					if (!traversedNodes.Add(newNode))
+					{
+						continue;
+					}
+
+					// Do recursion.
+					recursionQueue.AddLast(newNode);
+					analyzeRecursively(
+						initialGrid,
+						currentGridState,
+						maxBranchesCount,
+						chooseMinimal,
+						startPointCreator,
+						distanceType,
+						distanceWeight,
+						visualDistanceWeight,
+						traversedNodes,
+						paths
+					);
+				}
+			}
 		}
 	}
 }

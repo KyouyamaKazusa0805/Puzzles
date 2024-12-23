@@ -557,8 +557,8 @@
             </summary>
             <param name="Match">Indicates the match.</param>
             <param name="GridState">Indicates the current grid state.</param>
-            <param name="Difficulty">Indicates the difficulty rating.</param>
-            <param name="Parent">Indicates the parent node.</param>
+            <param name="Difficulty">Indicates the difficulty rating. The value won't participate in equality comparison.</param>
+            <param name="Parent">Indicates the parent node. The value won't participate in equality comparison.</param>
         </member>
         <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.#ctor(Puzzles.Onet.Concepts.ItemMatch,Puzzles.Onet.Concepts.Grid,System.Double,Puzzles.Onet.Analytics.SolvingPathNode)">
             <summary>
@@ -566,8 +566,8 @@
             </summary>
             <param name="Match">Indicates the match.</param>
             <param name="GridState">Indicates the current grid state.</param>
-            <param name="Difficulty">Indicates the difficulty rating.</param>
-            <param name="Parent">Indicates the parent node.</param>
+            <param name="Difficulty">Indicates the difficulty rating. The value won't participate in equality comparison.</param>
+            <param name="Parent">Indicates the parent node. The value won't participate in equality comparison.</param>
         </member>
         <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.Match">
             <summary>Indicates the match.</summary>
@@ -576,10 +576,10 @@
             <summary>Indicates the current grid state.</summary>
         </member>
         <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.Difficulty">
-            <summary>Indicates the difficulty rating.</summary>
+            <summary>Indicates the difficulty rating. The value won't participate in equality comparison.</summary>
         </member>
         <member name="P:Puzzles.Onet.Analytics.SolvingPathNode.Parent">
-            <summary>Indicates the parent node.</summary>
+            <summary>Indicates the parent node. The value won't participate in equality comparison.</summary>
         </member>
         <member name="M:Puzzles.Onet.Analytics.SolvingPathNode.#ctor(Puzzles.Onet.Concepts.Grid)">
             <summary>
