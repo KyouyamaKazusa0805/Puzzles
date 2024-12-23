@@ -6,12 +6,17 @@ namespace Puzzles.Onet.Concepts;
 /// <param name="Start">Indicates the start.</param>
 /// <param name="End">Indicates the end.</param>
 /// <param name="Interims">Indicates the interim coordinates.</param>
-public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordinate[] Interims) : IEqualityOperators<ItemMatch, ItemMatch, bool>
+[TypeImpl(TypeImplFlags.Object_GetHashCode | TypeImplFlags.Equatable)]
+public sealed partial record ItemMatch(
+	[property: HashCodeMember, EquatableMember] Coordinate Start,
+	[property: HashCodeMember, EquatableMember] Coordinate End,
+	params Coordinate[] Interims
+) : IEqualityOperators<ItemMatch, ItemMatch, bool>
 {
 	/// <summary>
 	/// Indicates the difficulty of the step.
 	/// </summary>
-	public int Difficulty => 7 * Distance + 3 * (Interims.Length + 1 << 1);
+	public double Difficulty { get; set; }
 
 	/// <summary>
 	/// Indicates the number of turning.

@@ -14,4 +14,5 @@ global using Puzzles.Meta.DataStructures;
 global using Puzzles.Onet.Analytics;
 global using Puzzles.Onet.Concepts;
 global using Puzzles.Onet.Measuring;
+global using DoublePair = (double X, double Y);
 global using ItemIndex = byte;

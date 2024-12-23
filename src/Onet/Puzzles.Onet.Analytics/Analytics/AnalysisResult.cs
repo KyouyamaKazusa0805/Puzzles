@@ -20,12 +20,12 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Grid grid)
 	/// <summary>
 	/// Indicates the total difficulty.
 	/// </summary>
-	public int TotalDifficulty => Matches.Sum(static match => match.Difficulty);
+	public double TotalDifficulty => Matches.Sum(static match => match.Difficulty);
 
 	/// <summary>
 	/// Indicates the maxinum difficulty.
 	/// </summary>
-	public int MaxDifficulty => Matches.Max(static match => match.Difficulty);
+	public double MaxDifficulty => Matches.Max(static match => match.Difficulty);
 
 	/// <summary>
 	/// Indicates the failed reason.
