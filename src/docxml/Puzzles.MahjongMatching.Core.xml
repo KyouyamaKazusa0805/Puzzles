@@ -169,6 +169,22 @@
         <member name="M:Puzzles.MahjongMatching.Concepts.Coordinate.op_LessThanOrEqual(Puzzles.MahjongMatching.Concepts.Coordinate,Puzzles.MahjongMatching.Concepts.Coordinate)">
             <inheritdoc cref="M:System.Numerics.IComparisonOperators`3.op_LessThanOrEqual(`0,`1)"/>
         </member>
+        <member name="T:Puzzles.MahjongMatching.Concepts.Formatting.PuzzleFormatInfo">
+            <summary>
+            Represents a puzzle format information.
+            </summary>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Formatting.PuzzleFormatInfo.GetFormat(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Formatting.PuzzleFormatInfo.ToTile(System.Int32)">
+            <summary>
+            Converts the current instance into a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> via ID.
+            </summary>
+            <param name="cardId">The card ID.</param>
+            <returns>The tile.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws when the argument is greater than 36.</exception>
+        </member>
         <member name="T:Puzzles.MahjongMatching.Concepts.Layer">
             <summary>
             Represents a puzzle layer.

@@ -24,7 +24,7 @@ public sealed class Analyzer
 	/// <summary>
 	/// Indicates the visual distance weight.
 	/// </summary>
-	public double VisualDistanceWeight { get; set; } = .1;
+	public double VisualDistanceWeight { get; set; } = .3;
 
 	/// <summary>
 	/// Indicates temporature factor.
@@ -68,7 +68,9 @@ public sealed class Analyzer
 				}
 
 				// Sort all steps by difficulty ratings, and find for the best one.
-				_ = (steps is [.., { End: var (x, y) }] ? (x, y) : StartPointCreator(grid)) is var (px, py);
+				var ((psx, psy), (pex, pey)) = steps is [.., var ((sx, sy), (ex, ey), _)]
+					? ((sx, sy), (ex, ey))
+					: (StartPointCreator(grid), StartPointCreator(grid));
 				var matchesDictionary = new Dictionary<ItemMatch, double>(allMatches.Length << 1);
 				var maximumDifficulty = double.MinValue;
 				foreach (var match in allMatches)
@@ -78,9 +80,10 @@ public sealed class Analyzer
 						var newMatch = isReversed ? ~match : match with { };
 						_ = (newMatch.Start.X, newMatch.Start.Y) is (var nx, var ny) ns;
 						_ = (newMatch.End.X, newMatch.End.Y) is (var nex, var ney) ne;
-						var visualDistance = getVisualDistance(DistanceType, px, py, nx, ny);
+						var d2 = getVisualDistance(DistanceType, pex, pey, nx, ny);
+						var d4 = getVisualDistance(DistanceType, pex, pey, nex, ney);
 						var distance = getDistance(DistanceType, newMatch, nx, ny, ns, nex, ney, ne);
-						var difficulty = visualDistance * VisualDistanceWeight + distance * DistanceWeight;
+						var difficulty = (2 * d2 + d4) * VisualDistanceWeight + distance * DistanceWeight;
 						matchesDictionary.Add(newMatch, difficulty);
 						newMatch.Difficulty = difficulty;
 
