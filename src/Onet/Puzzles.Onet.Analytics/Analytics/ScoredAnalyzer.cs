@@ -16,6 +16,9 @@ public sealed class ScoredAnalyzer
 	/// </summary>
 	/// <param name="grid">The grid.</param>
 	/// <param name="maxBranchesCount">The maximum branches count.</param>
+	/// <param name="chooseMinimal">
+	/// Indicates whether we should choose the minimal one in every branch. If not, the maximal one will be chosen.
+	/// </param>
 	/// <param name="startPointCreator">
 	/// The start point to be checked. The default is <see langword="null"/> (un-assigned).
 	/// It will be initialized as the center of the grid (half width and height).
@@ -30,6 +33,7 @@ public sealed class ScoredAnalyzer
 	public ReadOnlySpan<SolvingPath> Analyze(
 		Grid grid,
 		int maxBranchesCount,
+		bool chooseMinimal = false,
 		Func<(double X, double Y)>? startPointCreator = null,
 		DistanceType distanceType = DistanceType.Manhattan,
 		int distanceWeight = 10,
@@ -46,13 +50,19 @@ public sealed class ScoredAnalyzer
 		var queue = new LinkedList<SolvingPathNode>();
 		queue.AddLast(new SolvingPathNode(playground));
 
+		var scoreComparer = Comparer<double>.Create(
+			chooseMinimal
+				? static (left, right) => left.CompareTo(right)
+				: static (left, right) => -left.CompareTo(right)
+		);
+
 		var paths = new List<SolvingPath>(maxBranchesCount);
 		while (queue.Count != 0)
 		{
 			var node = queue.RemoveFirstNode();
 			_ = (node.Match is { End: var (x, y) } ? (X: x, Y: y) : startPointCreator()) is var (px, py);
 
-			var branches = new SortedDictionary<double, List<SolvingPathNode>>();
+			var branches = new SortedDictionary<double, List<SolvingPathNode>>(scoreComparer);
 			foreach (var match in _collector.Collect(node.GridState))
 			{
 				var currentState = node.GridState.Clone();
@@ -76,8 +86,7 @@ public sealed class ScoredAnalyzer
 						DistanceType.Solved => getSolvedDistance(
 							ns,
 							ne,
-							from interim in newMatch.Interims
-							select ((double, double))(interim.X, interim.Y)
+							from interim in newMatch.Interims select ((double, double))(interim.X, interim.Y)
 						),
 						_ => 0
 					};
@@ -90,13 +99,13 @@ public sealed class ScoredAnalyzer
 				}
 			}
 
-			// Find for the minimal-scored match, and determine the next branches.
-			if (branches.Keys.FirstOrDefault(-1) is not (var minimalKey and >= 0))
+			// Find for the minimal-scored or maximal-scored match, and determine the next branches.
+			if (branches.Keys.FirstOrDefault(-1) is not (var chosenKey and >= 0))
 			{
 				continue;
 			}
 
-			foreach (var childNode in branches[minimalKey])
+			foreach (var childNode in branches[chosenKey])
 			{
 				if (!childNode.GridState.IsEmpty)
 				{

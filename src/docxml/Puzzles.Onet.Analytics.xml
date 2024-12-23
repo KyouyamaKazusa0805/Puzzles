@@ -498,12 +498,15 @@
             Indicates the backing collector.
             </summary>
         </member>
-        <member name="M:Puzzles.Onet.Analytics.ScoredAnalyzer.Analyze(Puzzles.Onet.Concepts.Grid,System.Int32,System.Func{System.ValueTuple{System.Double,System.Double}},Puzzles.Onet.Measuring.DistanceType,System.Int32,System.Int32)">
+        <member name="M:Puzzles.Onet.Analytics.ScoredAnalyzer.Analyze(Puzzles.Onet.Concepts.Grid,System.Int32,System.Boolean,System.Func{System.ValueTuple{System.Double,System.Double}},Puzzles.Onet.Measuring.DistanceType,System.Int32,System.Int32)">
             <summary>
             Try to analyze the grid.
             </summary>
             <param name="grid">The grid.</param>
             <param name="maxBranchesCount">The maximum branches count.</param>
+            <param name="chooseMinimal">
+            Indicates whether we should choose the minimal one in every branch. If not, the maximal one will be chosen.
+            </param>
             <param name="startPointCreator">
             The start point to be checked. The default is <see langword="null"/> (un-assigned).
             It will be initialized as the center of the grid (half width and height).
