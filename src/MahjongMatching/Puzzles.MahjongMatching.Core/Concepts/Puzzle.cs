@@ -12,6 +12,7 @@ public sealed partial class Puzzle([Field] params List<Layer> layers) :
 	IEquatable<Puzzle>,
 	IEqualityOperators<Puzzle, Puzzle, bool>,
 	IFormattable,
+	IParsable<Puzzle>,
 	IReadOnlyCollection<Layer>,
 	IReadOnlyList<Layer>
 {
@@ -216,7 +217,7 @@ public sealed partial class Puzzle([Field] params List<Layer> layers) :
 	}
 
 	/// <inheritdoc/>
-	public override string ToString() => ToString(null);
+	public override string ToString() => ToString(default(string));
 
 	/// <inheritdoc cref="IFormattable.ToString(string?, IFormatProvider?)"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -250,6 +251,18 @@ public sealed partial class Puzzle([Field] params List<Layer> layers) :
 
 		string toMaskString() => $"[{string.Join(", ", from layer in _layers select layer.ToString("m"))}]";
 	}
+
+	/// <inheritdoc cref="IFormattable.ToString(string?, IFormatProvider?)"/>
+	public string ToString(IFormatProvider? formatProvider)
+		=> (formatProvider as PuzzleFormatInfo ?? new PuzzleFormatInfo()).FormatCore(this);
+
+	/// <inheritdoc/>
+	public string ToString(string? format, IFormatProvider? formatProvider)
+		=> (format, formatProvider) switch
+		{
+			(_, not null) => ToString(formatProvider),
+			_ => ToString(format)
+		};
 
 	/// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -301,36 +314,39 @@ public sealed partial class Puzzle([Field] params List<Layer> layers) :
 	object ICloneable.Clone() => Clone();
 
 	/// <inheritdoc/>
-	string IFormattable.ToString(string? format, IFormatProvider? formatProvider) => ToString(format);
-
-	/// <inheritdoc/>
 	IEnumerator IEnumerable.GetEnumerator() => _layers.GetEnumerator();
 
 	/// <inheritdoc/>
 	IEnumerator<Layer> IEnumerable<Layer>.GetEnumerator() => ((IEnumerable<Layer>)_layers).GetEnumerator();
 
 
-	/// <summary>
-	/// Negates expression <see cref="ItemsCount"/> != 0.
-	/// </summary>
-	/// <param name="value">The puzzle to be checked.</param>
-	/// <returns>A <see cref="bool"/> result.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator !(Puzzle value) => value.ItemsCount == 0;
+	/// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)"/>
+	public static bool TryParse(string? s, [NotNullWhen(true)] out Puzzle? result) => TryParse(s, null, out result);
 
-	/// <summary>
-	/// Returns expression value <see cref="ItemsCount"/> != 0.
-	/// </summary>
-	/// <param name="value">The puzzle to be checked.</param>
-	/// <returns>A <see cref="bool"/> result.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator true(Puzzle value) => value.ItemsCount != 0;
+	/// <inheritdoc/>
+	public static bool TryParse(string? s, IFormatProvider? provider, [NotNullWhen(true)] out Puzzle? result)
+	{
+		try
+		{
+			if (s is null)
+			{
+				throw new FormatException();
+			}
 
-	/// <summary>
-	/// Negates expression <see cref="ItemsCount"/> != 0.
-	/// </summary>
-	/// <param name="value">The puzzle to be checked.</param>
-	/// <returns>A <see cref="bool"/> result.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool operator false(Puzzle value) => value.ItemsCount == 0;
+			result = Parse(s, provider);
+			return true;
+		}
+		catch (FormatException)
+		{
+			result = null;
+			return false;
+		}
+	}
+
+	/// <inheritdoc cref="IParsable{TSelf}.Parse(string, IFormatProvider?)"/>
+	public static Puzzle Parse(string s) => Parse(s, null);
+
+	/// <inheritdoc/>
+	public static Puzzle Parse(string? s, IFormatProvider? provider)
+		=> (provider as PuzzleFormatInfo ?? new PuzzleFormatInfo()).ParseCore(s ?? throw new FormatException());
 }

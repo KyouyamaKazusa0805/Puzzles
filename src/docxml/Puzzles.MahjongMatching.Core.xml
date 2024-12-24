@@ -177,13 +177,19 @@
         <member name="M:Puzzles.MahjongMatching.Concepts.Formatting.PuzzleFormatInfo.GetFormat(System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.MahjongMatching.Concepts.Formatting.PuzzleFormatInfo.ToTile(System.Int32)">
+        <member name="M:Puzzles.MahjongMatching.Concepts.Formatting.PuzzleFormatInfo.FormatCore(Puzzles.MahjongMatching.Concepts.Puzzle)">
             <summary>
-            Converts the current instance into a <see cref="T:Puzzles.MahjongMatching.Concepts.Tile"/> via ID.
+            Converts the current puzzle into a string.
             </summary>
-            <param name="cardId">The card ID.</param>
-            <returns>The tile.</returns>
-            <exception cref="T:System.InvalidOperationException">Throws when the argument is greater than 36.</exception>
+            <param name="puzzle">The puzzle.</param>
+            <returns>The string value.</returns>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Formatting.PuzzleFormatInfo.ParseCore(System.String)">
+            <summary>
+            Parses the specified string into a puzzle.
+            </summary>
+            <param name="str">The string.</param>
+            <returns>The puzzle.</returns>
         </member>
         <member name="T:Puzzles.MahjongMatching.Concepts.Layer">
             <summary>
@@ -815,6 +821,12 @@
         <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.ToString(System.String)">
             <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
         </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.ToString(System.IFormatProvider)">
+            <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.ToString(System.String,System.IFormatProvider)">
+            <inheritdoc/>
+        </member>
         <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.GetEnumerator">
             <inheritdoc cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>
         </member>
@@ -845,35 +857,23 @@
         <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#ICloneable#Clone">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#IFormattable#ToString(System.String,System.IFormatProvider)">
-            <inheritdoc/>
-        </member>
         <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc/>
         </member>
         <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.System#Collections#Generic#IEnumerable{Puzzles#MahjongMatching#Concepts#Layer}#GetEnumerator">
             <inheritdoc/>
         </member>
-        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_LogicalNot(Puzzles.MahjongMatching.Concepts.Puzzle)">
-            <summary>
-            Negates expression <see cref="P:Puzzles.MahjongMatching.Concepts.Puzzle.ItemsCount"/> != 0.
-            </summary>
-            <param name="value">The puzzle to be checked.</param>
-            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TryParse(System.String,Puzzles.MahjongMatching.Concepts.Puzzle@)">
+            <inheritdoc cref="M:System.IParsable`1.TryParse(System.String,System.IFormatProvider,`0@)"/>
         </member>
-        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_True(Puzzles.MahjongMatching.Concepts.Puzzle)">
-            <summary>
-            Returns expression value <see cref="P:Puzzles.MahjongMatching.Concepts.Puzzle.ItemsCount"/> != 0.
-            </summary>
-            <param name="value">The puzzle to be checked.</param>
-            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.TryParse(System.String,System.IFormatProvider,Puzzles.MahjongMatching.Concepts.Puzzle@)">
+            <inheritdoc/>
         </member>
-        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.op_False(Puzzles.MahjongMatching.Concepts.Puzzle)">
-            <summary>
-            Negates expression <see cref="P:Puzzles.MahjongMatching.Concepts.Puzzle.ItemsCount"/> != 0.
-            </summary>
-            <param name="value">The puzzle to be checked.</param>
-            <returns>A <see cref="T:System.Boolean"/> result.</returns>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Parse(System.String)">
+            <inheritdoc cref="M:System.IParsable`1.Parse(System.String,System.IFormatProvider)"/>
+        </member>
+        <member name="M:Puzzles.MahjongMatching.Concepts.Puzzle.Parse(System.String,System.IFormatProvider)">
+            <inheritdoc/>
         </member>
         <member name="T:Puzzles.MahjongMatching.Concepts.Puzzle.Enumerator">
             <summary>

@@ -19,7 +19,7 @@ public sealed class Analyzer
 		{
 			var steps = new List<TileMatch>();
 			var playground = puzzle.Clone();
-			while (playground)
+			while (playground.ItemsCount != 0)
 			{
 				var foundSteps = playground.GetAllMatches();
 				if (foundSteps.Length == 0)
