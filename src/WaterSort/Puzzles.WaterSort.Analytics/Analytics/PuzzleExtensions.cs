@@ -12,6 +12,5 @@ public static class PuzzleExtensions
 	/// <param name="puzzle">The puzzle.</param>
 	/// <param name="step">The step to be applied.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Apply(this Puzzle puzzle, Step step)
-		=> puzzle[step.EndTubeIndex].Push(puzzle[step.StartTubeIndex].Pop(out var count), count);
+	public static void Apply(this Puzzle puzzle, Step step) => puzzle[step.End].Push(puzzle[step.Start].Pop(out var count), count);
 }

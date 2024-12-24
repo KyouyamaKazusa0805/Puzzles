@@ -684,11 +684,6 @@
         <member name="P:Puzzles.Flow.Analytics.GridAnalyticsInfo.Puzzles#Meta#IBoard#Columns">
             <inheritdoc/>
         </member>
-        <member name="P:Puzzles.Flow.Analytics.GridAnalyticsInfo.ThisPointer">
-            <summary>
-            Provides <see langword="this"/> pointer.
-            </summary>
-        </member>
         <member name="M:Puzzles.Flow.Analytics.GridAnalyticsInfo.GetWallDistance(System.Int32,System.Int32)">
             <summary>
             Get wall distance from the specified coordinate values <paramref name="x"/> and <paramref name="y"/>.
@@ -748,11 +743,6 @@
             <summary>
             Indicates the bit flags indicating whether each color has been completed or not
             (<c>currentPosition</c> is adjacent to <c>goalPosition</c>).
-            </summary>
-        </member>
-        <member name="P:Puzzles.Flow.Analytics.GridInterimState.ThisPointer">
-            <summary>
-            Provides <see langword="this"/> pointer.
             </summary>
         </member>
         <member name="T:Puzzles.Flow.Analytics.HeapBasedQueue">

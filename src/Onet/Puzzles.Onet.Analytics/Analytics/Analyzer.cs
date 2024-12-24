@@ -50,8 +50,6 @@ public sealed class Analyzer
 	/// <returns>An instance of type <see cref="AnalysisResult"/> indicating the result information.</returns>
 	public AnalysisResult Analyze(Grid grid, CancellationToken cancellationToken = default)
 	{
-		var matchComparer = EqualityComparer<ItemMatch>.Create(static (left, right) => left == right, static obj => obj.GetHashCode());
-
 		try
 		{
 			var stopwatch = new Stopwatch();

@@ -16,6 +16,11 @@ public enum FailedReason
 	PuzzleInvalid,
 
 	/// <summary>
+	/// Indicates a user has cancelled the task.
+	/// </summary>
+	UserCancelled,
+
+	/// <summary>
 	/// Indicates an unhandled exception is thrown.
 	/// </summary>
 	UnhandledException

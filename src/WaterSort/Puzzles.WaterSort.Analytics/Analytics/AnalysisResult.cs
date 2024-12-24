@@ -20,12 +20,12 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 	/// <summary>
 	/// Indicates the total difficulty.
 	/// </summary>
-	public int TotalDifficulty => Steps.Sum(static step => step.Difficulty);
+	public double TotalDifficulty => Steps.Sum(static step => step.Difficulty);
 
 	/// <summary>
 	/// Indicates the maximum difficulty.
 	/// </summary>
-	public int MaxDifficulty => Steps.Max(static step => step.Difficulty);
+	public double MaxDifficulty => Steps.Max(static step => step.Difficulty);
 
 	/// <summary>
 	/// Indicates the failed reason.
@@ -97,9 +97,9 @@ public sealed partial class AnalysisResult([Property, HashCodeMember] Puzzle puz
 			sb.AppendLine("Steps:");
 			foreach (var step in InterimSteps)
 			{
-				var topColor = Puzzle[step.StartTubeIndex].TopColor;
+				var topColor = Puzzle[step.Start].TopColor;
 				var topColorString = topColor == Color.MaxValue ? "<empty>" : topColor.ToString();
-				sb.AppendLine($"{step} (color {topColorString}, size {Puzzle[step.StartTubeIndex].TopColorSpannedCount})");
+				sb.AppendLine($"{step} (color {topColorString}, size {Puzzle[step.Start].TopColorSpannedCount})");
 			}
 			sb.AppendLine("---");
 			sb.AppendLine("Puzzle is solved.");

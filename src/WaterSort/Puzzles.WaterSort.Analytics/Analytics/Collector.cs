@@ -69,8 +69,7 @@ public sealed class Collector
 						continue;
 					}
 
-					var difficulty = (Complexity.GetTubeComplexity(puzzle[fromTubeIndex], puzzle) + chosenColor) * 5;
-					result.Add(new(fromTubeIndex, toTubeIndex, difficulty));
+					result.Add(new(fromTubeIndex, toTubeIndex));
 				}
 			}
 		}

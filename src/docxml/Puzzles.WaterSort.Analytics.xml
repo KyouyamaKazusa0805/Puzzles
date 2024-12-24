@@ -99,31 +99,43 @@
             Indicates the backing collector.
             </summary>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Analyzer.Analyze(Puzzles.WaterSort.Concepts.Puzzle)">
+        <member name="F:Puzzles.WaterSort.Analytics.Analyzer._rng">
+            <summary>
+            Indicates the backing random number generator.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Analyzer.PreferenceWeight">
+            <summary>
+            Indicates the preference weight.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Analyzer.VisualDistanceWeight">
+            <summary>
+            Indicates the visual distance weight.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Analyzer.TemporatureFactor">
+            <summary>
+            Indicates temporature factor.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Analyzer.DistanceType">
+            <summary>
+            Indicates the calculating distance type.
+            </summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Analyzer.StartPointCreator">
+            <summary>
+            Represents a start point creator.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Analyzer.Analyze(Puzzles.WaterSort.Concepts.Puzzle,System.Threading.CancellationToken)">
             <summary>
             Try to analyze a puzzle.
             </summary>
             <param name="puzzle">The puzzle.</param>
+            <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
             <returns>An <see cref="T:Puzzles.WaterSort.Analytics.AnalysisResult"/> instance indicating result.</returns>
-        </member>
-        <member name="T:Puzzles.WaterSort.Analytics.Extensions">
-            <target name="class" when="extension">
-				<summary>
-					Provides with file-local extension methods.
-				</summary>
-			</target>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Extensions.MakeDifficulty(System.ReadOnlySpan{Puzzles.WaterSort.Analytics.Step},Puzzles.WaterSort.Concepts.Puzzle,System.Boolean)">
-            <summary>
-            Create a dictionary that stores difficulty rating and steps.
-            </summary>
-            <param name="steps">The steps.</param>
-            <param name="puzzle">The puzzle.</param>
-            <param name="fixRoot">
-            Indicates whether the tube will be fixed and won't create steps on root tubes
-            (a tube that only contains one color, with size 1).
-            </param>
-            <returns>A dictionary.</returns>
         </member>
         <member name="T:Puzzles.WaterSort.Analytics.Collector">
             <summary>
@@ -152,6 +164,11 @@
             Indicates the puzzle is invalid.
             </summary>
         </member>
+        <member name="F:Puzzles.WaterSort.Analytics.FailedReason.UserCancelled">
+            <summary>
+            Indicates a user has cancelled the task.
+            </summary>
+        </member>
         <member name="F:Puzzles.WaterSort.Analytics.FailedReason.UnhandledException">
             <summary>
             Indicates an unhandled exception is thrown.
@@ -174,19 +191,28 @@
             <summary>
             Represents a move step.
             </summary>
-            <param name="startTubeIndex">Indicates the start tube index.</param>
-            <param name="endTubeIndex">Indicates the end tube index.</param>
-            <param name="difficulty">Indicates the difficulty rating.</param>
+            <param name="Start">Indicates the start tube index.</param>
+            <param name="End">Indicates the end tube index.</param>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Step.#ctor(System.Int32,System.Int32,System.Int32)">
+        <member name="M:Puzzles.WaterSort.Analytics.Step.#ctor(System.Int32,System.Int32)">
             <summary>
             Represents a move step.
             </summary>
-            <param name="startTubeIndex">Indicates the start tube index.</param>
-            <param name="endTubeIndex">Indicates the end tube index.</param>
-            <param name="difficulty">Indicates the difficulty rating.</param>
+            <param name="Start">Indicates the start tube index.</param>
+            <param name="End">Indicates the end tube index.</param>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Step.Deconstruct(System.Int32@,System.Int32@)">
+        <member name="P:Puzzles.WaterSort.Analytics.Step.Start">
+            <summary>Indicates the start tube index.</summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Step.End">
+            <summary>Indicates the end tube index.</summary>
+        </member>
+        <member name="P:Puzzles.WaterSort.Analytics.Step.Difficulty">
+            <summary>
+            Indicates the difficulty.
+            </summary>
+        </member>
+        <member name="M:Puzzles.WaterSort.Analytics.Step.Deconstruct(System.Int32@,System.Int32@,System.Double@)">
             <target name="method">
 				<summary>
 					Deconstruct the current instance into multiple values, which means you can use
@@ -194,43 +220,25 @@
 				</summary>
 			</target>
         </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Step.Deconstruct(System.Int32@,System.Int32@,System.Int32@)">
-            <target name="method">
-				<summary>
-					Deconstruct the current instance into multiple values, which means you can use
-					the value-tuple syntax like <c>(a, b, c)</c> to define your own deconstruction logic.
-				</summary>
-			</target>
+        <member name="M:Puzzles.WaterSort.Analytics.Step.IsValidFor(Puzzles.WaterSort.Concepts.Puzzle)">
+            <summary>
+            Indicates whether the step is valid on applying to the specified puzzle.
+            </summary>
+            <param name="puzzle">The puzzle.</param>
+            <returns>A <see cref="T:System.Boolean"/> result indicating that.</returns>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.Step.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
-        <member name="P:Puzzles.WaterSort.Analytics.Step.StartTubeIndex">
+        <member name="M:Puzzles.WaterSort.Analytics.Step.op_OnesComplement(Puzzles.WaterSort.Analytics.Step)">
             <summary>
-            The generated property declaration for parameter <c>startTubeIndex</c>.
+            Negates the step.
             </summary>
-        </member>
-        <member name="P:Puzzles.WaterSort.Analytics.Step.EndTubeIndex">
-            <summary>
-            The generated property declaration for parameter <c>endTubeIndex</c>.
-            </summary>
-        </member>
-        <member name="P:Puzzles.WaterSort.Analytics.Step.Difficulty">
-            <summary>
-            The generated property declaration for parameter <c>difficulty</c>.
-            </summary>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Step.Equals(System.Object)">
-            <inheritdoc cref="M:System.Object.Equals(System.Object)"/>
+            <param name="value">The value.</param>
+            <returns>The negated result.</returns>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.Step.GetHashCode">
             <inheritdoc cref="M:System.Object.GetHashCode"/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Step.op_Equality(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Analytics.Step)">
-            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Equality(`0,`1)"/>
-        </member>
-        <member name="M:Puzzles.WaterSort.Analytics.Step.op_Inequality(Puzzles.WaterSort.Analytics.Step,Puzzles.WaterSort.Analytics.Step)">
-            <inheritdoc cref="M:System.Numerics.IEqualityOperators`3.op_Inequality(`0,`1)"/>
         </member>
         <member name="M:Puzzles.WaterSort.Analytics.Step.Equals(Puzzles.WaterSort.Analytics.Step)">
             <inheritdoc/>
@@ -275,34 +283,36 @@
         <member name="M:Puzzles.WaterSort.Generating.Generator.ToString">
             <inheritdoc cref="M:System.Object.ToString"/>
         </member>
-        <member name="T:Puzzles.WaterSort.Measuring.Complexity">
+        <member name="T:Puzzles.WaterSort.Measuring.PuzzleMeasuringExtensions">
             <summary>
-            Represents a list of methods that can calculate complexity.
+            Provides with extension methods on <see cref="T:Puzzles.WaterSort.Concepts.Puzzle"/>.
+            </summary>
+            <seealso cref="T:Puzzles.WaterSort.Concepts.Puzzle"/>
+        </member>
+        <member name="F:Puzzles.WaterSort.Measuring.PuzzleMeasuringExtensions.TubeCoordinates">
+            <summary>
+            Indicates the tube coordinates for each tube in each size of puzzle.
             </summary>
         </member>
-        <member name="M:Puzzles.WaterSort.Measuring.Complexity.GetColorComplexity(System.Byte,Puzzles.WaterSort.Concepts.Puzzle)">
+        <member name="F:Puzzles.WaterSort.Measuring.PuzzleMeasuringExtensions.CentralPoints">
             <summary>
-            Returns the complexity of the color.
+            Represents central points.
             </summary>
-            <param name="color">The color.</param>
-            <param name="puzzle">The puzzle.</param>
-            <returns>The complexity.</returns>
         </member>
-        <member name="M:Puzzles.WaterSort.Measuring.Complexity.GetTubeComplexity(Puzzles.WaterSort.Concepts.Tube,Puzzles.WaterSort.Concepts.Puzzle)">
+        <member name="M:Puzzles.WaterSort.Measuring.PuzzleMeasuringExtensions.GetCentralPoint(Puzzles.WaterSort.Concepts.Puzzle)">
             <summary>
-            Returns the complexity of the tube.
+            Returns the central point of the puzzle.
             </summary>
-            <param name="tube">The tube.</param>
-            <param name="puzzle">The puzzle.</param>
-            <returns>The complexity.</returns>
+            <param name="this">The puzzle.</param>
+            <returns>The central point.</returns>
         </member>
-        <member name="M:Puzzles.WaterSort.Measuring.Complexity.GetComplexityDictionary(Puzzles.WaterSort.Concepts.Puzzle,System.Collections.Generic.Dictionary{System.Byte,System.Int32}@,System.Collections.Generic.Dictionary{System.Int32,System.Int32}@)">
+        <member name="M:Puzzles.WaterSort.Measuring.PuzzleMeasuringExtensions.GetTubeCoordinate(Puzzles.WaterSort.Concepts.Puzzle,System.Int32)">
             <summary>
-            Calcualtes complexity dictionary on both colors and tubes.
+            Returns the tube coordinate.
             </summary>
-            <param name="puzzle">The puzzle.</param>
-            <param name="colorComplexity">The complexity dictionary grouped by colors.</param>
-            <param name="tubeComplexity">The complexity dictionary grouped by tubes, whose key is index of the tube.</param>
+            <param name="this">The puzzle.</param>
+            <param name="tubeIndex">The tube index.</param>
+            <returns>The coordinate.</returns>
         </member>
     </members>
 </doc>

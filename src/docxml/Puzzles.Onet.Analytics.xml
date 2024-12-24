@@ -354,7 +354,7 @@
             Provides a list of methods that operate with distances.
             </summary>
         </member>
-        <member name="M:Puzzles.Onet.Measuring.Distance.GetDistance(Puzzles.Onet.Concepts.ItemMatch,Puzzles.Onet.Measuring.DistanceType)">
+        <member name="M:Puzzles.Onet.Measuring.Distance.GetDistance(Puzzles.Onet.Concepts.ItemMatch,Puzzles.Measuring.DistanceType)">
             <summary>
             Get distance value.
             </summary>
@@ -386,26 +386,6 @@
             <param name="match">Indicates the match to be checked.</param>
             <param name="weight">The weight value. By default the value is 3.</param>
             <returns>A <see cref="T:System.Double"/> result.</returns>
-        </member>
-        <member name="T:Puzzles.Onet.Measuring.DistanceType">
-            <summary>
-            Represents a type of distance to be measured.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Onet.Measuring.DistanceType.Euclid">
-            <summary>
-            Indicates Euclid distance.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Onet.Measuring.DistanceType.Manhattan">
-            <summary>
-            Indicates Manhattan distance.
-            </summary>
-        </member>
-        <member name="F:Puzzles.Onet.Measuring.DistanceType.Solved">
-            <summary>
-            Indicates solved distance.
-            </summary>
         </member>
     </members>
 </doc>
